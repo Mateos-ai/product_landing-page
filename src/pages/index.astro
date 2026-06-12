@@ -98,6 +98,12 @@ const teamLogos = [
     </svg>`,
   },
   {
+    label: "MIT",
+    svg: `<svg width="160" height="100" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <text x="80" y="62" font-family="Georgia,serif" font-weight="700" font-size="52" fill="#A31F34" text-anchor="middle">MIT</text>
+    </svg>`,
+  },
+  {
     label: "Slack",
     svg: `<svg width="100" height="100" viewBox="0 0 127 127" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
       <path d="M27.2 80c0 7.3-5.9 13.2-13.2 13.2C6.7 93.2.8 87.3.8 80c0-7.3 5.9-13.2 13.2-13.2h13.2V80z" fill="#E01E5A"/>
@@ -108,12 +114,6 @@ const teamLogos = [
       <path d="M93.4 47c0 7.3-5.9 13.2-13.2 13.2-7.3 0-13.2-5.9-13.2-13.2V14c0-7.3 5.9-13.2 13.2-13.2 7.3 0 13.2 5.9 13.2 13.2v33z" fill="#2EB67D"/>
       <path d="M80.2 100c7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2-7.3 0-13.2-5.9-13.2-13.2V100h13.2z" fill="#ECB22E"/>
       <path d="M80.2 93.4c-7.3 0-13.2-5.9-13.2-13.2 0-7.3 5.9-13.2 13.2-13.2H113c7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2H80.2z" fill="#ECB22E"/>
-    </svg>`,
-  },
-  {
-    label: "MIT",
-    svg: `<svg width="160" height="100" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <text x="80" y="62" font-family="Georgia,serif" font-weight="700" font-size="52" fill="#A31F34" text-anchor="middle">MIT</text>
     </svg>`,
   },
 ];
@@ -963,20 +963,20 @@ const teamLogos = [
   .credential-row {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-around;
     gap: 24px;
     margin-top: 8px;
     width: 100%;
-    max-width: 500px;
+    max-width: 560px;
   }
-  .credential-logo svg {
+  :global(.credential-logo svg) {
     width: auto !important;
-    height: 72px !important;
+    height: 90px !important;
     display: block;
     opacity: 0.85;
   }
   @media (max-width: 639px) {
-    .credential-logo svg { height: 24px !important; }
+    :global(.credential-logo svg) { height: 60px !important; }
   }
   .team-right {
     display: flex;
@@ -1127,9 +1127,6 @@ const teamLogos = [
     /* Workflow timeline: tighten step spacing */
     .step-body { padding-bottom: 36px; }
 
-    /* Credential grid: tighter on mobile */
-    .credential-logo-card { padding: 20px 16px; }
-    .credential-logo-card svg { height: 48px !important; }
   }
 
   /* ── Dark mode section differentiation ─────────────────────────────── */
