@@ -13,22 +13,19 @@ const ICON = {
 const justAskSteps = [
   {
     icon: ICON.search,
-    title: "Ask anything about your pipeline",
-    body: `Get instant answers without digging through your CRM. <span class="brand-text">Your data, on demand.</span>`,
+    title: "Ask Anything",
     tags: ["Rank my top 10 leads by deal size and last contact", "What are the 3 main reasons we lost deals last quarter?", "Which accounts haven't heard from us in 30+ days?"],
     color: "amber",
   },
   {
     icon: ICON.zap,
-    title: "Take action, instantly",
-    body: `Tell <span class="brand-text">Mateos</span> what needs to happen and consider it done: calendar, email, CRM, all in one message.`,
+    title: "Takes Action",
     tags: ["Block 30 min tomorrow to prep for my Acme call", "Send a follow-up to Sarah at Notion, reference our last call"],
     color: "teal",
   },
   {
     icon: ICON.repeat,
-    title: "Set rules that run on autopilot",
-    body: `Define once, runs forever. <span class="brand-text">Your standards, automated.</span>`,
+    title: "Autopilot",
     tags: ["Always remind me to follow up 3 days after a first meeting", "Flag any deal with no activity in 2 weeks"],
     color: "indigo",
   },
@@ -39,7 +36,6 @@ const whatsappSteps = [
     time: "7:30 AM",
     icon: ICON.sun,
     title: "Morning Briefing",
-    body: `Rep wakes up to their data organized: <span class="brand-text">today's meetings</span>, prep notes for each prospect, a <span class="brand-text">draft follow-up email</span>.`,
     tags: ["Today's agenda", "Prospect prep", "Draft email"],
     color: "amber",
   },
@@ -47,7 +43,6 @@ const whatsappSteps = [
     time: "During the day",
     icon: ICON.message,
     title: "Post-meeting update",
-    body: `All recordings <span class="brand-text">update the CRM automatically</span>, the to-do list, and everything needed via <span class="brand-text">WhatsApp or email</span>.`,
     tags: ["Auto CRM sync", "To-do list updated", "WhatsApp or email"],
     color: "teal",
   },
@@ -55,7 +50,6 @@ const whatsappSteps = [
     time: "End of day",
     icon: ICON.check,
     title: "Zero admin backlog",
-    body: `Automation makes sure <span class="brand-text">everything is updated in real time</span>. All approvals go through the channels the rep chooses: <span class="brand-text">WhatsApp or email</span>.`,
     tags: ["Real-time updates", "Rep chooses the channel", "Nothing falls through"],
     color: "indigo",
   },
@@ -225,7 +219,6 @@ const teamLogos = [
               <div class="step-body">
                 <div class="step-time">{step.time}</div>
                 <h3>{step.title}</h3>
-                <p set:html={step.body} />
                 <div class="step-tags">
                   {step.tags.map((tag) => (
                     <span class={`tag tag-${step.color}`}>{tag}</span>
@@ -256,7 +249,6 @@ const teamLogos = [
               </div>
               <div class="step-body">
                 <h3>{step.title}</h3>
-                <p set:html={step.body} />
                 <div class="step-tags">
                   {step.tags.map((tag) => (
                     <span class={`tag tag-${step.color}`}>"{tag}"</span>
