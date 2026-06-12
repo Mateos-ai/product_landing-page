@@ -298,15 +298,7 @@ const teamCredentials = [
     padding: 100px 0 90px;
     text-align: center;
   }
-  .hero-glow {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(600px 400px at 70% 20%, rgba(255,140,66,0.45), transparent 65%),
-      radial-gradient(500px 380px at 15% 85%, rgba(91,83,232,0.35), transparent 65%),
-      radial-gradient(480px 340px at 90% 90%, rgba(23,190,187,0.25), transparent 65%);
-    pointer-events: none;
-  }
+  .hero-glow { display: none; }
   .hero-inner {
     position: relative;
     z-index: 1;
@@ -691,15 +683,7 @@ const teamCredentials = [
     position: relative;
     overflow: hidden;
   }
-  .cta-section::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(500px 300px at 30% 50%, rgba(255,140,66,0.3), transparent 65%),
-      radial-gradient(400px 300px at 80% 60%, rgba(91,83,232,0.25), transparent 65%);
-    pointer-events: none;
-  }
+  .cta-section::before { display: none; }
   .cta-inner {
     position: relative;
     z-index: 1;
