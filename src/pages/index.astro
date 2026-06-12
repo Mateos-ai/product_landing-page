@@ -195,12 +195,12 @@ const teamLogos = [
     <section class="imagine-section" id="imagine">
       <div class="wrap imagine-inner">
         <p class="imagine-eyebrow">Imagine</p>
-        <p class="imagine-intro" data-reveal>You wake up <span class="imagine-hl">tomorrow</span> and...</p>
-        <div class="imagine-lines">
-          <p class="imagine-line" data-reveal data-reveal-delay="1" set:html={`Your pipeline already <span class="imagine-hl">sorted.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="2" set:html={`Hot leads <span class="imagine-hl">flagged.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="3" set:html={`Cold ones <span class="imagine-hl">warming up.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="4" set:html={`Deals that went quiet, <span class="imagine-hl">resurfaced.</span>`} />
+        <p class="imagine-intro" id="imagine-intro"><span class="tw-cursor">|</span></p>
+        <div class="imagine-lines" id="imagine-lines">
+          <p class="imagine-line imagine-line-hidden" set:html={`Your pipeline already <span class="imagine-hl">sorted.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Hot leads <span class="imagine-hl">flagged.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Cold ones <span class="imagine-hl">warming up.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Deals that went quiet, <span class="imagine-hl">resurfaced.</span>`} />
         </div>
       </div>
     </section>
@@ -473,8 +473,11 @@ const teamLogos = [
     position: relative;
     overflow: hidden;
     background: var(--hero-bg);
-    padding: 100px 0 90px;
+    min-height: 100vh;
+    padding: 0;
     text-align: center;
+    display: flex;
+    align-items: center;
   }
   .hero-glow { display: none; }
   .hero-inner {
@@ -668,11 +671,16 @@ const teamLogos = [
   /* ── Imagine ─────────────────────────────────────────────────────────── */
   .imagine-section {
     background: var(--neutral-900);
-    padding: 120px 0;
+    padding: 80px 0;
     text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
   }
   .imagine-inner {
     max-width: 760px;
+    width: 100%;
   }
   .imagine-eyebrow {
     font-family: var(--font-mono);
@@ -683,6 +691,18 @@ const teamLogos = [
     color: var(--amber-400);
     margin-bottom: 48px;
   }
+  .imagine-line-hidden {
+    opacity: 0;
+    transform: translateY(24px) scale(0.98);
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
+  .tw-cursor {
+    display: inline-block;
+    color: var(--amber-500);
+    animation: tw-blink 0.7s steps(1) infinite;
+    font-weight: 300;
+  }
+  @keyframes tw-blink { 0%,100%{opacity:1} 50%{opacity:0} }
   .imagine-intro {
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 4vw, 2.5rem);
@@ -690,7 +710,9 @@ const teamLogos = [
     letter-spacing: -0.02em;
     color: rgba(255,255,255,0.5);
     margin-bottom: 32px;
+    transition: opacity 0.2s ease;
   }
+  .imagine-intro.is-gone { opacity: 0; pointer-events: none; }
   .imagine-lines {
     display: flex;
     flex-direction: column;
@@ -1116,7 +1138,7 @@ const teamLogos = [
     .hero-logo { height: 52px; }
 
     /* Section padding */
-    .hero { padding: 60px 0 52px; }
+    .hero { min-height: 100svh; }
     .features-section { padding: 52px 0; }
     .workflow-section { padding: 60px 0; }
     .integrations-section { padding: 52px 0; }
@@ -1193,6 +1215,48 @@ const teamLogos = [
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+  // Typewriter for imagine section
+  const introEl = document.getElementById('imagine-intro');
+  const imagineLines = document.querySelectorAll('#imagine-lines .imagine-line-hidden');
+  const plainText = 'You wake up tomorrow and...';
+  const finalHTML = 'You wake up <span class="imagine-hl">tomorrow</span> and...';
+
+  function revealLines() {
+    imagineLines.forEach((line, i) => {
+      setTimeout(() => {
+        line.style.opacity = '1';
+        line.style.transform = 'translateY(0) scale(1)';
+      }, i * 550);
+    });
+  }
+
+  function runTypewriter() {
+    let i = 0;
+    const cursor = '<span class="tw-cursor">|</span>';
+    const interval = setInterval(() => {
+      i++;
+      introEl.innerHTML = plainText.slice(0, i) + cursor;
+      if (i === plainText.length) {
+        clearInterval(interval);
+        setTimeout(() => {
+          introEl.classList.add('is-gone');
+          setTimeout(revealLines, 200);
+        }, 500);
+      }
+    }, 55);
+  }
+
+  const imagineSection = document.getElementById('imagine');
+  let twStarted = false;
+  const twObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting && !twStarted) {
+      twStarted = true;
+      twObserver.disconnect();
+      setTimeout(runTypewriter, 200);
+    }
+  }, { threshold: 0.3 });
+  if (imagineSection) twObserver.observe(imagineSection);
 
   // Burger menu
   const burger = document.getElementById('burger');
