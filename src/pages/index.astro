@@ -738,4 +738,43 @@ const teamCredentials = [
     font-size: 0.8rem;
     color: var(--text-muted);
   }
+  /* needed for footer brand text */
+  .brand-name {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: -0.02em;
+    color: var(--text-primary);
+  }
+  .brand-ai { color: var(--amber-500); }
+
+  /* ── Mobile (≤ 639px) ────────────────────────────────────────────────── */
+  @media (max-width: 639px) {
+    /* Nav: hide CTA button, keep toggle */
+    .btn-cta { display: none; }
+    .brand-logo { height: 34px; }
+
+    /* Section padding */
+    .hero { padding: 60px 0 52px; }
+    .features-section { padding: 52px 0; }
+    .workflow-section { padding: 60px 0; }
+    .coming-soon-section { padding: 52px 0; }
+    .team-section { padding: 60px 0; }
+    .cta-section { padding: 64px 0; }
+
+    /* Hero eyebrow: smaller to avoid overflow */
+    .hero-eyebrow { font-size: 0.78rem; padding: 8px 14px; letter-spacing: 0.08em; }
+
+    /* Coming card: reduce side padding */
+    .coming-card { padding: 36px 20px; }
+
+    /* Footer: stack vertically */
+    .footer-inner { flex-direction: column; align-items: flex-start; }
+
+    /* Section header: tighter */
+    .section-header { margin-bottom: 40px; }
+
+    /* Workflow timeline: tighten step spacing */
+    .step-body { padding-bottom: 36px; }
+  }
 </style>
