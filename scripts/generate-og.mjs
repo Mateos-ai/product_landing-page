@@ -15,5 +15,5 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" 
 </svg>`;
 
 const buffer = await sharp(Buffer.from(svg)).png().toBuffer();
-writeFileSync('./public/og.png', buffer);
-console.log('og.png generated');
+writeFileSync('./public/og-v2.png', buffer);
+console.log('og-v2.png generated');
