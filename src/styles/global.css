@@ -125,8 +125,10 @@ img,svg{display:block}
 button{cursor:pointer;font-family:var(--font-body)}
 
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
-.brand-text{color:var(--amber-500);font-style:normal}
-.imagine-hl{color:var(--amber-500)}
+.brand-text{color:var(--amber-700);font-style:normal}
+.imagine-hl{color:var(--amber-700)}
+[data-theme="dark"] .brand-text{color:var(--amber-500)}
+[data-theme="dark"] .imagine-hl{color:var(--amber-500)}
 @media(min-width:768px){.wrap{padding:0 40px}}
 
 .eyebrow{
