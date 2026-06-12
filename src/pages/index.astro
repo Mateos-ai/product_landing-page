@@ -1,0 +1,338 @@
+---
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+  <main>
+    <!-- Nav -->
+    <nav>
+      <div class="nav-inner">
+        <span class="logo">mateos<span class="dot">.</span>ai</span>
+        <a href="mailto:david@mateos.ai" class="cta-small">Get in touch</a>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="glow" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="badge">Now in early access</div>
+        <h1>
+          AI that works<br />
+          <span class="accent">for your business</span>
+        </h1>
+        <p class="subtitle">
+          Mateos builds intelligent automations that eliminate the repetitive
+          work slowing your team down — so you can focus on what actually matters.
+        </p>
+        <div class="actions">
+          <a href="mailto:david@mateos.ai" class="btn-primary">Request access</a>
+          <a href="#how-it-works" class="btn-ghost">See how it works</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="how-it-works">
+      <div class="section-inner">
+        <h2 class="section-title">Built to move fast</h2>
+        <div class="grid">
+          {[
+            {
+              icon: "⚡",
+              title: "Instant integrations",
+              body: "Connect your existing tools in minutes. No code required, no lengthy onboarding.",
+            },
+            {
+              icon: "🧠",
+              title: "Context-aware AI",
+              body: "Our agents understand your business logic — not just generic prompts.",
+            },
+            {
+              icon: "🔒",
+              title: "Private by design",
+              body: "Your data never trains our models. Full audit logs. SOC 2 in progress.",
+            },
+          ].map((f) => (
+            <div class="card">
+              <div class="card-icon">{f.icon}</div>
+              <h3>{f.title}</h3>
+              <p>{f.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+      <div class="section-inner cta-inner">
+        <h2>Ready to automate?</h2>
+        <p>Join the waitlist and we'll reach out to set you up.</p>
+        <a href="mailto:david@mateos.ai" class="btn-primary">Get early access</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer-inner">
+        <span class="logo">mateos<span class="dot">.</span>ai</span>
+        <span class="muted">© 2026 Mateos AI. All rights reserved.</span>
+      </div>
+    </footer>
+  </main>
+</Layout>
+
+<style>
+  main {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+
+  /* Nav */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 1px solid var(--color-border);
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(12px);
+  }
+
+  .nav-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .dot {
+    color: var(--color-accent);
+  }
+
+  .cta-small {
+    font-size: 0.875rem;
+    color: var(--color-muted);
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.9rem;
+    border-radius: 6px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .cta-small:hover {
+    color: var(--color-text);
+    border-color: #444;
+  }
+
+  /* Hero */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 7rem 1.5rem 6rem;
+    text-align: center;
+  }
+
+  .glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse at center, var(--color-accent-glow) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-inner {
+    position: relative;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    border: 1px solid rgba(109, 106, 254, 0.3);
+    background: rgba(109, 106, 254, 0.08);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+  }
+
+  .accent {
+    background: linear-gradient(135deg, #6d6afe, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    max-width: 560px;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+  }
+
+  .actions {
+    display: flex;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    display: inline-block;
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+
+  .btn-primary:hover {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-block;
+    color: var(--color-muted);
+    font-size: 0.9rem;
+    padding: 0.7rem 1.4rem;
+    border-radius: 8px;
+    border: 1px solid var(--color-border);
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .btn-ghost:hover {
+    color: var(--color-text);
+    border-color: #444;
+  }
+
+  /* Features */
+  .features {
+    padding: 5rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  .section-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.25rem;
+  }
+
+  .card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover {
+    border-color: #333;
+  }
+
+  .card-icon {
+    font-size: 1.5rem;
+  }
+
+  .card h3 {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .card p {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    line-height: 1.6;
+  }
+
+  /* CTA section */
+  .cta-section {
+    padding: 5rem 1.5rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .cta-inner {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .cta-inner h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-inner p {
+    color: var(--color-muted);
+    font-size: 1rem;
+  }
+
+  /* Footer */
+  footer {
+    margin-top: auto;
+    border-top: 1px solid var(--color-border);
+    padding: 1.5rem;
+  }
+
+  .footer-inner {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .muted {
+    font-size: 0.8rem;
+    color: var(--color-muted);
+  }
+</style>
