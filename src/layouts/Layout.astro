@@ -1,12 +1,13 @@
 ---
+import "../styles/global.css";
+
 interface Props {
   title?: string;
   description?: string;
 }
-
 const {
-  title = "Mateos — AI that works for you",
-  description = "Mateos builds intelligent tools that automate the work that slows you down.",
+  title = "Mateos.ai — Your AI Sales Co-Pilot",
+  description = "Every morning, your rep gets a WhatsApp briefing. No deal falls through the cracks.",
 } = Astro.props;
 ---
 
@@ -16,46 +17,33 @@ const {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
     <title>{title}</title>
-    <style is:global>
-      *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      :root {
-        --color-bg: #0a0a0a;
-        --color-surface: #111111;
-        --color-border: #1e1e1e;
-        --color-text: #f0f0f0;
-        --color-muted: #888;
-        --color-accent: #6d6afe;
-        --color-accent-glow: rgba(109, 106, 254, 0.15);
-        --font-sans: "Inter", system-ui, -apple-system, sans-serif;
-        --max-width: 960px;
-      }
-
-      html {
-        background: var(--color-bg);
-        color: var(--color-text);
-        font-family: var(--font-sans);
-        font-size: 16px;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      body {
-        min-height: 100vh;
-      }
-
-      a {
-        color: inherit;
-        text-decoration: none;
-      }
-    </style>
+    <!-- Anti-flash: apply stored theme before paint -->
+    <script is:inline>
+      (function () {
+        try {
+          var saved = localStorage.getItem("mateos-theme");
+          var preferred = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", saved || preferred);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <slot />
+    <script>
+      const toggle = document.getElementById("theme-toggle");
+      if (toggle) {
+        toggle.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme");
+          const next = current === "dark" ? "light" : "dark";
+          document.documentElement.setAttribute("data-theme", next);
+          try { localStorage.setItem("mateos-theme", next); } catch (e) {}
+        });
+      }
+    </script>
   </body>
 </html>
