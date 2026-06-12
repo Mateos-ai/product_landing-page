@@ -14,7 +14,7 @@ const whatsappSteps = [
     time: "During the day",
     icon: "💬",
     title: "Post-meeting update",
-    body: "Rep texts Mateos after each meeting. Notes are logged, CRM is updated, next steps are scheduled. All from WhatsApp.",
+    body: `Rep texts <span class="brand-text">Mateos</span> after each meeting. Notes are logged, CRM is updated, next steps are scheduled. All from WhatsApp.`,
     tags: ["Text to log", "CRM auto-update", "Next steps set"],
     color: "teal",
   },
@@ -37,7 +37,7 @@ const features = [
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
     title: "No Deal Falls Between the Chairs",
-    body: "Reps update Mateos by texting after meetings. Context stays current automatically. No deal goes cold because someone forgot to follow up.",
+    body: `Reps update <span class="brand-text">Mateos</span> by texting after meetings. Context stays current automatically. No deal goes cold because someone forgot to follow up.`,
   },
   {
     icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
@@ -139,7 +139,7 @@ const teamLogos = [
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="wrap hero-inner">
         <img src="/mateos-logo-secondary.svg" alt="" class="hero-logo" />
-        <h1>Mateos'<br /><span class="gradient-text">Sales Magician</span></h1>
+        <h1><span class="brand-text">Mateos'</span><br /><span class="gradient-text">Sales Magician</span></h1>
         <p class="hero-tagline">You Never Miss a Cold Lead Again</p>
         <p class="hero-sub">
           Every morning, your rep gets a WhatsApp briefing: here's your day,
@@ -179,7 +179,7 @@ const teamLogos = [
           <div class="eyebrow">A day in the life</div>
           <h2>Concrete workflow.<br />Real time savings.</h2>
           <p class="section-sub">
-            See exactly how a rep's day looks when Mateos handles the admin.
+            See exactly how a rep's day looks when <span class="brand-text">Mateos</span> handles the admin.
           </p>
         </div>
         <div class="timeline">
@@ -192,7 +192,7 @@ const teamLogos = [
               <div class="step-body">
                 <div class="step-time">{step.time}</div>
                 <h3>{step.title}</h3>
-                <p>{step.body}</p>
+                <p set:html={step.body} />
                 <div class="step-tags">
                   {step.tags.map((tag) => (
                     <span class={`tag tag-${step.color}`}>{tag}</span>
@@ -211,7 +211,7 @@ const teamLogos = [
         <div class="section-header">
           <div class="eyebrow">Integrations</div>
           <h2>Works with your stack</h2>
-          <p class="section-sub">Mateos connects to the tools your team already uses.</p>
+          <p class="section-sub"><span class="brand-text">Mateos</span> connects to the tools your team already uses.</p>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -300,7 +300,7 @@ const teamLogos = [
         </svg>
         <span class="brand-name">mateos<span class="brand-ai">.ai</span></span>
       </div>
-      <span class="footer-copy">© 2026 Mateos AI · All rights reserved.</span>
+      <span class="footer-copy">© 2026 <span class="brand-text">Mateos</span> AI · All rights reserved.</span>
     </div>
   </footer>
 </Layout>
@@ -658,9 +658,10 @@ const teamLogos = [
     border-radius: var(--radius-full);
     display: inline-block;
   }
-  [data-theme="dark"] .coming-badge {
-    color: var(--indigo-300);
-    border-color: var(--indigo-800);
+  :global([data-theme="dark"]) .coming-badge {
+    color: #FFFFFF !important;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: transparent;
   }
   .coming-card h2 {
     font-size: clamp(1.75rem, 4vw, 2.25rem);
@@ -798,9 +799,10 @@ const teamLogos = [
     font-weight: 700;
     font-size: 1rem;
     letter-spacing: -0.02em;
-    color: var(--text-primary);
+    color: var(--amber-500);
   }
   .brand-ai { color: var(--amber-500); }
+  .brand-text { color: var(--amber-500); font-style: normal; }
 
   /* ── Integrations carousel ───────────────────────────────────────────── */
   .integrations-section {
@@ -818,7 +820,7 @@ const teamLogos = [
   .carousel-inner {
     display: flex;
     align-items: center;
-    gap: 72px;
+    gap: 300px;
     width: max-content;
     animation: carousel-scroll 32s linear infinite;
   }
@@ -828,8 +830,8 @@ const teamLogos = [
     to   { transform: translateX(-50%); }
   }
   .carousel-logo {
-    width: 80px;
-    height: 80px;
+    width: 160px;
+    height: 160px;
     object-fit: contain;
     border-radius: 18px;
     flex-shrink: 0;

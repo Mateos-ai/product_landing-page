@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mateos.ai — Design System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amber-50:#FFF7F2;--amber-100:#FFEDE1;--amber-200:#FFD8BF;--amber-300:#FFC097;--amber-400:#FFA56C;--amber-500:#FF8C42;--amber-600:#DD7A3C;--amber-700:#B66535;--amber-800:#8F512E;--amber-900:#683C27;
+  --indigo-50:#F4F3FD;--indigo-100:#E5E3FB;--indigo-200:#C7C5F7;--indigo-300:#A5A0F2;--indigo-400:#7F79ED;--indigo-500:#5B53E8;--indigo-600:#5049CB;--indigo-700:#433DA9;--indigo-800:#373287;--indigo-900:#2A2666;
+  --teal-50:#EFFAFA;--teal-100:#DAF5F4;--teal-200:#B0E9E8;--teal-300:#7FDBDA;--teal-400:#4ACCCA;--teal-500:#17BEBB;--teal-600:#15A5A4;--teal-700:#14888A;--teal-800:#126C6F;--teal-900:#104F55;
+  --neutral-0:#FFFFFF;--neutral-50:#F7F7FB;--neutral-100:#EEEEF4;--neutral-200:#E0E0EA;--neutral-300:#C9C9D6;--neutral-400:#A0A0B4;--neutral-500:#76768E;--neutral-600:#55556B;--neutral-700:#3C3C4F;--neutral-800:#262635;--neutral-900:#14141E;
+  --success:#15B371;--warning:#F5A524;--error:#E5484D;
+  --gradient-brand:linear-gradient(135deg,var(--amber-500) 0%,var(--teal-500) 52%,var(--indigo-500) 100%);
+  --font-display:'Bricolage Grotesque',system-ui,sans-serif;
+  --font-body:'Hanken Grotesk',system-ui,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,monospace;
+  --shadow-sm:0 2px 6px rgba(143,81,46,.09);
+  --shadow-md:0 6px 16px rgba(143,81,46,.11);
+  --shadow-lg:0 14px 34px rgba(143,81,46,.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-body);color:var(--neutral-900);background:var(--neutral-50);line-height:1.5;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4{font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;line-height:1.1}
+.mono{font-family:var(--font-mono)}
+.wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+section{padding:88px 0;border-bottom:1px solid var(--neutral-200)}
+.eyebrow{font-family:var(--font-mono);font-size:.75rem;text-transform:uppercase;letter-spacing:.14em;color:var(--amber-700);margin-bottom:14px}
+.sec-title{font-size:2.25rem;margin-bottom:10px}
+.sec-sub{color:var(--neutral-600);font-size:1.125rem;max-width:60ch;margin-bottom:48px}
+
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--neutral-200)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:64px}
+.brand{display:flex;align-items:center;gap:12px;font-family:var(--font-display);font-weight:700;font-size:1.1rem}
+.brand .dot{color:var(--amber-500)}
+nav{display:flex;gap:26px}
+nav a{color:var(--neutral-600);text-decoration:none;font-size:.9rem;font-weight:500;transition:color .2s}
+nav a:hover{color:var(--amber-700)}
+@media(max-width:720px){nav{display:none}}
+
+.hero{position:relative;overflow:hidden;background:var(--neutral-900);color:#fff;border-bottom:none;padding:120px 0 110px}
+.hero::before{content:"";position:absolute;inset:0;background:
+   radial-gradient(660px 460px at 76% 16%,rgba(255,140,66,.55),transparent 60%),
+   radial-gradient(560px 420px at 10% 88%,rgba(91,83,232,.40),transparent 60%),
+   radial-gradient(520px 360px at 92% 96%,rgba(23,190,187,.30),transparent 62%)}
+.hero .wrap{position:relative;z-index:1}
+.hero h1{font-size:4rem;line-height:1.02;margin:30px 0 18px;letter-spacing:-0.03em}
+.hero h1 .ai{background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:1.2rem;color:rgba(255,255,255,.72);max-width:46ch}
+.swatch-dots{display:flex;gap:10px;margin-top:34px}
+.swatch-dots span{width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 4px rgba(255,255,255,.06)}
+
+.logo-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+@media(max-width:720px){.logo-grid{grid-template-columns:1fr}}
+.panel{background:#fff;border:1px solid var(--neutral-200);border-radius:20px;padding:40px;box-shadow:var(--shadow-sm)}
+.panel.dark{background:var(--neutral-900);border-color:transparent}
+.logo-stage{display:flex;align-items:center;justify-content:center;min-height:200px}
+.cap{margin-top:18px;font-size:.85rem;color:var(--neutral-500);font-family:var(--font-mono)}
+.panel.dark .cap{color:rgba(255,255,255,.5)}
+
+.ramp{margin-bottom:30px}
+.ramp h4{font-size:1rem;margin-bottom:4px}
+.ramp .rl{font-family:var(--font-mono);font-size:.72rem;color:var(--neutral-500);margin-bottom:12px}
+.chips{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+@media(max-width:720px){.chips{grid-template-columns:repeat(5,1fr)}}
+.chip{cursor:pointer;border-radius:10px;overflow:hidden;border:1px solid rgba(0,0,0,.05);transition:transform .15s}
+.chip:hover{transform:translateY(-3px)}
+.chip .sw{height:58px}
+.chip .meta{padding:7px 8px;background:#fff}
+.chip .step{font-family:var(--font-mono);font-size:.7rem;font-weight:500}
+.chip .hex{font-family:var(--font-mono);font-size:.62rem;color:var(--neutral-500);text-transform:uppercase}
+.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:10px}
+@media(max-width:720px){.roles{grid-template-columns:repeat(2,1fr)}}
+.role{border-radius:14px;padding:18px;min-height:96px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer}
+.role b{font-size:.95rem}
+.role small{font-family:var(--font-mono);font-size:.7rem;opacity:.85}
+.status-row{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:720px){.status-row{grid-template-columns:repeat(2,1fr)}}
+.status{border-radius:12px;padding:16px;border:1px solid var(--neutral-200)}
+.status .badge{display:inline-block;font-size:.72rem;font-weight:600;padding:3px 10px;border-radius:999px;font-family:var(--font-mono)}
+
+.type-intro{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:46px}
+@media(max-width:720px){.type-intro{grid-template-columns:1fr}}
+.font-card{border:1px solid var(--neutral-200);border-radius:16px;padding:28px;background:#fff}
+.font-card .big{font-size:3.2rem;line-height:1;margin-bottom:8px}
+.font-card .name{font-family:var(--font-mono);font-size:.78rem;color:var(--amber-700);margin-bottom:18px}
+.font-card .glyphs{color:var(--neutral-400);font-size:1.1rem;letter-spacing:.04em}
+.scale-row{display:flex;align-items:baseline;gap:20px;padding:14px 0;border-bottom:1px dashed var(--neutral-200)}
+.scale-row .tok{font-family:var(--font-mono);font-size:.72rem;color:var(--neutral-500);width:120px;flex-shrink:0}
+.scale-row .demo{font-family:var(--font-display);font-weight:700;letter-spacing:-0.02em;color:var(--neutral-900);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+.comp-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+@media(max-width:720px){.comp-grid{grid-template-columns:1fr}}
+.btn{font-family:var(--font-body);font-weight:600;font-size:.95rem;border:none;border-radius:10px;padding:12px 22px;cursor:pointer;transition:all .18s;margin:0 8px 12px 0}
+.btn-primary{background:var(--amber-500);color:var(--neutral-900)}.btn-primary:hover{background:var(--amber-600);box-shadow:var(--shadow-md)}
+.btn-secondary{background:var(--indigo-500);color:#fff}.btn-secondary:hover{background:var(--indigo-600)}
+.btn-accent{background:var(--teal-500);color:var(--neutral-900)}.btn-accent:hover{background:var(--teal-600)}
+.btn-outline{background:transparent;border:1.5px solid var(--amber-500);color:var(--amber-700)}.btn-outline:hover{background:var(--amber-50)}
+.btn-ghost{background:transparent;color:var(--neutral-600)}.btn-ghost:hover{background:var(--neutral-100)}
+.tags span{display:inline-block;font-size:.78rem;font-weight:600;padding:5px 12px;border-radius:999px;margin:0 8px 10px 0;font-family:var(--font-mono)}
+.t-amber{background:var(--amber-100);color:var(--amber-700)}
+.t-indigo{background:var(--indigo-100);color:var(--indigo-700)}
+.t-teal{background:var(--teal-100);color:var(--teal-800)}
+.field{margin-bottom:16px}
+.field label{display:block;font-size:.8rem;font-weight:600;margin-bottom:6px;color:var(--neutral-700)}
+.field input{width:100%;padding:12px 14px;border:1.5px solid var(--neutral-200);border-radius:10px;font-family:var(--font-body);font-size:.95rem;transition:border .18s,box-shadow .18s}
+.field input:focus{outline:none;border-color:var(--amber-400);box-shadow:0 0 0 4px var(--amber-100)}
+.feat-card{border:1px solid var(--neutral-200);border-radius:16px;overflow:hidden;background:#fff}
+.feat-card .top{height:8px;background:var(--gradient-brand)}
+.feat-card .body{padding:24px}
+.feat-card h4{font-size:1.25rem;margin-bottom:8px}
+.feat-card p{color:var(--neutral-600);font-size:.95rem;margin-bottom:16px}
+
+.found-grid{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+@media(max-width:720px){.found-grid{grid-template-columns:1fr}}
+.radius-demo{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end}
+.radius-demo div{width:74px}
+.radius-demo .box{height:74px;background:var(--amber-100);border:1.5px solid var(--amber-300)}
+.radius-demo small{font-family:var(--font-mono);font-size:.68rem;color:var(--neutral-500);display:block;margin-top:8px}
+.shadow-demo{display:flex;gap:20px;flex-wrap:wrap}
+.shadow-demo div{width:90px;height:90px;border-radius:14px;background:#fff;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px}
+.shadow-demo small{font-family:var(--font-mono);font-size:.66rem;color:var(--neutral-500)}
+
+footer{padding:48px 0;text-align:center;color:var(--neutral-500);font-size:.85rem}
+footer .brand{justify-content:center;margin-bottom:14px;color:var(--neutral-700)}
+
+#toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(120%);background:var(--neutral-900);color:#fff;padding:11px 20px;border-radius:999px;font-family:var(--font-mono);font-size:.8rem;transition:transform .3s cubic-bezier(.2,.8,.2,1);z-index:99;box-shadow:var(--shadow-lg)}
+#toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap bar">
+    <div class="brand">
+      <svg width="26" height="26" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
+        <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
+        <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+      </svg>
+      Mateos<span class="dot">.ai</span>
+    </div>
+    <nav>
+      <a href="#logo">Logo</a>
+      <a href="#color">Color</a>
+      <a href="#type">Type</a>
+      <a href="#components">Components</a>
+      <a href="#foundations">Foundations</a>
+    </nav>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <svg width="92" height="92" viewBox="0 0 200 200" aria-hidden="true">
+      <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
+      <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
+      <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+    </svg>
+    <h1>Mateos<span class="ai">.ai</span><br>Design System</h1>
+    <p>Three circles, one missing corner — a warm, geometric identity. Amber leads, indigo supports, teal accents.</p>
+    <div class="swatch-dots">
+      <span style="background:#FF8C42"></span>
+      <span style="background:#5B53E8"></span>
+      <span style="background:#17BEBB"></span>
+    </div>
+  </div>
+</div>
+
+<!-- LOGO -->
+<section id="logo">
+  <div class="wrap">
+    <div class="eyebrow">01 — Identity</div>
+    <h2 class="sec-title">The mark</h2>
+    <p class="sec-sub">Three equal circles in a 2&times;2 grid with the top-left cell omitted, one per brand color. Keep clear space of at least one circle's width around the mark, and don't recolor the circles outside the palette.</p>
+    <div class="logo-grid">
+      <div class="panel">
+        <div class="logo-stage">
+          <svg width="150" height="150" viewBox="0 0 200 200">
+            <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
+            <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
+            <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+          </svg>
+        </div>
+        <div class="cap">Primary — on light</div>
+      </div>
+      <div class="panel dark">
+        <div class="logo-stage">
+          <svg width="150" height="150" viewBox="0 0 200 200">
+            <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
+            <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
+            <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+          </svg>
+        </div>
+        <div class="cap">Primary — on dark</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COLOR -->
+<section id="color">
+  <div class="wrap">
+    <div class="eyebrow">02 — Color</div>
+    <h2 class="sec-title">Palette</h2>
+    <p class="sec-sub">Amber leads (primary actions, highlights), indigo supports (secondary actions, depth), teal accents (sparingly). Each ramp runs 50–900. Click any chip to copy its hex.</p>
+
+    <div class="ramp"><h4>Amber · Primary</h4><div class="rl">--amber-{50…900} · text/links use amber-700</div><div class="chips" data-ramp="amber"></div></div>
+    <div class="ramp"><h4>Indigo · Secondary</h4><div class="rl">--indigo-{50…900}</div><div class="chips" data-ramp="indigo"></div></div>
+    <div class="ramp"><h4>Teal · Accent</h4><div class="rl">--teal-{50…900}</div><div class="chips" data-ramp="teal"></div></div>
+    <div class="ramp"><h4>Neutral · UI &amp; text</h4><div class="rl">--neutral-{50…900}</div><div class="chips" data-ramp="neutral"></div></div>
+
+    <h4 style="margin:42px 0 16px">Semantic roles</h4>
+    <div class="roles">
+      <div class="role" style="background:#FF8C42;color:#14141E"><b>Primary</b><small>amber-500</small></div>
+      <div class="role" style="background:#5B53E8;color:#fff"><b>Secondary</b><small>indigo-500</small></div>
+      <div class="role" style="background:#17BEBB;color:#14141E"><b>Accent</b><small>teal-500</small></div>
+      <div class="role" style="background:#14141E;color:#fff"><b>Ink</b><small>neutral-900</small></div>
+    </div>
+
+    <h4 style="margin:42px 0 16px">Status</h4>
+    <div class="status-row">
+      <div class="status"><span class="badge" style="background:#E6F8EF;color:#15B371">Success</span><div class="mono" style="font-size:.72rem;color:#76768E;margin-top:10px">#15B371</div></div>
+      <div class="status"><span class="badge" style="background:#FFF4E0;color:#B66335">Warning</span><div class="mono" style="font-size:.72rem;color:#76768E;margin-top:10px">#F5A524</div></div>
+      <div class="status"><span class="badge" style="background:#FCE9EA;color:#E5484D">Error</span><div class="mono" style="font-size:.72rem;color:#76768E;margin-top:10px">#E5484D</div></div>
+      <div class="status"><span class="badge" style="background:#EFFAFA;color:#14888A">Info</span><div class="mono" style="font-size:.72rem;color:#76768E;margin-top:10px">#17BEBB</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TYPE -->
+<section id="type">
+  <div class="wrap">
+    <div class="eyebrow">03 — Typography</div>
+    <h2 class="sec-title">Type</h2>
+    <p class="sec-sub">Bricolage Grotesque brings geometric character to headlines; Hanken Grotesk keeps body text calm and readable. JetBrains Mono handles code and labels.</p>
+    <div class="type-intro">
+      <div class="font-card">
+        <div class="big" style="font-family:var(--font-display)">Ag</div>
+        <div class="name">Bricolage Grotesque · Display</div>
+        <div class="glyphs" style="font-family:var(--font-display)">ABCDEFGHIJKLM abcdefghijk 0123456789</div>
+      </div>
+      <div class="font-card">
+        <div class="big" style="font-family:var(--font-body);font-weight:600">Ag</div>
+        <div class="name">Hanken Grotesk · Body</div>
+        <div class="glyphs" style="font-family:var(--font-body)">ABCDEFGHIJKLM abcdefghijk 0123456789</div>
+      </div>
+    </div>
+    <h4 style="margin-bottom:8px">Type scale</h4>
+    <div class="scale">
+      <div class="scale-row"><span class="tok">5xl · 64</span><span class="demo" style="font-size:3.4rem">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">4xl · 48</span><span class="demo" style="font-size:2.6rem">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">3xl · 36</span><span class="demo" style="font-size:2.25rem">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">2xl · 28</span><span class="demo" style="font-size:1.75rem">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">xl · 22</span><span class="demo" style="font-size:1.375rem">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">lg · 18</span><span class="demo" style="font-size:1.125rem;font-family:var(--font-body);font-weight:500">Build with shapes</span></div>
+      <div class="scale-row"><span class="tok">base · 16</span><span class="demo" style="font-size:1rem;font-family:var(--font-body);font-weight:400">Build with shapes — body copy</span></div>
+      <div class="scale-row"><span class="tok">sm · 14</span><span class="demo" style="font-size:.875rem;font-family:var(--font-body);font-weight:400;color:var(--neutral-600)">Build with shapes — supporting</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPONENTS -->
+<section id="components">
+  <div class="wrap">
+    <div class="eyebrow">04 — Components</div>
+    <h2 class="sec-title">Components</h2>
+    <p class="sec-sub">A starter set showing how the tokens combine. Note amber and teal fills carry dark text for contrast; indigo carries white.</p>
+    <div class="comp-grid">
+      <div class="panel">
+        <h4 style="margin-bottom:18px">Buttons</h4>
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-secondary">Secondary</button>
+        <button class="btn btn-accent">Accent</button><br>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <h4 style="margin:26px 0 14px">Tags</h4>
+        <div class="tags">
+          <span class="t-amber">primary</span>
+          <span class="t-indigo">model</span>
+          <span class="t-teal">beta</span>
+        </div>
+      </div>
+      <div class="panel">
+        <h4 style="margin-bottom:18px">Form</h4>
+        <div class="field"><label>Email</label><input type="email" placeholder="you@company.com"></div>
+        <div class="field"><label>Workspace</label><input type="text" placeholder="mateos-team"></div>
+        <button class="btn btn-primary" style="width:100%;margin:6px 0 0">Get started</button>
+      </div>
+    </div>
+    <div style="margin-top:24px" class="comp-grid">
+      <div class="feat-card">
+        <div class="top"></div>
+        <div class="body">
+          <h4>Card with brand edge</h4>
+          <p>The amber-led gradient makes a great accent on cards, dividers and progress bars without overwhelming the layout.</p>
+          <button class="btn btn-outline" style="margin:0">Learn more</button>
+        </div>
+      </div>
+      <div class="panel dark" style="display:flex;flex-direction:column;justify-content:center">
+        <h4 style="color:#fff;margin-bottom:8px">On dark surfaces</h4>
+        <p style="color:rgba(255,255,255,.7);font-size:.95rem;margin-bottom:18px">Neutral-900 backgrounds let amber really glow.</p>
+        <div><button class="btn btn-primary" style="margin:0 8px 0 0">Primary</button><button class="btn btn-secondary" style="margin:0">Secondary</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOUNDATIONS -->
+<section id="foundations">
+  <div class="wrap">
+    <div class="eyebrow">05 — Foundations</div>
+    <h2 class="sec-title">Radius &amp; elevation</h2>
+    <p class="sec-sub">Soft, restrained corners and warm amber-tinted shadows keep the UI modern and cohesive with the round geometry of the mark.</p>
+    <div class="found-grid">
+      <div>
+        <h4 style="margin-bottom:18px">Corner radius</h4>
+        <div class="radius-demo">
+          <div><div class="box" style="border-radius:4px"></div><small>xs · 4</small></div>
+          <div><div class="box" style="border-radius:8px"></div><small>sm · 8</small></div>
+          <div><div class="box" style="border-radius:12px"></div><small>md · 12</small></div>
+          <div><div class="box" style="border-radius:16px"></div><small>lg · 16</small></div>
+          <div><div class="box" style="border-radius:24px"></div><small>xl · 24</small></div>
+        </div>
+      </div>
+      <div>
+        <h4 style="margin-bottom:18px">Shadows</h4>
+        <div class="shadow-demo">
+          <div style="box-shadow:0 2px 6px rgba(143,81,46,.09)"><small>sm</small></div>
+          <div style="box-shadow:0 6px 16px rgba(143,81,46,.11)"><small>md</small></div>
+          <div style="box-shadow:0 14px 34px rgba(143,81,46,.15)"><small>lg</small></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand" style="display:flex;align-items:center;gap:10px">
+      <svg width="22" height="22" viewBox="0 0 200 200" aria-hidden="true">
+        <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
+        <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
+        <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+      </svg>
+      Mateos<span style="color:var(--amber-500)">.ai</span>
+    </div>
+    Design system · pair with <span class="mono">mateos-tokens.css</span>
+  </div>
+</footer>
+
+<div id="toast">Copied</div>
+
+<script>
+const ramps={
+  amber:['#FFF7F2','#FFEDE1','#FFD8BF','#FFC097','#FFA56C','#FF8C42','#DD7A3C','#B66535','#8F512E','#683C27'],
+  indigo:['#F4F3FD','#E5E3FB','#C7C5F7','#A5A0F2','#7F79ED','#5B53E8','#5049CB','#433DA9','#373287','#2A2666'],
+  teal:['#EFFAFA','#DAF5F4','#B0E9E8','#7FDBDA','#4ACCCA','#17BEBB','#15A5A4','#14888A','#126C6F','#104F55'],
+  neutral:['#F7F7FB','#EEEEF4','#E0E0EA','#C9C9D6','#A0A0B4','#76768E','#55556B','#3C3C4F','#262635','#14141E']
+};
+const steps=[50,100,200,300,400,500,600,700,800,900];
+document.querySelectorAll('.chips').forEach(c=>{
+  const name=c.dataset.ramp;
+  ramps[name].forEach((hex,i)=>{
+    const el=document.createElement('div');
+    el.className='chip';
+    el.innerHTML='<div class="sw" style="background:'+hex+'"></div><div class="meta"><div class="step">'+steps[i]+'</div><div class="hex">'+hex+'</div></div>';
+    el.onclick=()=>copy(hex);
+    c.appendChild(el);
+  });
+});
+document.querySelectorAll('.role').forEach(r=>{
+  r.onclick=()=>copy(r.querySelector('small').textContent);
+});
+let tt;
+function copy(text){
+  navigator.clipboard&&navigator.clipboard.writeText(text);
+  const t=document.getElementById('toast');
+  t.textContent='Copied '+text;
+  t.classList.add('show');
+  clearTimeout(tt);
+  tt=setTimeout(()=>t.classList.remove('show'),1400);
+}
+</script>
+</body>
+</html>
