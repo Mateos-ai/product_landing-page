@@ -116,13 +116,6 @@ const teamLogos = [
       <text x="80" y="62" font-family="Georgia,serif" font-weight="700" font-size="52" fill="#A31F34" text-anchor="middle">MIT</text>
     </svg>`,
   },
-  {
-    label: "UMass Boston",
-    svg: `<svg width="160" height="100" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <text x="80" y="52" font-family="Georgia,serif" font-weight="700" font-size="36" fill="#881C1C" text-anchor="middle">UMass</text>
-      <text x="80" y="72" font-family="Georgia,serif" font-weight="400" font-size="18" letter-spacing="3" fill="#881C1C" text-anchor="middle">BOSTON</text>
-    </svg>`,
-  },
 ];
 ---
 
@@ -302,14 +295,12 @@ const teamLogos = [
             <div class="eyebrow">The team</div>
             <h2>Built by people who've done it before</h2>
             <p>
-              Our team comes from Google, Slack, MIT, and UMass Boston, with
+              Our team comes from Google, Slack, and MIT, with
               deep roots in AI research and enterprise software.
             </p>
-            <div class="credential-grid">
+            <div class="credential-row">
               {teamLogos.map((c) => (
-                <div class="credential-logo-card" title={c.label}>
-                  <span set:html={c.svg} />
-                </div>
+                <span class="credential-logo" title={c.label} set:html={c.svg} />
               ))}
             </div>
           </div>
@@ -969,31 +960,20 @@ const teamLogos = [
   .team-left { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 600px; }
   .team-left h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); }
   .team-left p { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; }
-  .credential-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-    margin-top: 8px;
-  }
-  .credential-logo-card {
-    background: var(--surface-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-lg);
-    padding: 40px 32px;
+  .credential-row {
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    justify-content: space-between;
+    gap: 24px;
+    margin-top: 8px;
+    width: 100%;
+    max-width: 500px;
   }
-  .credential-logo-card:hover {
-    border-color: var(--border-strong);
-    box-shadow: var(--shadow-sm);
-  }
-  .credential-logo-card svg {
+  .credential-logo svg {
     width: auto !important;
-    height: 100px !important;
-    max-width: 100%;
+    height: 72px !important;
     display: block;
+    opacity: 0.85;
   }
   .team-right {
     display: flex;
