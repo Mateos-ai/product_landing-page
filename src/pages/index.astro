@@ -142,7 +142,7 @@ const teamLogos = [
       </a>
 
       <div class="nav-right">
-        <nav class="nav-links">
+        <nav class="nav-links" id="nav-links">
           <a href="#imagine">Imagine</a>
           <a href="#workflow">Workflow</a>
           <a href="#just-ask">Just Ask</a>
@@ -150,20 +150,29 @@ const teamLogos = [
           <a href="#agents">Agents</a>
           <a href="#team">Team</a>
         </nav>
-        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
-          <!-- Sun -->
-          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-          </svg>
-          <!-- Moon -->
-          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
         <a href="#cta" class="btn-cta">Get Early Access</a>
+        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+        <div class="theme-picker" id="theme-picker">
+          <button class="theme-trigger" id="theme-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Color theme">
+            <span class="theme-icon" id="theme-icon"></span>
+          </button>
+          <ul class="theme-dropdown" role="listbox" id="theme-dropdown">
+            <li class="theme-opt" role="option" data-value="system">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              System
+            </li>
+            <li class="theme-opt" role="option" data-value="light">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+              Light
+            </li>
+            <li class="theme-opt" role="option" data-value="dark">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+              Dark
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </header>
@@ -186,11 +195,12 @@ const teamLogos = [
     <section class="imagine-section" id="imagine">
       <div class="wrap imagine-inner">
         <p class="imagine-eyebrow">Imagine</p>
+        <p class="imagine-intro" data-reveal>You wake up <span class="imagine-hl">tomorrow</span> and...</p>
         <div class="imagine-lines">
-          <p class="imagine-line" data-reveal set:html={`Wake up with your pipeline already <span class="imagine-hl">sorted.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="1" set:html={`Hot leads <span class="imagine-hl">flagged.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="2" set:html={`Cold ones <span class="imagine-hl">warming up.</span>`} />
-          <p class="imagine-line" data-reveal data-reveal-delay="3" set:html={`Deals that went quiet, <span class="imagine-hl">resurfaced.</span>`} />
+          <p class="imagine-line" data-reveal data-reveal-delay="1" set:html={`Your pipeline already <span class="imagine-hl">sorted.</span>`} />
+          <p class="imagine-line" data-reveal data-reveal-delay="2" set:html={`Hot leads <span class="imagine-hl">flagged.</span>`} />
+          <p class="imagine-line" data-reveal data-reveal-delay="3" set:html={`Cold ones <span class="imagine-hl">warming up.</span>`} />
+          <p class="imagine-line" data-reveal data-reveal-delay="4" set:html={`Deals that went quiet, <span class="imagine-hl">resurfaced.</span>`} />
         </div>
       </div>
     </section>
@@ -387,7 +397,7 @@ const teamLogos = [
     display: none;
     gap: 24px;
   }
-  @media (min-width: 640px) { .nav-links { display: flex; } }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
   .nav-links a {
     font-size: 0.875rem;
     font-weight: 500;
@@ -395,6 +405,56 @@ const teamLogos = [
     transition: color 0.2s;
   }
   .nav-links a:hover { color: var(--amber-500); }
+
+  /* Burger */
+  .burger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    flex-shrink: 0;
+  }
+  .burger span {
+    display: block;
+    height: 2px;
+    width: 100%;
+    background: var(--text-secondary);
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+    transform-origin: center;
+  }
+  .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .burger.is-open span:nth-child(2) { opacity: 0; }
+  .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+  @media (min-width: 768px) { .burger { display: none; } }
+
+  /* Mobile nav drawer */
+  .nav-links.is-open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 64px;
+    left: 0;
+    right: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 20px 24px;
+    gap: 0;
+    z-index: 99;
+  }
+  .nav-links.is-open a {
+    padding: 14px 0;
+    font-size: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-links.is-open a:last-child { border-bottom: none; }
   .btn-cta {
     display: inline-block;
     background: var(--color-primary);
@@ -623,6 +683,14 @@ const teamLogos = [
     color: var(--amber-400);
     margin-bottom: 48px;
   }
+  .imagine-intro {
+    font-family: var(--font-display);
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 32px;
+  }
   .imagine-lines {
     display: flex;
     flex-direction: column;
@@ -801,9 +869,9 @@ const teamLogos = [
   .tag-amber { background: var(--color-primary-soft); color: var(--amber-700); }
   .tag-teal  { background: var(--color-accent-soft);  color: var(--teal-700); }
   .tag-indigo { background: var(--color-secondary-soft); color: var(--indigo-600); }
-  [data-theme="dark"] .tag-amber { color: var(--amber-300); }
-  [data-theme="dark"] .tag-teal  { color: var(--teal-300); }
-  [data-theme="dark"] .tag-indigo { color: var(--indigo-300); }
+  :global([data-theme="dark"]) .tag-amber { color: var(--amber-200); }
+  :global([data-theme="dark"]) .tag-teal  { color: var(--teal-200); }
+  :global([data-theme="dark"]) .tag-indigo { color: var(--indigo-200); }
 
   /* ── Coming soon ─────────────────────────────────────────────────────── */
   .coming-soon-section {
@@ -1043,6 +1111,7 @@ const teamLogos = [
   @media (max-width: 639px) {
     /* Nav: hide CTA button, keep toggle */
     .btn-cta { display: none; }
+    .theme-picker { display: none; }
     .brand-mark { height: 22px; }
     .hero-logo { height: 52px; }
 
@@ -1075,6 +1144,26 @@ const teamLogos = [
     .credential-logo-card svg { height: 48px !important; }
   }
 
+  /* ── Dark mode section differentiation ─────────────────────────────── */
+  :global([data-theme="dark"]) .workflow-section,
+  :global([data-theme="dark"]) .team-section {
+    background: #1C1C2B;
+  }
+  :global([data-theme="dark"]) .integrations-section,
+  :global([data-theme="dark"]) .coming-soon-section {
+    background: #181825;
+  }
+  /* Subtle gradient divider on top of each section */
+  :global([data-theme="dark"]) .workflow-section::before,
+  :global([data-theme="dark"]) .integrations-section::before,
+  :global([data-theme="dark"]) .coming-soon-section::before,
+  :global([data-theme="dark"]) .team-section::before {
+    content: '';
+    display: block;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,140,66,0.2), rgba(91,83,232,0.2), rgba(23,190,187,0.2), transparent);
+  }
+
   /* ── Scroll reveal ───────────────────────────────────────────────────── */
   [data-reveal] {
     opacity: 0;
@@ -1104,6 +1193,31 @@ const teamLogos = [
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+  // Burger menu
+  const burger = document.getElementById('burger');
+  const navLinks = document.getElementById('nav-links');
+  burger?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const open = navLinks.classList.toggle('is-open');
+    burger.classList.toggle('is-open', open);
+    burger.setAttribute('aria-expanded', String(open));
+  });
+  // Close on link click or outside click
+  navLinks?.addEventListener('click', (e) => {
+    if (e.target.tagName === 'A') {
+      navLinks.classList.remove('is-open');
+      burger.classList.remove('is-open');
+      burger.setAttribute('aria-expanded', 'false');
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (!burger?.contains(e.target) && !navLinks?.contains(e.target)) {
+      navLinks?.classList.remove('is-open');
+      burger?.classList.remove('is-open');
+      burger?.setAttribute('aria-expanded', 'false');
+    }
+  });
 </script>
 
 <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
