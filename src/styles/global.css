@@ -59,9 +59,14 @@
 
   --nav-bg:rgba(255,255,255,0.85);
   --nav-border:var(--neutral-200);
-  --hero-bg:var(--neutral-900);
-  --hero-text:#FFFFFF;
-  --hero-muted:rgba(255,255,255,0.65);
+  --hero-bg:var(--surface-subtle);
+  --hero-heading:var(--text-primary);
+  --hero-body:var(--text-secondary);
+  --hero-pill-text:var(--text-muted);
+  --hero-pill-border:var(--border-strong);
+  --hero-pill-bg:var(--surface-muted);
+  --hero-ghost-text:var(--text-secondary);
+  --hero-ghost-border:var(--border-strong);
   --ink:var(--neutral-900);
 }
 
@@ -88,6 +93,13 @@
   --nav-bg:rgba(20,20,30,0.88);
   --nav-border:var(--neutral-700);
   --hero-bg:var(--neutral-900);
+  --hero-heading:#FFFFFF;
+  --hero-body:rgba(255,255,255,0.88);
+  --hero-pill-text:rgba(255,255,255,0.6);
+  --hero-pill-border:rgba(255,255,255,0.18);
+  --hero-pill-bg:rgba(255,255,255,0.06);
+  --hero-ghost-text:rgba(255,255,255,0.55);
+  --hero-ghost-border:rgba(255,255,255,0.15);
   --gradient-soft:linear-gradient(135deg,rgba(255,140,66,0.08) 0%,rgba(91,83,232,0.08) 100%);
 }
 
