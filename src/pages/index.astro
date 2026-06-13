@@ -302,9 +302,9 @@ const teamLogos = [
             An <span class="brand-text">always-on</span> AI executive <span class="brand-text">embedded</span> in your business: <span class="brand-text">monitoring</span>
             pipelines, <span class="brand-text">flagging</span> risks, and <span class="brand-text">acting before</span> you need to ask.
           </p>
-          <a href="mailto:david@mateos.ai" class="btn-outline-lg">
+          <button class="btn-outline-lg" id="join-waitlist-btn">
             Join the waitlist
-          </a>
+          </button>
         </div>
       </div>
     </section>
@@ -1225,6 +1225,21 @@ const teamLogos = [
     }
   }, { threshold: 0.3 });
   if (imagineSection) twObserver.observe(imagineSection);
+
+  // Focus email input helper
+  function focusEmailInput() {
+    const input = document.querySelector('.early-input');
+    if (!input) return;
+    const ctaSection = document.getElementById('cta');
+    ctaSection?.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => input.focus(), 500);
+  }
+
+  document.getElementById('join-waitlist-btn')?.addEventListener('click', focusEmailInput);
+  document.querySelector('.btn-cta')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    focusEmailInput();
+  });
 
   // Burger menu
   const burger = document.getElementById('burger');
