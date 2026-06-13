@@ -195,7 +195,7 @@ const teamLogos = [
     <section class="workflow-section" id="workflow">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <h2>It Builds Your Workflow...</h2>
+          <h2>Builds Workflows...</h2>
         </div>
         <div class="timeline">
           {whatsappSteps.map((step, i) => (
@@ -252,7 +252,7 @@ const teamLogos = [
       <div class="wrap">
         <div class="section-header" data-reveal>
           <div class="eyebrow">Integrations</div>
-          <h2>It Works With Your Stack...</h2>
+          <h2>Works Everywhere...</h2>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -277,7 +277,7 @@ const teamLogos = [
         <div class="team-grid">
           <div class="section-header" data-reveal>
             <div class="eyebrow">The team</div>
-            <h2>...And We've Done It Before</h2>
+            <h2>...And Was Done Before</h2>
             <p>
               Our team comes from <span class="brand-text">Google</span>, <span class="brand-text">Slack</span>, and <span class="brand-text">MIT</span>, with
               deep roots in <span class="brand-text">AI research</span> and <span class="brand-text">enterprise software</span>.
@@ -571,21 +571,14 @@ const teamLogos = [
   .btn-primary-lg.is-success {
     background: transparent;
     box-shadow: none;
-    border: 2px solid #22c55e;
-    color: #22c55e;
-    border-radius: 50%;
-    width: 44px;
-    height: 44px;
+    border: none;
     padding: 0;
     pointer-events: none;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    animation: success-pop 0.4s cubic-bezier(0.34,1.56,0.64,1);
-  }
-  @keyframes success-pop {
-    0%   { transform: scale(0.8); }
-    100% { transform: scale(1); }
+    width: 44px;
+    height: 44px;
   }
   .btn-ghost-lg {
     display: inline-block;
@@ -1282,7 +1275,7 @@ const teamLogos = [
     return res.ok || res.status === 201 || res.status === 409;
   }
 
-  const CHECK_SVG = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>`;
+  const CHECK_SVG = `<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>`;
 
   function wireForm(formId, successId) {
     const form = document.getElementById(formId);
@@ -1318,3 +1311,42 @@ const teamLogos = [
   wireForm('form-hero', 'success-hero');
   wireForm('form-cta', 'success-cta');
 </script>
+
+<style is:global>
+  .checkmark {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: block;
+    stroke-width: 2;
+    stroke: #fff;
+    stroke-miterlimit: 10;
+    box-shadow: inset 0px 0px 0px #22c55e;
+    animation: checkmark-fill 0.4s ease-in-out 0.4s forwards, checkmark-scale 0.3s ease-in-out 0.9s both;
+  }
+  .checkmark__circle {
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-width: 2;
+    stroke-miterlimit: 10;
+    stroke: #22c55e;
+    fill: none;
+    animation: checkmark-stroke 0.6s cubic-bezier(0.65, 0, 0.45, 1) forwards;
+  }
+  .checkmark__check {
+    transform-origin: 50% 50%;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: checkmark-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
+  }
+  @keyframes checkmark-stroke {
+    100% { stroke-dashoffset: 0; }
+  }
+  @keyframes checkmark-scale {
+    0%, 100% { transform: none; }
+    50% { transform: scale3d(1.1, 1.1, 1); }
+  }
+  @keyframes checkmark-fill {
+    100% { box-shadow: inset 0px 0px 0px 30px #22c55e; }
+  }
+</style>
