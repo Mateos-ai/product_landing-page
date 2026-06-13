@@ -1366,7 +1366,7 @@ const teamLogos = [
       const email = input.value.trim();
       if (!email) { input.focus(); return; }
       btn.disabled = true;
-      btn.textContent = '…';
+      btn.textContent = 'Saving...';
       const ok = await submitEmail(email);
       if (ok) {
         input.style.transition = 'opacity 0.3s, width 0.35s, padding 0.35s, margin 0.35s';
