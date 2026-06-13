@@ -8,25 +8,59 @@ const ICON = {
   search: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
   zap: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
   repeat: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  bell: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
+  sliders: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>`,
+  eye: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
 };
 
 const justAskSteps = [
   {
     icon: ICON.search,
-    title: "Ask Anything",
-    tags: ["Rank my top 10 leads by deal size and last contact", "What are the 3 main reasons we lost deals last quarter?", "Which accounts haven't heard from us in 30+ days?"],
+    title: "Propose",
+    tags: ["I'd lead with the ROI angle — Acme cares about cost savings", "You haven't spoken to Dana in 3 weeks. Want me to draft a check-in?", "3 deals are going cold this week. Here's who to call first."],
     color: "amber",
   },
   {
     icon: ICON.zap,
-    title: "Takes Action",
-    tags: ["Block 30 min tomorrow to prep for my Acme call", "Send a follow-up to Sarah at Notion, reference our last call"],
+    title: "Execute",
+    tags: ["Follow-up sent to Sarah. I referenced the pricing discussion from Tuesday.", "I blocked 30 min before your Notion call and added a prep brief.", "CRM updated with notes from your call with Marcus."],
     color: "teal",
   },
   {
     icon: ICON.repeat,
-    title: "Autopilot",
-    tags: ["Always remind me to follow up 3 days after a first meeting", "Flag any deal with no activity in 2 weeks"],
+    title: "Automate",
+    tags: ["I'll remind you 3 days after every first meeting — no setup needed.", "Any deal quiet for 2 weeks gets flagged automatically."],
+    color: "indigo",
+  },
+];
+
+const controlSteps = [
+  {
+    icon: ICON.bell,
+    title: "It Asks Before Acting",
+    tags: [
+      "Before I reach out to all 47 open leads — go ahead?",
+      "I'd move that meeting, but wanted your okay first.",
+      "This would affect 3 active deals. Should I continue?",
+    ],
+    color: "amber",
+  },
+  {
+    icon: ICON.sliders,
+    title: "You Set the Rules",
+    tags: [
+      "Got it — I'll draft follow-ups, but only send with your approval.",
+      "Calendar blocking is now fully automated. Pause any time.",
+    ],
+    color: "teal",
+  },
+  {
+    icon: ICON.eye,
+    title: "Nothing Hidden",
+    tags: [
+      "You have 9 active automations. Here's what each one does.",
+      "Workflow updated. This affects your Tuesday morning briefings.",
+    ],
     color: "indigo",
   },
 ];
@@ -195,7 +229,7 @@ const teamLogos = [
     <section class="workflow-section" id="workflow">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <h2>Builds Workflows...</h2>
+          <h2><span class="brand-text">It</span> Builds Workflows...</h2>
         </div>
         <div class="timeline">
           {whatsappSteps.map((step, i) => (
@@ -224,7 +258,7 @@ const teamLogos = [
     <section class="workflow-section" id="just-ask">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <h2>...And Takes Action</h2>
+          <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
         </div>
         <div class="timeline">
           {justAskSteps.map((step, i) => (
@@ -247,12 +281,41 @@ const teamLogos = [
       </div>
     </section>
 
+    <!-- ── STAY IN CONTROL ──────────────────────────────────────────── -->
+    <section class="workflow-section" id="control">
+      <div class="wrap">
+        <div class="section-header" data-reveal>
+          <div class="section-eyebrow">Enhances</div>
+          <h2><span class="brand-text">You</span> Stay In Control</h2>
+          <p class="section-sub"><span class="brand-text">Mateos handles</span> the <span class="brand-text">routine</span> so <span class="brand-text">you</span> can <span class="brand-text">focus</span> on what actually moves <span class="brand-text">deals</span>. <span class="brand-text">It checks</span> in before consequential moves, <span class="brand-text">lets you decide</span> what to hand off, and keeps every <span class="brand-text">workflow visible and editable</span>, always.</p>
+        </div>
+        <div class="timeline">
+          {controlSteps.map((step, i) => (
+            <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
+              <div class="step-marker">
+                <span class="step-icon" set:html={step.icon} />
+                {i < controlSteps.length - 1 && <div class="step-line" />}
+              </div>
+              <div class="step-body">
+                <h3>{step.title}</h3>
+                <div class="step-tags">
+                  {step.tags.map((tag) => (
+                    <span class={`tag tag-${step.color}`}>"{tag}"</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
     <!-- ── INTEGRATIONS ──────────────────────────────────────────────── -->
     <section class="integrations-section" id="integrations">
       <div class="wrap">
         <div class="section-header" data-reveal>
           <div class="eyebrow">Integrations</div>
-          <h2>Works Everywhere...</h2>
+          <h2>...While <span class="brand-text">It</span> Works Everywhere</h2>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -277,7 +340,7 @@ const teamLogos = [
         <div class="team-grid">
           <div class="section-header" data-reveal>
             <div class="eyebrow">The team</div>
-            <h2>...And Was Done Before</h2>
+            <h2>We've Done <span class="brand-text">It</span> Before</h2>
             <p>
               Our team comes from <span class="brand-text">Google</span>, <span class="brand-text">Slack</span>, and <span class="brand-text">MIT</span>, with
               deep roots in <span class="brand-text">AI research</span> and <span class="brand-text">enterprise software</span>.
@@ -773,6 +836,15 @@ const teamLogos = [
     text-align: center;
     margin-bottom: 64px;
   }
+  .section-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--amber-500);
+    margin-bottom: 14px;
+  }
   .section-header h2 {
     font-size: clamp(2.25rem, 5vw, 3.5rem);
     margin-bottom: 12px;
@@ -780,7 +852,7 @@ const teamLogos = [
   .section-sub {
     color: var(--text-secondary);
     font-size: 1rem;
-    max-width: 480px;
+    max-width: 600px;
     margin: 0 auto;
     line-height: 1.7;
   }
