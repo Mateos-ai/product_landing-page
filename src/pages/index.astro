@@ -196,7 +196,7 @@ const teamLogos = [
     <section class="workflow-section" id="workflow">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <h2>Automatic Workflows</h2>
+          <h2>It Builds Your Workflow...</h2>
         </div>
         <div class="timeline">
           {whatsappSteps.map((step, i) => (
@@ -225,7 +225,7 @@ const teamLogos = [
     <section class="workflow-section" id="just-ask">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <h2>Responds and Takes Action</h2>
+          <h2>...And Takes Action</h2>
         </div>
         <div class="timeline">
           {justAskSteps.map((step, i) => (
@@ -253,7 +253,7 @@ const teamLogos = [
       <div class="wrap">
         <div class="section-header" data-reveal>
           <div class="eyebrow">Integrations</div>
-          <h2>Works with your stack</h2>
+          <h2>It Works With Your Stack...</h2>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -270,33 +270,18 @@ const teamLogos = [
       </div>
     </section>
 
-    <!-- ── 24/7 AI OFFICER ────────────────────────────────────────────── -->
-    <section class="coming-soon-section" id="agents">
-      <div class="wrap">
-        <div class="coming-card" data-reveal>
-          <div class="coming-badge">Coming soon</div>
-          <h2 class="coming-title">24/7 AI Officer</h2>
-          <p>
-            An always-on AI executive embedded in your business: monitoring
-            pipelines, flagging risks, and acting before you need to ask.
-          </p>
-          <a href="mailto:david@mateos.ai" class="btn-outline-lg">
-            Join the waitlist
-          </a>
-        </div>
-      </div>
-    </section>
+
 
     <!-- ── TEAM ───────────────────────────────────────────────────────── -->
     <section class="team-section" id="team">
       <div class="wrap">
         <div class="team-grid">
-          <div class="team-left" data-reveal>
+          <div class="section-header" data-reveal>
             <div class="eyebrow">The team</div>
-            <h2>Built by people who've done it before</h2>
+            <h2>...And We've Done It Before</h2>
             <p>
-              Our team comes from Google, Slack, and MIT, with
-              deep roots in AI research and enterprise software.
+              Our team comes from <span class="brand-text">Google</span>, <span class="brand-text">Slack</span>, and <span class="brand-text">MIT</span>, with
+              deep roots in <span class="brand-text">AI research</span> and <span class="brand-text">enterprise software</span>.
             </p>
             <div class="credential-row">
               {teamLogos.map((c) => (
@@ -308,11 +293,28 @@ const teamLogos = [
       </div>
     </section>
 
+    <!-- ── 24/7 AI OFFICER ────────────────────────────────────────────── -->
+    <section class="coming-soon-section" id="agents">
+      <div class="wrap">
+        <div class="coming-card" data-reveal>
+          <div class="coming-badge">Coming soon</div>
+          <h2 class="coming-title">24/7 AI Officer</h2>
+          <p>
+            An <span class="brand-text">always-on</span> AI executive <span class="brand-text">embedded</span> in your business: <span class="brand-text">monitoring</span>
+            pipelines, <span class="brand-text">flagging</span> risks, and <span class="brand-text">acting before</span> you need to ask.
+          </p>
+          <a href="mailto:david@mateos.ai" class="btn-outline-lg">
+            Join the waitlist
+          </a>
+        </div>
+      </div>
+    </section>
+
     <!-- ── CTA ────────────────────────────────────────────────────────── -->
     <section class="cta-section" id="cta">
       <div class="wrap cta-inner" data-reveal>
-        <h2>Ready to 10X boost your sales reps?</h2>
-        <p>Join the early access list. We'll reach out to set you up.</p>
+        <h2><span class="brand-text">10X Boost</span> Your <span class="brand-text">Sales </span>Reps</h2>
+        <p><span class="brand-text">Join early access.</span> We'll reach out to set you up.</p>
         <form class="early-form" id="form-cta" novalidate>
           <input type="email" class="early-input" placeholder="your@email.com" required autocomplete="email" />
           <button type="submit" class="btn-primary-lg">Get early access →</button>
@@ -333,7 +335,7 @@ const teamLogos = [
         </svg>
         <span class="brand-name">mateos<span class="brand-ai">.ai</span></span>
       </div>
-      <span class="footer-copy">© 2026 <span class="brand-text">Mateos</span> AI · All rights reserved.</span>
+      <span class="footer-copy">2026 · © Mateos · All rights reserved.</span>
     </div>
   </footer>
 </Layout>
@@ -369,12 +371,12 @@ const teamLogos = [
     align-items: center;
     gap: 12px;
   }
-  @media (min-width: 768px) { .nav-right .btn-cta { margin-left: 20px; } }
+  @media (min-width: 1024px) { .nav-right .btn-cta { margin-left: 20px; } }
   .nav-links {
     display: none;
     gap: 24px;
   }
-  @media (min-width: 768px) { .nav-links { display: flex; } }
+  @media (min-width: 1024px) { .nav-links { display: flex; } }
   .nav-links a {
     font-size: 0.875rem;
     font-weight: 500;
@@ -409,7 +411,7 @@ const teamLogos = [
   .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
   .burger.is-open span:nth-child(2) { opacity: 0; }
   .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  @media (min-width: 768px) { .burger { display: none; } }
+  @media (min-width: 1024px) { .burger { display: none; } }
 
   /* Mobile nav drawer */
   .nav-links.is-open {
@@ -965,9 +967,12 @@ const teamLogos = [
     align-items: center;
     justify-content: space-around;
     gap: 24px;
-    margin-top: 8px;
+    margin-top: 60px;
     width: 100%;
     max-width: 560px;
+    align-self: center;
+    margin-left: auto;
+    margin-right: auto;
   }
   :global(.credential-logo svg) {
     width: auto !important;
