@@ -126,6 +126,8 @@ button{cursor:pointer;font-family:var(--font-body)}
 
 .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
 .brand-text{color:var(--amber-500);font-style:normal;font-weight:700}
+.brand-text-purple{color:var(--color-secondary);font-style:normal;font-weight:700}
+
 .imagine-hl{color:var(--amber-500)}
 @media(min-width:768px){.wrap{padding:0 40px}}
 

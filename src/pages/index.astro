@@ -17,18 +17,21 @@ const justAskSteps = [
   {
     icon: ICON.search,
     title: "It Proposes",
+    titleColor: "amber",
     tags: ["I'd lead with the ROI angle — Acme cares about cost savings", "You haven't spoken to Dana in 3 weeks. Want me to draft a check-in?", "3 deals are going cold this week. Here's who to call first."],
     color: "amber",
   },
   {
     icon: ICON.zap,
     title: "It Executes",
+    titleColor: "amber",
     tags: ["Follow-up sent to Sarah. I referenced the pricing discussion from Tuesday.", "I blocked 30 min before your Notion call and added a prep brief.", "CRM updated with notes from your call with Marcus."],
     color: "teal",
   },
   {
     icon: ICON.repeat,
     title: "It Automates",
+    titleColor: "amber",
     tags: ["I'll remind you 3 days after every first meeting — no setup needed.", "Any deal quiet for 2 weeks gets flagged automatically."],
     color: "indigo",
   },
@@ -37,7 +40,8 @@ const justAskSteps = [
 const controlSteps = [
   {
     icon: ICON.bell,
-    title: "It Asks Before Acting",
+    title: "You Decide",
+    titleColor: "purple",
     tags: [
       "Before I reach out to all 47 open leads — go ahead?",
       "I'd move that meeting, but wanted your okay first.",
@@ -48,6 +52,7 @@ const controlSteps = [
   {
     icon: ICON.sliders,
     title: "You Set the Rules",
+    titleColor: "purple",
     tags: [
       "Got it — I'll draft follow-ups, but only send with your approval.",
       "Calendar blocking is now fully automated. Pause any time.",
@@ -56,7 +61,8 @@ const controlSteps = [
   },
   {
     icon: ICON.eye,
-    title: "Nothing Hidden",
+    title: "You have full oversight",
+    titleColor: "purple",
     tags: [
       "You have 9 active automations. Here's what each one does.",
       "Workflow updated. This affects your Tuesday morning briefings.",
@@ -268,7 +274,7 @@ const teamLogos = [
                 {i < justAskSteps.length - 1 && <div class="step-line" />}
               </div>
               <div class="step-body">
-                <h3>{step.title}</h3>
+                <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
                 <div class="step-tags">
                   {step.tags.map((tag) => (
                     <span class={`tag tag-${step.color}`}>"{tag}"</span>
@@ -285,9 +291,9 @@ const teamLogos = [
     <section class="workflow-section" id="control">
       <div class="wrap">
         <div class="section-header" data-reveal>
-          <div class="section-eyebrow">Enhances</div>
-          <h2><span class="brand-text">You</span> Stay In Control</h2>
-          <p class="section-sub"><span class="brand-text">Mateos handles</span> the <span class="brand-text">routine</span> so <span class="brand-text">you</span> can <span class="brand-text">focus on</span> what actually moves <span class="brand-text">deals</span>. 
+          <div class="section-eyebrow" style="color: var(--color-secondary)">Enhances</div>
+          <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
+          <p class="section-sub"><span class="brand-text">Mateos handles</span> the <span class="brand-text">routine</span> so <span class="brand-text-purple">you</span> can <span class="brand-text-purple">focus on</span> what actually moves <span class="brand-text-purple">deals</span>. 
         </div>
         <div class="timeline">
           {controlSteps.map((step, i) => (
@@ -297,7 +303,7 @@ const teamLogos = [
                 {i < controlSteps.length - 1 && <div class="step-line" />}
               </div>
               <div class="step-body">
-                <h3>{step.title}</h3>
+                <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
                 <div class="step-tags">
                   {step.tags.map((tag) => (
                     <span class={`tag tag-${step.color}`}>"{tag}"</span>
