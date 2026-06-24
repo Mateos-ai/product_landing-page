@@ -166,16 +166,7 @@ const teamLogos = [
       </a>
 
       <div class="nav-right">
-        <nav class="nav-links" id="nav-links">
-          <a href="#workflow">Workflows</a>
-          <a href="#just-ask">Actions</a>
-          <a href="#control">Control</a>
-          <a href="#integrations">Integrations</a>
-        </nav>
         <a href="#cta" class="btn-cta">Get Early Access</a>
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
         <div class="theme-picker" id="theme-picker">
           <button class="theme-trigger" id="theme-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Color theme">
             <span class="theme-icon" id="theme-icon"></span>
@@ -782,68 +773,6 @@ const teamLogos = [
     gap: 12px;
   }
   @media (min-width: 1024px) { .nav-right .btn-cta { margin-left: 20px; } }
-  .nav-links {
-    display: none;
-    gap: 24px;
-  }
-  @media (min-width: 1024px) { .nav-links { display: flex; } }
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--amber-500); }
-
-  /* Burger */
-  .burger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    flex-shrink: 0;
-  }
-  .burger span {
-    display: block;
-    height: 2px;
-    width: 100%;
-    background: var(--text-secondary);
-    border-radius: 2px;
-    transition: transform 0.25s, opacity 0.25s;
-    transform-origin: center;
-  }
-  .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .burger.is-open span:nth-child(2) { opacity: 0; }
-  .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  @media (min-width: 1024px) { .burger { display: none; } }
-
-  /* Mobile nav drawer */
-  .nav-links.is-open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 24px;
-    gap: 0;
-    z-index: 99;
-  }
-  .nav-links.is-open a {
-    padding: 14px 0;
-    font-size: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-links.is-open a:last-child { border-bottom: none; }
   .btn-cta {
     display: inline-block;
     background: var(--color-primary);
@@ -1916,9 +1845,9 @@ const teamLogos = [
 
   /* ── Mobile (≤ 639px) ────────────────────────────────────────────────── */
   @media (max-width: 639px) {
-    /* Nav: hide CTA button, keep toggle */
-    .btn-cta { display: none; }
-    .theme-picker { display: none; }
+    /* Nav: keep only the CTA button + theme picker; shrink to fit */
+    .nav-right { gap: 10px; }
+    .btn-cta { font-size: 0.8rem; padding: 0.45rem 0.85rem; }
     .brand-mark { height: 22px; }
     .hero-logo { height: 52px; }
 
@@ -2521,31 +2450,6 @@ const teamLogos = [
   document.querySelector('.btn-cta')?.addEventListener('click', (e) => {
     e.preventDefault();
     focusEmailInput();
-  });
-
-  // Burger menu
-  const burger = document.getElementById('burger');
-  const navLinks = document.getElementById('nav-links');
-  burger?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const open = navLinks.classList.toggle('is-open');
-    burger.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-  });
-  // Close on link click or outside click
-  navLinks?.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      navLinks.classList.remove('is-open');
-      burger.classList.remove('is-open');
-      burger.setAttribute('aria-expanded', 'false');
-    }
-  });
-  document.addEventListener('click', (e) => {
-    if (!burger?.contains(e.target) && !navLinks?.contains(e.target)) {
-      navLinks?.classList.remove('is-open');
-      burger?.classList.remove('is-open');
-      burger?.setAttribute('aria-expanded', 'false');
-    }
   });
 </script>
 
