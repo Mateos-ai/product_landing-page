@@ -84,14 +84,14 @@ const whatsappSteps = [
     time: "During the day",
     icon: ICON.message,
     title: "Post-meeting update",
-    tags: ["Auto CRM sync", "To-do list updated", "WhatsApp or email"],
+    tags: [],
     color: "teal",
   },
   {
     time: "End of day",
     icon: ICON.check,
     title: "Zero admin backlog",
-    tags: ["Real-time updates", "Rep chooses the channel", "Nothing falls through"],
+    tags: [],
     color: "indigo",
   },
 ];
@@ -368,31 +368,46 @@ const teamLogos = [
                           )}
 
                           {i === 2 && (
-                            <div class="bm-chat">
+                            <div class="bm-chat" data-backlog>
                               <div class="bm-msg">
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">End of day — clearing your backlog. 🌙</div>
+                                <div class="bm-bubble">End of day — here's your backlog. Want me to run it? 🌙</div>
                               </div>
-                              <div class="bm-card">
+
+                              <div class="bm-card" data-backlog-card>
                                 <div class="bm-card-head">
-                                  <span>Today's loose ends</span>
-                                  <span class="bm-chip bm-chip-indigo" data-count>0 / 3</span>
+                                  <span>Backlog · 3 actions</span>
+                                  <span class="bm-chip bm-chip-indigo" data-backlog-count>3 selected</span>
                                 </div>
-                                <div class="bm-line bm-todo" data-todo>
-                                  <span class="bm-check" />
-                                  <span class="bm-line-title">3 follow-ups sent</span>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Send 3 drafted follow-up emails</span>
+                                </label>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Update John on at-risk leads</span>
+                                </label>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Move tomorrow's team sync to Friday</span>
+                                </label>
+                                <div class="bm-backlog-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute">Execute backlog</button>
+                                  <button class="bm-textbtn" type="button" data-action="backlog-close">Close</button>
                                 </div>
-                                <div class="bm-line bm-todo" data-todo>
-                                  <span class="bm-check" />
-                                  <span class="bm-line-title">CRM fully updated</span>
-                                </div>
-                                <div class="bm-line bm-todo" data-todo>
-                                  <span class="bm-check" />
-                                  <span class="bm-line-title">Tomorrow's brief queued</span>
-                                </div>
-                                <div class="bm-actions">
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="clear">Clear backlog</button>
-                                </div>
+                              </div>
+
+                              <div class="bm-card bm-backlog-collapsed" data-backlog-collapsed hidden>
+                                <span class="bm-line-title" data-backlog-summary>Backlog saved for later</span>
+                                <button class="bm-btn bm-btn-sm" type="button" data-action="backlog-review">Review</button>
+                              </div>
+
+                              <div class="bm-msg" data-backlog-followup hidden>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble" data-followup-text>Anything else then?</div>
                               </div>
                             </div>
                           )}
@@ -1322,6 +1337,13 @@ const teamLogos = [
 
   /* ── Demo-card interaction helpers (new classes only) ────────────────── */
   .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
+  .bm-chip-loading { background: var(--surface-muted); display: inline-flex; align-items: center; justify-content: center; min-width: 30px; }
+  .bm-chip-spin {
+    display: inline-block; width: 9px; height: 9px; border-radius: var(--radius-full);
+    border: 2px solid var(--border-strong); border-top-color: var(--color-accent);
+    animation: bmSpin 0.55s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .bm-chip-spin { animation: none; } }
   .bm-chip.is-filling { animation: bmPop 0.3s ease; }
   @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
   .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
@@ -1374,6 +1396,56 @@ const teamLogos = [
   }
   @keyframes bmSpin { to { transform: rotate(360deg); } }
   @media (prefers-reduced-motion: reduce) { .bm-btn-spin { animation: none; } }
+
+  /* Zero admin backlog: checklist + execute / close */
+  [data-backlog] [hidden] { display: none; }
+  [data-backlog-card] { gap: 0; }
+  [data-backlog-card] .bm-card-head { padding-bottom: 4px; }
+  .bm-task {
+    display: flex; align-items: center; gap: 11px; cursor: pointer;
+    border-top: 1px solid var(--border); padding: 11px 0;
+  }
+  .bm-task:first-of-type { border-top: 0; }
+  .bm-checkbox { position: absolute; opacity: 0; width: 0; height: 0; }
+  .bm-task-box {
+    flex-shrink: 0; width: 19px; height: 19px; border-radius: var(--radius-xs);
+    border: 2px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .bm-task-box::after { content: '✓'; font-size: 0.72rem; line-height: 1; color: #fff; opacity: 0; transition: opacity 0.15s; }
+  .bm-checkbox:checked + .bm-task-box { background: var(--color-secondary); border-color: var(--color-secondary); }
+  .bm-checkbox:checked + .bm-task-box::after { opacity: 1; }
+  .bm-checkbox:focus-visible + .bm-task-box { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
+  .bm-task .bm-line-title { flex: 1; transition: color 0.2s; }
+  .bm-task.is-done { cursor: default; }
+  .bm-task.is-done .bm-task-box { background: var(--color-accent); border-color: var(--color-accent); }
+  .bm-task.is-done .bm-line-title { color: var(--text-muted); text-decoration: line-through; }
+
+  .bm-backlog-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+  .bm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .bm-textbtn {
+    background: none; border: 0; padding: 6px 4px; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.8rem; color: var(--text-muted);
+  }
+  .bm-textbtn:hover { color: var(--text-primary); }
+  .bm-backlog-collapsed { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+  .bm-backlog-collapsed .bm-line-title { color: var(--text-secondary); font-size: 0.85rem; }
+  .bm-backlog-collapsed.is-complete {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+  .bm-backlog-collapsed.is-complete .bm-line-title {
+    color: var(--teal-700); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .bm-backlog-collapsed.is-complete .bm-line-title::before {
+    content: '✓'; flex-shrink: 0;
+    width: 18px; height: 18px; border-radius: var(--radius-full);
+    background: var(--color-accent); color: #fff;
+    font-size: 0.7rem; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  :global([data-theme="dark"]) .bm-backlog-collapsed.is-complete .bm-line-title { color: var(--teal-200); }
 
   @media (prefers-reduced-motion: reduce) {
     #workflow.pin-active { padding: 96px 0; }
@@ -1775,7 +1847,15 @@ const teamLogos = [
       else if (action === 'prep-back') closeDetail(btn);
       else if (action === 'prep-email') emailPrep(btn);
       else if (action === 'sync') runSync(btn);
-      else if (action === 'clear') runClear(btn);
+      else if (action === 'execute') runExecute(btn);
+      else if (action === 'backlog-close') backlogClose(btn);
+      else if (action === 'backlog-review') backlogReview(btn);
+    });
+
+    // keep the "Execute backlog" button in sync with the checkboxes
+    root.addEventListener('change', function (e) {
+      var box = e.target.closest('[data-task]');
+      if (box) updateBacklog(box.closest('[data-backlog]'));
     });
 
     function runPrep(btn) {
@@ -1860,46 +1940,139 @@ const teamLogos = [
 
     function runSync(btn) {
       btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Syncing…';
       var card = btn.closest('.bm-card');
       var fills = card.querySelectorAll('[data-fill]');
+      var SYNC_STEP = 820;      // time between fields
+      var SYNC_RESOLVE = 480;   // loader shows, then value resolves
+
+      var status = card.querySelector('[data-sync-status]');
+      if (status) { status.textContent = 'Syncing…'; }
+
       for (var i = 0; i < fills.length; i++) {
         (function (chip, idx) {
+          // 1) show a loader in this field
           setTimeout(function () {
-            chip.textContent = chip.getAttribute('data-value');
             chip.classList.remove('bm-chip-empty');
+            chip.classList.add('bm-chip-loading');
+            chip.innerHTML = '<span class="bm-chip-spin"></span>';
+          }, idx * SYNC_STEP);
+          // 2) resolve to the value
+          setTimeout(function () {
+            chip.classList.remove('bm-chip-loading');
             chip.classList.add('bm-chip-teal', 'is-filling');
-          }, idx * 220);
+            chip.textContent = chip.getAttribute('data-value');
+          }, idx * SYNC_STEP + SYNC_RESOLVE);
         })(fills[i], i);
       }
+
       setTimeout(function () {
-        var status = card.querySelector('[data-sync-status]');
         if (status) {
           status.textContent = 'Synced';
           status.classList.remove('bm-chip-amber');
           status.classList.add('bm-chip-teal');
         }
-        btn.textContent = 'Synced ✓';
-      }, fills.length * 220 + 220);
+        btn.classList.remove('is-busy');
+        btn.innerHTML = 'Synced ✓';
+      }, fills.length * SYNC_STEP + 300);
     }
 
-    function runClear(btn) {
+    function backlogParts(node) {
+      var root = node.closest ? node.closest('[data-backlog]') : node;
+      return {
+        root: root,
+        card: root.querySelector('[data-backlog-card]'),
+        collapsed: root.querySelector('[data-backlog-collapsed]'),
+        followup: root.querySelector('[data-backlog-followup]'),
+        summary: root.querySelector('[data-backlog-summary]'),
+        count: root.querySelector('[data-backlog-count]'),
+        execBtn: root.querySelector('[data-action="execute"]'),
+        tasks: root.querySelectorAll('[data-task]')
+      };
+    }
+
+    function taskDone(box) {
+      var t = box.closest('.bm-task');
+      return t && t.classList.contains('is-done');
+    }
+
+    // count tasks that are still actionable (checked and not already done)
+    function countChecked(p) {
+      var n = 0;
+      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) n++;
+      return n;
+    }
+
+    function updateBacklog(root) {
+      var p = backlogParts(root);
+      var n = countChecked(p);
+      if (p.count) p.count.textContent = n ? (n + ' selected') : 'none selected';
+      if (p.execBtn) p.execBtn.disabled = (n === 0);
+    }
+
+    function collapseBacklog(root, summaryText, opts) {
+      var p = backlogParts(root);
+      opts = opts || {};
+      if (p.summary) p.summary.textContent = summaryText;
+      // green "all done" treatment
+      p.collapsed.classList.toggle('is-complete', !!opts.complete);
+      // hide the Review button once the backlog is fully executed — nothing to review
+      var reviewBtn = p.collapsed.querySelector('[data-action="backlog-review"]');
+      if (reviewBtn) reviewBtn.hidden = !!opts.complete;
+      // swap the closing message
+      var followText = p.followup.querySelector('[data-followup-text]');
+      if (followText) followText.textContent = opts.complete
+        ? 'Great job! You can go rest now 🎉'
+        : 'Anything else then?';
+      p.card.hidden = true;
+      p.collapsed.hidden = false;
+      p.followup.hidden = false;
+    }
+
+    function runExecute(btn) {
+      var p = backlogParts(btn);
+      var n = countChecked(p);
+      if (n === 0) return;
       btn.classList.add('is-busy');
-      var card = btn.closest('.bm-card');
-      var todos = card.querySelectorAll('[data-todo]');
-      var count = card.querySelector('[data-count]');
-      for (var i = 0; i < todos.length; i++) {
-        (function (todo, idx) {
-          setTimeout(function () {
-            var check = todo.querySelector('.bm-check');
-            if (check) check.classList.add('is-done');
-            if (count) count.textContent = (idx + 1) + ' / ' + todos.length;
-          }, (idx + 1) * 300);
-        })(todos[i], i);
-      }
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Executing…';
+
+      var checked = [];
+      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) checked.push(p.tasks[i]);
+      var STEP = 480;
+      checked.forEach(function (box, idx) {
+        setTimeout(function () {
+          var task = box.closest('.bm-task');
+          if (task) task.classList.add('is-done');
+          box.disabled = true; // done tasks stay done; can't be toggled again
+        }, idx * STEP);
+      });
       setTimeout(function () {
-        if (count) { count.classList.remove('bm-chip-indigo'); count.classList.add('bm-chip-teal'); }
-        btn.textContent = 'Backlog cleared ✓';
-      }, todos.length * 300 + 200);
+        // report the actual total handled (everything currently done)
+        var done = 0;
+        for (var i = 0; i < p.tasks.length; i++) if (taskDone(p.tasks[i])) done++;
+        var remaining = p.tasks.length - done;
+        var complete = (remaining === 0);
+        var summary = complete
+          ? 'All executed — backlog clear'
+          : '✓ ' + done + (done === 1 ? ' task handled' : ' tasks handled') + ' · ' + remaining + ' left';
+        collapseBacklog(p.root, summary, { complete: complete });
+        btn.classList.remove('is-busy');
+        btn.innerHTML = 'Execute backlog';
+      }, checked.length * STEP + 350);
+    }
+
+    function backlogClose(btn) {
+      collapseBacklog(btn.closest('[data-backlog]'), 'Backlog saved for later');
+    }
+
+    function backlogReview(btn) {
+      var p = backlogParts(btn);
+      p.collapsed.hidden = true;
+      p.followup.hidden = true;
+      // reopen exactly as the user left it: keep each checkbox state,
+      // keep already-executed tasks marked done. Just refresh the button.
+      updateBacklog(p.root);
+      p.card.hidden = false;
     }
   })();
 
