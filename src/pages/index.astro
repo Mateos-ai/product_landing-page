@@ -1518,6 +1518,44 @@ const teamLogos = [
   .bm-actline { display: flex; gap: 12px; align-items: baseline; font-size: 0.8rem; transition: opacity 0.3s ease; }
   .bm-actline.is-in { animation: bmSlideIn 0.35s ease; }
   .bm-actline .bm-time { flex-shrink: 0; width: 44px; }
+
+  /* ── "This card is interactive" affordance ───────────────────────────── */
+  /* per-step accent for the glow / hint */
+  .pin-panel.step-amber  { --hint: 255,140,66; }
+  .pin-panel.step-teal   { --hint: 23,190,187; }
+  .pin-panel.step-indigo { --hint: 91,83,232; }
+  /* glow only on the active, not-yet-used step's primary control */
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target {
+    animation: hintGlow 3.6s ease-in-out infinite;
+  }
+  /* each beat grows bigger than the last until a capped max, then rests and repeats */
+  @keyframes hintGlow {
+    0%   { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    8%   { box-shadow: 0 0 0 4px  rgba(var(--hint), 0.20); }   /* beat 1 — small */
+    18%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    30%  { box-shadow: 0 0 0 8px  rgba(var(--hint), 0.26); }   /* beat 2 — medium */
+    42%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    56%  { box-shadow: 0 0 0 13px rgba(var(--hint), 0.30); }   /* beat 3 — max */
+    70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
+  }
+  .bm-nudge {
+    display: none; align-items: center; gap: 5px;
+    font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
+    color: rgb(var(--hint)); white-space: nowrap; user-select: none;
+  }
+  .bm-nudge-arrow { font-size: 0.9rem; line-height: 1; }
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge {
+    display: inline-flex;
+  }
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge-arrow {
+    animation: nudgeBob 1s ease-in-out infinite;
+  }
+  @keyframes nudgeBob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+  @media (prefers-reduced-motion: reduce) {
+    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target { animation: none; box-shadow: 0 0 0 3px rgba(var(--hint), 0.22); }
+    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge-arrow { animation: none; }
+  }
   .bm-todo { gap: 10px; }
   .bm-check {
     width: 18px; height: 18px; flex-shrink: 0; border-radius: var(--radius-full);
@@ -2352,6 +2390,36 @@ const teamLogos = [
       }
       btn.classList.add('is-busy');
       btn.textContent = 'Live · 9 automations active';
+    }
+  })();
+
+  // ── Affordance: hint that demo cards are interactive ────────────────────
+  (function () {
+    var panels = document.querySelectorAll('.pin-panel');
+    if (!panels.length) return;
+
+    for (var i = 0; i < panels.length; i++) {
+      var panel = panels[i];
+      // the control we point at: primary button, action toggle, segmented control, or first action
+      var target = panel.querySelector('.bm-btn-primary, .bm-switch[data-action], .bm-seg, [data-action]');
+      if (!target) continue;
+      target.classList.add('bm-hint-target');
+      var nudge = document.createElement('span');
+      nudge.className = 'bm-nudge';
+      nudge.setAttribute('aria-hidden', 'true');
+      nudge.innerHTML = 'Try it <span class="bm-nudge-arrow">→</span>';
+      target.parentNode.insertBefore(nudge, target);
+    }
+
+    // first interaction with a step retires its hint
+    var root = document.querySelector('main');
+    if (root) {
+      root.addEventListener('click', function (e) {
+        var a = e.target.closest('[data-action]');
+        if (!a) return;
+        var panel = a.closest('.pin-panel');
+        if (panel) panel.classList.add('is-engaged');
+      });
     }
   })();
 
