@@ -1300,17 +1300,34 @@ const teamLogos = [
 
 <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
   async function submitEmail(email) {
-    const res = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
-      method: 'POST',
-      headers: {
-        'apikey': supabaseKey,
-        'Authorization': `Bearer ${supabaseKey}`,
-        'Content-Type': 'application/json',
-        'Prefer': 'return=minimal',
-      },
-      body: JSON.stringify({ email }),
-    });
-    return res.ok || res.status === 201 || res.status === 409;
+    if (!supabaseUrl || !supabaseKey) {
+      console.error('[waitlist] Supabase config missing — check PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY at build time.');
+      return false;
+    }
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    try {
+      const res = await fetch(`${supabaseUrl}/rest/v1/waitlist`, {
+        method: 'POST',
+        headers: {
+          'apikey': supabaseKey,
+          'Authorization': `Bearer ${supabaseKey}`,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({ email }),
+        signal: controller.signal,
+      });
+      if (res.ok || res.status === 201 || res.status === 409) return true;
+      const body = await res.text().catch(() => '');
+      console.error(`[waitlist] insert failed: ${res.status} ${res.statusText}`, body);
+      return false;
+    } catch (err) {
+      console.error('[waitlist] request failed (network/blocked/timeout):', err);
+      return false;
+    } finally {
+      clearTimeout(timeout);
+    }
   }
 
   const CHECK_SVG = `<svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>`;
