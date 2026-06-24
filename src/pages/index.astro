@@ -264,7 +264,6 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
-                      {i === 0 && <div class="bm-presshere" aria-hidden="true">Press here</div>}
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -290,7 +289,10 @@ const teamLogos = [
                                   <div class="bm-meeting">
                                     <span class="bm-time">09:00</span>
                                     <span class="bm-line-title">Acme Corp — discovery call</span>
-                                    <button class="bm-btn bm-btn-sm" type="button" data-action="prep">Prep</button>
+                                    <span class="bm-press-wrap">
+                                      <span class="bm-presshere" aria-hidden="true">Press here</span>
+                                      <button class="bm-btn bm-btn-sm" type="button" data-action="prep">Prep</button>
+                                    </span>
                                     <span class="bm-chip bm-chip-teal" data-emailed hidden>Prep in email</span>
                                   </div>
                                   <div class="bm-statusbar" data-statusbar hidden>
@@ -1540,25 +1542,29 @@ const teamLogos = [
     70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
     100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
   }
-  /* big "Press here" coachmark — only on the very first interactive card.
-     Anchored to .pin-visual (no overflow clip) so it floats above the window. */
-  .pin-visual { position: relative; }
+  /* big "Press here" coachmark — right beside the first card's Prep button */
+  .bm-press-wrap { position: relative; display: inline-flex; flex-shrink: 0; }
   .bm-presshere {
-    position: absolute; bottom: calc(100% + 6px); right: 28px;
+    position: absolute; top: 50%; right: calc(100% + 14px);
+    transform: translateY(-50%);
     display: none; z-index: 6;
     background: var(--color-primary); color: var(--on-primary);
-    font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
-    padding: 9px 18px; border-radius: var(--radius-md);
-    box-shadow: var(--shadow-lg); white-space: nowrap; pointer-events: none;
+    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+    padding: 7px 14px; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md); white-space: nowrap; pointer-events: none;
   }
   .bm-presshere::after {
-    content: ''; position: absolute; top: 100%; right: 30px;
-    border: 8px solid transparent; border-top-color: var(--color-primary);
+    content: ''; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+    border: 7px solid transparent; border-left-color: var(--color-primary);
   }
   .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere {
-    display: block; animation: pressBob 1.1s ease-in-out infinite;
+    display: block; animation: pressBob 0.9s ease-in-out infinite;
   }
-  @keyframes pressBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+  /* nudge horizontally toward the button (keeps the vertical centering) */
+  @keyframes pressBob {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50%      { transform: translateY(-50%) translateX(5px); }
+  }
   @media (prefers-reduced-motion: reduce) {
     .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target { animation: none; box-shadow: 0 0 0 3px rgba(var(--hint), 0.22); }
     .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere { animation: none; }
