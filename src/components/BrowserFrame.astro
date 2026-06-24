@@ -1,0 +1,68 @@
+---
+// Decorative, non-interactive "Mac browser" window used to visualize a section.
+const { url = "app.mateos.ai", delay = 1 } = Astro.props;
+---
+<div class="browser-mock" data-reveal data-reveal-delay={delay} aria-hidden="true">
+  <div class="browser-chrome">
+    <div class="browser-dots">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-amber"></span>
+      <span class="dot dot-green"></span>
+    </div>
+    <div class="browser-url">
+      <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      <span>{url}</span>
+    </div>
+  </div>
+  <div class="browser-body">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .browser-mock {
+    width: 100%;
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-xl);
+    overflow: hidden;
+    user-select: none;
+  }
+  .browser-chrome {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 11px 14px;
+    background: var(--surface-muted);
+    border-bottom: 1px solid var(--border);
+  }
+  .browser-dots { display: flex; gap: 7px; flex-shrink: 0; }
+  .dot { width: 11px; height: 11px; border-radius: var(--radius-full); }
+  .dot-red { background: #FF5F57; }
+  .dot-amber { background: #FEBC2E; }
+  .dot-green { background: #28C840; }
+  .browser-url {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    max-width: 320px;
+    margin: 0 auto;
+    padding: 5px 12px;
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+  }
+  .browser-url svg { opacity: 0.65; flex-shrink: 0; }
+  .browser-body {
+    padding: 18px;
+    background: var(--surface-subtle);
+    min-height: 300px;
+  }
+  :global([data-theme="dark"]) .browser-body { background: var(--neutral-900); }
+</style>
