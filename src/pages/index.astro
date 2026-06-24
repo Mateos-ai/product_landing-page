@@ -264,6 +264,7 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
+                      {i === 0 && <div class="bm-presshere" aria-hidden="true">Press here</div>}
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -1539,22 +1540,28 @@ const teamLogos = [
     70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
     100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
   }
-  .bm-nudge {
-    display: none; align-items: center; gap: 5px;
-    font-family: var(--font-mono); font-size: 0.7rem; font-weight: 600;
-    color: rgb(var(--hint)); white-space: nowrap; user-select: none;
+  /* big "Press here" coachmark — only on the very first interactive card.
+     Anchored to .pin-visual (no overflow clip) so it floats above the window. */
+  .pin-visual { position: relative; }
+  .bm-presshere {
+    position: absolute; bottom: calc(100% + 6px); right: 28px;
+    display: none; z-index: 6;
+    background: var(--color-primary); color: var(--on-primary);
+    font-family: var(--font-display); font-weight: 700; font-size: 1.15rem;
+    padding: 9px 18px; border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg); white-space: nowrap; pointer-events: none;
   }
-  .bm-nudge-arrow { font-size: 0.9rem; line-height: 1; }
-  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge {
-    display: inline-flex;
+  .bm-presshere::after {
+    content: ''; position: absolute; top: 100%; right: 30px;
+    border: 8px solid transparent; border-top-color: var(--color-primary);
   }
-  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge-arrow {
-    animation: nudgeBob 1s ease-in-out infinite;
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere {
+    display: block; animation: pressBob 1.1s ease-in-out infinite;
   }
-  @keyframes nudgeBob { 0%, 100% { transform: translateX(0); } 50% { transform: translateX(4px); } }
+  @keyframes pressBob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
   @media (prefers-reduced-motion: reduce) {
     .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target { animation: none; box-shadow: 0 0 0 3px rgba(var(--hint), 0.22); }
-    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-nudge-arrow { animation: none; }
+    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere { animation: none; }
   }
   .bm-todo { gap: 10px; }
   .bm-check {
@@ -2399,17 +2406,11 @@ const teamLogos = [
     if (!panels.length) return;
 
     for (var i = 0; i < panels.length; i++) {
-      var panel = panels[i];
-      // the control we point at: primary button, action toggle, segmented control, or first action
-      var target = panel.querySelector('.bm-btn-primary, .bm-switch[data-action], .bm-seg, [data-action]');
-      if (!target) continue;
-      target.classList.add('bm-hint-target');
-      var nudge = document.createElement('span');
-      nudge.className = 'bm-nudge';
-      nudge.setAttribute('aria-hidden', 'true');
-      nudge.innerHTML = 'Try it <span class="bm-nudge-arrow">→</span>';
-      target.parentNode.insertBefore(nudge, target);
+      // glow on every step's primary control
+      var target = panels[i].querySelector('.bm-btn-primary, .bm-switch[data-action], .bm-seg, [data-action]');
+      if (target) target.classList.add('bm-hint-target');
     }
+    // the big "Press here" coachmark is rendered in the template (first card only)
 
     // first interaction with a step retires its hint
     var root = document.querySelector('main');
