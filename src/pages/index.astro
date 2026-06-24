@@ -19,21 +19,24 @@ const justAskSteps = [
     icon: ICON.search,
     title: "It Proposes",
     titleColor: "amber",
-    tags: ["I'd lead with the ROI angle — Acme cares about cost savings", "You haven't spoken to Dana in 3 weeks. Want me to draft a check-in?", "3 deals are going cold this week. Here's who to call first."],
+    eyebrow: "Proactive",
+    tags: [],
     color: "amber",
   },
   {
     icon: ICON.zap,
     title: "It Executes",
     titleColor: "amber",
-    tags: ["Follow-up sent to Sarah. I referenced the pricing discussion from Tuesday.", "I blocked 30 min before your Notion call and added a prep brief.", "CRM updated with notes from your call with Marcus."],
+    eyebrow: "Autonomous",
+    tags: [],
     color: "teal",
   },
   {
     icon: ICON.repeat,
     title: "It Automates",
     titleColor: "amber",
-    tags: ["I'll remind you 3 days after every first meeting — no setup needed.", "Any deal quiet for 2 weeks gets flagged automatically."],
+    eyebrow: "Hands-off",
+    tags: [],
     color: "indigo",
   },
 ];
@@ -43,31 +46,24 @@ const controlSteps = [
     icon: ICON.bell,
     title: "You Decide",
     titleColor: "purple",
-    tags: [
-      "Before I reach out to all 47 open leads — go ahead?",
-      "I'd move that meeting, but wanted your okay first.",
-      "This would affect 3 active deals. Should I continue?",
-    ],
+    eyebrow: "Approval first",
+    tags: [],
     color: "amber",
   },
   {
     icon: ICON.sliders,
     title: "You Set the Rules",
     titleColor: "purple",
-    tags: [
-      "Got it — I'll draft follow-ups, but only send with your approval.",
-      "Calendar blocking is now fully automated. Pause any time.",
-    ],
+    eyebrow: "Your guardrails",
+    tags: [],
     color: "teal",
   },
   {
     icon: ICON.eye,
     title: "You have full oversight",
     titleColor: "purple",
-    tags: [
-      "You have 9 active automations. Here's what each one does.",
-      "Workflow updated. This affects your Tuesday morning briefings.",
-    ],
+    eyebrow: "Full transparency",
+    tags: [],
     color: "indigo",
   },
 ];
@@ -423,131 +419,277 @@ const teamLogos = [
       </div>
     </section>
 
-    <!-- ── JUST ASK ──────────────────────────────────────────────────────── -->
-    <section class="workflow-section" id="just-ask">
-      <div class="wrap section-split">
-        <div class="section-header" data-reveal>
-          <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
-        </div>
-        <div class="split-text">
-          <div class="timeline">
-            {justAskSteps.map((step, i) => (
-              <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
-                <div class="step-marker">
-                  <span class="step-icon" set:html={step.icon} />
-                  {i < justAskSteps.length - 1 && <div class="step-line" />}
-                </div>
-                <div class="step-body">
-                  <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
-                  <div class="step-tags">
-                    {step.tags.map((tag) => (
-                      <span class={`tag tag-${step.color}`}>"{tag}"</span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div class="split-visual">
-          <BrowserFrame url="mateos.ai/inbox">
-            <div class="bm-chat">
-              <div class="bm-msg">
-                <span class="bm-avatar">M</span>
-                <div class="bm-bubble">3 deals are going cold this week. Here's who to call first. ↓</div>
-              </div>
-              <div class="bm-card">
-                <div class="bm-card-head">
-                  <span>Suggested follow-up</span>
-                  <span class="bm-chip bm-chip-amber">Proposed</span>
-                </div>
-                <div class="bm-card-body">Draft to Sarah @ Acme — lead with the ROI angle, reference Tuesday's pricing chat.</div>
-                <div class="bm-actions">
-                  <span class="bm-btn bm-btn-primary">Send</span>
-                  <span class="bm-btn">Edit</span>
-                </div>
-              </div>
-              <div class="bm-msg">
-                <span class="bm-avatar bm-avatar-teal">M</span>
-                <div class="bm-bubble bm-bubble-teal">✓ Follow-up sent to Sarah. CRM updated.</div>
-              </div>
-              <div class="bm-msg">
-                <span class="bm-avatar bm-avatar-indigo">M</span>
-                <div class="bm-bubble">Want me to remind you 3 days after every first meeting? <span class="bm-chip bm-chip-indigo">Automate</span></div>
+    <!-- ── JUST ASK (pinned, scroll-driven) ──────────────────────────────── -->
+    <section class="workflow-section pin-section" id="just-ask">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${justAskSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
+              <div class="pin-dots" aria-hidden="true">
+                {justAskSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
               </div>
             </div>
-          </BrowserFrame>
+
+            <div class="pin-deck">
+              {justAskSteps.map((step, i) => {
+                const urls = ["mateos.ai/inbox", "mateos.ai/compose", "mateos.ai/automations"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.eyebrow}</div>
+                        <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble">3 deals are going cold this week — here's who to call first. ↓</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Going cold</span>
+                                  <span class="bm-chip bm-chip-amber">At risk</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Acme Corp — Sarah Chen</span>
+                                  <span class="bm-chip bm-chip-empty">5 days quiet</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Dana Lee — check-in</span>
+                                  <span class="bm-chip bm-chip-empty">3 weeks quiet</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Northwind — renewal</span>
+                                  <span class="bm-chip bm-chip-empty">8 days quiet</span>
+                                </div>
+                                <div class="bm-card-body" data-propose-q>Want me to draft outreach to all three?</div>
+                                <div class="bm-line bm-result" data-propose-result hidden>
+                                  <span class="bm-time">✓</span>
+                                  <span class="bm-line-title">3 drafts ready in your inbox</span>
+                                  <span class="bm-chip bm-chip-teal">Done</span>
+                                </div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble">Drafted your follow-up to Sarah — I referenced Tuesday's pricing chat.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Follow-up · Acme Corp</span>
+                                  <span class="bm-chip bm-chip-amber" data-exec-status>Draft</span>
+                                </div>
+                                <div class="bm-line"><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
+                                <div class="bm-line"><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
+                                <div class="bm-card-body">Hi Sarah — great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute-send">Send</button>
+                                  <button class="bm-btn" type="button" data-action="execute-edit">Edit</button>
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-exec-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-teal">M</span>
+                                  <div class="bm-bubble bm-bubble-teal">✓ Sent to Sarah. CRM updated with the thread.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Want me to handle this every time — no need to ask?</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Suggested automation</span>
+                                  <span class="bm-chip bm-chip-indigo" data-auto-status>Off</span>
+                                </div>
+                                <div class="bm-rule">
+                                  <div class="bm-rule-text">
+                                    <span class="bm-rule-title">Follow up after first meetings</span>
+                                    <span class="bm-rule-sub">Draft 3 days later, every time</span>
+                                  </div>
+                                  <button class="bm-switch" type="button" data-action="automate" aria-label="Turn on automation" />
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-auto-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-indigo">M</span>
+                                  <div class="bm-bubble">✓ Automation on — I'll handle it from now on.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── STAY IN CONTROL ──────────────────────────────────────────── -->
-    <section class="workflow-section" id="control">
-      <div class="wrap section-split">
-        <div class="section-header" data-reveal>
-          <div class="section-eyebrow" style="color: var(--color-secondary)">Enhances</div>
-          <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
-          <p class="section-sub"><span class="brand-text">Mateos handles</span> the <span class="brand-text">routine</span> so <span class="brand-text-purple">you</span> can <span class="brand-text-purple">focus on</span> what actually moves <span class="brand-text-purple">deals</span>.
-        </div>
-        <div class="split-text">
-          <div class="timeline">
-            {controlSteps.map((step, i) => (
-              <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
-                <div class="step-marker">
-                  <span class="step-icon" set:html={step.icon} />
-                  {i < controlSteps.length - 1 && <div class="step-line" />}
-                </div>
-                <div class="step-body">
-                  <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
-                  <div class="step-tags">
-                    {step.tags.map((tag) => (
-                      <span class={`tag tag-${step.color}`}>"{tag}"</span>
-                    ))}
-                  </div>
-                </div>
+    <!-- ── STAY IN CONTROL (pinned, scroll-driven) ───────────────────────── -->
+    <section class="workflow-section pin-section" id="control">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${controlSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
+              <div class="pin-dots" aria-hidden="true">
+                {controlSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
               </div>
-            ))}
-          </div>
-        </div>
-        <div class="split-visual">
-          <BrowserFrame url="mateos.ai/automations">
-            <div class="bm-panel">
-              <div class="bm-card bm-card-approve">
-                <div class="bm-card-head">
-                  <span>Approval needed</span>
-                  <span class="bm-chip bm-chip-purple">Waiting on you</span>
-                </div>
-                <div class="bm-card-body">Before I reach out to all 47 open leads — go ahead?</div>
-                <div class="bm-actions">
-                  <span class="bm-btn bm-btn-primary">Approve</span>
-                  <span class="bm-btn">Hold</span>
-                </div>
-              </div>
-              <div class="bm-panel-label">Your automations</div>
-              <div class="bm-rule">
-                <div class="bm-rule-text">
-                  <span class="bm-rule-title">Draft follow-ups</span>
-                  <span class="bm-rule-sub">Send only with approval</span>
-                </div>
-                <span class="bm-switch on"></span>
-              </div>
-              <div class="bm-rule">
-                <div class="bm-rule-text">
-                  <span class="bm-rule-title">Calendar blocking</span>
-                  <span class="bm-rule-sub">Fully automated</span>
-                </div>
-                <span class="bm-switch on"></span>
-              </div>
-              <div class="bm-rule">
-                <div class="bm-rule-text">
-                  <span class="bm-rule-title">Cold-deal alerts</span>
-                  <span class="bm-rule-sub">Flag after 2 weeks quiet</span>
-                </div>
-                <span class="bm-switch on"></span>
-              </div>
-              <div class="bm-panel-foot">9 active automations · full oversight</div>
             </div>
-          </BrowserFrame>
+
+            <div class="pin-deck">
+              {controlSteps.map((step, i) => {
+                const urls = ["mateos.ai/approvals", "mateos.ai/permissions", "mateos.ai/activity"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.eyebrow}</div>
+                        <h3><span class="brand-text-purple">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">This affects 47 open leads — want me to go ahead?</div>
+                              </div>
+                              <div class="bm-card bm-card-approve">
+                                <div class="bm-card-head">
+                                  <span>Approval needed</span>
+                                  <span class="bm-chip bm-chip-purple" data-approve-status>Waiting on you</span>
+                                </div>
+                                <div class="bm-card-body">Send the new pricing one-pager to all 47 open leads.</div>
+                                <div class="bm-actions" data-approve-actions>
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="approve">Approve</button>
+                                  <button class="bm-btn" type="button" data-action="hold">Hold</button>
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-approve-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-teal">M</span>
+                                  <div class="bm-bubble bm-bubble-teal" data-approve-text>On it.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Set how I handle each action — you're in charge.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Your permissions</span>
+                                  <span class="bm-chip bm-chip-indigo">3 rules</span>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Send follow-ups</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Block calendar</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Log to CRM</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-card-foot" data-rule-foot hidden>✓ Saved — you can change these any time.</div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Every action I take is logged — nothing happens off the record.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Activity</span>
+                                  <span class="bm-chip bm-chip-indigo">9 automations active</span>
+                                </div>
+                                <div class="bm-activity" data-activity hidden>
+                                  <div class="bm-actline"><span class="bm-time">09:14</span><span class="bm-line-title">Drafted follow-up to Sarah @ Acme</span></div>
+                                  <div class="bm-actline"><span class="bm-time">08:30</span><span class="bm-line-title">Blocked 30 min prep before Notion call</span></div>
+                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Flagged Northwind — 8 days quiet</span></div>
+                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Synced 4 calls to CRM</span></div>
+                                </div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="oversight">View activity log</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -1310,30 +1452,30 @@ const teamLogos = [
   }
 
   /* ── Pinned mode (JS opt-in) ─────────────────────────────────────────── */
-  #workflow.pin-active { padding: 0; }
-  #workflow.pin-active .pin-track {
+  .pin-section.pin-active { padding: 0; }
+  .pin-section.pin-active .pin-track {
     height: calc((var(--pin-steps) + 1) * 100vh);
     height: calc((var(--pin-steps) + 1) * 100svh);
   }
-  #workflow.pin-active .pin-stage {
+  .pin-section.pin-active .pin-stage {
     position: sticky; top: 0;
     height: 100vh;
     height: 100svh;
   }
-  #workflow.pin-active .pin-stage-inner {
+  .pin-section.pin-active .pin-stage-inner {
     height: 100%; display: flex; flex-direction: column; justify-content: center;
     padding-top: 76px; padding-bottom: 32px;
   }
-  #workflow.pin-active .pin-dots { display: flex; }
-  #workflow.pin-active .pin-deck { flex: 1 1 auto; min-height: 0; }
-  #workflow.pin-active .pin-panel {
+  .pin-section.pin-active .pin-dots { display: flex; }
+  .pin-section.pin-active .pin-deck { flex: 1 1 auto; min-height: 0; }
+  .pin-section.pin-active .pin-panel {
     position: absolute; inset: 0; margin: 0;
     opacity: 0; transform: translateY(40px); pointer-events: none;
     transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
   }
-  #workflow.pin-active .pin-panel.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  #workflow.pin-active .pin-panel.is-above { opacity: 0; transform: translateY(-48px); }
-  #workflow.pin-active .pin-panel.is-below { opacity: 0; transform: translateY(40px); }
+  .pin-section.pin-active .pin-panel.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .pin-section.pin-active .pin-panel.is-above { opacity: 0; transform: translateY(-48px); }
+  .pin-section.pin-active .pin-panel.is-below { opacity: 0; transform: translateY(40px); }
 
   /* ── Demo-card interaction helpers (new classes only) ────────────────── */
   .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
@@ -1348,6 +1490,34 @@ const teamLogos = [
   @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
   .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
   @keyframes bmSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  /* hidden helpers inside any card (beats .bm-line / .bm-msg display) */
+  .pin-window-body [hidden] { display: none; }
+  /* in-card confirmation message (Takes Initiative) */
+  .bm-exec-confirm { margin-top: 12px; }
+  .bm-exec-confirm.is-in { animation: bmSlideIn 0.4s ease; }
+  .bm-switch[data-action] { border: 0; padding: 0; cursor: pointer; }
+
+  /* You Stay In Control: segmented rule controls */
+  .bm-permrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border); }
+  .bm-permrow:first-of-type { border-top: 0; }
+  .bm-permrow .bm-line-title { font-size: 0.82rem; }
+  .bm-seg { display: inline-flex; background: var(--surface-muted); border-radius: var(--radius-full); padding: 3px; flex-shrink: 0; }
+  .bm-seg-opt {
+    border: 0; background: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.03em;
+    padding: 5px 11px; border-radius: var(--radius-full); color: var(--text-muted);
+    transition: background 0.18s, color 0.18s;
+  }
+  .bm-seg-opt.is-active { background: var(--color-secondary); color: #fff; }
+  .bm-card-foot { margin-top: 12px; font-size: 0.74rem; color: var(--teal-700); font-family: var(--font-mono); animation: bmSlideIn 0.35s ease; }
+  :global([data-theme="dark"]) .bm-card-foot { color: var(--teal-200); }
+
+  /* You Stay In Control: activity log */
+  .bm-activity { display: flex; flex-direction: column; gap: 9px; margin: 4px 0 14px; }
+  .bm-actline { display: flex; gap: 12px; align-items: baseline; font-size: 0.8rem; transition: opacity 0.3s ease; }
+  .bm-actline.is-in { animation: bmSlideIn 0.35s ease; }
+  .bm-actline .bm-time { flex-shrink: 0; width: 44px; }
   .bm-todo { gap: 10px; }
   .bm-check {
     width: 18px; height: 18px; flex-shrink: 0; border-radius: var(--radius-full);
@@ -1448,12 +1618,12 @@ const teamLogos = [
   :global([data-theme="dark"]) .bm-backlog-collapsed.is-complete .bm-line-title { color: var(--teal-200); }
 
   @media (prefers-reduced-motion: reduce) {
-    #workflow.pin-active { padding: 96px 0; }
-    #workflow.pin-active .pin-track { height: auto !important; }
-    #workflow.pin-active .pin-stage { position: static; height: auto; }
-    #workflow.pin-active .pin-stage-inner { display: block; padding-top: 0; }
-    #workflow.pin-active .pin-dots { display: none; }
-    #workflow.pin-active .pin-panel {
+    .pin-section.pin-active { padding: 96px 0; }
+    .pin-section.pin-active .pin-track { height: auto !important; }
+    .pin-section.pin-active .pin-stage { position: static; height: auto; }
+    .pin-section.pin-active .pin-stage-inner { display: block; padding-top: 0; }
+    .pin-section.pin-active .pin-dots { display: none; }
+    .pin-section.pin-active .pin-panel {
       position: static; inset: auto; opacity: 1; transform: none;
       pointer-events: auto; margin-bottom: 48px;
     }
@@ -1769,65 +1939,76 @@ const teamLogos = [
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
 
-  // ── Pinned workflow: scroll progress → active step ──────────────────────
+  // ── Pinned sections: scroll progress → active step (handles all) ────────
   (function () {
-    var track = document.querySelector('[data-pin-track]');
-    var stage = document.querySelector('[data-pin-stage]');
-    if (!track || !stage) return;
-
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduce) return; // leave the stacked CSS fallback in place
 
-    var section = document.getElementById('workflow');
-    section.classList.add('pin-active');
-
-    var panels = stage.querySelectorAll('[data-panel]');
-    var dots = stage.querySelectorAll('[data-dot]');
-    var N = panels.length;
-    var current = -1;
-    var ticking = false;
+    var tracks = document.querySelectorAll('[data-pin-track]');
+    if (!tracks.length) return;
 
     function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
 
-    function setStep(i) {
-      if (i === current) return;
-      current = i;
-      stage.setAttribute('data-step', i);
-      for (var k = 0; k < panels.length; k++) {
-        var active = (k === i);
-        panels[k].classList.toggle('is-active', active);
-        panels[k].classList.toggle('is-above', k < i);
-        panels[k].classList.toggle('is-below', k > i);
-        panels[k].setAttribute('aria-hidden', active ? 'false' : 'true');
-      }
-      for (var d = 0; d < dots.length; d++) {
-        dots[d].classList.toggle('is-active', d === i);
-      }
+    var instances = [];
+    for (var t = 0; t < tracks.length; t++) {
+      (function (track) {
+        var stage = track.querySelector('[data-pin-stage]');
+        var section = track.closest('.pin-section');
+        if (!stage || !section) return;
+        section.classList.add('pin-active');
+
+        var panels = stage.querySelectorAll('[data-panel]');
+        var dots = stage.querySelectorAll('[data-dot]');
+        var N = panels.length;
+        var current = -1;
+
+        function setStep(i) {
+          if (i === current) return;
+          current = i;
+          stage.setAttribute('data-step', i);
+          for (var k = 0; k < panels.length; k++) {
+            var active = (k === i);
+            panels[k].classList.toggle('is-active', active);
+            panels[k].classList.toggle('is-above', k < i);
+            panels[k].classList.toggle('is-below', k > i);
+            panels[k].setAttribute('aria-hidden', active ? 'false' : 'true');
+          }
+          for (var d = 0; d < dots.length; d++) {
+            dots[d].classList.toggle('is-active', d === i);
+          }
+        }
+
+        function update() {
+          var total = track.offsetHeight - stage.offsetHeight;
+          if (total <= 0) { setStep(0); return; }
+          var p = clamp(-track.getBoundingClientRect().top / total, 0, 1);
+          var step = Math.floor(p * N);
+          if (step > N - 1) step = N - 1;
+          setStep(step);
+        }
+
+        setStep(0);
+        instances.push(update);
+      })(tracks[t]);
     }
 
-    function update() {
+    var ticking = false;
+    function updateAll() {
       ticking = false;
-      var total = track.offsetHeight - stage.offsetHeight;
-      if (total <= 0) { setStep(0); return; }
-      var p = clamp(-track.getBoundingClientRect().top / total, 0, 1);
-      var step = Math.floor(p * N);
-      if (step > N - 1) step = N - 1;
-      setStep(step);
+      for (var i = 0; i < instances.length; i++) instances[i]();
     }
-
     function onScroll() {
-      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+      if (!ticking) { ticking = true; requestAnimationFrame(updateAll); }
     }
 
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', onScroll);
-    setStep(0);
-    update();
+    updateAll();
   })();
 
-  // ── Pinned workflow: interactive demo-card actions (local only) ─────────
+  // ── Pinned sections: interactive demo-card actions (local only) ─────────
   (function () {
-    var root = document.getElementById('workflow');
+    var root = document.querySelector('main');
     if (!root) return;
 
     var PREP_STEPS = [
@@ -1850,6 +2031,13 @@ const teamLogos = [
       else if (action === 'execute') runExecute(btn);
       else if (action === 'backlog-close') backlogClose(btn);
       else if (action === 'backlog-review') backlogReview(btn);
+      else if (action === 'propose') runPropose(btn);
+      else if (action === 'execute-send') runSendFollowup(btn);
+      else if (action === 'automate') runAutomate(btn);
+      else if (action === 'approve') runApprove(btn, true);
+      else if (action === 'hold') runApprove(btn, false);
+      else if (action === 'rule-opt') runRuleOpt(btn);
+      else if (action === 'oversight') runOversight(btn);
     });
 
     // keep the "Execute backlog" button in sync with the checkboxes
@@ -2073,6 +2261,97 @@ const teamLogos = [
       // keep already-executed tasks marked done. Just refresh the button.
       updateBacklog(p.root);
       p.card.hidden = false;
+    }
+
+    // ── Takes Initiative cards ──────────────────────────────────────────
+    // It Proposes — agent drafts outreach to the at-risk deals
+    function runPropose(btn) {
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Drafting…';
+      var card = btn.closest('.bm-card');
+      setTimeout(function () {
+        var q = card.querySelector('[data-propose-q]');
+        if (q) q.hidden = true;
+        var res = card.querySelector('[data-propose-result]');
+        if (res) { res.hidden = false; res.classList.add('is-in'); }
+        btn.classList.remove('is-busy');
+        btn.innerHTML = 'Drafts ready ✓';
+        btn.disabled = true;
+      }, 1400);
+    }
+
+    // It Executes — send the drafted follow-up
+    function runSendFollowup(btn) {
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
+      var card = btn.closest('.bm-card');
+      var status = card.querySelector('[data-exec-status]');
+      var editBtn = card.querySelector('[data-action="execute-edit"]');
+      setTimeout(function () {
+        btn.innerHTML = 'Sent ✓';
+        if (status) { status.textContent = 'Sent'; status.classList.remove('bm-chip-amber'); status.classList.add('bm-chip-teal'); }
+        if (editBtn) editBtn.hidden = true;
+        var confirm = card.querySelector('[data-exec-confirm]');
+        if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      }, 1100);
+    }
+
+    // It Automates — flip the rule on
+    function runAutomate(btn) {
+      if (btn.classList.contains('on')) return;
+      btn.classList.add('on');
+      var card = btn.closest('.bm-card');
+      var status = card.querySelector('[data-auto-status]');
+      if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
+      var confirm = card.querySelector('[data-auto-confirm]');
+      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+    }
+
+    // ── You Stay In Control cards ───────────────────────────────────────
+    // You Decide — approve / hold, two outcomes
+    function runApprove(btn, approved) {
+      var card = btn.closest('.bm-card');
+      var actions = card.querySelector('[data-approve-actions]');
+      var status = card.querySelector('[data-approve-status]');
+      var confirm = card.querySelector('[data-approve-confirm]');
+      var text = card.querySelector('[data-approve-text]');
+      if (actions) actions.hidden = true;
+      if (approved) {
+        if (status) { status.textContent = 'Approved'; status.classList.remove('bm-chip-purple'); status.classList.add('bm-chip-teal'); }
+        if (text) text.textContent = '✓ On it — reaching out to all 47 leads now.';
+        if (confirm) { confirm.querySelector('.bm-avatar').className = 'bm-avatar bm-avatar-teal'; confirm.querySelector('.bm-bubble').className = 'bm-bubble bm-bubble-teal'; }
+      } else {
+        if (status) { status.textContent = 'On hold'; }
+        if (text) text.textContent = "Holding — I won't reach out until you say so.";
+      }
+      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+    }
+
+    // You Set the Rules — segmented control per action
+    function runRuleOpt(btn) {
+      var seg = btn.closest('[data-seg]');
+      if (!seg) return;
+      var opts = seg.querySelectorAll('[data-action="rule-opt"]');
+      for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('is-active', opts[i] === btn);
+      var foot = btn.closest('.bm-card').querySelector('[data-rule-foot]');
+      if (foot) foot.hidden = false;
+    }
+
+    // You have full oversight — reveal the activity log
+    function runOversight(btn) {
+      var card = btn.closest('.bm-card');
+      var log = card.querySelector('[data-activity]');
+      if (!log) return;
+      log.hidden = false;
+      var lines = log.querySelectorAll('.bm-actline');
+      for (var i = 0; i < lines.length; i++) {
+        (function (line, idx) {
+          line.style.opacity = '0';
+          setTimeout(function () { line.style.opacity = ''; line.classList.add('is-in'); }, idx * 160);
+        })(lines[i], i);
+      }
+      btn.classList.add('is-busy');
+      btn.textContent = 'Live · 9 automations active';
     }
   })();
 
