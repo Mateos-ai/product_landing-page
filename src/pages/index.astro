@@ -494,6 +494,7 @@ const teamLogos = [
                                 </div>
                                 <div class="bm-actions">
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
+                                  <span class="bm-scrollhint" data-scrollhint hidden>Keep scrolling <span class="bm-scrollhint-arrow">↓</span></span>
                                 </div>
                               </div>
                             </div>
@@ -2361,6 +2362,8 @@ const teamLogos = [
         var res = card.querySelector('[data-propose-result]');
         if (res) { res.hidden = false; res.classList.add('is-in'); }
         markDone(btn, 'Drafts ready ✓');
+        var hint = card.querySelector('[data-scrollhint]');
+        if (hint) setTimeout(function () { hint.hidden = false; hint.classList.add('is-in'); }, 2000);
       }, 1400);
     }
 
