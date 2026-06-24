@@ -361,7 +361,6 @@ const teamLogos = [
                                 </div>
                                 <div class="bm-actions">
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="sync">Sync CRM</button>
-                                  <span class="bm-scrollhint" data-scrollhint hidden>Keep scrolling <span class="bm-scrollhint-arrow">↓</span></span>
                                 </div>
                               </div>
                             </div>
@@ -494,7 +493,6 @@ const teamLogos = [
                                 </div>
                                 <div class="bm-actions">
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
-                                  <span class="bm-scrollhint" data-scrollhint hidden>Keep scrolling <span class="bm-scrollhint-arrow">↓</span></span>
                                 </div>
                               </div>
                             </div>
@@ -1504,22 +1502,7 @@ const teamLogos = [
     padding-left: 0; padding-right: 0;
   }
   :global([data-theme="dark"]) .bm-btn-done { color: var(--teal-300); }
-  /* "keep scrolling" tooltip pointing at the just-finished action */
-  .bm-scrollhint {
-    position: relative; display: inline-flex; align-items: center; gap: 5px;
-    margin-left: 14px; padding: 6px 12px; border-radius: var(--radius-sm);
-    background: var(--surface-inverse); color: var(--text-inverse);
-    font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
-    box-shadow: var(--shadow-md); white-space: nowrap; pointer-events: none;
-  }
-  .bm-scrollhint::before {
-    content: ''; position: absolute; right: 100%; top: 50%; transform: translateY(-50%);
-    border: 6px solid transparent; border-right-color: var(--surface-inverse);
-  }
-  .bm-scrollhint.is-in { animation: bmSlideIn 0.35s ease; }
-  .bm-scrollhint-arrow { display: inline-block; animation: scrollArrow 1.1s ease-in-out infinite; }
-  @keyframes scrollArrow { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(3px); } }
-  @media (prefers-reduced-motion: reduce) { .bm-scrollhint-arrow { animation: none; } }
+  /* .bm-scrollhint styles live in global.css so JS-created hints are styled */
   /* in-card confirmation message (Takes Initiative) */
   .bm-exec-confirm { margin-top: 12px; }
   .bm-exec-confirm.is-in { animation: bmSlideIn 0.4s ease; }
@@ -2198,6 +2181,8 @@ const teamLogos = [
           // reset the detail button for next time the panel is built
           btn.classList.remove('is-busy');
           btn.innerHTML = 'Email me';
+          // all three meetings prepped → nudge onward
+          scrollHint(chip ? chip.parentNode : null);
         }, 850);
       }, 1050);
     }
@@ -2238,9 +2223,7 @@ const teamLogos = [
         }
         // terminal state: a confirmation, not a pressable button
         markDone(btn, 'Synced ✓');
-        // after a beat, nudge the user onward
-        var hint = card.querySelector('[data-scrollhint]');
-        if (hint) setTimeout(function () { hint.hidden = false; hint.classList.add('is-in'); }, 2000);
+        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
       }, fills.length * SYNC_STEP + 300);
     }
 
@@ -2250,6 +2233,19 @@ const teamLogos = [
       btn.classList.add('bm-btn-done');
       btn.disabled = true;
       if (label != null) btn.innerHTML = label;
+    }
+
+    // 2s after an action finishes, append a "Keep scrolling" nudge to a container
+    function scrollHint(container) {
+      if (!container) return;
+      setTimeout(function () {
+        if (container.querySelector('.bm-scrollhint')) return;
+        var h = document.createElement('span');
+        h.className = 'bm-scrollhint is-in';
+        h.setAttribute('aria-hidden', 'true');
+        h.innerHTML = 'Keep scrolling <span class="bm-scrollhint-arrow">↓</span>';
+        container.appendChild(h);
+      }, 2000);
     }
 
     function backlogParts(node) {
@@ -2302,6 +2298,7 @@ const teamLogos = [
       p.card.hidden = true;
       p.collapsed.hidden = false;
       p.followup.hidden = false;
+      scrollHint(p.followup);
     }
 
     function runExecute(btn) {
@@ -2362,8 +2359,7 @@ const teamLogos = [
         var res = card.querySelector('[data-propose-result]');
         if (res) { res.hidden = false; res.classList.add('is-in'); }
         markDone(btn, 'Drafts ready ✓');
-        var hint = card.querySelector('[data-scrollhint]');
-        if (hint) setTimeout(function () { hint.hidden = false; hint.classList.add('is-in'); }, 2000);
+        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
       }, 1400);
     }
 
@@ -2380,6 +2376,7 @@ const teamLogos = [
         markDone(btn, 'Sent ✓');
         var confirm = card.querySelector('[data-exec-confirm]');
         if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+        scrollHint(confirm);
       }, 1100);
     }
 
@@ -2392,6 +2389,7 @@ const teamLogos = [
       if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
       var confirm = card.querySelector('[data-auto-confirm]');
       if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      scrollHint(confirm);
     }
 
     // ── You Stay In Control cards ───────────────────────────────────────
@@ -2412,6 +2410,7 @@ const teamLogos = [
         if (text) text.textContent = "Holding — I won't reach out until you say so.";
       }
       if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      scrollHint(confirm);
     }
 
     // You Set the Rules — segmented control per action
@@ -2421,7 +2420,7 @@ const teamLogos = [
       var opts = seg.querySelectorAll('[data-action="rule-opt"]');
       for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('is-active', opts[i] === btn);
       var foot = btn.closest('.bm-card').querySelector('[data-rule-foot]');
-      if (foot) foot.hidden = false;
+      if (foot && foot.hidden) { foot.hidden = false; scrollHint(foot); }
     }
 
     // You have full oversight — reveal the activity log
@@ -2438,6 +2437,7 @@ const teamLogos = [
         })(lines[i], i);
       }
       markDone(btn, 'Live · 9 automations active');
+      scrollHint(btn.closest('.bm-actions') || btn.parentNode);
     }
   })();
 
