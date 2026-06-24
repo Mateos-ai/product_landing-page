@@ -2318,7 +2318,8 @@ const teamLogos = [
       if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
       var confirm = card.querySelector('[data-auto-confirm]');
       if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
-      scrollHint(confirm);
+      // place the nudge at the bottom of the card, on its own line
+      scrollHint(card);
     }
 
     // ── You Stay In Control cards ───────────────────────────────────────
