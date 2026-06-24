@@ -1,5 +1,6 @@
 ---
 import Layout from "@/layouts/Layout.astro";
+import BrowserFrame from "@/components/BrowserFrame.astro";
 
 const ICON = {
   sun: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
@@ -18,21 +19,24 @@ const justAskSteps = [
     icon: ICON.search,
     title: "It Proposes",
     titleColor: "amber",
-    tags: ["I'd lead with the ROI angle — Acme cares about cost savings", "You haven't spoken to Dana in 3 weeks. Want me to draft a check-in?", "3 deals are going cold this week. Here's who to call first."],
+    eyebrow: "Proactive",
+    tags: [],
     color: "amber",
   },
   {
     icon: ICON.zap,
     title: "It Executes",
     titleColor: "amber",
-    tags: ["Follow-up sent to Sarah. I referenced the pricing discussion from Tuesday.", "I blocked 30 min before your Notion call and added a prep brief.", "CRM updated with notes from your call with Marcus."],
+    eyebrow: "Autonomous",
+    tags: [],
     color: "teal",
   },
   {
     icon: ICON.repeat,
     title: "It Automates",
     titleColor: "amber",
-    tags: ["I'll remind you 3 days after every first meeting — no setup needed.", "Any deal quiet for 2 weeks gets flagged automatically."],
+    eyebrow: "Hands-off",
+    tags: [],
     color: "indigo",
   },
 ];
@@ -42,31 +46,24 @@ const controlSteps = [
     icon: ICON.bell,
     title: "You Decide",
     titleColor: "purple",
-    tags: [
-      "Before I reach out to all 47 open leads — go ahead?",
-      "I'd move that meeting, but wanted your okay first.",
-      "This would affect 3 active deals. Should I continue?",
-    ],
+    eyebrow: "Approval first",
+    tags: [],
     color: "amber",
   },
   {
     icon: ICON.sliders,
     title: "You Set the Rules",
     titleColor: "purple",
-    tags: [
-      "Got it — I'll draft follow-ups, but only send with your approval.",
-      "Calendar blocking is now fully automated. Pause any time.",
-    ],
+    eyebrow: "Your guardrails",
+    tags: [],
     color: "teal",
   },
   {
     icon: ICON.eye,
     title: "You have full oversight",
     titleColor: "purple",
-    tags: [
-      "You have 9 active automations. Here's what each one does.",
-      "Workflow updated. This affects your Tuesday morning briefings.",
-    ],
+    eyebrow: "Full transparency",
+    tags: [],
     color: "indigo",
   },
 ];
@@ -76,21 +73,21 @@ const whatsappSteps = [
     time: "7:30 AM",
     icon: ICON.sun,
     title: "Morning Briefing",
-    tags: ["Today's agenda", "Prospect prep", "Draft email"],
+    tags: [],
     color: "amber",
   },
   {
     time: "During the day",
     icon: ICON.message,
     title: "Post-meeting update",
-    tags: ["Auto CRM sync", "To-do list updated", "WhatsApp or email"],
+    tags: [],
     color: "teal",
   },
   {
     time: "End of day",
     icon: ICON.check,
     title: "Zero admin backlog",
-    tags: ["Real-time updates", "Rep chooses the channel", "Nothing falls through"],
+    tags: [],
     color: "indigo",
   },
 ];
@@ -169,16 +166,7 @@ const teamLogos = [
       </a>
 
       <div class="nav-right">
-        <nav class="nav-links" id="nav-links">
-          <a href="#workflow">Workflows</a>
-          <a href="#just-ask">Actions</a>
-          <a href="#control">Control</a>
-          <a href="#integrations">Integrations</a>
-        </nav>
         <a href="#cta" class="btn-cta">Get Early Access</a>
-        <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
-          <span></span><span></span><span></span>
-        </button>
         <div class="theme-picker" id="theme-picker">
           <button class="theme-trigger" id="theme-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Color theme">
             <span class="theme-icon" id="theme-icon"></span>
@@ -230,87 +218,472 @@ const teamLogos = [
       </div>
     </section>
 
-    <!-- ── WORKFLOW ────────────────────────────────────────────────────── -->
-    <section class="workflow-section" id="workflow">
-      <div class="wrap">
-        <div class="section-header" data-reveal>
-          <h2><span class="brand-text">It</span> Builds Workflows...</h2>
-        </div>
-        <div class="timeline">
-          {whatsappSteps.map((step, i) => (
-            <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
-              <div class="step-marker">
-                <span class="step-icon" set:html={step.icon} />
-                {i < whatsappSteps.length - 1 && <div class="step-line" />}
-              </div>
-              <div class="step-body">
-                <div class="step-time">{step.time}</div>
-                <h3>{step.title}</h3>
-                <div class="step-tags">
-                  {step.tags.map((tag) => (
-                    <span class={`tag tag-${step.color}`}>{tag}</span>
-                  ))}
-                </div>
+    <!-- ── WORKFLOW (pinned, scroll-driven) ──────────────────────────────── -->
+    <section class="workflow-section pin-section" id="workflow">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${whatsappSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2><span class="brand-text">It</span> Builds Workflows...</h2>
+              <div class="pin-dots" aria-hidden="true">
+                {whatsappSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
               </div>
             </div>
-          ))}
-        </div>
 
+            <div class="pin-deck">
+              {whatsappSteps.map((step, i) => {
+                const urls = ["mateos.ai/briefing", "mateos.ai/sync", "mateos.ai/wrap"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.time}</div>
+                        <h3>{step.title}</h3>
+                        <div class="step-tags">
+                          {step.tags.map((tag) => (
+                            <span class={`tag tag-${step.color}`}>{tag}</span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble">☀️ Good morning, David — here's your day.</div>
+                              </div>
+                              <div class="bm-card bm-briefing" data-briefing data-prep-state="idle">
+                                <!-- AGENDA VIEW -->
+                                <div data-agenda>
+                                  <div class="bm-card-head">
+                                    <span>Today · Tue, Jun 24</span>
+                                    <span class="bm-chip bm-chip-amber">3 meetings</span>
+                                  </div>
+
+                                  <div class="bm-meeting">
+                                    <span class="bm-time">09:00</span>
+                                    <span class="bm-line-title">Acme Corp — discovery call</span>
+                                    <span class="bm-press-wrap">
+                                      <span class="bm-presshere" aria-hidden="true">Press here</span>
+                                      <button class="bm-btn bm-btn-sm" type="button" data-action="prep">Prep</button>
+                                    </span>
+                                    <span class="bm-chip bm-chip-teal" data-emailed hidden>Prep in email</span>
+                                  </div>
+                                  <div class="bm-statusbar" data-statusbar hidden>
+                                    <div class="bm-statusbar-track"><div class="bm-statusbar-fill" data-statusfill /></div>
+                                    <div class="bm-statusbar-text" data-statustext>Reading the event description…</div>
+                                  </div>
+
+                                  <div class="bm-meeting">
+                                    <span class="bm-time">11:30</span>
+                                    <span class="bm-line-title">Dana Lee — check-in</span>
+                                    <span class="bm-chip bm-chip-teal">Prep in email</span>
+                                  </div>
+
+                                  <div class="bm-meeting">
+                                    <span class="bm-time">15:00</span>
+                                    <span class="bm-line-title">Northwind — renewal review</span>
+                                    <span class="bm-chip bm-chip-teal">Prep in email</span>
+                                  </div>
+                                </div>
+
+                                <!-- PREP DETAIL VIEW (Acme) -->
+                                <div data-detail hidden>
+                                  <button class="bm-back" type="button" data-action="prep-back">← back</button>
+                                  <div class="bm-detail-title">
+                                    <span class="bm-time">09:00</span>
+                                    <span class="bm-detail-sep">|</span>
+                                    <span>Acme Corp — discovery call</span>
+                                  </div>
+                                  <div class="bm-prep-brief">
+                                    <div class="bm-prep-row"><span class="bm-prep-key">Last touch</span><span>Inbound demo · 4 days ago</span></div>
+                                    <div class="bm-prep-row"><span class="bm-prep-key">Who</span><span>Sarah Chen — VP Operations</span></div>
+                                    <div class="bm-prep-row"><span class="bm-prep-key">Pain</span><span>~6 hrs/week lost to manual reporting</span></div>
+                                    <div class="bm-prep-row"><span class="bm-prep-key">Angle</span><span>Lead with ROI / time saved</span></div>
+                                    <div class="bm-prep-row"><span class="bm-prep-key">Watch-out</span><span>Also evaluating a competitor</span></div>
+                                  </div>
+                                  <div class="bm-actions">
+                                    <button class="bm-btn bm-btn-primary" type="button" data-action="prep-email">Email me</button>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal">Your Acme call just wrapped — want me to sync the CRM?</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>CRM update</span>
+                                  <span class="bm-chip bm-chip-amber" data-sync-status>Pending</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Stage</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Proposal">—</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Next step</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Follow-up Thu">—</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Call notes</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Added">—</span>
+                                </div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="sync">Sync CRM</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat" data-backlog>
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">End of day — here's your backlog. Want me to run it? 🌙</div>
+                              </div>
+
+                              <div class="bm-card" data-backlog-card>
+                                <div class="bm-card-head">
+                                  <span>Backlog · 3 actions</span>
+                                  <span class="bm-chip bm-chip-indigo" data-backlog-count>3 selected</span>
+                                </div>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Send 3 drafted follow-up emails</span>
+                                </label>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Update John on at-risk leads</span>
+                                </label>
+                                <label class="bm-task">
+                                  <input type="checkbox" class="bm-checkbox" data-task checked />
+                                  <span class="bm-task-box" />
+                                  <span class="bm-line-title">Move tomorrow's team sync to Friday</span>
+                                </label>
+                                <div class="bm-backlog-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute">Execute backlog</button>
+                                  <button class="bm-textbtn" type="button" data-action="backlog-close">Close</button>
+                                </div>
+                              </div>
+
+                              <div class="bm-card bm-backlog-collapsed" data-backlog-collapsed hidden>
+                                <span class="bm-line-title" data-backlog-summary>Backlog saved for later</span>
+                                <button class="bm-btn bm-btn-sm" type="button" data-action="backlog-review">Review</button>
+                              </div>
+
+                              <div class="bm-msg" data-backlog-followup hidden>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble" data-followup-text>Anything else then?</div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <!-- ── JUST ASK ──────────────────────────────────────────────────────── -->
-    <section class="workflow-section" id="just-ask">
-      <div class="wrap">
-        <div class="section-header" data-reveal>
-          <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
-        </div>
-        <div class="timeline">
-          {justAskSteps.map((step, i) => (
-            <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
-              <div class="step-marker">
-                <span class="step-icon" set:html={step.icon} />
-                {i < justAskSteps.length - 1 && <div class="step-line" />}
-              </div>
-              <div class="step-body">
-                <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
-                <div class="step-tags">
-                  {step.tags.map((tag) => (
-                    <span class={`tag tag-${step.color}`}>"{tag}"</span>
-                  ))}
-                </div>
+    <!-- ── JUST ASK (pinned, scroll-driven) ──────────────────────────────── -->
+    <section class="workflow-section pin-section" id="just-ask">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${justAskSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
+              <div class="pin-dots" aria-hidden="true">
+                {justAskSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
               </div>
             </div>
-          ))}
+
+            <div class="pin-deck">
+              {justAskSteps.map((step, i) => {
+                const urls = ["mateos.ai/inbox", "mateos.ai/compose", "mateos.ai/automations"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.eyebrow}</div>
+                        <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble">3 deals are going cold this week — here's who to call first. ↓</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Going cold</span>
+                                  <span class="bm-chip bm-chip-amber">At risk</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Acme Corp — Sarah Chen</span>
+                                  <span class="bm-chip bm-chip-empty">5 days quiet</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Dana Lee — check-in</span>
+                                  <span class="bm-chip bm-chip-empty">3 weeks quiet</span>
+                                </div>
+                                <div class="bm-line">
+                                  <span class="bm-line-title">Northwind — renewal</span>
+                                  <span class="bm-chip bm-chip-empty">8 days quiet</span>
+                                </div>
+                                <div class="bm-card-body" data-propose-q>Want me to draft outreach to all three?</div>
+                                <div class="bm-line bm-result" data-propose-result hidden>
+                                  <span class="bm-time">✓</span>
+                                  <span class="bm-line-title">3 drafts ready in your inbox</span>
+                                  <span class="bm-chip bm-chip-teal">Done</span>
+                                </div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble">Drafted your follow-up to Sarah — I referenced Tuesday's pricing chat.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Follow-up · Acme Corp</span>
+                                  <span class="bm-chip bm-chip-amber" data-exec-status>Draft</span>
+                                </div>
+                                <div class="bm-line"><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
+                                <div class="bm-line"><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
+                                <div class="bm-card-body">Hi Sarah — great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute-send">Send</button>
+                                  <button class="bm-btn" type="button" data-action="execute-edit">Edit</button>
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-exec-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-teal">M</span>
+                                  <div class="bm-bubble bm-bubble-teal">✓ Sent to Sarah. CRM updated with the thread.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Want me to handle this every time — no need to ask?</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Suggested automation</span>
+                                  <span class="bm-chip bm-chip-indigo" data-auto-status>Off</span>
+                                </div>
+                                <div class="bm-rule">
+                                  <div class="bm-rule-text">
+                                    <span class="bm-rule-title">Follow up after first meetings</span>
+                                    <span class="bm-rule-sub">Draft 3 days later, every time</span>
+                                  </div>
+                                  <button class="bm-switch" type="button" data-action="automate" aria-label="Turn on automation" />
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-auto-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-indigo">M</span>
+                                  <div class="bm-bubble">✓ Automation on — I'll handle it from now on.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ── STAY IN CONTROL ──────────────────────────────────────────── -->
-    <section class="workflow-section" id="control">
-      <div class="wrap">
-        <div class="section-header" data-reveal>
-          <div class="section-eyebrow" style="color: var(--color-secondary)">Enhances</div>
-          <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
-          <p class="section-sub"><span class="brand-text">Mateos handles</span> the <span class="brand-text">routine</span> so <span class="brand-text-purple">you</span> can <span class="brand-text-purple">focus on</span> what actually moves <span class="brand-text-purple">deals</span>. 
-        </div>
-        <div class="timeline">
-          {controlSteps.map((step, i) => (
-            <div class={`timeline-step step-${step.color}`} data-reveal data-reveal-delay={i}>
-              <div class="step-marker">
-                <span class="step-icon" set:html={step.icon} />
-                {i < controlSteps.length - 1 && <div class="step-line" />}
-              </div>
-              <div class="step-body">
-                <h3>{step.titleColor ? <><span class={step.titleColor === 'purple' ? 'brand-text-purple' : 'brand-text'}>{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</> : step.title}</h3>
-                <div class="step-tags">
-                  {step.tags.map((tag) => (
-                    <span class={`tag tag-${step.color}`}>"{tag}"</span>
-                  ))}
-                </div>
+    <!-- ── STAY IN CONTROL (pinned, scroll-driven) ───────────────────────── -->
+    <section class="workflow-section pin-section" id="control">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${controlSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
+              <div class="pin-dots" aria-hidden="true">
+                {controlSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
               </div>
             </div>
-          ))}
+
+            <div class="pin-deck">
+              {controlSteps.map((step, i) => {
+                const urls = ["mateos.ai/approvals", "mateos.ai/permissions", "mateos.ai/activity"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.eyebrow}</div>
+                        <h3><span class="brand-text-purple">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">This affects 47 open leads — want me to go ahead?</div>
+                              </div>
+                              <div class="bm-card bm-card-approve">
+                                <div class="bm-card-head">
+                                  <span>Approval needed</span>
+                                  <span class="bm-chip bm-chip-purple" data-approve-status>Waiting on you</span>
+                                </div>
+                                <div class="bm-card-body">Send the new pricing one-pager to all 47 open leads.</div>
+                                <div class="bm-actions" data-approve-actions>
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="approve">Approve</button>
+                                  <button class="bm-btn" type="button" data-action="hold">Hold</button>
+                                </div>
+                                <div class="bm-msg bm-exec-confirm" data-approve-confirm hidden>
+                                  <span class="bm-avatar bm-avatar-teal">M</span>
+                                  <div class="bm-bubble bm-bubble-teal" data-approve-text>On it.</div>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Set how I handle each action — you're in charge.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Your permissions</span>
+                                  <span class="bm-chip bm-chip-indigo">3 rules</span>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Send follow-ups</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Block calendar</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-permrow">
+                                  <span class="bm-line-title">Log to CRM</span>
+                                  <div class="bm-seg" data-seg>
+                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
+                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
+                                  </div>
+                                </div>
+                                <div class="bm-card-foot" data-rule-foot hidden>✓ Saved — you can change these any time.</div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat">
+                              <div class="bm-msg">
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble">Every action I take is logged — nothing happens off the record.</div>
+                              </div>
+                              <div class="bm-card">
+                                <div class="bm-card-head">
+                                  <span>Activity</span>
+                                  <span class="bm-chip bm-chip-indigo">9 automations active</span>
+                                </div>
+                                <div class="bm-activity" data-activity hidden>
+                                  <div class="bm-actline"><span class="bm-time">09:14</span><span class="bm-line-title">Drafted follow-up to Sarah @ Acme</span></div>
+                                  <div class="bm-actline"><span class="bm-time">08:30</span><span class="bm-line-title">Blocked 30 min prep before Notion call</span></div>
+                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Flagged Northwind — 8 days quiet</span></div>
+                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Synced 4 calls to CRM</span></div>
+                                </div>
+                                <div class="bm-actions">
+                                  <button class="bm-btn bm-btn-primary" type="button" data-action="oversight">View activity log</button>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -400,68 +773,6 @@ const teamLogos = [
     gap: 12px;
   }
   @media (min-width: 1024px) { .nav-right .btn-cta { margin-left: 20px; } }
-  .nav-links {
-    display: none;
-    gap: 24px;
-  }
-  @media (min-width: 1024px) { .nav-links { display: flex; } }
-  .nav-links a {
-    font-size: 0.875rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    transition: color 0.2s;
-  }
-  .nav-links a:hover { color: var(--amber-500); }
-
-  /* Burger */
-  .burger {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-    width: 32px;
-    height: 32px;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 4px;
-    flex-shrink: 0;
-  }
-  .burger span {
-    display: block;
-    height: 2px;
-    width: 100%;
-    background: var(--text-secondary);
-    border-radius: 2px;
-    transition: transform 0.25s, opacity 0.25s;
-    transform-origin: center;
-  }
-  .burger.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-  .burger.is-open span:nth-child(2) { opacity: 0; }
-  .burger.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-  @media (min-width: 1024px) { .burger { display: none; } }
-
-  /* Mobile nav drawer */
-  .nav-links.is-open {
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    top: 64px;
-    left: 0;
-    right: 0;
-    background: var(--nav-bg);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 20px 24px;
-    gap: 0;
-    z-index: 99;
-  }
-  .nav-links.is-open a {
-    padding: 14px 0;
-    font-size: 1rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .nav-links.is-open a:last-child { border-bottom: none; }
   .btn-cta {
     display: inline-block;
     background: var(--color-primary);
@@ -904,6 +1215,408 @@ const teamLogos = [
   :global([data-theme="dark"]) .tag-teal  { color: var(--teal-200); }
   :global([data-theme="dark"]) .tag-indigo { color: var(--indigo-200); }
 
+  /* ── Two-column split: text + browser mockup (big screens only) ───────── */
+  .split-visual { display: none; }
+
+  @media (min-width: 1024px) {
+    .section-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 56px;
+      align-items: center;
+    }
+    .section-split > .section-header { grid-column: 1 / -1; margin-bottom: 0; }
+    .split-text { min-width: 0; }
+    .split-text .timeline { margin: 0; max-width: none; }
+    .split-visual { display: block; }
+  }
+
+  /* ── Browser mockup content ───────────────────────────────────────────── */
+  .bm-chat { display: flex; flex-direction: column; gap: 12px; }
+  .bm-msg { display: flex; gap: 10px; align-items: flex-start; }
+  .bm-avatar {
+    width: 28px; height: 28px; flex-shrink: 0;
+    border-radius: var(--radius-full);
+    background: var(--color-primary); color: var(--on-primary);
+    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .bm-avatar-teal { background: var(--color-accent); }
+  .bm-avatar-indigo { background: var(--color-secondary); color: #fff; }
+  .bm-bubble {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 4px 14px 14px 14px;
+    padding: 9px 13px;
+    font-size: 0.82rem; line-height: 1.5; color: var(--text-primary);
+    box-shadow: var(--shadow-xs);
+    display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
+  }
+  .bm-bubble-teal {
+    border-color: var(--teal-300); background: var(--color-accent-soft); color: var(--teal-700);
+  }
+  :global([data-theme="dark"]) .bm-bubble-teal { color: var(--teal-200); }
+
+  .bm-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    padding: 14px; box-shadow: var(--shadow-sm);
+    display: flex; flex-direction: column; gap: 10px;
+  }
+  .bm-card-approve { border-color: var(--indigo-300); }
+  .bm-card-head {
+    display: flex; align-items: center; justify-content: space-between; gap: 8px;
+    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.04em;
+    text-transform: uppercase; color: var(--text-muted);
+  }
+  .bm-card-body { font-size: 0.82rem; line-height: 1.5; color: var(--text-primary); }
+  .bm-line {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 0.8rem; color: var(--text-primary);
+  }
+  .bm-time {
+    font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);
+    width: 38px; flex-shrink: 0;
+  }
+  .bm-line-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+  .bm-chip {
+    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600;
+    padding: 3px 8px; border-radius: var(--radius-full); white-space: nowrap;
+    text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0;
+  }
+  .bm-chip-amber { background: var(--color-primary-soft); color: var(--amber-700); }
+  .bm-chip-teal  { background: var(--color-accent-soft);  color: var(--teal-700); }
+  .bm-chip-indigo { background: var(--color-secondary-soft); color: var(--indigo-600); }
+  .bm-chip-purple { background: var(--color-secondary-soft); color: var(--color-secondary); }
+  :global([data-theme="dark"]) .bm-chip-amber { color: var(--amber-200); }
+  :global([data-theme="dark"]) .bm-chip-teal  { color: var(--teal-200); }
+  :global([data-theme="dark"]) .bm-chip-indigo,
+  :global([data-theme="dark"]) .bm-chip-purple { color: var(--indigo-200); }
+
+  .bm-actions { display: flex; gap: 8px; }
+  .bm-btn {
+    font-size: 0.76rem; font-weight: 600; padding: 6px 14px;
+    border-radius: var(--radius-sm); border: 1px solid var(--border);
+    color: var(--text-secondary); background: var(--surface);
+  }
+  .bm-btn-primary {
+    background: var(--color-primary); border-color: var(--color-primary); color: var(--on-primary);
+  }
+
+  .bm-panel { display: flex; flex-direction: column; gap: 10px; }
+  .bm-panel-label {
+    font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase;
+    letter-spacing: 0.08em; color: var(--text-muted); margin-top: 6px;
+  }
+  .bm-rule {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: var(--radius-sm); padding: 10px 12px;
+  }
+  .bm-rule-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+  .bm-rule-title { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
+  .bm-rule-sub { font-size: 0.72rem; color: var(--text-muted); }
+  .bm-switch {
+    width: 34px; height: 20px; border-radius: var(--radius-full);
+    background: var(--neutral-300); position: relative; flex-shrink: 0;
+  }
+  .bm-switch.on { background: var(--color-accent); }
+  .bm-switch::after {
+    content: ''; position: absolute; top: 2px; left: 2px;
+    width: 16px; height: 16px; border-radius: var(--radius-full);
+    background: #fff; box-shadow: var(--shadow-xs);
+  }
+  .bm-switch.on::after { left: 16px; }
+  .bm-panel-foot {
+    font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);
+    text-align: center; margin-top: 4px;
+  }
+
+  /* ── Pinned, scroll-driven workflow section ──────────────────────────── */
+  .pin-track { position: relative; }
+  .pin-header { text-align: center; margin-bottom: 36px; position: relative; z-index: 2; }
+  .pin-header h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); }
+  .pin-dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
+  .pin-dot {
+    width: 8px; height: 8px; border-radius: var(--radius-full);
+    background: var(--border-strong); transition: width 0.3s, background 0.3s;
+  }
+  .pin-dot.is-active { width: 22px; background: var(--color-primary); }
+
+  .pin-deck { position: relative; z-index: 1; }
+  /* panel inner layout — applies in both stacked (fallback) and pinned modes */
+  .pin-panel {
+    display: flex; flex-direction: column; gap: 24px; align-items: center;
+    margin-bottom: 48px;
+  }
+  .pin-panel:last-child { margin-bottom: 0; }
+  .pin-meta { display: flex; gap: 20px; align-items: flex-start; width: 100%; max-width: 460px; }
+  .pin-meta .step-icon { flex-shrink: 0; }
+  .pin-meta-text h3 { font-size: 1.5rem; margin: 4px 0 12px; }
+  .pin-visual { width: 100%; max-width: 460px; }
+
+  .pin-window {
+    border-radius: var(--radius-lg); background: var(--surface);
+    border: 1px solid var(--border); box-shadow: var(--shadow-xl); overflow: hidden;
+  }
+  .pin-window-chrome {
+    display: flex; align-items: center; gap: 8px;
+    padding: 11px 14px; background: var(--surface-muted); border-bottom: 1px solid var(--border);
+  }
+  .pin-window-chrome .dot { width: 11px; height: 11px; border-radius: var(--radius-full); flex-shrink: 0; }
+  .pin-window-chrome .dot-red { background: #FF5F57; }
+  .pin-window-chrome .dot-amber { background: #FEBC2E; }
+  .pin-window-chrome .dot-green { background: #28C840; }
+  .pin-window-url {
+    flex: 1; text-align: center; font-family: var(--font-mono);
+    font-size: 0.72rem; color: var(--text-muted);
+  }
+  .pin-window-body { padding: 18px; background: var(--surface-subtle); }
+  :global([data-theme="dark"]) .pin-window-body { background: var(--neutral-900); }
+
+  @media (min-width: 1024px) {
+    .pin-panel {
+      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 48px; align-items: center;
+    }
+    .pin-meta { justify-self: end; max-width: 420px; }
+    .pin-visual { justify-self: start; }
+  }
+
+  /* ── Pinned mode (JS opt-in) ─────────────────────────────────────────── */
+  .pin-section.pin-active { padding: 0; }
+  .pin-section.pin-active .pin-track {
+    height: calc((var(--pin-steps) + 1) * 100vh);
+    height: calc((var(--pin-steps) + 1) * 100svh);
+  }
+  .pin-section.pin-active .pin-stage {
+    position: sticky; top: 0;
+    height: 100vh;
+    height: 100svh;
+  }
+  .pin-section.pin-active .pin-stage-inner {
+    height: 100%; display: flex; flex-direction: column; justify-content: center;
+    padding-top: 76px; padding-bottom: 32px;
+  }
+  .pin-section.pin-active .pin-dots { display: flex; }
+  .pin-section.pin-active .pin-deck { flex: 1 1 auto; min-height: 0; }
+  .pin-section.pin-active .pin-panel {
+    position: absolute; inset: 0; margin: 0;
+    opacity: 0; transform: translateY(40px); pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .pin-section.pin-active .pin-panel.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
+  .pin-section.pin-active .pin-panel.is-above { opacity: 0; transform: translateY(-48px); }
+  .pin-section.pin-active .pin-panel.is-below { opacity: 0; transform: translateY(40px); }
+
+  /* ── Demo-card interaction helpers (new classes only) ────────────────── */
+  .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
+  .bm-chip-loading { background: var(--surface-muted); display: inline-flex; align-items: center; justify-content: center; min-width: 30px; }
+  .bm-chip-spin {
+    display: inline-block; width: 9px; height: 9px; border-radius: var(--radius-full);
+    border: 2px solid var(--border-strong); border-top-color: var(--color-accent);
+    animation: bmSpin 0.55s linear infinite;
+  }
+  @media (prefers-reduced-motion: reduce) { .bm-chip-spin { animation: none; } }
+  .bm-chip.is-filling { animation: bmPop 0.3s ease; }
+  @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
+  .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
+  @keyframes bmSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+  /* hidden helpers inside any card (beats .bm-line / .bm-msg display) */
+  .pin-window-body [hidden] { display: none; }
+  /* completed action: a confirmation, not a pressable button */
+  .bm-btn-done {
+    background: none; border-color: transparent; box-shadow: none;
+    color: var(--teal-700); font-weight: 700; cursor: default;
+    padding-left: 0; padding-right: 0;
+  }
+  :global([data-theme="dark"]) .bm-btn-done { color: var(--teal-300); }
+  /* .bm-scrollhint styles live in global.css so JS-created hints are styled */
+  /* in-card confirmation message (Takes Initiative) */
+  .bm-exec-confirm { margin-top: 12px; }
+  .bm-exec-confirm.is-in { animation: bmSlideIn 0.4s ease; }
+  .bm-switch[data-action] { border: 0; padding: 0; cursor: pointer; }
+
+  /* You Stay In Control: segmented rule controls */
+  .bm-permrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border); }
+  .bm-permrow:first-of-type { border-top: 0; }
+  .bm-permrow .bm-line-title { font-size: 0.82rem; }
+  .bm-seg { display: inline-flex; background: var(--surface-muted); border-radius: var(--radius-full); padding: 3px; flex-shrink: 0; }
+  .bm-seg-opt {
+    border: 0; background: none; cursor: pointer;
+    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
+    text-transform: uppercase; letter-spacing: 0.03em;
+    padding: 5px 11px; border-radius: var(--radius-full); color: var(--text-muted);
+    transition: background 0.18s, color 0.18s;
+  }
+  .bm-seg-opt.is-active { background: var(--color-secondary); color: #fff; }
+  .bm-card-foot { margin-top: 12px; font-size: 0.74rem; color: var(--teal-700); font-family: var(--font-mono); animation: bmSlideIn 0.35s ease; }
+  :global([data-theme="dark"]) .bm-card-foot { color: var(--teal-200); }
+
+  /* You Stay In Control: activity log */
+  .bm-activity { display: flex; flex-direction: column; gap: 9px; margin: 4px 0 14px; }
+  .bm-actline { display: flex; gap: 12px; align-items: baseline; font-size: 0.8rem; transition: opacity 0.3s ease; }
+  .bm-actline.is-in { animation: bmSlideIn 0.35s ease; }
+  .bm-actline .bm-time { flex-shrink: 0; width: 44px; }
+
+  /* ── "This card is interactive" affordance ───────────────────────────── */
+  /* per-step accent for the glow / hint */
+  .pin-panel.step-amber  { --hint: 255,140,66; }
+  .pin-panel.step-teal   { --hint: 23,190,187; }
+  .pin-panel.step-indigo { --hint: 91,83,232; }
+  /* glow only on the active, not-yet-used step's primary control */
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target {
+    animation: hintGlow 3.6s ease-in-out infinite;
+  }
+  /* each beat grows bigger than the last until a capped max, then rests and repeats */
+  @keyframes hintGlow {
+    0%   { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    8%   { box-shadow: 0 0 0 4px  rgba(var(--hint), 0.20); }   /* beat 1 — small */
+    18%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    30%  { box-shadow: 0 0 0 8px  rgba(var(--hint), 0.26); }   /* beat 2 — medium */
+    42%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    56%  { box-shadow: 0 0 0 13px rgba(var(--hint), 0.30); }   /* beat 3 — max */
+    70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
+    100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
+  }
+  /* big "Press here" coachmark — right beside the first card's Prep button */
+  .bm-press-wrap { position: relative; display: inline-flex; flex-shrink: 0; }
+  .bm-presshere {
+    position: absolute; top: 50%; right: calc(100% + 14px);
+    transform: translateY(-50%);
+    display: none; z-index: 6;
+    background: var(--color-primary); color: var(--on-primary);
+    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
+    padding: 7px 14px; border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-md); white-space: nowrap; pointer-events: none;
+  }
+  .bm-presshere::after {
+    content: ''; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
+    border: 7px solid transparent; border-left-color: var(--color-primary);
+  }
+  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere {
+    display: block; animation: pressBob 0.9s ease-in-out infinite;
+  }
+  /* nudge horizontally toward the button (keeps the vertical centering) */
+  @keyframes pressBob {
+    0%, 100% { transform: translateY(-50%) translateX(0); }
+    50%      { transform: translateY(-50%) translateX(5px); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target { animation: none; box-shadow: 0 0 0 3px rgba(var(--hint), 0.22); }
+    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere { animation: none; }
+  }
+  .bm-todo { gap: 10px; }
+  .bm-check {
+    width: 18px; height: 18px; flex-shrink: 0; border-radius: var(--radius-full);
+    border: 2px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.25s, border-color 0.25s;
+  }
+  .bm-check::after { content: '✓'; font-size: 0.66rem; line-height: 1; color: #fff; opacity: 0; transition: opacity 0.2s; }
+  .bm-check.is-done { background: var(--color-accent); border-color: var(--color-accent); }
+  .bm-check.is-done::after { opacity: 1; }
+  .bm-btn.is-busy { opacity: 0.75; cursor: default; }
+
+  /* Morning-briefing: agenda + prep-detail flow */
+  .bm-briefing [hidden] { display: none; }
+  .bm-btn-sm { padding: 4px 12px; font-size: 0.72rem; flex-shrink: 0; }
+  .bm-meeting { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--border); padding: 11px 0; }
+  .bm-meeting:first-of-type { border-top: 0; }
+  .bm-meeting .bm-line-title { flex: 1; }
+
+  /* status bar */
+  .bm-statusbar { padding: 4px 0 10px; animation: bmSlideIn 0.3s ease; }
+  .bm-statusbar-track { height: 6px; border-radius: var(--radius-full); background: var(--surface-muted); overflow: hidden; }
+  .bm-statusbar-fill { height: 100%; width: 0; border-radius: var(--radius-full); background: var(--color-primary); }
+  .bm-statusbar-text { margin-top: 8px; font-size: 0.74rem; color: var(--text-secondary); font-family: var(--font-mono); }
+
+  /* prep detail (card takeover) */
+  .bm-back {
+    background: none; border: 0; padding: 0; margin-bottom: 14px; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.78rem; color: var(--text-muted);
+  }
+  .bm-back:hover { color: var(--text-primary); }
+  .bm-detail-title { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
+  .bm-detail-title .bm-time { font-size: 0.95rem; color: var(--text-muted); }
+  .bm-detail-sep { color: var(--border-strong); font-weight: 400; }
+  .bm-prep-brief { display: flex; flex-direction: column; gap: 9px; }
+  .bm-prep-row { display: flex; gap: 12px; font-size: 0.82rem; line-height: 1.45; }
+  .bm-prep-key {
+    flex-shrink: 0; width: 80px; font-family: var(--font-mono); font-size: 0.66rem;
+    text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding-top: 2px;
+  }
+  .bm-prep-brief + .bm-actions { margin-top: 16px; }
+  .bm-btn-spin {
+    display: inline-block; width: 12px; height: 12px; margin-right: 7px; vertical-align: -1px;
+    border-radius: var(--radius-full);
+    border: 2px solid rgba(0,0,0,0.2); border-top-color: currentColor;
+    animation: bmSpin 0.6s linear infinite;
+  }
+  @keyframes bmSpin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .bm-btn-spin { animation: none; } }
+
+  /* Zero admin backlog: checklist + execute / close */
+  [data-backlog] [hidden] { display: none; }
+  [data-backlog-card] { gap: 0; }
+  [data-backlog-card] .bm-card-head { padding-bottom: 4px; }
+  .bm-task {
+    display: flex; align-items: center; gap: 11px; cursor: pointer;
+    border-top: 1px solid var(--border); padding: 11px 0;
+  }
+  .bm-task:first-of-type { border-top: 0; }
+  .bm-checkbox { position: absolute; opacity: 0; width: 0; height: 0; }
+  .bm-task-box {
+    flex-shrink: 0; width: 19px; height: 19px; border-radius: var(--radius-xs);
+    border: 2px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center;
+    transition: background 0.15s, border-color 0.15s;
+  }
+  .bm-task-box::after { content: '✓'; font-size: 0.72rem; line-height: 1; color: #fff; opacity: 0; transition: opacity 0.15s; }
+  .bm-checkbox:checked + .bm-task-box { background: var(--color-secondary); border-color: var(--color-secondary); }
+  .bm-checkbox:checked + .bm-task-box::after { opacity: 1; }
+  .bm-checkbox:focus-visible + .bm-task-box { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
+  .bm-task .bm-line-title { flex: 1; transition: color 0.2s; }
+  .bm-task.is-done { cursor: default; }
+  .bm-task.is-done .bm-task-box { background: var(--color-accent); border-color: var(--color-accent); }
+  .bm-task.is-done .bm-line-title { color: var(--text-muted); text-decoration: line-through; }
+
+  .bm-backlog-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
+  .bm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  .bm-textbtn {
+    background: none; border: 0; padding: 6px 4px; cursor: pointer;
+    font-family: var(--font-body); font-size: 0.8rem; color: var(--text-muted);
+  }
+  .bm-textbtn:hover { color: var(--text-primary); }
+  .bm-backlog-collapsed { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
+  .bm-backlog-collapsed .bm-line-title { color: var(--text-secondary); font-size: 0.85rem; }
+  .bm-backlog-collapsed.is-complete {
+    border-color: var(--color-accent);
+    background: var(--color-accent-soft);
+  }
+  .bm-backlog-collapsed.is-complete .bm-line-title {
+    color: var(--teal-700); font-weight: 600;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .bm-backlog-collapsed.is-complete .bm-line-title::before {
+    content: '✓'; flex-shrink: 0;
+    width: 18px; height: 18px; border-radius: var(--radius-full);
+    background: var(--color-accent); color: #fff;
+    font-size: 0.7rem; line-height: 1;
+    display: inline-flex; align-items: center; justify-content: center;
+  }
+  :global([data-theme="dark"]) .bm-backlog-collapsed.is-complete .bm-line-title { color: var(--teal-200); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pin-section.pin-active { padding: 96px 0; }
+    .pin-section.pin-active .pin-track { height: auto !important; }
+    .pin-section.pin-active .pin-stage { position: static; height: auto; }
+    .pin-section.pin-active .pin-stage-inner { display: block; padding-top: 0; }
+    .pin-section.pin-active .pin-dots { display: none; }
+    .pin-section.pin-active .pin-panel {
+      position: static; inset: auto; opacity: 1; transform: none;
+      pointer-events: auto; margin-bottom: 48px;
+    }
+  }
+
   /* ── Coming soon ─────────────────────────────────────────────────────── */
   .coming-soon-section {
     padding: 80px 0;
@@ -1132,9 +1845,9 @@ const teamLogos = [
 
   /* ── Mobile (≤ 639px) ────────────────────────────────────────────────── */
   @media (max-width: 639px) {
-    /* Nav: hide CTA button, keep toggle */
-    .btn-cta { display: none; }
-    .theme-picker { display: none; }
+    /* Nav: keep only the CTA button + theme picker; shrink to fit */
+    .nav-right { gap: 10px; }
+    .btn-cta { font-size: 0.8rem; padding: 0.45rem 0.85rem; }
     .brand-mark { height: 22px; }
     .hero-logo { height: 52px; }
 
@@ -1214,6 +1927,474 @@ const teamLogos = [
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
 
+  // ── Pinned sections: scroll progress → active step (handles all) ────────
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return; // leave the stacked CSS fallback in place
+
+    var tracks = document.querySelectorAll('[data-pin-track]');
+    if (!tracks.length) return;
+
+    function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+
+    var instances = [];
+    for (var t = 0; t < tracks.length; t++) {
+      (function (track) {
+        var stage = track.querySelector('[data-pin-stage]');
+        var section = track.closest('.pin-section');
+        if (!stage || !section) return;
+        section.classList.add('pin-active');
+
+        var panels = stage.querySelectorAll('[data-panel]');
+        var dots = stage.querySelectorAll('[data-dot]');
+        var N = panels.length;
+        var current = -1;
+
+        function setStep(i) {
+          if (i === current) return;
+          current = i;
+          stage.setAttribute('data-step', i);
+          for (var k = 0; k < panels.length; k++) {
+            var active = (k === i);
+            panels[k].classList.toggle('is-active', active);
+            panels[k].classList.toggle('is-above', k < i);
+            panels[k].classList.toggle('is-below', k > i);
+            panels[k].setAttribute('aria-hidden', active ? 'false' : 'true');
+          }
+          for (var d = 0; d < dots.length; d++) {
+            dots[d].classList.toggle('is-active', d === i);
+          }
+        }
+
+        function update() {
+          var total = track.offsetHeight - stage.offsetHeight;
+          if (total <= 0) { setStep(0); return; }
+          var p = clamp(-track.getBoundingClientRect().top / total, 0, 1);
+          var step = Math.floor(p * N);
+          if (step > N - 1) step = N - 1;
+          setStep(step);
+        }
+
+        setStep(0);
+        instances.push(update);
+      })(tracks[t]);
+    }
+
+    var ticking = false;
+    function updateAll() {
+      ticking = false;
+      for (var i = 0; i < instances.length; i++) instances[i]();
+    }
+    function onScroll() {
+      if (!ticking) { ticking = true; requestAnimationFrame(updateAll); }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    updateAll();
+  })();
+
+  // ── Pinned sections: interactive demo-card actions (local only) ─────────
+  (function () {
+    var root = document.querySelector('main');
+    if (!root) return;
+
+    var PREP_STEPS = [
+      'Reading the event description',
+      'Analyzing the participants',
+      'Reading company info in CRM',
+      'Gathering everything',
+      'Writing summary'
+    ];
+    var PREP_LINE_MS = 700;
+
+    root.addEventListener('click', function (e) {
+      var btn = e.target.closest('[data-action]');
+      if (!btn || btn.classList.contains('is-busy')) return;
+      var action = btn.getAttribute('data-action');
+      if (action === 'prep') runPrep(btn);
+      else if (action === 'prep-back') closeDetail(btn);
+      else if (action === 'prep-email') emailPrep(btn);
+      else if (action === 'sync') runSync(btn);
+      else if (action === 'execute') runExecute(btn);
+      else if (action === 'backlog-close') backlogClose(btn);
+      else if (action === 'backlog-review') backlogReview(btn);
+      else if (action === 'propose') runPropose(btn);
+      else if (action === 'execute-send') runSendFollowup(btn);
+      else if (action === 'automate') runAutomate(btn);
+      else if (action === 'approve') runApprove(btn, true);
+      else if (action === 'hold') runApprove(btn, false);
+      else if (action === 'rule-opt') runRuleOpt(btn);
+      else if (action === 'oversight') runOversight(btn);
+    });
+
+    // keep the "Execute backlog" button in sync with the checkboxes
+    root.addEventListener('change', function (e) {
+      var box = e.target.closest('[data-task]');
+      if (box) updateBacklog(box.closest('[data-backlog]'));
+    });
+
+    function runPrep(btn) {
+      var card = btn.closest('[data-briefing]');
+      if (!card) return;
+      var state = card.getAttribute('data-prep-state');
+
+      // already prepped → straight to the detail view (no loading)
+      if (state === 'ready') { openDetail(card); return; }
+
+      // idle → run the status-bar loading, then surface "Read Prep"
+      card.setAttribute('data-prep-state', 'loading');
+      btn.classList.add('is-busy');
+      btn.style.visibility = 'hidden';
+
+      var bar = card.querySelector('[data-statusbar]');
+      var fill = card.querySelector('[data-statusfill]');
+      var text = card.querySelector('[data-statustext]');
+      bar.hidden = false;
+      fill.style.width = '0%';
+
+      var i = 0;
+      text.textContent = PREP_STEPS[0] + '…';
+      // kick the bar to full over the whole sequence
+      requestAnimationFrame(function () {
+        fill.style.transition = 'width ' + (PREP_STEPS.length * PREP_LINE_MS) + 'ms linear';
+        fill.style.width = '100%';
+      });
+
+      (function nextLine() {
+        i++;
+        if (i < PREP_STEPS.length) {
+          text.textContent = PREP_STEPS[i] + '…';
+          setTimeout(nextLine, PREP_LINE_MS);
+        } else {
+          setTimeout(function () {
+            bar.hidden = true;
+            btn.classList.remove('is-busy');
+            btn.style.visibility = '';
+            btn.textContent = 'Read Prep →';
+            card.setAttribute('data-prep-state', 'ready');
+          }, PREP_LINE_MS);
+        }
+      })();
+    }
+
+    function openDetail(card) {
+      card.querySelector('[data-agenda]').hidden = true;
+      card.querySelector('[data-detail]').hidden = false;
+    }
+
+    function closeDetail(btn) {
+      var card = btn.closest('[data-briefing]');
+      card.querySelector('[data-detail]').hidden = true;
+      card.querySelector('[data-agenda]').hidden = false;
+      // button now reads "Read" — reopen without re-running the loading
+      var prepBtn = card.querySelector('[data-action="prep"]');
+      if (prepBtn) prepBtn.textContent = 'Read';
+    }
+
+    function emailPrep(btn) {
+      var card = btn.closest('[data-briefing]');
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
+      setTimeout(function () {
+        btn.innerHTML = 'Email sent ✓';
+        setTimeout(function () {
+          card.querySelector('[data-detail]').hidden = true;
+          card.querySelector('[data-agenda]').hidden = false;
+          // Acme joins the already-prepped meetings
+          var prepBtn = card.querySelector('[data-action="prep"]');
+          if (prepBtn) prepBtn.hidden = true;
+          var chip = card.querySelector('[data-emailed]');
+          if (chip) chip.hidden = false;
+          card.setAttribute('data-prep-state', 'emailed');
+          // reset the detail button for next time the panel is built
+          btn.classList.remove('is-busy');
+          btn.innerHTML = 'Email me';
+          // all three meetings prepped → nudge onward
+          scrollHint(chip ? chip.parentNode : null);
+        }, 850);
+      }, 1050);
+    }
+
+    function runSync(btn) {
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Syncing…';
+      var card = btn.closest('.bm-card');
+      var fills = card.querySelectorAll('[data-fill]');
+      var SYNC_STEP = 820;      // time between fields
+      var SYNC_RESOLVE = 480;   // loader shows, then value resolves
+
+      var status = card.querySelector('[data-sync-status]');
+      if (status) { status.textContent = 'Syncing…'; }
+
+      for (var i = 0; i < fills.length; i++) {
+        (function (chip, idx) {
+          // 1) show a loader in this field
+          setTimeout(function () {
+            chip.classList.remove('bm-chip-empty');
+            chip.classList.add('bm-chip-loading');
+            chip.innerHTML = '<span class="bm-chip-spin"></span>';
+          }, idx * SYNC_STEP);
+          // 2) resolve to the value
+          setTimeout(function () {
+            chip.classList.remove('bm-chip-loading');
+            chip.classList.add('bm-chip-teal', 'is-filling');
+            chip.textContent = chip.getAttribute('data-value');
+          }, idx * SYNC_STEP + SYNC_RESOLVE);
+        })(fills[i], i);
+      }
+
+      setTimeout(function () {
+        if (status) {
+          status.textContent = 'Synced';
+          status.classList.remove('bm-chip-amber');
+          status.classList.add('bm-chip-teal');
+        }
+        // terminal state: a confirmation, not a pressable button
+        markDone(btn, 'Synced ✓');
+        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
+      }, fills.length * SYNC_STEP + 300);
+    }
+
+    // turn an action button into a non-interactive "done" confirmation
+    function markDone(btn, label) {
+      btn.classList.remove('is-busy', 'bm-btn-primary', 'bm-hint-target');
+      btn.classList.add('bm-btn-done');
+      btn.disabled = true;
+      if (label != null) btn.innerHTML = label;
+    }
+
+    // 2s after an action finishes, append a "Keep scrolling" nudge to a container
+    function scrollHint(container) {
+      if (!container) return;
+      setTimeout(function () {
+        if (container.querySelector('.bm-scrollhint')) return;
+        var h = document.createElement('span');
+        h.className = 'bm-scrollhint is-in';
+        h.setAttribute('aria-hidden', 'true');
+        h.innerHTML = 'Keep scrolling <span class="bm-scrollhint-arrow">↓</span>';
+        container.appendChild(h);
+      }, 2000);
+    }
+
+    function backlogParts(node) {
+      var root = node.closest ? node.closest('[data-backlog]') : node;
+      return {
+        root: root,
+        card: root.querySelector('[data-backlog-card]'),
+        collapsed: root.querySelector('[data-backlog-collapsed]'),
+        followup: root.querySelector('[data-backlog-followup]'),
+        summary: root.querySelector('[data-backlog-summary]'),
+        count: root.querySelector('[data-backlog-count]'),
+        execBtn: root.querySelector('[data-action="execute"]'),
+        tasks: root.querySelectorAll('[data-task]')
+      };
+    }
+
+    function taskDone(box) {
+      var t = box.closest('.bm-task');
+      return t && t.classList.contains('is-done');
+    }
+
+    // count tasks that are still actionable (checked and not already done)
+    function countChecked(p) {
+      var n = 0;
+      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) n++;
+      return n;
+    }
+
+    function updateBacklog(root) {
+      var p = backlogParts(root);
+      var n = countChecked(p);
+      if (p.count) p.count.textContent = n ? (n + ' selected') : 'none selected';
+      if (p.execBtn) p.execBtn.disabled = (n === 0);
+    }
+
+    function collapseBacklog(root, summaryText, opts) {
+      var p = backlogParts(root);
+      opts = opts || {};
+      if (p.summary) p.summary.textContent = summaryText;
+      // green "all done" treatment
+      p.collapsed.classList.toggle('is-complete', !!opts.complete);
+      // hide the Review button once the backlog is fully executed — nothing to review
+      var reviewBtn = p.collapsed.querySelector('[data-action="backlog-review"]');
+      if (reviewBtn) reviewBtn.hidden = !!opts.complete;
+      // swap the closing message
+      var followText = p.followup.querySelector('[data-followup-text]');
+      if (followText) followText.textContent = opts.complete
+        ? 'Great job! You can go rest now 🎉'
+        : 'Anything else then?';
+      p.card.hidden = true;
+      p.collapsed.hidden = false;
+      p.followup.hidden = false;
+      scrollHint(p.followup);
+    }
+
+    function runExecute(btn) {
+      var p = backlogParts(btn);
+      var n = countChecked(p);
+      if (n === 0) return;
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Executing…';
+
+      var checked = [];
+      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) checked.push(p.tasks[i]);
+      var STEP = 480;
+      checked.forEach(function (box, idx) {
+        setTimeout(function () {
+          var task = box.closest('.bm-task');
+          if (task) task.classList.add('is-done');
+          box.disabled = true; // done tasks stay done; can't be toggled again
+        }, idx * STEP);
+      });
+      setTimeout(function () {
+        // report the actual total handled (everything currently done)
+        var done = 0;
+        for (var i = 0; i < p.tasks.length; i++) if (taskDone(p.tasks[i])) done++;
+        var remaining = p.tasks.length - done;
+        var complete = (remaining === 0);
+        var summary = complete
+          ? 'All executed — backlog clear'
+          : '✓ ' + done + (done === 1 ? ' task handled' : ' tasks handled') + ' · ' + remaining + ' left';
+        collapseBacklog(p.root, summary, { complete: complete });
+        btn.classList.remove('is-busy');
+        btn.innerHTML = 'Execute backlog';
+      }, checked.length * STEP + 350);
+    }
+
+    function backlogClose(btn) {
+      collapseBacklog(btn.closest('[data-backlog]'), 'Backlog saved for later');
+    }
+
+    function backlogReview(btn) {
+      var p = backlogParts(btn);
+      p.collapsed.hidden = true;
+      p.followup.hidden = true;
+      // reopen exactly as the user left it: keep each checkbox state,
+      // keep already-executed tasks marked done. Just refresh the button.
+      updateBacklog(p.root);
+      p.card.hidden = false;
+    }
+
+    // ── Takes Initiative cards ──────────────────────────────────────────
+    // It Proposes — agent drafts outreach to the at-risk deals
+    function runPropose(btn) {
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Drafting…';
+      var card = btn.closest('.bm-card');
+      setTimeout(function () {
+        var q = card.querySelector('[data-propose-q]');
+        if (q) q.hidden = true;
+        var res = card.querySelector('[data-propose-result]');
+        if (res) { res.hidden = false; res.classList.add('is-in'); }
+        markDone(btn, 'Drafts ready ✓');
+        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
+      }, 1400);
+    }
+
+    // It Executes — send the drafted follow-up
+    function runSendFollowup(btn) {
+      btn.classList.add('is-busy');
+      btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
+      var card = btn.closest('.bm-card');
+      var status = card.querySelector('[data-exec-status]');
+      var editBtn = card.querySelector('[data-action="execute-edit"]');
+      setTimeout(function () {
+        if (status) { status.textContent = 'Sent'; status.classList.remove('bm-chip-amber'); status.classList.add('bm-chip-teal'); }
+        if (editBtn) editBtn.hidden = true;
+        markDone(btn, 'Sent ✓');
+        var confirm = card.querySelector('[data-exec-confirm]');
+        if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+        scrollHint(confirm);
+      }, 1100);
+    }
+
+    // It Automates — flip the rule on
+    function runAutomate(btn) {
+      if (btn.classList.contains('on')) return;
+      btn.classList.add('on');
+      var card = btn.closest('.bm-card');
+      var status = card.querySelector('[data-auto-status]');
+      if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
+      var confirm = card.querySelector('[data-auto-confirm]');
+      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      // place the nudge at the bottom of the card, on its own line
+      scrollHint(card);
+    }
+
+    // ── You Stay In Control cards ───────────────────────────────────────
+    // You Decide — approve / hold, two outcomes
+    function runApprove(btn, approved) {
+      var card = btn.closest('.bm-card');
+      var actions = card.querySelector('[data-approve-actions]');
+      var status = card.querySelector('[data-approve-status]');
+      var confirm = card.querySelector('[data-approve-confirm]');
+      var text = card.querySelector('[data-approve-text]');
+      if (actions) actions.hidden = true;
+      if (approved) {
+        if (status) { status.textContent = 'Approved'; status.classList.remove('bm-chip-purple'); status.classList.add('bm-chip-teal'); }
+        if (text) text.textContent = '✓ On it — reaching out to all 47 leads now.';
+        if (confirm) { confirm.querySelector('.bm-avatar').className = 'bm-avatar bm-avatar-teal'; confirm.querySelector('.bm-bubble').className = 'bm-bubble bm-bubble-teal'; }
+      } else {
+        if (status) { status.textContent = 'On hold'; }
+        if (text) text.textContent = "Holding — I won't reach out until you say so.";
+      }
+      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      scrollHint(confirm);
+    }
+
+    // You Set the Rules — segmented control per action
+    function runRuleOpt(btn) {
+      var seg = btn.closest('[data-seg]');
+      if (!seg) return;
+      var opts = seg.querySelectorAll('[data-action="rule-opt"]');
+      for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('is-active', opts[i] === btn);
+      var foot = btn.closest('.bm-card').querySelector('[data-rule-foot]');
+      if (foot && foot.hidden) { foot.hidden = false; scrollHint(foot); }
+    }
+
+    // You have full oversight — reveal the activity log
+    function runOversight(btn) {
+      var card = btn.closest('.bm-card');
+      var log = card.querySelector('[data-activity]');
+      if (!log) return;
+      log.hidden = false;
+      var lines = log.querySelectorAll('.bm-actline');
+      for (var i = 0; i < lines.length; i++) {
+        (function (line, idx) {
+          line.style.opacity = '0';
+          setTimeout(function () { line.style.opacity = ''; line.classList.add('is-in'); }, idx * 160);
+        })(lines[i], i);
+      }
+      markDone(btn, 'Live · 9 automations active');
+      scrollHint(btn.closest('.bm-actions') || btn.parentNode);
+    }
+  })();
+
+  // ── Affordance: hint that demo cards are interactive ────────────────────
+  (function () {
+    var panels = document.querySelectorAll('.pin-panel');
+    if (!panels.length) return;
+
+    for (var i = 0; i < panels.length; i++) {
+      // glow on every step's primary control
+      var target = panels[i].querySelector('.bm-btn-primary, .bm-switch[data-action], .bm-seg, [data-action]');
+      if (target) target.classList.add('bm-hint-target');
+    }
+    // the big "Press here" coachmark is rendered in the template (first card only)
+
+    // first interaction with a step retires its hint
+    var root = document.querySelector('main');
+    if (root) {
+      root.addEventListener('click', function (e) {
+        var a = e.target.closest('[data-action]');
+        if (!a) return;
+        var panel = a.closest('.pin-panel');
+        if (panel) panel.classList.add('is-engaged');
+      });
+    }
+  })();
+
   // Typewriter for imagine section
   const introEl = document.getElementById('imagine-intro');
   const imagineLines = document.querySelectorAll('#imagine-lines .imagine-line-hidden');
@@ -1270,31 +2451,6 @@ const teamLogos = [
   document.querySelector('.btn-cta')?.addEventListener('click', (e) => {
     e.preventDefault();
     focusEmailInput();
-  });
-
-  // Burger menu
-  const burger = document.getElementById('burger');
-  const navLinks = document.getElementById('nav-links');
-  burger?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    const open = navLinks.classList.toggle('is-open');
-    burger.classList.toggle('is-open', open);
-    burger.setAttribute('aria-expanded', String(open));
-  });
-  // Close on link click or outside click
-  navLinks?.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-      navLinks.classList.remove('is-open');
-      burger.classList.remove('is-open');
-      burger.setAttribute('aria-expanded', 'false');
-    }
-  });
-  document.addEventListener('click', (e) => {
-    if (!burger?.contains(e.target) && !navLinks?.contains(e.target)) {
-      navLinks?.classList.remove('is-open');
-      burger?.classList.remove('is-open');
-      burger?.setAttribute('aria-expanded', 'false');
-    }
   });
 </script>
 
