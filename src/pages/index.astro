@@ -12,6 +12,8 @@ const ICON = {
   bell: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
   sliders: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>`,
   eye: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
+  calendar: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  trending: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
 };
 
 const justAskSteps = [
@@ -88,6 +90,27 @@ const whatsappSteps = [
     icon: ICON.check,
     title: "Zero admin backlog",
     tags: [],
+    color: "indigo",
+  },
+];
+
+const magicianSteps = [
+  {
+    icon: ICON.search,
+    title: "Top of the Funnel",
+    eyebrow: "Superpower 01",
+    color: "amber",
+  },
+  {
+    icon: ICON.calendar,
+    title: "Win the Event",
+    eyebrow: "Superpower 02",
+    color: "teal",
+  },
+  {
+    icon: ICON.trending,
+    title: "Grow the Relationship",
+    eyebrow: "Superpower 03",
     color: "indigo",
   },
 ];
@@ -196,8 +219,8 @@ const teamLogos = [
       <div class="hero-glow" aria-hidden="true"></div>
       <div class="wrap hero-inner">
         <img src="/mateos-logo-secondary.svg" alt="" class="hero-logo" />
-        <h1><span class="brand-text">Mateos'</span><br /><span class="gradient-text">Sales Magician</span></h1>
-        <p class="hero-tagline">The perfect assistant, every step of the funnel.</p>
+        <h1><span class="brand-text">Mateos'</span><br /><span class="gradient-text">Operational Wizard</span></h1>
+        <p class="hero-tagline">A Chief AI Officer, as your personal assistant.</p>
         <div class="hero-actions">
           <a href="#imagine" class="btn-ghost-lg btn-ghost-animated">See The Magic ↓</a>
         </div>
@@ -210,10 +233,10 @@ const teamLogos = [
         <p class="imagine-eyebrow">Imagine</p>
         <p class="imagine-intro" id="imagine-intro"><span class="tw-cursor">|</span></p>
         <div class="imagine-lines" id="imagine-lines">
-          <p class="imagine-line imagine-line-hidden" set:html={`Pipeline <span class="imagine-hl">sorted.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Priorities <span class="imagine-hl">sorted.</span>`} />
           <p class="imagine-line imagine-line-hidden" set:html={`Drafts <span class="imagine-hl">ready.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Ghosters <span class="imagine-hl">flagged.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Upsells <span class="imagine-hl">surfaced.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Issues <span class="imagine-hl">flagged.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Opportunities <span class="imagine-hl">surfaced.</span>`} />
         </div>
       </div>
     </section>
@@ -224,7 +247,7 @@ const teamLogos = [
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
             <div class="pin-header">
-              <h2><span class="brand-text">It</span> Builds Workflows...</h2>
+              <h2><span class="brand-text">It</span> Builds Workflows</h2>
               <div class="pin-dots" aria-hidden="true">
                 {whatsappSteps.map((_s, i) => (
                   <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
@@ -264,20 +287,24 @@ const teamLogos = [
                         </div>
                         <div class="pin-window-body">
                           {i === 0 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble">☀️ Good morning, David — here's your day.</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
                               </div>
-                              <div class="bm-card bm-briefing" data-briefing data-prep-state="idle">
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble" data-brief-greeting>☀️ Good morning, David — here's your day.</div>
+                              </div>
+                              <div class="bm-card bm-briefing" data-briefing data-prep-state="idle" data-brief-card>
                                 <!-- AGENDA VIEW -->
                                 <div data-agenda>
-                                  <div class="bm-card-head">
+                                  <div class="bm-card-head" data-brief-row>
                                     <span>Today · Tue, Jun 24</span>
                                     <span class="bm-chip bm-chip-amber">3 meetings</span>
                                   </div>
 
-                                  <div class="bm-meeting">
+                                  <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">09:00</span>
                                     <span class="bm-line-title">Acme Corp — discovery call</span>
                                     <span class="bm-press-wrap">
@@ -291,36 +318,16 @@ const teamLogos = [
                                     <div class="bm-statusbar-text" data-statustext>Reading the event description…</div>
                                   </div>
 
-                                  <div class="bm-meeting">
+                                  <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">11:30</span>
                                     <span class="bm-line-title">Dana Lee — check-in</span>
                                     <span class="bm-chip bm-chip-teal">Prep in email</span>
                                   </div>
 
-                                  <div class="bm-meeting">
+                                  <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">15:00</span>
                                     <span class="bm-line-title">Northwind — renewal review</span>
                                     <span class="bm-chip bm-chip-teal">Prep in email</span>
-                                  </div>
-                                </div>
-
-                                <!-- PREP DETAIL VIEW (Acme) -->
-                                <div data-detail hidden>
-                                  <button class="bm-back" type="button" data-action="prep-back">← back</button>
-                                  <div class="bm-detail-title">
-                                    <span class="bm-time">09:00</span>
-                                    <span class="bm-detail-sep">|</span>
-                                    <span>Acme Corp — discovery call</span>
-                                  </div>
-                                  <div class="bm-prep-brief">
-                                    <div class="bm-prep-row"><span class="bm-prep-key">Last touch</span><span>Inbound demo · 4 days ago</span></div>
-                                    <div class="bm-prep-row"><span class="bm-prep-key">Who</span><span>Sarah Chen — VP Operations</span></div>
-                                    <div class="bm-prep-row"><span class="bm-prep-key">Pain</span><span>~6 hrs/week lost to manual reporting</span></div>
-                                    <div class="bm-prep-row"><span class="bm-prep-key">Angle</span><span>Lead with ROI / time saved</span></div>
-                                    <div class="bm-prep-row"><span class="bm-prep-key">Watch-out</span><span>Also evaluating a competitor</span></div>
-                                  </div>
-                                  <div class="bm-actions">
-                                    <button class="bm-btn bm-btn-primary" type="button" data-action="prep-email">Email me</button>
                                   </div>
                                 </div>
                               </div>
@@ -328,29 +335,33 @@ const teamLogos = [
                           )}
 
                           {i === 1 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal">Your Acme call just wrapped — want me to sync the CRM?</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
                               </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>Your Acme call just wrapped — want me to sync the CRM?</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
                                   <span>CRM update</span>
                                   <span class="bm-chip bm-chip-amber" data-sync-status>Pending</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Stage</span>
                                   <span class="bm-chip bm-chip-empty" data-fill data-value="Proposal">—</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Next step</span>
                                   <span class="bm-chip bm-chip-empty" data-fill data-value="Follow-up Thu">—</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Call notes</span>
                                   <span class="bm-chip bm-chip-empty" data-fill data-value="Added">—</span>
                                 </div>
-                                <div class="bm-actions">
+                                <div class="bm-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="sync">Sync CRM</button>
                                 </div>
                               </div>
@@ -358,33 +369,37 @@ const teamLogos = [
                           )}
 
                           {i === 2 && (
-                            <div class="bm-chat" data-backlog>
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-backlog data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">End of day — here's your backlog. Want me to run it? 🌙</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
+                              </div>
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble" data-brief-greeting>End of day — here's your backlog. Want me to run it? 🌙</div>
                               </div>
 
-                              <div class="bm-card" data-backlog-card>
-                                <div class="bm-card-head">
+                              <div class="bm-card" data-backlog-card data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
                                   <span>Backlog · 3 actions</span>
                                   <span class="bm-chip bm-chip-indigo" data-backlog-count>3 selected</span>
                                 </div>
-                                <label class="bm-task">
+                                <label class="bm-task" data-brief-row>
                                   <input type="checkbox" class="bm-checkbox" data-task checked />
                                   <span class="bm-task-box" />
                                   <span class="bm-line-title">Send 3 drafted follow-up emails</span>
                                 </label>
-                                <label class="bm-task">
+                                <label class="bm-task" data-brief-row>
                                   <input type="checkbox" class="bm-checkbox" data-task checked />
                                   <span class="bm-task-box" />
                                   <span class="bm-line-title">Update John on at-risk leads</span>
                                 </label>
-                                <label class="bm-task">
+                                <label class="bm-task" data-brief-row>
                                   <input type="checkbox" class="bm-checkbox" data-task checked />
                                   <span class="bm-task-box" />
                                   <span class="bm-line-title">Move tomorrow's team sync to Friday</span>
                                 </label>
-                                <div class="bm-backlog-actions">
+                                <div class="bm-backlog-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="execute">Execute backlog</button>
                                   <button class="bm-textbtn" type="button" data-action="backlog-close">Close</button>
                                 </div>
@@ -419,7 +434,7 @@ const teamLogos = [
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
             <div class="pin-header">
-              <h2>...And <span class="brand-text">It</span> Takes Initiative</h2>
+              <h2><span class="brand-text">It</span> Takes Initiative</h2>
               <div class="pin-dots" aria-hidden="true">
                 {justAskSteps.map((_s, i) => (
                   <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
@@ -454,89 +469,107 @@ const teamLogos = [
                         </div>
                         <div class="pin-window-body">
                           {i === 0 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble">3 deals are going cold this week — here's who to call first. ↓</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
                               </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble" data-brief-greeting>3 deals are going cold this week — here's who to call first. ↓</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
                                   <span>Going cold</span>
                                   <span class="bm-chip bm-chip-amber">At risk</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Acme Corp — Sarah Chen</span>
-                                  <span class="bm-chip bm-chip-empty">5 days quiet</span>
+                                  <span class="bm-chip bm-chip-empty" data-draft>5 days quiet</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Dana Lee — check-in</span>
-                                  <span class="bm-chip bm-chip-empty">3 weeks quiet</span>
+                                  <span class="bm-chip bm-chip-empty" data-draft>3 weeks quiet</span>
                                 </div>
-                                <div class="bm-line">
+                                <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Northwind — renewal</span>
-                                  <span class="bm-chip bm-chip-empty">8 days quiet</span>
+                                  <span class="bm-chip bm-chip-empty" data-draft>8 days quiet</span>
                                 </div>
-                                <div class="bm-card-body" data-propose-q>Want me to draft outreach to all three?</div>
-                                <div class="bm-line bm-result" data-propose-result hidden>
-                                  <span class="bm-time">✓</span>
-                                  <span class="bm-line-title">3 drafts ready in your inbox</span>
-                                  <span class="bm-chip bm-chip-teal">Done</span>
-                                </div>
-                                <div class="bm-actions">
+                                <div class="bm-card-body" data-propose-q data-brief-row>Want me to draft outreach to all three?</div>
+                                <div class="bm-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
                                 </div>
+                              </div>
+
+                              <div class="bm-msg" data-propose-done hidden>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal" data-propose-done-text></div>
                               </div>
                             </div>
                           )}
 
                           {i === 1 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble">Drafted your follow-up to Sarah — I referenced Tuesday's pricing chat.</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
                               </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble" data-brief-greeting>Drafted your follow-up to Sarah — I referenced Tuesday's pricing chat.</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
                                   <span>Follow-up · Acme Corp</span>
                                   <span class="bm-chip bm-chip-amber" data-exec-status>Draft</span>
                                 </div>
-                                <div class="bm-line"><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
-                                <div class="bm-line"><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
-                                <div class="bm-card-body">Hi Sarah — great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
-                                <div class="bm-actions">
+                                <div class="bm-line" data-brief-row><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
+                                <div class="bm-line" data-brief-row><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
+                                <div class="bm-card-body" data-brief-row>Hi Sarah — great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
+                                <div class="bm-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="execute-send">Send</button>
                                   <button class="bm-btn" type="button" data-action="execute-edit">Edit</button>
                                 </div>
-                                <div class="bm-msg bm-exec-confirm" data-exec-confirm hidden>
-                                  <span class="bm-avatar bm-avatar-teal">M</span>
-                                  <div class="bm-bubble bm-bubble-teal">✓ Sent to Sarah. CRM updated with the thread.</div>
-                                </div>
+                              </div>
+
+                              <div class="bm-msg bm-exec-confirm" data-exec-confirm hidden>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal" data-exec-confirm-text></div>
                               </div>
                             </div>
                           )}
 
                           {i === 2 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">Want me to handle this every time — no need to ask?</div>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
                               </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble" data-brief-greeting>Hey John! I see you ask me to follow up on first meetings, want me to just handle it on my own without asking every time?</div>
+                              </div>
+                              <div class="bm-msg" data-brief-cardloader hidden>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
                                   <span>Suggested automation</span>
                                   <span class="bm-chip bm-chip-indigo" data-auto-status>Off</span>
                                 </div>
-                                <div class="bm-rule">
+                                <div class="bm-rule" data-brief-row>
                                   <div class="bm-rule-text">
                                     <span class="bm-rule-title">Follow up after first meetings</span>
                                     <span class="bm-rule-sub">Draft 3 days later, every time</span>
                                   </div>
                                   <button class="bm-switch" type="button" data-action="automate" aria-label="Turn on automation" />
                                 </div>
-                                <div class="bm-msg bm-exec-confirm" data-auto-confirm hidden>
-                                  <span class="bm-avatar bm-avatar-indigo">M</span>
-                                  <div class="bm-bubble">✓ Automation on — I'll handle it from now on.</div>
-                                </div>
+                              </div>
+
+                              <div class="bm-msg bm-exec-confirm" data-auto-confirm hidden>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble bm-bubble-indigo" data-auto-confirm-text></div>
                               </div>
                             </div>
                           )}
@@ -608,10 +641,11 @@ const teamLogos = [
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="approve">Approve</button>
                                   <button class="bm-btn" type="button" data-action="hold">Hold</button>
                                 </div>
-                                <div class="bm-msg bm-exec-confirm" data-approve-confirm hidden>
-                                  <span class="bm-avatar bm-avatar-teal">M</span>
-                                  <div class="bm-bubble bm-bubble-teal" data-approve-text>On it.</div>
-                                </div>
+                              </div>
+
+                              <div class="bm-msg bm-exec-confirm" data-approve-confirm hidden>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal" data-approve-text></div>
                               </div>
                             </div>
                           )}
@@ -688,12 +722,162 @@ const teamLogos = [
       </div>
     </section>
 
+    <!-- ── THE SALES MAGICIAN (pinned, scroll-driven) ──────────────────── -->
+    <section class="workflow-section pin-section" id="magician">
+      <div class="pin-track" data-pin-track style={`--pin-steps: ${magicianSteps.length}`}>
+        <div class="pin-stage" data-pin-stage data-step="0">
+          <div class="wrap pin-stage-inner">
+            <div class="pin-header">
+              <h2>Meet the <span class="brand-text">Sales Magician</span></h2>
+              <p class="pin-lead">One teammate. Three superpowers across your funnel.</p>
+              <div class="pin-dots" aria-hidden="true">
+                {magicianSteps.map((_s, i) => (
+                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
+                ))}
+              </div>
+            </div>
+
+            <div class="pin-deck">
+              {magicianSteps.map((step, i) => {
+                const urls = ["mateos.ai/prospecting", "mateos.ai/events", "mateos.ai/accounts"];
+                return (
+                  <article
+                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
+                    data-panel={i}
+                    aria-hidden={i === 0 ? "false" : "true"}
+                  >
+                    <div class="pin-meta">
+                      <span class="step-icon" set:html={step.icon} />
+                      <div class="pin-meta-text">
+                        <div class="step-time">{step.eyebrow}</div>
+                        <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                      </div>
+                    </div>
+
+                    <div class="pin-visual">
+                      <div class="pin-window" aria-hidden="true">
+                        <div class="pin-window-chrome">
+                          <span class="dot dot-red" />
+                          <span class="dot dot-amber" />
+                          <span class="dot dot-green" />
+                          <span class="pin-window-url">{urls[i]}</span>
+                        </div>
+                        <div class="pin-window-body">
+                          {i === 0 && (
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
+                              </div>
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar">M</span>
+                                <div class="bm-bubble" data-brief-greeting>Found 3 fresh ways to fill your pipeline this week. 🔍</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
+                                  <span>Pipeline radar</span>
+                                  <span class="bm-chip bm-chip-amber">Live</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">New leads</span>
+                                  <span class="bm-chip bm-chip-teal">128 matched</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">New angle to sell</span>
+                                  <span class="bm-chip bm-chip-teal">Onboarding ROI</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">New market</span>
+                                  <span class="bm-chip bm-chip-teal">Fintech ops teams</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 1 && (
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
+                              </div>
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar bm-avatar-teal">M</span>
+                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>SaaSConf is in 2 weeks — I've got the whole event covered. 🎟️</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
+                                  <span>SaaSConf · 2 weeks out</span>
+                                  <span class="bm-chip bm-chip-teal">Ready</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Attendees matched</span>
+                                  <span class="bm-chip bm-chip-teal">37 ICP fits</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Intro emails drafted</span>
+                                  <span class="bm-chip bm-chip-teal">12 ready</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Meetings booked</span>
+                                  <span class="bm-chip bm-chip-teal">5 confirmed</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Your agenda</span>
+                                  <span class="bm-chip bm-chip-teal">Built</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+
+                          {i === 2 && (
+                            <div class="bm-chat" data-brief-stream>
+                              <div class="bm-msg" data-brief-typing hidden>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
+                              </div>
+                              <div class="bm-msg" data-brief-greeting-msg>
+                                <span class="bm-avatar bm-avatar-indigo">M</span>
+                                <div class="bm-bubble" data-brief-greeting>3 accounts in your network are ready to grow — here's where. 📈</div>
+                              </div>
+                              <div class="bm-card" data-brief-card>
+                                <div class="bm-card-head" data-brief-row>
+                                  <span>Expansion signals</span>
+                                  <span class="bm-chip bm-chip-indigo">Detected</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Acme Corp</span>
+                                  <span class="bm-chip bm-chip-indigo">Ready for Enterprise</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Northwind</span>
+                                  <span class="bm-chip bm-chip-indigo">+2 seats likely</span>
+                                </div>
+                                <div class="bm-line" data-brief-row>
+                                  <span class="bm-line-title">Warm intros</span>
+                                  <span class="bm-chip bm-chip-indigo">4 in your network</span>
+                                </div>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <!-- ── INTEGRATIONS ──────────────────────────────────────────────── -->
     <section class="integrations-section" id="integrations">
       <div class="wrap">
         <div class="section-header" data-reveal>
           <div class="eyebrow">Integrations</div>
-          <h2>...While <span class="brand-text">It</span> Works Everywhere</h2>
+          <h2><span class="brand-text">It</span> Works Everywhere</h2>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -1014,6 +1198,25 @@ const teamLogos = [
     font-weight: 300;
   }
   @keyframes tw-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── Morning Brief streaming build ───────────────────────────────── */
+  .bm-typing { padding: 11px 13px; gap: 5px; }
+  .bm-typing span {
+    width: 6px; height: 6px; border-radius: var(--radius-full);
+    background: var(--text-muted); opacity: 0.5;
+    animation: bm-typing-bounce 1.2s ease-in-out infinite;
+  }
+  .bm-typing span:nth-child(2) { animation-delay: 0.18s; }
+  .bm-typing span:nth-child(3) { animation-delay: 0.36s; }
+  @keyframes bm-typing-bounce {
+    0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
+    30% { transform: translateY(-4px); opacity: 0.9; }
+  }
+  .bm-stream-hide { opacity: 0; transform: translateY(10px); }
+  .bm-stream-show {
+    opacity: 1; transform: none;
+    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+  }
   .imagine-intro {
     font-family: var(--font-display);
     font-size: clamp(1.6rem, 4vw, 2.5rem);
@@ -1255,6 +1458,10 @@ const teamLogos = [
     border-color: var(--teal-300); background: var(--color-accent-soft); color: var(--teal-700);
   }
   :global([data-theme="dark"]) .bm-bubble-teal { color: var(--teal-200); }
+  .bm-bubble-indigo {
+    border-color: var(--indigo-300); background: var(--color-secondary-soft); color: var(--indigo-600);
+  }
+  :global([data-theme="dark"]) .bm-bubble-indigo { color: var(--indigo-200); }
 
   .bm-card {
     background: var(--surface); border: 1px solid var(--border);
@@ -1336,6 +1543,7 @@ const teamLogos = [
   .pin-track { position: relative; }
   .pin-header { text-align: center; margin-bottom: 36px; position: relative; z-index: 2; }
   .pin-header h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); }
+  .pin-lead { margin-top: 12px; font-size: clamp(0.95rem, 1.6vw, 1.15rem); color: var(--text-muted); }
   .pin-dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
   .pin-dot {
     width: 8px; height: 8px; border-radius: var(--radius-full);
@@ -1411,13 +1619,8 @@ const teamLogos = [
 
   /* ── Demo-card interaction helpers (new classes only) ────────────────── */
   .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
-  .bm-chip-loading { background: var(--surface-muted); display: inline-flex; align-items: center; justify-content: center; min-width: 30px; }
-  .bm-chip-spin {
-    display: inline-block; width: 9px; height: 9px; border-radius: var(--radius-full);
-    border: 2px solid var(--border-strong); border-top-color: var(--color-accent);
-    animation: bmSpin 0.55s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) { .bm-chip-spin { animation: none; } }
+  .bm-chip-loading { background: transparent; box-shadow: none; display: inline-flex; align-items: center; justify-content: center; min-width: 64px; padding: 3px 0; }
+  /* .bm-chip-bar / .bm-chip-bar-fill live in global.css — created at runtime via innerHTML */
   .bm-chip.is-filling { animation: bmPop 0.3s ease; }
   @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
   .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
@@ -1994,6 +2197,155 @@ const teamLogos = [
     updateAll();
   })();
 
+  // ── Demo cards: stream the message + card in as each step becomes active ─
+  (function () {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var TYPING_MS = 1050;     // typing-dots dwell before the message
+    var CHAR_MS = 55;         // per-character typing speed
+    var ROW_MS = 240;         // stagger between card rows
+    var PRESS_HIDE_MS = 2000; // "Press here" lingers this long, then fades
+    var CARD_GAP_MS = 700;    // natural pause between the message and the card appearing
+    var CARD_LOADER_MS = 1400;// optional "preparing" loader beat before a card builds
+    var CURSOR = '<span class="tw-cursor">|</span>';
+
+    var roots = document.querySelectorAll('[data-brief-stream]');
+    for (var r = 0; r < roots.length; r++) setupStream(roots[r]);
+
+    function setupStream(root) {
+      var panel = root.closest('[data-panel]');
+      if (!panel) return;
+
+      // Pristine authored markup — restored on scroll-out so any interaction
+      // state (synced values, sent emails, toggles, executed backlog…) is wiped
+      // and the card streams again from scratch when scrolled back in.
+      var originalHTML = root.innerHTML;
+
+      var typingEl, greetMsg, greetEl, cardLoader, card, rows, presshere, chars;
+      function queryEls() {
+        typingEl = root.querySelector('[data-brief-typing]');
+        greetMsg = root.querySelector('[data-brief-greeting-msg]');
+        greetEl = root.querySelector('[data-brief-greeting]');
+        cardLoader = root.querySelector('[data-brief-cardloader]');   // optional "preparing" beat before the card
+        card = root.querySelector('[data-brief-card]');
+        rows = root.querySelectorAll('[data-brief-row]');
+        presshere = root.querySelector('.bm-presshere');
+        chars = greetEl ? Array.from(greetEl.textContent) : [];   // grapheme-safe (keeps ☀️/🌙 intact)
+      }
+      queryEls();
+      if (!typingEl || !greetEl || !card) return;
+
+      // event handling is delegated on <main>, so swapping innerHTML is safe
+      function restore() { root.innerHTML = originalHTML; queryEls(); }
+
+      var token = 0;
+      var timers = [];
+      var inView = false;   // this card's section currently on screen
+      var active = false;   // a play has run for the current in-view + active-step period
+      function wait(ms, fn) { timers.push(setTimeout(fn, ms)); }
+      function clearTimers() { for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]); timers = []; }
+
+      function reset() {
+        clearTimers();
+        typingEl.hidden = false;
+        greetMsg.hidden = true;
+        greetEl.textContent = '';
+        if (cardLoader) cardLoader.hidden = true;
+        card.hidden = true;   // out of layout so no empty box sits under the greeting
+        card.classList.add('bm-stream-hide');
+        card.classList.remove('bm-stream-show');
+        for (var i = 0; i < rows.length; i++) {
+          rows[i].classList.add('bm-stream-hide');
+          rows[i].classList.remove('bm-stream-show');
+        }
+        if (presshere) { presshere.style.transition = ''; presshere.style.opacity = ''; presshere.style.display = ''; }
+      }
+
+      function play() {
+        var my = ++token;
+        reset();
+        wait(TYPING_MS, function () {
+          if (my !== token) return;
+          typingEl.hidden = true;
+          greetMsg.hidden = false;
+          typeChar(my, 0);
+        });
+      }
+
+      function typeChar(my, i) {
+        if (my !== token) return;
+        if (i <= chars.length) {
+          greetEl.innerHTML = chars.slice(0, i).join('') + CURSOR;
+          wait(CHAR_MS, function () { typeChar(my, i + 1); });
+        } else {
+          greetEl.textContent = chars.join('');   // drop the cursor
+          // optional "preparing" loader beat, otherwise a short natural pause —
+          // either way the card builds in a beat after the message lands
+          if (cardLoader) {
+            cardLoader.hidden = false;
+            wait(CARD_LOADER_MS, function () {
+              if (my !== token) return;
+              cardLoader.hidden = true;
+              revealCard(my);
+            });
+          } else {
+            wait(CARD_GAP_MS, function () { revealCard(my); });
+          }
+        }
+      }
+
+      function revealCard(my) {
+        if (my !== token) return;
+        // card appears, then rows stagger into their slots
+        card.hidden = false;
+        card.classList.remove('bm-stream-hide');
+        card.classList.add('bm-stream-show');
+        revealRows(my, 0);
+        // the "Press here" nudge lingers briefly, then fades on its own
+        wait(PRESS_HIDE_MS, function () {
+          if (my !== token || !presshere) return;
+          presshere.style.transition = 'opacity 0.45s ease';
+          presshere.style.opacity = '0';
+          wait(500, function () { if (my === token && presshere) presshere.style.display = 'none'; });
+        });
+      }
+
+      function revealRows(my, i) {
+        if (my !== token || i >= rows.length) return;
+        rows[i].classList.remove('bm-stream-hide');
+        rows[i].classList.add('bm-stream-show');
+        wait(ROW_MS, function () { revealRows(my, i + 1); });
+      }
+
+      // Play only when this panel is the active step AND its section is on
+      // screen — so the very first scroll-down arrival streams (step 0 starts
+      // is-active in markup, off-screen, before the user gets there).
+      function tryPlay() {
+        if (inView && panel.classList.contains('is-active') && !active) {
+          active = true;
+          play();
+        }
+      }
+      function stop() { active = false; token++; restore(); reset(); }
+
+      reset();   // JS-gated hidden state (no-JS / reduced-motion users see the full card)
+
+      new MutationObserver(function () {
+        if (panel.classList.contains('is-active')) tryPlay();
+        else stop();
+      }).observe(panel, { attributes: true, attributeFilter: ['class'] });
+
+      // Watch the 100vh sticky stage (not the multi-viewport-tall section, whose
+      // area ratio could never cross a meaningful threshold). ~0.6 fires as the
+      // stage settles into the viewport.
+      var stage = panel.closest('[data-pin-stage]') || panel;
+      new IntersectionObserver(function (entries) {
+        inView = entries[0].isIntersecting;
+        if (inView) tryPlay(); else stop();
+      }, { threshold: 0.6 }).observe(stage);
+    }
+  })();
+
   // ── Pinned sections: interactive demo-card actions (local only) ─────────
   (function () {
     var root = document.querySelector('main');
@@ -2013,8 +2365,6 @@ const teamLogos = [
       if (!btn || btn.classList.contains('is-busy')) return;
       var action = btn.getAttribute('data-action');
       if (action === 'prep') runPrep(btn);
-      else if (action === 'prep-back') closeDetail(btn);
-      else if (action === 'prep-email') emailPrep(btn);
       else if (action === 'sync') runSync(btn);
       else if (action === 'execute') runExecute(btn);
       else if (action === 'backlog-close') backlogClose(btn);
@@ -2037,12 +2387,8 @@ const teamLogos = [
     function runPrep(btn) {
       var card = btn.closest('[data-briefing]');
       if (!card) return;
-      var state = card.getAttribute('data-prep-state');
 
-      // already prepped → straight to the detail view (no loading)
-      if (state === 'ready') { openDetail(card); return; }
-
-      // idle → run the status-bar loading, then surface "Read Prep"
+      // idle → run the status-bar loading, then drop "Prep in email" on the row
       card.setAttribute('data-prep-state', 'loading');
       btn.classList.add('is-busy');
       btn.style.visibility = 'hidden';
@@ -2069,51 +2415,17 @@ const teamLogos = [
         } else {
           setTimeout(function () {
             bar.hidden = true;
-            btn.classList.remove('is-busy');
-            btn.style.visibility = '';
-            btn.textContent = 'Read Prep →';
-            card.setAttribute('data-prep-state', 'ready');
+            // Acme joins the already-prepped meetings: button → "Prep in email" chip
+            var wrap = btn.closest('.bm-press-wrap') || btn;
+            wrap.hidden = true;
+            var chip = card.querySelector('[data-emailed]');
+            if (chip) chip.hidden = false;
+            card.setAttribute('data-prep-state', 'emailed');
+            // all three meetings prepped → nudge onward
+            scrollHint();
           }, PREP_LINE_MS);
         }
       })();
-    }
-
-    function openDetail(card) {
-      card.querySelector('[data-agenda]').hidden = true;
-      card.querySelector('[data-detail]').hidden = false;
-    }
-
-    function closeDetail(btn) {
-      var card = btn.closest('[data-briefing]');
-      card.querySelector('[data-detail]').hidden = true;
-      card.querySelector('[data-agenda]').hidden = false;
-      // button now reads "Read" — reopen without re-running the loading
-      var prepBtn = card.querySelector('[data-action="prep"]');
-      if (prepBtn) prepBtn.textContent = 'Read';
-    }
-
-    function emailPrep(btn) {
-      var card = btn.closest('[data-briefing]');
-      btn.classList.add('is-busy');
-      btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
-      setTimeout(function () {
-        btn.innerHTML = 'Email sent ✓';
-        setTimeout(function () {
-          card.querySelector('[data-detail]').hidden = true;
-          card.querySelector('[data-agenda]').hidden = false;
-          // Acme joins the already-prepped meetings
-          var prepBtn = card.querySelector('[data-action="prep"]');
-          if (prepBtn) prepBtn.hidden = true;
-          var chip = card.querySelector('[data-emailed]');
-          if (chip) chip.hidden = false;
-          card.setAttribute('data-prep-state', 'emailed');
-          // reset the detail button for next time the panel is built
-          btn.classList.remove('is-busy');
-          btn.innerHTML = 'Email me';
-          // all three meetings prepped → nudge onward
-          scrollHint(chip ? chip.parentNode : null);
-        }, 850);
-      }, 1050);
     }
 
     function runSync(btn) {
@@ -2121,26 +2433,17 @@ const teamLogos = [
       btn.innerHTML = '<span class="bm-btn-spin"></span>Syncing…';
       var card = btn.closest('.bm-card');
       var fills = card.querySelectorAll('[data-fill]');
-      var SYNC_STEP = 820;      // time between fields
-      var SYNC_RESOLVE = 480;   // loader shows, then value resolves
+      var SYNC_STEP = 1350;     // time between fields
+      var SYNC_RESOLVE = 1080;  // green liquid fills the gray loader, then the value resolves
 
       var status = card.querySelector('[data-sync-status]');
       if (status) { status.textContent = 'Syncing…'; }
 
       for (var i = 0; i < fills.length; i++) {
         (function (chip, idx) {
-          // 1) show a loader in this field
           setTimeout(function () {
-            chip.classList.remove('bm-chip-empty');
-            chip.classList.add('bm-chip-loading');
-            chip.innerHTML = '<span class="bm-chip-spin"></span>';
+            fillChip(chip, SYNC_RESOLVE, chip.getAttribute('data-value'));
           }, idx * SYNC_STEP);
-          // 2) resolve to the value
-          setTimeout(function () {
-            chip.classList.remove('bm-chip-loading');
-            chip.classList.add('bm-chip-teal', 'is-filling');
-            chip.textContent = chip.getAttribute('data-value');
-          }, idx * SYNC_STEP + SYNC_RESOLVE);
         })(fills[i], i);
       }
 
@@ -2153,7 +2456,7 @@ const teamLogos = [
         // terminal state: a confirmation, not a pressable button
         markDone(btn, 'Synced ✓');
         scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-      }, fills.length * SYNC_STEP + 300);
+      }, fills.length * SYNC_STEP + 450);
     }
 
     // turn an action button into a non-interactive "done" confirmation
@@ -2164,18 +2467,106 @@ const teamLogos = [
       if (label != null) btn.innerHTML = label;
     }
 
-    // 2s after an action finishes, append a "Keep scrolling" nudge to a container
-    function scrollHint(container) {
-      if (!container) return;
+    // type text into a chat bubble: brief typing-dots beat, then a typewriter
+    // reveal (grapheme-safe, blinking cursor) — like the card greetings
+    function streamBubble(bubble, text, onDone) {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        bubble.textContent = text;
+        if (onDone) onDone();
+        return;
+      }
+      var chars = Array.from(text);   // keeps 🎉 intact
+      var CURSOR = '<span class="tw-cursor">|</span>';
+      bubble.classList.add('bm-typing');
+      bubble.innerHTML = '<span></span><span></span><span></span>';
       setTimeout(function () {
-        if (container.querySelector('.bm-scrollhint')) return;
-        var h = document.createElement('span');
-        h.className = 'bm-scrollhint is-in';
-        h.setAttribute('aria-hidden', 'true');
-        h.innerHTML = 'Keep scrolling <span class="bm-scrollhint-arrow">↓</span>';
-        container.appendChild(h);
+        bubble.classList.remove('bm-typing');
+        var i = 0;
+        (function step() {
+          i++;
+          if (i <= chars.length) {
+            bubble.innerHTML = chars.slice(0, i).join('') + CURSOR;
+            setTimeout(step, 55);
+          } else {
+            bubble.textContent = chars.join('');
+            if (onDone) onDone();
+          }
+        })();
+      }, 700);
+    }
+
+    // run the gray→green "liquid" loader on a chip, then resolve it to `label`
+    function fillChip(chip, resolveMs, label) {
+      chip.classList.remove('bm-chip-empty');
+      chip.classList.add('bm-chip-loading');
+      chip.innerHTML = '<span class="bm-chip-bar"><span class="bm-chip-bar-fill"></span></span>';
+      var f = chip.querySelector('.bm-chip-bar-fill');
+      f.style.transition = 'width ' + resolveMs + 'ms linear';
+      void f.offsetWidth;   // commit the 0% baseline so the fill actually animates
+      f.style.width = '100%';
+      setTimeout(function () {
+        chip.classList.remove('bm-chip-loading');
+        chip.classList.add('bm-chip-teal', 'is-filling');
+        chip.textContent = label;
+      }, resolveMs);
+    }
+
+    // 2s after an action finishes, append a "Keep scrolling" nudge to a container
+    // A single "Keep scrolling" nudge, pinned to the bottom-center of the
+    // viewport (not attached to any card). It stays put until the next slide
+    // is in place — i.e. it hides only once the active step actually advances.
+    var floatHint = null;
+    var hintStepSig = null;
+    function ensureFloatHint() {
+      if (floatHint) return floatHint;
+      floatHint = document.createElement('div');
+      floatHint.className = 'bm-scrollhint bm-scrollhint-float';
+      floatHint.setAttribute('aria-hidden', 'true');
+      floatHint.innerHTML = 'Keep scrolling <span class="bm-scrollhint-arrow">↓</span>';
+      document.body.appendChild(floatHint);
+      return floatHint;
+    }
+    // signature of every pinned stage's current step — changes when a slide advances
+    var stages = document.querySelectorAll('[data-pin-stage]');
+    var tracks = document.querySelectorAll('[data-pin-track]');
+    var hintTrack = null;
+    function stepSignature() {
+      var parts = [];
+      for (var i = 0; i < stages.length; i++) parts.push(stages[i].getAttribute('data-step'));
+      return parts.join('|');
+    }
+    // the pinned section currently filling the viewport (its track spans the centre)
+    function trackAtCenter() {
+      var mid = window.innerHeight / 2;
+      for (var i = 0; i < tracks.length; i++) {
+        var r = tracks[i].getBoundingClientRect();
+        if (r.top <= mid && r.bottom >= mid) return tracks[i];
+      }
+      return null;
+    }
+    function scrollHint() {
+      setTimeout(function () {
+        var h = ensureFloatHint();
+        hintStepSig = stepSignature();   // remember which slide we nudged from
+        hintTrack = trackAtCenter();     // …and which section
+        h.classList.add('is-shown');
       }, 2000);
     }
+    function hideHint() { if (floatHint) floatHint.classList.remove('is-shown'); }
+    // hide once the slide advances within the section…
+    function maybeHideHint() {
+      if (floatHint && floatHint.classList.contains('is-shown') && hintStepSig !== null
+          && stepSignature() !== hintStepSig) hideHint();
+    }
+    for (var s = 0; s < stages.length; s++) {
+      new MutationObserver(maybeHideHint).observe(stages[s], { attributes: true, attributeFilter: ['data-step'] });
+    }
+    // …and also once we scroll on to a different section entirely (e.g. off the
+    // last slide of a section, where the step number never changes).
+    window.addEventListener('scroll', function () {
+      if (!floatHint || !floatHint.classList.contains('is-shown') || !hintTrack) return;
+      if (trackAtCenter() !== hintTrack) hideHint();
+    }, { passive: true });
 
     function backlogParts(node) {
       var root = node.closest ? node.closest('[data-backlog]') : node;
@@ -2219,14 +2610,15 @@ const teamLogos = [
       // hide the Review button once the backlog is fully executed — nothing to review
       var reviewBtn = p.collapsed.querySelector('[data-action="backlog-review"]');
       if (reviewBtn) reviewBtn.hidden = !!opts.complete;
-      // swap the closing message
+      // swap the closing message — streamed in like a chat message
       var followText = p.followup.querySelector('[data-followup-text]');
-      if (followText) followText.textContent = opts.complete
-        ? 'Great job! You can go rest now 🎉'
-        : 'Anything else then?';
+      var msg = opts.complete ? 'Great job! You can go rest now 🎉' : 'Anything else then?';
+      // success message gets the avatar-matched (indigo) tint
+      if (followText) followText.classList.toggle('bm-bubble-indigo', !!opts.complete);
       p.card.hidden = true;
       p.collapsed.hidden = false;
       p.followup.hidden = false;
+      if (followText) streamBubble(followText, msg);
       scrollHint(p.followup);
     }
 
@@ -2282,14 +2674,32 @@ const teamLogos = [
       btn.classList.add('is-busy');
       btn.innerHTML = '<span class="bm-btn-spin"></span>Drafting…';
       var card = btn.closest('.bm-card');
+      var q = card.querySelector('[data-propose-q]');
+      if (q) q.hidden = true;
+
+      var drafts = card.querySelectorAll('[data-draft]');
+      var DRAFT_STEP = 1350;     // time between emails
+      var DRAFT_RESOLVE = 1080;  // green liquid fills the loader, then "Drafted"
+
+      for (var i = 0; i < drafts.length; i++) {
+        (function (chip, idx) {
+          setTimeout(function () { fillChip(chip, DRAFT_RESOLVE, 'Drafted'); }, idx * DRAFT_STEP);
+        })(drafts[i], i);
+      }
+
+      // once all three are prepared → stream a confirmation that the drafts
+      // landed in the user's own system (Outlook)
       setTimeout(function () {
-        var q = card.querySelector('[data-propose-q]');
-        if (q) q.hidden = true;
-        var res = card.querySelector('[data-propose-result]');
-        if (res) { res.hidden = false; res.classList.add('is-in'); }
-        markDone(btn, 'Drafts ready ✓');
+        markDone(btn, 'Drafted ✓');
+        var root = card.closest('[data-brief-stream]') || card.parentNode;
+        var doneMsg = root.querySelector('[data-propose-done]');
+        if (doneMsg) {
+          doneMsg.hidden = false;
+          var bubble = doneMsg.querySelector('[data-propose-done-text]');
+          if (bubble) streamBubble(bubble, 'Drafts ready in your Outlook ✓');
+        }
         scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-      }, 1400);
+      }, (drafts.length - 1) * DRAFT_STEP + DRAFT_RESOLVE + 300);
     }
 
     // It Executes — send the drafted follow-up
@@ -2303,8 +2713,14 @@ const teamLogos = [
         if (status) { status.textContent = 'Sent'; status.classList.remove('bm-chip-amber'); status.classList.add('bm-chip-teal'); }
         if (editBtn) editBtn.hidden = true;
         markDone(btn, 'Sent ✓');
-        var confirm = card.querySelector('[data-exec-confirm]');
-        if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+        // confirmation now lives under the card and streams in like a message
+        var root = card.closest('[data-brief-stream]') || card.parentNode;
+        var confirm = root.querySelector('[data-exec-confirm]');
+        if (confirm) {
+          confirm.hidden = false;
+          var bubble = confirm.querySelector('[data-exec-confirm-text]');
+          if (bubble) streamBubble(bubble, '✓ Sent to Sarah. CRM updated with the thread.');
+        }
         scrollHint(confirm);
       }, 1100);
     }
@@ -2316,9 +2732,14 @@ const teamLogos = [
       var card = btn.closest('.bm-card');
       var status = card.querySelector('[data-auto-status]');
       if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
-      var confirm = card.querySelector('[data-auto-confirm]');
-      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
-      // place the nudge at the bottom of the card, on its own line
+      // confirmation now lives under the card and streams in like a message
+      var root = card.closest('[data-brief-stream]') || card.parentNode;
+      var confirm = root.querySelector('[data-auto-confirm]');
+      if (confirm) {
+        confirm.hidden = false;
+        var bubble = confirm.querySelector('[data-auto-confirm-text]');
+        if (bubble) streamBubble(bubble, '✓ Automation on — I\'ll handle it from now on.');
+      }
       scrollHint(card);
     }
 
@@ -2328,18 +2749,23 @@ const teamLogos = [
       var card = btn.closest('.bm-card');
       var actions = card.querySelector('[data-approve-actions]');
       var status = card.querySelector('[data-approve-status]');
-      var confirm = card.querySelector('[data-approve-confirm]');
-      var text = card.querySelector('[data-approve-text]');
+      // confirmation now lives under the card and streams in like a message
+      var root = card.closest('[data-brief-stream]') || card.parentNode;
+      var confirm = root.querySelector('[data-approve-confirm]');
+      var text = confirm ? confirm.querySelector('[data-approve-text]') : null;
       if (actions) actions.hidden = true;
+      var msg;
       if (approved) {
         if (status) { status.textContent = 'Approved'; status.classList.remove('bm-chip-purple'); status.classList.add('bm-chip-teal'); }
-        if (text) text.textContent = '✓ On it — reaching out to all 47 leads now.';
-        if (confirm) { confirm.querySelector('.bm-avatar').className = 'bm-avatar bm-avatar-teal'; confirm.querySelector('.bm-bubble').className = 'bm-bubble bm-bubble-teal'; }
+        msg = '✓ On it — reaching out to all 47 leads now.';
       } else {
         if (status) { status.textContent = 'On hold'; }
-        if (text) text.textContent = "Holding — I won't reach out until you say so.";
+        msg = "Holding — I won't reach out until you say so.";
       }
-      if (confirm) { confirm.hidden = false; confirm.classList.add('is-in'); }
+      if (confirm) {
+        confirm.hidden = false;
+        if (text) streamBubble(text, msg);
+      }
       scrollHint(confirm);
     }
 

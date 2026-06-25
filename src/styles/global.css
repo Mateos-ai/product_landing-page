@@ -187,6 +187,18 @@ button{cursor:pointer;font-family:var(--font-body)}
 .theme-opt:hover{background:var(--surface-muted);color:var(--text-primary)}
 .theme-opt.is-active{color:var(--text-primary)}
 
+/* ── CRM-sync field loader: green bar filling (created at runtime) ─────── */
+.bm-chip-bar{
+  display:block;width:62px;height:10px;border-radius:var(--radius-full);
+  background:var(--border-strong);overflow:hidden;
+  box-shadow:inset 0 1px 2px rgba(0,0,0,0.10);
+}
+.bm-chip-bar-fill{
+  display:block;width:0;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--teal-600),var(--teal-400));
+}
+@media(prefers-reduced-motion:reduce){.bm-chip-bar-fill{transition:none!important;width:100%}}
+
 /* ── "Keep scrolling" tooltip (created at runtime, so styled globally) ──── */
 .bm-scrollhint{
   position:relative;display:inline-flex;align-items:center;gap:5px;
@@ -203,6 +215,14 @@ button{cursor:pointer;font-family:var(--font-body)}
 /* when dropped at the bottom of a card (flex column), center it as a pill */
 .bm-card>.bm-scrollhint{align-self:center;margin-left:0;margin-top:2px}
 .bm-card>.bm-scrollhint::before{display:none}
+/* floating variant: pinned to the bottom-center of the viewport */
+.bm-scrollhint-float{
+  position:fixed;left:50%;bottom:22px;margin:0;z-index:60;
+  opacity:0;transform:translateX(-50%) translateY(10px);pointer-events:none;
+  transition:opacity 0.45s ease,transform 0.45s ease;
+}
+.bm-scrollhint-float::before{display:none}
+.bm-scrollhint-float.is-shown{opacity:1;transform:translateX(-50%) translateY(0)}
 .bm-scrollhint-arrow{display:inline-block;animation:scrollArrow 1.1s ease-in-out infinite}
 @keyframes bmHintIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scrollArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
