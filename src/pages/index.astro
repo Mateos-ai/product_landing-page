@@ -22,6 +22,7 @@ const justAskSteps = [
     title: "It Proposes",
     titleColor: "amber",
     eyebrow: "Proactive",
+    sub: "It spots deals going quiet and tells you who to chase first, e.g. “Acme has been silent 5 days, want me to draft a nudge?”",
     tags: [],
     color: "amber",
   },
@@ -30,6 +31,7 @@ const justAskSteps = [
     title: "It Executes",
     titleColor: "amber",
     eyebrow: "Autonomous",
+    sub: "Say the word and it acts: drafting and sending the follow-up, then logging the whole thread to your CRM.",
     tags: [],
     color: "teal",
   },
@@ -38,6 +40,7 @@ const justAskSteps = [
     title: "It Automates",
     titleColor: "amber",
     eyebrow: "Hands-off",
+    sub: "Recurring work becomes a rule, e.g. “always draft a follow-up 3 days after a first meeting”, handled without asking.",
     tags: [],
     color: "indigo",
   },
@@ -49,6 +52,7 @@ const controlSteps = [
     title: "You Decide",
     titleColor: "purple",
     eyebrow: "Approval first",
+    sub: "Anything high-stakes waits for your yes, e.g. emailing all 47 open leads only goes out once you approve it.",
     tags: [],
     color: "amber",
   },
@@ -57,6 +61,7 @@ const controlSteps = [
     title: "You Set the Rules",
     titleColor: "purple",
     eyebrow: "Your guardrails",
+    sub: "Choose what it does on its own vs. what needs a check, per action (send follow-ups, block calendar, log to CRM), changeable anytime.",
     tags: [],
     color: "teal",
   },
@@ -65,6 +70,7 @@ const controlSteps = [
     title: "You have full oversight",
     titleColor: "purple",
     eyebrow: "Full transparency",
+    sub: "Every action is on the record, e.g. “drafted follow-up to Sarah · 09:14”, so nothing happens off the books.",
     tags: [],
     color: "indigo",
   },
@@ -75,6 +81,7 @@ const whatsappSteps = [
     time: "7:30 AM",
     icon: ICON.sun,
     title: "Morning Briefing",
+    sub: "You wake up to a full rundown of your day: meetings, priorities, and prep for each call, ready before you are.",
     tags: [],
     color: "amber",
   },
@@ -82,6 +89,7 @@ const whatsappSteps = [
     time: "During the day",
     icon: ICON.message,
     title: "Post-meeting update",
+    sub: "Text it what happened after a call and your CRM updates itself: stage, next steps, and notes, no forms to fill.",
     tags: [],
     color: "teal",
   },
@@ -89,6 +97,7 @@ const whatsappSteps = [
     time: "End of day",
     icon: ICON.check,
     title: "Zero admin backlog",
+    sub: "At day's end it clears the busywork: sending drafts, updating leads, rescheduling, so tomorrow starts clean.",
     tags: [],
     color: "indigo",
   },
@@ -99,18 +108,21 @@ const magicianSteps = [
     icon: ICON.search,
     title: "Top of the Funnel",
     eyebrow: "Superpower 01",
+    sub: "It keeps the pipeline full: surfacing fresh leads, new angles to sell, and untapped markets to go after.",
     color: "amber",
   },
   {
     icon: ICON.calendar,
     title: "Win the Event",
     eyebrow: "Superpower 02",
+    sub: "Before a conference it does the legwork: matches attendees to your ICP, drafts intros, and books meetings.",
     color: "teal",
   },
   {
     icon: ICON.trending,
     title: "Grow the Relationship",
     eyebrow: "Superpower 03",
+    sub: "It spots expansion signals in your accounts: upsell moments, likely renewals, and warm intros in your network.",
     color: "indigo",
   },
 ];
@@ -269,6 +281,7 @@ const teamLogos = [
                       <div class="pin-meta-text">
                         <div class="step-time">{step.time}</div>
                         <h3>{step.title}</h3>
+                        <p class="pin-sub">{step.sub}</p>
                         <div class="step-tags">
                           {step.tags.map((tag) => (
                             <span class={`tag tag-${step.color}`}>{tag}</span>
@@ -294,7 +307,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>☀️ Good morning, David — here's your day.</div>
+                                <div class="bm-bubble" data-brief-greeting>☀️ Good morning, David. Here's your day.</div>
                               </div>
                               <div class="bm-card bm-briefing" data-briefing data-prep-state="idle" data-brief-card>
                                 <!-- AGENDA VIEW -->
@@ -306,9 +319,8 @@ const teamLogos = [
 
                                   <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">09:00</span>
-                                    <span class="bm-line-title">Acme Corp — discovery call</span>
+                                    <span class="bm-line-title">Acme Corp · discovery call</span>
                                     <span class="bm-press-wrap">
-                                      <span class="bm-presshere" aria-hidden="true">Press here</span>
                                       <button class="bm-btn bm-btn-sm" type="button" data-action="prep">Prep</button>
                                     </span>
                                     <span class="bm-chip bm-chip-teal" data-emailed hidden>Prep in email</span>
@@ -320,13 +332,13 @@ const teamLogos = [
 
                                   <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">11:30</span>
-                                    <span class="bm-line-title">Dana Lee — check-in</span>
+                                    <span class="bm-line-title">Dana Lee · check-in</span>
                                     <span class="bm-chip bm-chip-teal">Prep in email</span>
                                   </div>
 
                                   <div class="bm-meeting" data-brief-row>
                                     <span class="bm-time">15:00</span>
-                                    <span class="bm-line-title">Northwind — renewal review</span>
+                                    <span class="bm-line-title">Northwind · renewal review</span>
                                     <span class="bm-chip bm-chip-teal">Prep in email</span>
                                   </div>
                                 </div>
@@ -342,7 +354,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>Your Acme call just wrapped — want me to sync the CRM?</div>
+                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>Your Acme call just wrapped. Want me to sync the CRM?</div>
                               </div>
                               <div class="bm-card" data-brief-card>
                                 <div class="bm-card-head" data-brief-row>
@@ -351,15 +363,15 @@ const teamLogos = [
                                 </div>
                                 <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Stage</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Proposal">—</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Proposal">·</span>
                                 </div>
                                 <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Next step</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Follow-up Thu">—</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Follow-up Thu">·</span>
                                 </div>
                                 <div class="bm-line" data-brief-row>
                                   <span class="bm-line-title">Call notes</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Added">—</span>
+                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Added">·</span>
                                 </div>
                                 <div class="bm-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="sync">Sync CRM</button>
@@ -376,7 +388,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-brief-greeting>End of day — here's your backlog. Want me to run it? 🌙</div>
+                                <div class="bm-bubble" data-brief-greeting>End of day. Here's your backlog. Want me to run it? 🌙</div>
                               </div>
 
                               <div class="bm-card" data-backlog-card data-brief-card>
@@ -456,6 +468,7 @@ const teamLogos = [
                       <div class="pin-meta-text">
                         <div class="step-time">{step.eyebrow}</div>
                         <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                        <p class="pin-sub">{step.sub}</p>
                       </div>
                     </div>
 
@@ -476,7 +489,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>3 deals are going cold this week — here's who to call first. ↓</div>
+                                <div class="bm-bubble" data-brief-greeting>3 deals are going cold this week. Here's who to call first. ↓</div>
                               </div>
                               <div class="bm-card" data-brief-card>
                                 <div class="bm-card-head" data-brief-row>
@@ -484,15 +497,15 @@ const teamLogos = [
                                   <span class="bm-chip bm-chip-amber">At risk</span>
                                 </div>
                                 <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Acme Corp — Sarah Chen</span>
+                                  <span class="bm-line-title">Acme Corp · Sarah Chen</span>
                                   <span class="bm-chip bm-chip-empty" data-draft>5 days quiet</span>
                                 </div>
                                 <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Dana Lee — check-in</span>
+                                  <span class="bm-line-title">Dana Lee · check-in</span>
                                   <span class="bm-chip bm-chip-empty" data-draft>3 weeks quiet</span>
                                 </div>
                                 <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Northwind — renewal</span>
+                                  <span class="bm-line-title">Northwind · renewal</span>
                                   <span class="bm-chip bm-chip-empty" data-draft>8 days quiet</span>
                                 </div>
                                 <div class="bm-card-body" data-propose-q data-brief-row>Want me to draft outreach to all three?</div>
@@ -516,7 +529,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>Drafted your follow-up to Sarah — I referenced Tuesday's pricing chat.</div>
+                                <div class="bm-bubble" data-brief-greeting>Drafted your follow-up to Sarah. I referenced Tuesday's pricing chat.</div>
                               </div>
                               <div class="bm-card" data-brief-card>
                                 <div class="bm-card-head" data-brief-row>
@@ -525,7 +538,7 @@ const teamLogos = [
                                 </div>
                                 <div class="bm-line" data-brief-row><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
                                 <div class="bm-line" data-brief-row><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
-                                <div class="bm-card-body" data-brief-row>Hi Sarah — great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
+                                <div class="bm-card-body" data-brief-row>Hi Sarah, great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
                                 <div class="bm-actions" data-brief-row>
                                   <button class="bm-btn bm-btn-primary" type="button" data-action="execute-send">Send</button>
                                   <button class="bm-btn" type="button" data-action="execute-edit">Edit</button>
@@ -613,6 +626,7 @@ const teamLogos = [
                       <div class="pin-meta-text">
                         <div class="step-time">{step.eyebrow}</div>
                         <h3><span class="brand-text-purple">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                        <p class="pin-sub">{step.sub}</p>
                       </div>
                     </div>
 
@@ -629,7 +643,7 @@ const teamLogos = [
                             <div class="bm-chat">
                               <div class="bm-msg">
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">This affects 47 open leads — want me to go ahead?</div>
+                                <div class="bm-bubble">This affects 47 open leads. Want me to go ahead?</div>
                               </div>
                               <div class="bm-card bm-card-approve">
                                 <div class="bm-card-head">
@@ -654,7 +668,7 @@ const teamLogos = [
                             <div class="bm-chat">
                               <div class="bm-msg">
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">Set how I handle each action — you're in charge.</div>
+                                <div class="bm-bubble">Set how I handle each action. You're in charge.</div>
                               </div>
                               <div class="bm-card">
                                 <div class="bm-card-head">
@@ -682,7 +696,7 @@ const teamLogos = [
                                     <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
                                   </div>
                                 </div>
-                                <div class="bm-card-foot" data-rule-foot hidden>✓ Saved — you can change these any time.</div>
+                                <div class="bm-card-foot" data-rule-foot hidden>✓ Saved. You can change these any time.</div>
                               </div>
                             </div>
                           )}
@@ -691,7 +705,7 @@ const teamLogos = [
                             <div class="bm-chat">
                               <div class="bm-msg">
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">Every action I take is logged — nothing happens off the record.</div>
+                                <div class="bm-bubble">Every action I take is logged. Nothing happens off the record.</div>
                               </div>
                               <div class="bm-card">
                                 <div class="bm-card-head">
@@ -701,7 +715,7 @@ const teamLogos = [
                                 <div class="bm-activity" data-activity hidden>
                                   <div class="bm-actline"><span class="bm-time">09:14</span><span class="bm-line-title">Drafted follow-up to Sarah @ Acme</span></div>
                                   <div class="bm-actline"><span class="bm-time">08:30</span><span class="bm-line-title">Blocked 30 min prep before Notion call</span></div>
-                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Flagged Northwind — 8 days quiet</span></div>
+                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Flagged Northwind · 8 days quiet</span></div>
                                   <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Synced 4 calls to CRM</span></div>
                                 </div>
                                 <div class="bm-actions">
@@ -751,6 +765,7 @@ const teamLogos = [
                       <div class="pin-meta-text">
                         <div class="step-time">{step.eyebrow}</div>
                         <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
+                        <p class="pin-sub">{step.sub}</p>
                       </div>
                     </div>
 
@@ -802,7 +817,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>SaaSConf is in 2 weeks — I've got the whole event covered. 🎟️</div>
+                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>SaaSConf is in 2 weeks. I've got the whole event covered. 🎟️</div>
                               </div>
                               <div class="bm-card" data-brief-card>
                                 <div class="bm-card-head" data-brief-row>
@@ -837,7 +852,7 @@ const teamLogos = [
                               </div>
                               <div class="bm-msg" data-brief-greeting-msg>
                                 <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-brief-greeting>3 accounts in your network are ready to grow — here's where. 📈</div>
+                                <div class="bm-bubble" data-brief-greeting>3 accounts in your network are ready to grow. Here's where. 📈</div>
                               </div>
                               <div class="bm-card" data-brief-card>
                                 <div class="bm-card-head" data-brief-row>
@@ -1552,21 +1567,29 @@ const teamLogos = [
   .pin-dot.is-active { width: 22px; background: var(--color-primary); }
 
   .pin-deck { position: relative; z-index: 1; }
-  /* panel inner layout — applies in both stacked (fallback) and pinned modes */
+  /* each card fills (about) a full viewport so only one demo shows at a time */
   .pin-panel {
+    position: relative; z-index: 1;
     display: flex; flex-direction: column; gap: 24px; align-items: center;
-    margin-bottom: 48px;
+    justify-content: center;
+    min-height: 100vh; min-height: 100svh;
+    padding: 48px 0;
   }
-  .pin-panel:last-child { margin-bottom: 0; }
   .pin-meta { display: flex; gap: 20px; align-items: flex-start; width: 100%; max-width: 460px; }
   .pin-meta .step-icon { flex-shrink: 0; }
-  .pin-meta-text h3 { font-size: 1.5rem; margin: 4px 0 12px; }
+  .pin-meta-text h3 { font-size: 1.5rem; margin: 4px 0 10px; }
+  .pin-sub {
+    font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);
+    max-width: 46ch; margin: 0;
+  }
   .pin-visual { width: 100%; max-width: 460px; }
 
   .pin-window {
+    position: relative;
     border-radius: var(--radius-lg); background: var(--surface);
     border: 1px solid var(--border); box-shadow: var(--shadow-xl); overflow: hidden;
   }
+  /* .demo-cursor is created at runtime, so it's styled in global.css (unscoped) */
   .pin-window-chrome {
     display: flex; align-items: center; gap: 8px;
     padding: 11px 14px; background: var(--surface-muted); border-bottom: 1px solid var(--border);
@@ -1583,12 +1606,35 @@ const teamLogos = [
   :global([data-theme="dark"]) .pin-window-body { background: var(--neutral-900); }
 
   @media (min-width: 1024px) {
+    /* three-column timeline: text | centred icon (on the line) | browser mockup.
+       text and mockup sit in opposite columns on the same row; they swap sides
+       on alternating cards. */
     .pin-panel {
-      display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 48px; align-items: center;
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
+      align-items: center; column-gap: 40px;
     }
-    .pin-meta { justify-self: end; max-width: 420px; }
-    .pin-visual { justify-self: start; }
+    .pin-meta { display: contents; }                 /* icon + text become panel grid items */
+    /* pin all three to row 1 so grid auto-placement can't bump any to a new row */
+    .pin-panel .step-icon { grid-column: 2; grid-row: 1; justify-self: center; position: relative; z-index: 2; }
+    /* connecting line: a gradient segment from each icon UP to the previous one.
+       :not(:first-of-type) excludes the first icon of every section. */
+    .pin-panel:not(:first-of-type) .step-icon::before {
+      content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+      bottom: calc(100% + 6px); width: 3px; height: calc(100svh - 54px);
+      border-radius: 2px; z-index: -1;
+    }
+    .step-teal .step-icon::before   { background: linear-gradient(180deg, var(--amber-500), var(--teal-500)); }
+    .step-indigo .step-icon::before { background: linear-gradient(180deg, var(--teal-500), var(--indigo-500)); }
+
+    .pin-meta-text { grid-column: 1; grid-row: 1; justify-self: end; text-align: right; max-width: 380px; }
+    .pin-sub { max-width: none; }
+    .pin-visual { grid-column: 3; grid-row: 1; justify-self: start; width: 100%; max-width: 460px; }
+
+    /* every other card: text and mockup swap to the opposite columns (same row) */
+    .pin-panel:nth-of-type(even) .pin-meta-text { grid-column: 3; justify-self: start; text-align: left; }
+    .pin-panel:nth-of-type(even) .pin-visual { grid-column: 1; justify-self: end; }
   }
 
   /* ── Pinned mode (JS opt-in) ─────────────────────────────────────────── */
@@ -1620,7 +1666,7 @@ const teamLogos = [
   /* ── Demo-card interaction helpers (new classes only) ────────────────── */
   .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
   .bm-chip-loading { background: transparent; box-shadow: none; display: inline-flex; align-items: center; justify-content: center; min-width: 64px; padding: 3px 0; }
-  /* .bm-chip-bar / .bm-chip-bar-fill live in global.css — created at runtime via innerHTML */
+  /* .bm-chip-bar / .bm-chip-bar-fill live in global.css - created at runtime via innerHTML */
   .bm-chip.is-filling { animation: bmPop 0.3s ease; }
   @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
   .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
@@ -1674,15 +1720,15 @@ const teamLogos = [
   /* each beat grows bigger than the last until a capped max, then rests and repeats */
   @keyframes hintGlow {
     0%   { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    8%   { box-shadow: 0 0 0 4px  rgba(var(--hint), 0.20); }   /* beat 1 — small */
+    8%   { box-shadow: 0 0 0 4px  rgba(var(--hint), 0.20); }   /* beat 1 - small */
     18%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    30%  { box-shadow: 0 0 0 8px  rgba(var(--hint), 0.26); }   /* beat 2 — medium */
+    30%  { box-shadow: 0 0 0 8px  rgba(var(--hint), 0.26); }   /* beat 2 - medium */
     42%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    56%  { box-shadow: 0 0 0 13px rgba(var(--hint), 0.30); }   /* beat 3 — max */
+    56%  { box-shadow: 0 0 0 13px rgba(var(--hint), 0.30); }   /* beat 3 - max */
     70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
     100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
   }
-  /* big "Press here" coachmark — right beside the first card's Prep button */
+  /* big "Press here" coachmark - right beside the first card's Prep button */
   .bm-press-wrap { position: relative; display: inline-flex; flex-shrink: 0; }
   .bm-presshere {
     position: absolute; top: 50%; right: calc(100% + 14px);
@@ -2130,219 +2176,199 @@ const teamLogos = [
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
 
-  // ── Pinned sections: scroll progress → active step (handles all) ────────
+  // ── Demo cards: self-playing looping demos driven by a fake cursor ──────
   (function () {
     var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return; // leave the stacked CSS fallback in place
+    if (reduce) return;   // reduced-motion / no-JS users see the static authored cards
 
-    var tracks = document.querySelectorAll('[data-pin-track]');
-    if (!tracks.length) return;
-
-    function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
-
-    var instances = [];
-    for (var t = 0; t < tracks.length; t++) {
-      (function (track) {
-        var stage = track.querySelector('[data-pin-stage]');
-        var section = track.closest('.pin-section');
-        if (!stage || !section) return;
-        section.classList.add('pin-active');
-
-        var panels = stage.querySelectorAll('[data-panel]');
-        var dots = stage.querySelectorAll('[data-dot]');
-        var N = panels.length;
-        var current = -1;
-
-        function setStep(i) {
-          if (i === current) return;
-          current = i;
-          stage.setAttribute('data-step', i);
-          for (var k = 0; k < panels.length; k++) {
-            var active = (k === i);
-            panels[k].classList.toggle('is-active', active);
-            panels[k].classList.toggle('is-above', k < i);
-            panels[k].classList.toggle('is-below', k > i);
-            panels[k].setAttribute('aria-hidden', active ? 'false' : 'true');
-          }
-          for (var d = 0; d < dots.length; d++) {
-            dots[d].classList.toggle('is-active', d === i);
-          }
-        }
-
-        function update() {
-          var total = track.offsetHeight - stage.offsetHeight;
-          if (total <= 0) { setStep(0); return; }
-          var p = clamp(-track.getBoundingClientRect().top / total, 0, 1);
-          var step = Math.floor(p * N);
-          if (step > N - 1) step = N - 1;
-          setStep(step);
-        }
-
-        setStep(0);
-        instances.push(update);
-      })(tracks[t]);
-    }
-
-    var ticking = false;
-    function updateAll() {
-      ticking = false;
-      for (var i = 0; i < instances.length; i++) instances[i]();
-    }
-    function onScroll() {
-      if (!ticking) { ticking = true; requestAnimationFrame(updateAll); }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', onScroll);
-    updateAll();
-  })();
-
-  // ── Demo cards: stream the message + card in as each step becomes active ─
-  (function () {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-
-    var TYPING_MS = 1050;     // typing-dots dwell before the message
-    var CHAR_MS = 55;         // per-character typing speed
-    var ROW_MS = 240;         // stagger between card rows
-    var PRESS_HIDE_MS = 2000; // "Press here" lingers this long, then fades
-    var CARD_GAP_MS = 700;    // natural pause between the message and the card appearing
-    var CARD_LOADER_MS = 1400;// optional "preparing" loader beat before a card builds
+    var TYPING_MS = 950;      // typing-dots dwell before the message
+    var CHAR_MS = 45;         // per-character typing speed
+    var ROW_MS = 220;         // stagger between card rows
+    var CARD_GAP_MS = 600;    // pause between the message landing and the card building
+    var CARD_LOADER_MS = 1300;// optional "preparing" loader beat before a card builds
+    var HOLD_MS = 2600;       // dwell on the finished state before the demo loops
+    var CURSOR_MOVE_MS = 720; // must match the .demo-cursor transform transition
     var CURSOR = '<span class="tw-cursor">|</span>';
 
-    var roots = document.querySelectorAll('[data-brief-stream]');
-    for (var r = 0; r < roots.length; r++) setupStream(roots[r]);
+    // how long each auto-clicked action takes to play out before we loop
+    var ACTION_MS = {
+      prep: 4400, sync: 4800, execute: 3600, propose: 4600,
+      'execute-send': 2600, automate: 2200, approve: 2400,
+      oversight: 1500, 'rule-opt': 1400
+    };
 
-    function setupStream(root) {
-      var panel = root.closest('[data-panel]');
-      if (!panel) return;
+    // a classic pointer arrow, filled with the brand orange
+    var CURSOR_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.2 L5 19.6 L9.3 15.4 L12.1 21.6 L14.9 20.4 L12.1 14.4 L18.4 14.4 Z"/></svg>';
 
-      // Pristine authored markup — restored on scroll-out so any interaction
-      // state (synced values, sent emails, toggles, executed backlog…) is wiped
-      // and the card streams again from scratch when scrolled back in.
-      var originalHTML = root.innerHTML;
+    var panels = document.querySelectorAll('.pin-panel');
+    for (var i = 0; i < panels.length; i++) setupCard(panels[i]);
 
-      var typingEl, greetMsg, greetEl, cardLoader, card, rows, presshere, chars;
-      function queryEls() {
-        typingEl = root.querySelector('[data-brief-typing]');
-        greetMsg = root.querySelector('[data-brief-greeting-msg]');
-        greetEl = root.querySelector('[data-brief-greeting]');
-        cardLoader = root.querySelector('[data-brief-cardloader]');   // optional "preparing" beat before the card
-        card = root.querySelector('[data-brief-card]');
-        rows = root.querySelectorAll('[data-brief-row]');
-        presshere = root.querySelector('.bm-presshere');
-        chars = greetEl ? Array.from(greetEl.textContent) : [];   // grapheme-safe (keeps ☀️/🌙 intact)
-      }
-      queryEls();
-      if (!typingEl || !greetEl || !card) return;
+    function setupCard(panel) {
+      var windowEl = panel.querySelector('.pin-window');
+      var body = panel.querySelector('.pin-window-body');
+      if (!windowEl || !body) return;
 
-      // event handling is delegated on <main>, so swapping innerHTML is safe
-      function restore() { root.innerHTML = originalHTML; queryEls(); }
+      // Pristine authored markup - restored on every loop so the demo replays
+      // from scratch (typed message, empty chips, un-sent emails, off toggles…).
+      var originalHTML = body.innerHTML;
+
+      // one fake cursor per card window; it lives outside `body` so the innerHTML
+      // reset between loops never removes it
+      var cursor = document.createElement('span');
+      cursor.className = 'demo-cursor';
+      cursor.setAttribute('aria-hidden', 'true');
+      cursor.innerHTML = CURSOR_SVG;
+      windowEl.appendChild(cursor);
 
       var token = 0;
+      var running = false;
       var timers = [];
-      var inView = false;   // this card's section currently on screen
-      var active = false;   // a play has run for the current in-view + active-step period
-      function wait(ms, fn) { timers.push(setTimeout(fn, ms)); }
+      function wait(ms, fn) { var t = setTimeout(fn, ms); timers.push(t); return t; }
       function clearTimers() { for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]); timers = []; }
+      function hideCursor() { cursor.style.opacity = '0'; cursor.classList.remove('is-click'); }
 
       function reset() {
         clearTimers();
+        body.innerHTML = originalHTML;   // event handling is delegated on <main>, so this is safe
+        hideCursor();
+      }
+
+      // start at the component's centre, then glide to the element and "click" it
+      function moveCursorTo(el, cb) {
+        var wr = windowEl.getBoundingClientRect();
+        var er = el.getBoundingClientRect();
+        var x = (er.left - wr.left) + er.width / 2;
+        var y = (er.top - wr.top) + er.height / 2;
+        // jump to the centre with no animation, then transition over to the target
+        cursor.style.transition = 'none';
+        cursor.style.transform = 'translate(' + (wr.width / 2) + 'px, ' + (wr.height / 2) + 'px)';
+        cursor.style.opacity = '1';
+        void cursor.offsetWidth;          // commit the centre position before animating
+        cursor.style.transition = '';     // restore the transition from the stylesheet
+        requestAnimationFrame(function () {
+          cursor.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+        });
+        wait(CURSOR_MOVE_MS + 120, function () {
+          cursor.classList.add('is-click');
+          wait(240, function () { cursor.classList.remove('is-click'); if (cb) cb(); });
+        });
+      }
+
+      // the one control this card's demo should auto-click (null = display only)
+      function primaryTarget() {
+        var sel = '[data-action="prep"],[data-action="sync"],[data-action="execute"],' +
+                  '[data-action="propose"],[data-action="execute-send"],[data-action="automate"],' +
+                  '[data-action="approve"],[data-action="oversight"]';
+        var t = body.querySelector(sel);
+        if (t) return t;
+        // "You Set the Rules": flip the first row's segmented control over to Auto
+        var seg = body.querySelector('[data-seg]');
+        if (seg) {
+          var opts = seg.querySelectorAll('[data-action="rule-opt"]');
+          return opts.length > 1 ? opts[1] : null;
+        }
+        return null;
+      }
+      function actionMs(el) { return ACTION_MS[el.getAttribute('data-action')] || 2500; }
+
+      // ── the intro stream: typing dots → typewriter greeting → card builds ──
+      function playStream(my, done) {
+        var root = body.querySelector('[data-brief-stream]');
+        if (!root) { done(); return; }   // control cards have no stream - show statically
+        var typingEl = root.querySelector('[data-brief-typing]');
+        var greetMsg = root.querySelector('[data-brief-greeting-msg]');
+        var greetEl = root.querySelector('[data-brief-greeting]');
+        var cardLoader = root.querySelector('[data-brief-cardloader]');
+        var card = root.querySelector('[data-brief-card]');
+        var rows = root.querySelectorAll('[data-brief-row]');
+        if (!typingEl || !greetEl || !card) { done(); return; }
+        var chars = Array.from(greetEl.textContent);   // grapheme-safe (keeps ☀️/🌙 intact)
+
         typingEl.hidden = false;
         greetMsg.hidden = true;
         greetEl.textContent = '';
         if (cardLoader) cardLoader.hidden = true;
-        card.hidden = true;   // out of layout so no empty box sits under the greeting
+        // keep the card in layout (opacity only) so its height is reserved from
+        // the start - in normal flow, display:none → block would jump the page
         card.classList.add('bm-stream-hide');
         card.classList.remove('bm-stream-show');
         for (var i = 0; i < rows.length; i++) {
           rows[i].classList.add('bm-stream-hide');
           rows[i].classList.remove('bm-stream-show');
         }
-        if (presshere) { presshere.style.transition = ''; presshere.style.opacity = ''; presshere.style.display = ''; }
-      }
 
-      function play() {
-        var my = ++token;
-        reset();
         wait(TYPING_MS, function () {
           if (my !== token) return;
           typingEl.hidden = true;
           greetMsg.hidden = false;
-          typeChar(my, 0);
+          typeChar(0);
         });
-      }
 
-      function typeChar(my, i) {
-        if (my !== token) return;
-        if (i <= chars.length) {
-          greetEl.innerHTML = chars.slice(0, i).join('') + CURSOR;
-          wait(CHAR_MS, function () { typeChar(my, i + 1); });
-        } else {
-          greetEl.textContent = chars.join('');   // drop the cursor
-          // optional "preparing" loader beat, otherwise a short natural pause —
-          // either way the card builds in a beat after the message lands
-          if (cardLoader) {
-            cardLoader.hidden = false;
-            wait(CARD_LOADER_MS, function () {
-              if (my !== token) return;
-              cardLoader.hidden = true;
-              revealCard(my);
-            });
+        function typeChar(i) {
+          if (my !== token) return;
+          if (i <= chars.length) {
+            greetEl.innerHTML = chars.slice(0, i).join('') + CURSOR;
+            wait(CHAR_MS, function () { typeChar(i + 1); });
           } else {
-            wait(CARD_GAP_MS, function () { revealCard(my); });
+            greetEl.textContent = chars.join('');   // drop the cursor
+            if (cardLoader) {
+              cardLoader.hidden = false;
+              wait(CARD_LOADER_MS, function () { if (my !== token) return; cardLoader.hidden = true; revealCard(); });
+            } else {
+              wait(CARD_GAP_MS, revealCard);
+            }
           }
         }
-      }
-
-      function revealCard(my) {
-        if (my !== token) return;
-        // card appears, then rows stagger into their slots
-        card.hidden = false;
-        card.classList.remove('bm-stream-hide');
-        card.classList.add('bm-stream-show');
-        revealRows(my, 0);
-        // the "Press here" nudge lingers briefly, then fades on its own
-        wait(PRESS_HIDE_MS, function () {
-          if (my !== token || !presshere) return;
-          presshere.style.transition = 'opacity 0.45s ease';
-          presshere.style.opacity = '0';
-          wait(500, function () { if (my === token && presshere) presshere.style.display = 'none'; });
-        });
-      }
-
-      function revealRows(my, i) {
-        if (my !== token || i >= rows.length) return;
-        rows[i].classList.remove('bm-stream-hide');
-        rows[i].classList.add('bm-stream-show');
-        wait(ROW_MS, function () { revealRows(my, i + 1); });
-      }
-
-      // Play only when this panel is the active step AND its section is on
-      // screen — so the very first scroll-down arrival streams (step 0 starts
-      // is-active in markup, off-screen, before the user gets there).
-      function tryPlay() {
-        if (inView && panel.classList.contains('is-active') && !active) {
-          active = true;
-          play();
+        function revealCard() {
+          if (my !== token) return;
+          card.classList.remove('bm-stream-hide');
+          card.classList.add('bm-stream-show');
+          revealRows(0);
+        }
+        function revealRows(i) {
+          if (my !== token) return;
+          if (i >= rows.length) { done(); return; }
+          rows[i].classList.remove('bm-stream-hide');
+          rows[i].classList.add('bm-stream-show');
+          wait(ROW_MS, function () { revealRows(i + 1); });
         }
       }
-      function stop() { active = false; token++; restore(); reset(); }
 
-      reset();   // JS-gated hidden state (no-JS / reduced-motion users see the full card)
+      // ── one loop: reset → stream in → cursor clicks the action → hold → repeat ──
+      function cycle() {
+        var my = ++token;
+        reset();
+        playStream(my, function () {
+          if (my !== token) return;
+          var target = primaryTarget();
+          if (target) {
+            wait(450, function () {
+              if (my !== token) return;
+              moveCursorTo(target, function () {
+                if (my !== token) return;
+                target.click();
+                wait(actionMs(target), finish);
+              });
+            });
+          } else {
+            wait(900, finish);
+          }
+        });
+        function finish() {
+          if (my !== token) return;
+          hideCursor();
+          wait(HOLD_MS, function () { if (my === token && running) cycle(); });
+        }
+      }
 
-      new MutationObserver(function () {
-        if (panel.classList.contains('is-active')) tryPlay();
-        else stop();
-      }).observe(panel, { attributes: true, attributeFilter: ['class'] });
+      function start() { if (running) return; running = true; cycle(); }
+      function stop() { running = false; token++; clearTimers(); reset(); }
 
-      // Watch the 100vh sticky stage (not the multi-viewport-tall section, whose
-      // area ratio could never cross a meaningful threshold). ~0.6 fires as the
-      // stage settles into the viewport.
-      var stage = panel.closest('[data-pin-stage]') || panel;
+      // only play once the whole browser mockup is in view; pause + reset otherwise
       new IntersectionObserver(function (entries) {
-        inView = entries[0].isIntersecting;
-        if (inView) tryPlay(); else stop();
-      }, { threshold: 0.6 }).observe(stage);
+        var e = entries[0];
+        if (e.isIntersecting && e.intersectionRatio >= 0.95) start(); else stop();
+      }, { threshold: [0, 0.95, 1] }).observe(windowEl);
     }
   })();
 
@@ -2468,7 +2494,7 @@ const teamLogos = [
     }
 
     // type text into a chat bubble: brief typing-dots beat, then a typewriter
-    // reveal (grapheme-safe, blinking cursor) — like the card greetings
+    // reveal (grapheme-safe, blinking cursor) - like the card greetings
     function streamBubble(bubble, text, onDone) {
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         bubble.textContent = text;
@@ -2511,62 +2537,10 @@ const teamLogos = [
       }, resolveMs);
     }
 
-    // 2s after an action finishes, append a "Keep scrolling" nudge to a container
-    // A single "Keep scrolling" nudge, pinned to the bottom-center of the
-    // viewport (not attached to any card). It stays put until the next slide
-    // is in place — i.e. it hides only once the active step actually advances.
-    var floatHint = null;
-    var hintStepSig = null;
-    function ensureFloatHint() {
-      if (floatHint) return floatHint;
-      floatHint = document.createElement('div');
-      floatHint.className = 'bm-scrollhint bm-scrollhint-float';
-      floatHint.setAttribute('aria-hidden', 'true');
-      floatHint.innerHTML = 'Keep scrolling <span class="bm-scrollhint-arrow">↓</span>';
-      document.body.appendChild(floatHint);
-      return floatHint;
-    }
-    // signature of every pinned stage's current step — changes when a slide advances
-    var stages = document.querySelectorAll('[data-pin-stage]');
-    var tracks = document.querySelectorAll('[data-pin-track]');
-    var hintTrack = null;
-    function stepSignature() {
-      var parts = [];
-      for (var i = 0; i < stages.length; i++) parts.push(stages[i].getAttribute('data-step'));
-      return parts.join('|');
-    }
-    // the pinned section currently filling the viewport (its track spans the centre)
-    function trackAtCenter() {
-      var mid = window.innerHeight / 2;
-      for (var i = 0; i < tracks.length; i++) {
-        var r = tracks[i].getBoundingClientRect();
-        if (r.top <= mid && r.bottom >= mid) return tracks[i];
-      }
-      return null;
-    }
-    function scrollHint() {
-      setTimeout(function () {
-        var h = ensureFloatHint();
-        hintStepSig = stepSignature();   // remember which slide we nudged from
-        hintTrack = trackAtCenter();     // …and which section
-        h.classList.add('is-shown');
-      }, 2000);
-    }
-    function hideHint() { if (floatHint) floatHint.classList.remove('is-shown'); }
-    // hide once the slide advances within the section…
-    function maybeHideHint() {
-      if (floatHint && floatHint.classList.contains('is-shown') && hintStepSig !== null
-          && stepSignature() !== hintStepSig) hideHint();
-    }
-    for (var s = 0; s < stages.length; s++) {
-      new MutationObserver(maybeHideHint).observe(stages[s], { attributes: true, attributeFilter: ['data-step'] });
-    }
-    // …and also once we scroll on to a different section entirely (e.g. off the
-    // last slide of a section, where the step number never changes).
-    window.addEventListener('scroll', function () {
-      if (!floatHint || !floatHint.classList.contains('is-shown') || !hintTrack) return;
-      if (trackAtCenter() !== hintTrack) hideHint();
-    }, { passive: true });
+    // The cards no longer pin/advance on scroll, so the "Keep scrolling" nudge
+    // is gone. The demo action functions below still call scrollHint() at the
+    // end of their sequence - keep it as a harmless no-op.
+    function scrollHint() {}
 
     function backlogParts(node) {
       var root = node.closest ? node.closest('[data-backlog]') : node;
@@ -2607,10 +2581,10 @@ const teamLogos = [
       if (p.summary) p.summary.textContent = summaryText;
       // green "all done" treatment
       p.collapsed.classList.toggle('is-complete', !!opts.complete);
-      // hide the Review button once the backlog is fully executed — nothing to review
+      // hide the Review button once the backlog is fully executed - nothing to review
       var reviewBtn = p.collapsed.querySelector('[data-action="backlog-review"]');
       if (reviewBtn) reviewBtn.hidden = !!opts.complete;
-      // swap the closing message — streamed in like a chat message
+      // swap the closing message - streamed in like a chat message
       var followText = p.followup.querySelector('[data-followup-text]');
       var msg = opts.complete ? 'Great job! You can go rest now 🎉' : 'Anything else then?';
       // success message gets the avatar-matched (indigo) tint
@@ -2646,7 +2620,7 @@ const teamLogos = [
         var remaining = p.tasks.length - done;
         var complete = (remaining === 0);
         var summary = complete
-          ? 'All executed — backlog clear'
+          ? 'All executed. Backlog clear'
           : '✓ ' + done + (done === 1 ? ' task handled' : ' tasks handled') + ' · ' + remaining + ' left';
         collapseBacklog(p.root, summary, { complete: complete });
         btn.classList.remove('is-busy');
@@ -2669,7 +2643,7 @@ const teamLogos = [
     }
 
     // ── Takes Initiative cards ──────────────────────────────────────────
-    // It Proposes — agent drafts outreach to the at-risk deals
+    // It Proposes - agent drafts outreach to the at-risk deals
     function runPropose(btn) {
       btn.classList.add('is-busy');
       btn.innerHTML = '<span class="bm-btn-spin"></span>Drafting…';
@@ -2702,7 +2676,7 @@ const teamLogos = [
       }, (drafts.length - 1) * DRAFT_STEP + DRAFT_RESOLVE + 300);
     }
 
-    // It Executes — send the drafted follow-up
+    // It Executes - send the drafted follow-up
     function runSendFollowup(btn) {
       btn.classList.add('is-busy');
       btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
@@ -2725,7 +2699,7 @@ const teamLogos = [
       }, 1100);
     }
 
-    // It Automates — flip the rule on
+    // It Automates - flip the rule on
     function runAutomate(btn) {
       if (btn.classList.contains('on')) return;
       btn.classList.add('on');
@@ -2738,13 +2712,13 @@ const teamLogos = [
       if (confirm) {
         confirm.hidden = false;
         var bubble = confirm.querySelector('[data-auto-confirm-text]');
-        if (bubble) streamBubble(bubble, '✓ Automation on — I\'ll handle it from now on.');
+        if (bubble) streamBubble(bubble, '✓ Automation on. I\'ll handle it from now on.');
       }
       scrollHint(card);
     }
 
     // ── You Stay In Control cards ───────────────────────────────────────
-    // You Decide — approve / hold, two outcomes
+    // You Decide - approve / hold, two outcomes
     function runApprove(btn, approved) {
       var card = btn.closest('.bm-card');
       var actions = card.querySelector('[data-approve-actions]');
@@ -2757,10 +2731,10 @@ const teamLogos = [
       var msg;
       if (approved) {
         if (status) { status.textContent = 'Approved'; status.classList.remove('bm-chip-purple'); status.classList.add('bm-chip-teal'); }
-        msg = '✓ On it — reaching out to all 47 leads now.';
+        msg = '✓ On it, reaching out to all 47 leads now.';
       } else {
         if (status) { status.textContent = 'On hold'; }
-        msg = "Holding — I won't reach out until you say so.";
+        msg = "Holding. I won't reach out until you say so.";
       }
       if (confirm) {
         confirm.hidden = false;
@@ -2769,7 +2743,7 @@ const teamLogos = [
       scrollHint(confirm);
     }
 
-    // You Set the Rules — segmented control per action
+    // You Set the Rules - segmented control per action
     function runRuleOpt(btn) {
       var seg = btn.closest('[data-seg]');
       if (!seg) return;
@@ -2779,7 +2753,7 @@ const teamLogos = [
       if (foot && foot.hidden) { foot.hidden = false; scrollHint(foot); }
     }
 
-    // You have full oversight — reveal the activity log
+    // You have full oversight - reveal the activity log
     function runOversight(btn) {
       var card = btn.closest('.bm-card');
       var log = card.querySelector('[data-activity]');
@@ -2794,30 +2768,6 @@ const teamLogos = [
       }
       markDone(btn, 'Live · 9 automations active');
       scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-    }
-  })();
-
-  // ── Affordance: hint that demo cards are interactive ────────────────────
-  (function () {
-    var panels = document.querySelectorAll('.pin-panel');
-    if (!panels.length) return;
-
-    for (var i = 0; i < panels.length; i++) {
-      // glow on every step's primary control
-      var target = panels[i].querySelector('.bm-btn-primary, .bm-switch[data-action], .bm-seg, [data-action]');
-      if (target) target.classList.add('bm-hint-target');
-    }
-    // the big "Press here" coachmark is rendered in the template (first card only)
-
-    // first interaction with a step retires its hint
-    var root = document.querySelector('main');
-    if (root) {
-      root.addEventListener('click', function (e) {
-        var a = e.target.closest('[data-action]');
-        if (!a) return;
-        var panel = a.closest('.pin-panel');
-        if (panel) panel.classList.add('is-engaged');
-      });
     }
   })();
 
@@ -2883,7 +2833,7 @@ const teamLogos = [
 <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
   async function submitEmail(email) {
     if (!supabaseUrl || !supabaseKey) {
-      console.error('[waitlist] Supabase config missing — check PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY at build time.');
+      console.error('[waitlist] Supabase config missing - check PUBLIC_SUPABASE_URL / PUBLIC_SUPABASE_ANON_KEY at build time.');
       return false;
     }
     const controller = new AbortController();

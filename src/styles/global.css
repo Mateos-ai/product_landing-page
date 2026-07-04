@@ -227,3 +227,34 @@ button{cursor:pointer;font-family:var(--font-body)}
 @keyframes bmHintIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 @keyframes scrollArrow{0%,100%{transform:translateY(0)}50%{transform:translateY(3px)}}
 @media(prefers-reduced-motion:reduce){.bm-scrollhint-arrow{animation:none}}
+
+/* ── Fake demo cursor (created at runtime, so styled globally) ─────────────
+   A small brand-orange pointer, position:absolute inside each .pin-window,
+   that glides over the card and "presses" the buttons to show the behavior. */
+.demo-cursor{
+  position:absolute;top:0;left:0;
+  width:15px;height:15px;margin:-1px 0 0 -1px;
+  pointer-events:none;z-index:9;opacity:0;
+  transform:translate(20px,28px);
+  transition:transform 0.72s cubic-bezier(0.45,0.05,0.25,1),opacity 0.3s ease;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,0.35));
+}
+.demo-cursor svg{display:block;width:15px;height:15px}
+.demo-cursor svg path{fill:var(--color-primary);stroke:#fff;stroke-width:1.4;stroke-linejoin:round}
+.demo-cursor::after{
+  content:'';position:absolute;left:3px;top:3px;
+  width:8px;height:8px;border-radius:var(--radius-full);
+  background:var(--color-primary);opacity:0;
+  transform:translate(-50%,-50%) scale(0);
+}
+.demo-cursor.is-click::after{animation:cursorRipple 0.45s ease-out}
+.demo-cursor.is-click svg{animation:cursorPress 0.2s ease}
+@keyframes cursorRipple{
+  0%{opacity:0.5;transform:translate(-50%,-50%) scale(0.3)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(3.6)}
+}
+@keyframes cursorPress{45%{transform:scale(0.82)}}
+@media(prefers-reduced-motion:reduce){
+  .demo-cursor{transition:none}
+  .demo-cursor.is-click::after,.demo-cursor.is-click svg{animation:none}
+}
