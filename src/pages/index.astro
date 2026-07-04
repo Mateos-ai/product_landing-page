@@ -242,19 +242,18 @@ const teamLogos = [
     <!-- ── IMAGINE ──────────────────────────────────────────────────────── -->
     <section class="imagine-section" id="imagine">
       <div class="wrap imagine-inner">
-        <p class="imagine-eyebrow">Imagine</p>
         <p class="imagine-intro" id="imagine-intro"><span class="tw-cursor">|</span></p>
         <div class="imagine-lines" id="imagine-lines">
           <p class="imagine-line imagine-line-hidden" set:html={`Priorities <span class="imagine-hl">sorted.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Drafts <span class="imagine-hl">ready.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Issues <span class="imagine-hl">flagged.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Opportunities <span class="imagine-hl">surfaced.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Drafts <span class="imagine-hl imagine-hl-teal">ready.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Issues <span class="imagine-hl imagine-hl-purple">flagged.</span>`} />
+          <p class="imagine-line imagine-line-hidden" set:html={`Opportunities <span class="imagine-hl-gradient">surfaced.</span>`} />
         </div>
       </div>
     </section>
 
     <!-- ── WORKFLOW (pinned, scroll-driven) ──────────────────────────────── -->
-    <section class="workflow-section pin-section" id="workflow">
+    <section class="workflow-section pin-section sec-mono sec-orange" id="workflow">
       <div class="pin-track" data-pin-track style={`--pin-steps: ${whatsappSteps.length}`}>
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
@@ -441,7 +440,7 @@ const teamLogos = [
     </section>
 
     <!-- ── JUST ASK (pinned, scroll-driven) ──────────────────────────────── -->
-    <section class="workflow-section pin-section" id="just-ask">
+    <section class="workflow-section pin-section sec-mono sec-teal" id="just-ask">
       <div class="pin-track" data-pin-track style={`--pin-steps: ${justAskSteps.length}`}>
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
@@ -599,7 +598,7 @@ const teamLogos = [
     </section>
 
     <!-- ── STAY IN CONTROL (pinned, scroll-driven) ───────────────────────── -->
-    <section class="workflow-section pin-section" id="control">
+    <section class="workflow-section pin-section sec-mono sec-purple" id="control">
       <div class="pin-track" data-pin-track style={`--pin-steps: ${controlSteps.length}`}>
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
@@ -737,12 +736,12 @@ const teamLogos = [
     </section>
 
     <!-- ── THE SALES MAGICIAN (pinned, scroll-driven) ──────────────────── -->
-    <section class="workflow-section pin-section" id="magician">
+    <section class="workflow-section pin-section sec-mono sec-steps" id="magician">
       <div class="pin-track" data-pin-track style={`--pin-steps: ${magicianSteps.length}`}>
         <div class="pin-stage" data-pin-stage data-step="0">
           <div class="wrap pin-stage-inner">
             <div class="pin-header">
-              <h2>Meet the <span class="brand-text">Sales Magician</span></h2>
+              <h2>Meet the <span class="gradient-text">Sales Magician</span></h2>
               <p class="pin-lead">One teammate. Three superpowers across your funnel.</p>
               <div class="pin-dots" aria-hidden="true">
                 {magicianSteps.map((_s, i) => (
@@ -892,7 +891,7 @@ const teamLogos = [
       <div class="wrap">
         <div class="section-header" data-reveal>
           <div class="eyebrow">Integrations</div>
-          <h2><span class="brand-text">It</span> Works Everywhere</h2>
+          <h2>Works Everywhere</h2>
         </div>
         <div class="carousel-track">
           <div class="carousel-inner" aria-hidden="false">
@@ -913,8 +912,8 @@ const teamLogos = [
     <!-- ── CTA ────────────────────────────────────────────────────────── -->
     <section class="cta-section" id="cta">
       <div class="wrap cta-inner" data-reveal>
-        <h2><span class="brand-text">10X Boost</span> Your <span class="brand-text">Sales </span>Reps</h2>
-        <p><span class="brand-text">Join early access.</span> We'll reach out to set you up.</p>
+        <h2><span class="gradient-text">Join early access</span></h2>
+        <p>We'll reach out to set you up.</p>
         <form class="early-form" id="form-cta" novalidate>
           <input type="email" class="early-input" placeholder="your@email.com" required autocomplete="email" />
           <button type="submit" class="btn-primary-lg">Get early access →</button>
@@ -1204,7 +1203,7 @@ const teamLogos = [
   .imagine-line-hidden {
     opacity: 0;
     transform: translateY(24px) scale(0.98);
-    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
+    transition: opacity 0.78s cubic-bezier(0.22,1,0.36,1), transform 0.78s cubic-bezier(0.22,1,0.36,1);
   }
   .tw-cursor {
     display: inline-block;
@@ -1239,7 +1238,7 @@ const teamLogos = [
     letter-spacing: -0.02em;
     color: #FFFFFF;
     margin-bottom: 32px;
-    transition: color 0.8s ease;
+    transition: color 1.04s ease;
   }
   .imagine-intro.is-gone { color: rgba(255,255,255,0.2); pointer-events: none; }
   .imagine-lines {
@@ -1253,8 +1252,11 @@ const teamLogos = [
     font-weight: 700;
     line-height: 1.2;
     letter-spacing: -0.02em;
-    color: rgba(255,255,255,0.85);
+    color: #FFFFFF;
+    transition: color 0.65s ease;
   }
+  /* previous line dims once the next one arrives (accent words keep their color) */
+  .imagine-line.is-dim { color: rgba(255,255,255,0.4); }
   .imagine-hl { color: var(--amber-500); }
   .imagine-sub {
     font-family: var(--font-body);
@@ -2160,6 +2162,132 @@ const teamLogos = [
   [data-reveal][data-reveal-delay="2"] { transition-delay: 0.2s; }
   [data-reveal][data-reveal-delay="3"] { transition-delay: 0.3s; }
   [data-reveal][data-reveal-delay="4"] { transition-delay: 0.4s; }
+
+  /* ── Section / step monochrome theming ───────────────────────────────────
+     Every colored component (icon, connector line, avatar, chip, bubble, tag,
+     button, switch, segmented control, checkbox, glow, and the highlighted
+     title word) reads from the --sec-* variables. Sections 1-3 set those vars
+     once on the wrapper (sec-orange / sec-teal / sec-purple) so the whole
+     section is one color. The Sales Magician (sec-steps) instead sets them
+     per step, so each step is its own color (orange → teal → purple) while the
+     section keeps its multi-color gradient connector line. */
+  .sec-orange {
+    --sec: var(--amber-500);
+    --sec-strong: var(--amber-600);
+    --sec-soft: var(--color-primary-soft);
+    --sec-text: var(--amber-700);
+    --sec-text-dk: var(--amber-200);
+    --sec-icon: var(--amber-600);
+    --sec-icon-dk: var(--amber-400);
+    --sec-border: var(--amber-400);
+    --sec-on: var(--on-primary);
+    --sec-hint: 255, 140, 66;
+  }
+  .sec-teal {
+    --sec: var(--teal-500);
+    --sec-strong: var(--teal-600);
+    --sec-soft: var(--color-accent-soft);
+    --sec-text: var(--teal-700);
+    --sec-text-dk: var(--teal-200);
+    --sec-icon: var(--teal-600);
+    --sec-icon-dk: var(--teal-400);
+    --sec-border: var(--teal-400);
+    --sec-on: var(--on-accent);
+    --sec-hint: 23, 190, 187;
+  }
+  .sec-purple {
+    --sec: var(--indigo-500);
+    --sec-strong: var(--indigo-600);
+    --sec-soft: var(--color-secondary-soft);
+    --sec-text: var(--indigo-600);
+    --sec-text-dk: var(--indigo-200);
+    --sec-icon: var(--indigo-600);
+    --sec-icon-dk: var(--indigo-400);
+    --sec-border: var(--indigo-300);
+    --sec-on: #fff;
+    --sec-hint: 91, 83, 232;
+  }
+
+  /* Sales Magician: same palette, but assigned per step (orange → teal → purple) */
+  .sec-steps .step-amber {
+    --sec: var(--amber-500); --sec-strong: var(--amber-600); --sec-soft: var(--color-primary-soft);
+    --sec-text: var(--amber-700); --sec-text-dk: var(--amber-200);
+    --sec-icon: var(--amber-600); --sec-icon-dk: var(--amber-400);
+    --sec-border: var(--amber-400); --sec-on: var(--on-primary); --sec-hint: 255, 140, 66;
+  }
+  .sec-steps .step-teal {
+    --sec: var(--teal-500); --sec-strong: var(--teal-600); --sec-soft: var(--color-accent-soft);
+    --sec-text: var(--teal-700); --sec-text-dk: var(--teal-200);
+    --sec-icon: var(--teal-600); --sec-icon-dk: var(--teal-400);
+    --sec-border: var(--teal-400); --sec-on: var(--on-accent); --sec-hint: 23, 190, 187;
+  }
+  .sec-steps .step-indigo {
+    --sec: var(--indigo-500); --sec-strong: var(--indigo-600); --sec-soft: var(--color-secondary-soft);
+    --sec-text: var(--indigo-600); --sec-text-dk: var(--indigo-200);
+    --sec-icon: var(--indigo-600); --sec-icon-dk: var(--indigo-400);
+    --sec-border: var(--indigo-300); --sec-on: #fff; --sec-hint: 91, 83, 232;
+  }
+
+  /* title accent ("It", "You", …) */
+  .sec-mono .brand-text,
+  .sec-mono .brand-text-purple { color: var(--sec); }
+
+  /* step icon + connector line */
+  .sec-mono .step-icon { border-color: var(--sec-border); background: var(--sec-soft); color: var(--sec-icon); }
+  :global([data-theme="dark"]) .sec-mono .step-icon { color: var(--sec-icon-dk); }
+  .sec-mono:not(.sec-steps) .pin-panel .step-icon::before { background: var(--sec); }
+
+  /* avatars */
+  .sec-mono .bm-avatar,
+  .sec-mono .bm-avatar-teal,
+  .sec-mono .bm-avatar-indigo { background: var(--sec); color: var(--sec-on); }
+
+  /* chips + status badges */
+  .sec-mono .bm-chip-amber,
+  .sec-mono .bm-chip-teal,
+  .sec-mono .bm-chip-indigo,
+  .sec-mono .bm-chip-purple { background: var(--sec-soft); color: var(--sec-text); }
+  :global([data-theme="dark"]) .sec-mono .bm-chip-amber,
+  :global([data-theme="dark"]) .sec-mono .bm-chip-teal,
+  :global([data-theme="dark"]) .sec-mono .bm-chip-indigo,
+  :global([data-theme="dark"]) .sec-mono .bm-chip-purple { color: var(--sec-text-dk); }
+
+  /* confirmation bubbles */
+  .sec-mono .bm-bubble-teal,
+  .sec-mono .bm-bubble-indigo { border-color: var(--sec-border); background: var(--sec-soft); color: var(--sec-text); }
+  :global([data-theme="dark"]) .sec-mono .bm-bubble-teal,
+  :global([data-theme="dark"]) .sec-mono .bm-bubble-indigo { color: var(--sec-text-dk); }
+
+  /* tags */
+  .sec-mono .tag-amber,
+  .sec-mono .tag-teal,
+  .sec-mono .tag-indigo { background: var(--sec-soft); color: var(--sec-text); }
+  :global([data-theme="dark"]) .sec-mono .tag-amber,
+  :global([data-theme="dark"]) .sec-mono .tag-teal,
+  :global([data-theme="dark"]) .sec-mono .tag-indigo { color: var(--sec-text-dk); }
+
+  /* buttons */
+  .sec-mono .bm-btn-primary { background: var(--sec); border-color: var(--sec); color: var(--sec-on); }
+  .sec-mono .bm-btn-done { color: var(--sec-text); }
+  :global([data-theme="dark"]) .sec-mono .bm-btn-done { color: var(--sec-text-dk); }
+
+  /* toggle switch, segmented control, checkboxes */
+  .sec-mono .bm-switch.on { background: var(--sec); }
+  .sec-mono .bm-seg-opt.is-active { background: var(--sec); color: var(--sec-on); }
+  .sec-mono .bm-checkbox:checked + .bm-task-box,
+  .sec-mono .bm-task.is-done .bm-task-box { background: var(--sec); border-color: var(--sec); }
+  .sec-mono .bm-checkbox:focus-visible + .bm-task-box { outline-color: var(--sec); }
+
+  /* approval card border + saved footnote */
+  .sec-mono .bm-card-approve { border-color: var(--sec-border); }
+  .sec-mono .bm-card-foot { color: var(--sec-text); }
+  :global([data-theme="dark"]) .sec-mono .bm-card-foot { color: var(--sec-text-dk); }
+
+  /* interactive-hint glow */
+  .sec-mono .pin-panel { --hint: var(--sec-hint); }
+
+  /* runtime-created CRM sync loader bar (lives outside Astro scoping) */
+  .sec-mono :global(.bm-chip-bar-fill) { background: linear-gradient(90deg, var(--sec-strong), var(--sec)); }
 </style>
 
 <script>
@@ -2774,16 +2902,23 @@ const teamLogos = [
   // Typewriter for imagine section
   const introEl = document.getElementById('imagine-intro');
   const imagineLines = document.querySelectorAll('#imagine-lines .imagine-line-hidden');
-  const plainText = 'You wake up tomorrow and...';
-  const finalHTML = 'You wake up <span class="imagine-hl">tomorrow</span> and...';
+  const plainText = 'Imagine you do nothing but your...';
+  const finalHTML = 'Imagine you do nothing but your...';
 
   function revealLines() {
     imagineLines.forEach((line, i) => {
       setTimeout(() => {
         line.style.opacity = '1';
         line.style.transform = 'translateY(0) scale(1)';
-      }, i * 550);
+        // dim the previous line now that the next one has arrived
+        if (i > 0) imagineLines[i - 1].classList.add('is-dim');
+      }, i * 715);
     });
+    // after the same interval, dim the final line too
+    const last = imagineLines.length - 1;
+    if (last >= 0) {
+      setTimeout(() => imagineLines[last].classList.add('is-dim'), imagineLines.length * 715);
+    }
   }
 
   function runTypewriter() {
@@ -2798,9 +2933,9 @@ const teamLogos = [
         setTimeout(() => {
           introEl.classList.add('is-gone');
           revealLines();
-        }, 1500);
+        }, 1950);
       }
-    }, 75);
+    }, 98);
   }
 
   const imagineSection = document.getElementById('imagine');
@@ -2809,7 +2944,7 @@ const teamLogos = [
     if (entries[0].isIntersecting && !twStarted) {
       twStarted = true;
       twObserver.disconnect();
-      setTimeout(runTypewriter, 200);
+      setTimeout(runTypewriter, 260);
     }
   }, { threshold: 0.3 });
   if (imagineSection) twObserver.observe(imagineSection);

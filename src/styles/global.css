@@ -129,6 +129,11 @@ button{cursor:pointer;font-family:var(--font-body)}
 .brand-text-purple{color:var(--color-secondary);font-style:normal;font-weight:700}
 
 .imagine-hl{color:var(--amber-500)}
+/* per-line accents (unscoped: the imagine lines are injected via set:html, so
+   Astro's scoped selectors can't reach them) */
+.imagine-hl-teal{color:var(--teal-400)}
+.imagine-hl-purple{color:var(--indigo-400)}
+.imagine-hl-gradient{background:var(--gradient-brand);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 @media(min-width:768px){.wrap{padding:0 40px}}
 
 .eyebrow{
