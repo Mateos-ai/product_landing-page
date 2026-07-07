@@ -1,6 +1,11 @@
 ---
 import Layout from "@/layouts/Layout.astro";
 import BrowserFrame from "@/components/BrowserFrame.astro";
+import DemoVideo from "@/components/DemoVideo.astro";
+
+// Demos are pre-recorded to lazy-loaded looping videos (see scripts/record-demos.mjs).
+// Flip to false to render the original live-animated windows again.
+const USE_VIDEO = true;
 
 const ICON = {
   sun: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
@@ -290,6 +295,9 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
+                      {USE_VIDEO ? (
+                        <DemoVideo name={`workflow-${i}`} />
+                      ) : (
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -429,6 +437,7 @@ const teamLogos = [
                           )}
                         </div>
                       </div>
+                      )}
                     </div>
                   </article>
                 );
@@ -472,6 +481,9 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
+                      {USE_VIDEO ? (
+                        <DemoVideo name={`just-ask-${i}`} />
+                      ) : (
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -587,6 +599,7 @@ const teamLogos = [
                           )}
                         </div>
                       </div>
+                      )}
                     </div>
                   </article>
                 );
@@ -630,6 +643,9 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
+                      {USE_VIDEO ? (
+                        <DemoVideo name={`control-${i}`} />
+                      ) : (
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -725,6 +741,7 @@ const teamLogos = [
                           )}
                         </div>
                       </div>
+                      )}
                     </div>
                   </article>
                 );
@@ -769,6 +786,9 @@ const teamLogos = [
                     </div>
 
                     <div class="pin-visual">
+                      {USE_VIDEO ? (
+                        <DemoVideo name={`magician-${i}`} />
+                      ) : (
                       <div class="pin-window" aria-hidden="true">
                         <div class="pin-window-chrome">
                           <span class="dot dot-red" />
@@ -875,6 +895,7 @@ const teamLogos = [
                           )}
                         </div>
                       </div>
+                      )}
                     </div>
                   </article>
                 );
@@ -2303,6 +2324,53 @@ const teamLogos = [
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+
+  // -- Demo videos: lazy-load + autoplay the theme-matching clip when in view ----
+  (function () {
+    var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-demo]'));
+    if (!vids.length) return;
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function theme() { return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
+    function asset(name, t, ext) { return '/demos/' + name + '-' + t + '.' + ext; }
+    function sources(v, t) {
+      var name = v.getAttribute('data-demo');
+      v.querySelector('source[data-webm]').src = asset(name, t, 'webm');
+      v.querySelector('source[data-mp4]').src = asset(name, t, 'mp4');
+      v.load();
+    }
+    function poster(v) {
+      var t = theme();
+      if (v.getAttribute('data-poster-theme') === t) return;
+      v.setAttribute('data-poster-theme', t);
+      v.setAttribute('poster', asset(v.getAttribute('data-demo'), t, 'poster.jpg'));
+    }
+
+    // Everything is below the fold, so nothing loads until it nears the viewport:
+    // the poster streams in first (tiny, and all a reduced-motion user needs), then
+    // the clip. This keeps the initial page load free of demo bytes.
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) {
+          poster(v);
+          if (!reduce) {
+            if (v.dataset.live !== '1') { v.dataset.live = '1'; sources(v, theme()); }
+            v.play().catch(function () {});
+          }
+        } else if (!reduce) { v.pause(); }
+      });
+    }, { rootMargin: '300px 0px', threshold: 0.15 });
+    vids.forEach(function (v) { io.observe(v); });
+
+    // follow the theme toggle: reset the poster and (if already loaded) reload sources
+    new MutationObserver(function () {
+      vids.forEach(function (v) {
+        if (v.getAttribute('data-poster-theme')) poster(v);
+        if (v.dataset.live === '1') { sources(v, theme()); if (!reduce) v.play().catch(function () {}); }
+      });
+    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+
 
   // ── Demo cards: self-playing looping demos driven by a fake cursor ──────
   (function () {

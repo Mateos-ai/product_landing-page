@@ -1,0 +1,48 @@
+---
+// Renders a pre-recorded, self-looping demo clip in place of the live animated
+// window. The clip is lazy-loaded and theme-swapped by the script in index.astro
+// (search "Demo videos"). Assets live in public/demos/<name>-<theme>.{webm,mp4,poster.jpg}
+// and are produced by scripts/record-demos.mjs.
+import fs from "node:fs";
+
+const { name } = Astro.props;
+
+// intrinsic size (from the recorder manifest) lets us reserve the exact box so
+// the clip never shifts the layout while it loads. Falls back to a 4:3-ish box.
+let dims = { w: 808, h: 620 };
+try {
+  const manifest = JSON.parse(fs.readFileSync("public/demos/manifest.json", "utf8"));
+  if (manifest[name]) dims = manifest[name];
+} catch {}
+---
+
+<div class="demo-video" style={`aspect-ratio:${dims.w} / ${dims.h}`} aria-hidden="true">
+  <video
+    class="demo-video-el"
+    data-demo={name}
+    width={dims.w}
+    height={dims.h}
+    muted
+    loop
+    playsinline
+    preload="none"
+  >
+    <source data-webm type="video/webm" />
+    <source data-mp4 type="video/mp4" />
+  </video>
+</div>
+
+<style>
+  /* the recorded clip already contains the browser window (chrome + border), so
+     we only supply the drop shadow (not captured) and clip stray corner pixels. */
+  .demo-video {
+    width: 100%;
+    max-width: 460px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-xl);
+    background: var(--surface-subtle);
+  }
+  :global([data-theme="dark"]) .demo-video { background: var(--neutral-900); }
+  .demo-video-el { display: block; width: 100%; height: auto; }
+</style>
