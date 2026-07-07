@@ -1,212 +1,137 @@
 ---
 import Layout from "@/layouts/Layout.astro";
-import BrowserFrame from "@/components/BrowserFrame.astro";
-import DemoVideo from "@/components/DemoVideo.astro";
 
-// Demos are pre-recorded to lazy-loaded looping videos (see scripts/record-demos.mjs).
-// Flip to false to render the original live-animated windows again.
-const USE_VIDEO = true;
-
+// -- Card icons (lucide-style, inherit currentColor) -------------------------
 const ICON = {
-  sun: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`,
-  message: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
-  check: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
-  search: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
-  zap: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
-  repeat: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
-  bell: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>`,
-  sliders: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>`,
-  eye: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>`,
-  calendar: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`,
+  megaphone: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>`,
+  shuffle: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/><line x1="4" y1="4" x2="9" y2="9"/></svg>`,
+  userX: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="17" y1="8" x2="22" y2="13"/><line x1="22" y1="8" x2="17" y2="13"/></svg>`,
+  link: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`,
+  focus: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M3 7V5a2 2 0 0 1 2-2h2"/><path d="M17 3h2a2 2 0 0 1 2 2v2"/><path d="M21 17v2a2 2 0 0 1-2 2h-2"/><path d="M7 21H5a2 2 0 0 1-2-2v-2"/></svg>`,
   trending: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>`,
+  search: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>`,
+  layers: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg>`,
+  barChart: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>`,
 };
 
-const justAskSteps = [
+// -- Constellation data: input systems (left), knowledge-base core (center),
+//    trusted agents with evals (right). Coordinates live in the SVG viewBox
+//    "0 0 900 520" so the whole graphic scales as one unit.
+const CORE = { x: 460, y: 260 };
+const R_CORE = 62;
+const TILE = 60;
+
+const sources = [
+  { name: "Gmail",           src: "/gmail.webp",      x: 90,  y: 70 },
+  { name: "Slack",           src: "/slack.webp",      x: 250, y: 95 },
+  { name: "Zendesk",         src: "/zendesk.webp",    x: 70,  y: 200 },
+  { name: "Datadog",         src: "/datadog.webp",    x: 235, y: 210 },
+  { name: "HubSpot",         src: "/hubspot.webp",    x: 95,  y: 320 },
+  { name: "Notion",          src: "/notion.webp",     x: 255, y: 330 },
+  { name: "Salesforce",      src: "/salesforce.webp", x: 100, y: 440 },
+  { name: "Google Calendar", src: "/gcalendar.webp",  x: 255, y: 445 },
+];
+
+const agents = [
+  { label: "Support agent", score: "98%", x: 745, y: 130 },
+  { label: "Revenue agent", score: "96%", x: 785, y: 260 },
+  { label: "Ops agent",     score: "99%", x: 745, y: 390 },
+];
+
+const problems = [
   {
-    icon: ICON.search,
-    title: "It Proposes",
-    titleColor: "amber",
-    eyebrow: "Proactive",
-    sub: "It spots deals going quiet and tells you who to chase first, e.g. “Acme has been silent 5 days, want me to draft a nudge?”",
-    tags: [],
-    color: "amber",
+    icon: ICON.megaphone,
+    title: "Endless pitches",
+    body: "Vendors pitch you tools you're not sure you need.",
   },
   {
-    icon: ICON.zap,
-    title: "It Executes",
-    titleColor: "amber",
-    eyebrow: "Autonomous",
-    sub: "Say the word and it acts: drafting and sending the follow-up, then logging the whole thread to your CRM.",
-    tags: [],
-    color: "teal",
+    icon: ICON.shuffle,
+    title: "Scattered experiments",
+    body: "Your team is experimenting, but nothing's tied to the P&L.",
   },
   {
-    icon: ICON.repeat,
-    title: "It Automates",
-    titleColor: "amber",
-    eyebrow: "Hands-off",
-    sub: "Recurring work becomes a rule, e.g. “always draft a follow-up 3 days after a first meeting”, handled without asking.",
-    tags: [],
-    color: "indigo",
+    icon: ICON.userX,
+    title: "No one to own it",
+    body: "You can't justify a $400k Chief AI Officer to sort it out.",
   },
 ];
 
-const controlSteps = [
+const payoffs = [
   {
-    icon: ICON.bell,
-    title: "You Decide",
-    titleColor: "purple",
-    eyebrow: "Approval first",
-    sub: "Anything high-stakes waits for your yes, e.g. emailing all 47 open leads only goes out once you approve it.",
-    tags: [],
-    color: "amber",
+    icon: ICON.link,
+    title: "Everything in one place",
+    body: "Your tools stop living on separate islands. What used to mean five tabs and a copy-paste happens once, in one flow.",
   },
   {
-    icon: ICON.sliders,
-    title: "You Set the Rules",
-    titleColor: "purple",
-    eyebrow: "Your guardrails",
-    sub: "Choose what it does on its own vs. what needs a check, per action (send follow-ups, block calendar, log to CRM), changeable anytime.",
-    tags: [],
-    color: "teal",
-  },
-  {
-    icon: ICON.eye,
-    title: "You have full oversight",
-    titleColor: "purple",
-    eyebrow: "Full transparency",
-    sub: "Every action is on the record, e.g. “drafted follow-up to Sarah · 09:14”, so nothing happens off the books.",
-    tags: [],
-    color: "indigo",
-  },
-];
-
-const whatsappSteps = [
-  {
-    time: "7:30 AM",
-    icon: ICON.sun,
-    title: "Morning Briefing",
-    sub: "You wake up to a full rundown of your day: meetings, priorities, and prep for each call, ready before you are.",
-    tags: [],
-    color: "amber",
-  },
-  {
-    time: "During the day",
-    icon: ICON.message,
-    title: "Post-meeting update",
-    sub: "Text it what happened after a call and your CRM updates itself: stage, next steps, and notes, no forms to fill.",
-    tags: [],
-    color: "teal",
-  },
-  {
-    time: "End of day",
-    icon: ICON.check,
-    title: "Zero admin backlog",
-    sub: "At day's end it clears the busywork: sending drafts, updating leads, rescheduling, so tomorrow starts clean.",
-    tags: [],
-    color: "indigo",
-  },
-];
-
-const magicianSteps = [
-  {
-    icon: ICON.search,
-    title: "Top of the Funnel",
-    eyebrow: "Superpower 01",
-    sub: "It keeps the pipeline full: surfacing fresh leads, new angles to sell, and untapped markets to go after.",
-    color: "amber",
-  },
-  {
-    icon: ICON.calendar,
-    title: "Win the Event",
-    eyebrow: "Superpower 02",
-    sub: "Before a conference it does the legwork: matches attendees to your ICP, drafts intros, and books meetings.",
-    color: "teal",
+    icon: ICON.focus,
+    title: "Your team does what only they can",
+    body: "The repetitive work runs itself, so your people spend their day on judgment and relationships, not admin.",
   },
   {
     icon: ICON.trending,
-    title: "Grow the Relationship",
-    eyebrow: "Superpower 03",
-    sub: "It spots expansion signals in your accounts: upsell moments, likely renewals, and warm intros in your network.",
-    color: "indigo",
+    title: "Wins that compound",
+    body: "Not a big-bang transformation. A first win in weeks, then the next, then the next.",
   },
 ];
 
-const features = [
+const process = [
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h2a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2h-2v4l-4-4H9a2 2 0 0 1-2-2v-1"/><path d="M15 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2v4l4-4h2a2 2 0 0 0 2-2V6z"/></svg>`,
-    title: "Come Prepared to Every Meeting",
-    body: `Every rep gets a <span class="brand-text">personalized briefing</span> before each call: prospect history, last interaction, pain points, and a suggested approach.`,
+    num: "01",
+    color: "teal",
+    icon: ICON.search,
+    title: "Diagnose",
+    body: "We sit with your C-suite, VPs, and teams, map your workflows and data, and rank the AI opportunities by real ROI. You walk away with a prioritized roadmap you own, whether or not you build it with us.",
+    points: ["Sit with your people", "Map workflows & data", "Rank by ROI, effort & fit"],
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>`,
-    title: "No Deal Falls Between the Chairs",
-    body: `Reps update <span class="brand-text">Mateos</span> by texting after meetings. Context stays current automatically. <span class="brand-text">No deal goes cold</span> because someone forgot to follow up.`,
+    num: "02",
+    color: "purple",
+    icon: ICON.layers,
+    title: "Build what matters",
+    body: "We build only what earns its place, starting with the highest-impact win. We have no product of our own to push, so we pick whatever actually fits, within the budget we agreed on.",
+    points: ["Off-the-shelf", "Custom", "Hybrid"],
   },
   {
-    icon: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>`,
-    title: "Available Where You Live",
-    body: `<span class="brand-text">WhatsApp, email, or web</span>. Talk to your agent the way you already work. <span class="brand-text">No new apps</span>, no behavior change.`,
+    num: "03",
+    color: "amber",
+    icon: ICON.barChart,
+    title: "Measure",
+    body: "Every agent ships with evals() so you can see its accuracy and the payoff you were promised. We prove the win with numbers, then move to the next one.",
+    points: ["evals() on every agent", "Track the ROI", "Then the next win"],
   },
 ];
 
-const integrations = [
-  { name: "WhatsApp",        src: "/whatsapp.svg" },
-  { name: "HubSpot",         src: "/hubspot.webp" },
-  { name: "Notion",          src: "/notion.webp" },
-  { name: "Zendesk",         src: "/zendesk.webp" },
-  { name: "Salesforce",      src: "/salesforce.webp" },
-  { name: "Monday",          src: "/monday.webp" },
-  { name: "ClickUp",         src: "/clickup.webp" },
-  { name: "Todoist",         src: "/todoist.webp" },
-  { name: "Gmail",           src: "/gmail.webp" },
-  { name: "Google Calendar", src: "/gcalendar.webp" },
-  { name: "Outlook",         src: "/outlook.webp" },
+const pillars = [
+  {
+    title: "Connect your stack",
+    body: "Gmail, Slack, Zendesk, Datadog, your CRM, your docs. The tools you already run, wired together.",
+  },
+  {
+    title: "One knowledge base",
+    body: "Scattered data becomes a single source of truth your agents can actually reason over.",
+  },
+  {
+    title: "Agents that learn",
+    body: "Not brittle automations. They adapt as your business changes.",
+  },
 ];
 
-const teamLogos = [
-  {
-    label: "Google",
-    svg: `<svg width="100" height="100" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
-      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
-      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
-      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
-    </svg>`,
-  },
-  {
-    label: "MIT",
-    svg: `<svg width="160" height="100" viewBox="0 0 160 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <text x="80" y="62" font-family="Georgia,serif" font-weight="700" font-size="52" fill="#A31F34" text-anchor="middle">MIT</text>
-    </svg>`,
-  },
-  {
-    label: "Slack",
-    svg: `<svg width="100" height="100" viewBox="0 0 127 127" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M27.2 80c0 7.3-5.9 13.2-13.2 13.2C6.7 93.2.8 87.3.8 80c0-7.3 5.9-13.2 13.2-13.2h13.2V80z" fill="#E01E5A"/>
-      <path d="M33.8 80c0-7.3 5.9-13.2 13.2-13.2 7.3 0 13.2 5.9 13.2 13.2v33c0 7.3-5.9 13.2-13.2 13.2-7.3 0-13.2-5.9-13.2-13.2V80z" fill="#E01E5A"/>
-      <path d="M47 27c-7.3 0-13.2-5.9-13.2-13.2C33.8 6.5 39.7.6 47 .6c7.3 0 13.2 5.9 13.2 13.2V27H47z" fill="#36C5F0"/>
-      <path d="M47 33.8c7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2H14c-7.3 0-13.2-5.9-13.2-13.2 0-7.3 5.9-13.2 13.2-13.2h33z" fill="#36C5F0"/>
-      <path d="M100 47c0-7.3 5.9-13.2 13.2-13.2 7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2H100V47z" fill="#2EB67D"/>
-      <path d="M93.4 47c0 7.3-5.9 13.2-13.2 13.2-7.3 0-13.2-5.9-13.2-13.2V14c0-7.3 5.9-13.2 13.2-13.2 7.3 0 13.2 5.9 13.2 13.2v33z" fill="#2EB67D"/>
-      <path d="M80.2 100c7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2-7.3 0-13.2-5.9-13.2-13.2V100h13.2z" fill="#ECB22E"/>
-      <path d="M80.2 93.4c-7.3 0-13.2-5.9-13.2-13.2 0-7.3 5.9-13.2 13.2-13.2H113c7.3 0 13.2 5.9 13.2 13.2 0 7.3-5.9 13.2-13.2 13.2H80.2z" fill="#ECB22E"/>
-    </svg>`,
-  },
-];
 ---
 
-<Layout>
+<Layout
+  title="Mateos · Your outsourced Chief AI Officer"
+  description="Mateos is the outsourced Chief AI Officer for SMBs. We start with a diagnostic, find where AI actually moves your numbers, then build only what earns its place."
+>
   <!-- ── NAVBAR ──────────────────────────────────────────────────────── -->
   <header>
     <div class="wrap bar">
-      <a href="/" class="brand" aria-label="Mateos.ai home">
+      <a href="#top" class="brand" aria-label="Mateos.ai home">
         <img src="/mateos-logo.svg" alt="" class="brand-mark" />
         <span class="brand-name">mateos<span class="brand-ai">.ai</span></span>
       </a>
 
       <div class="nav-right">
-        <a href="#cta" class="btn-cta">Get Early Access</a>
+        <a href="#cta" class="btn-cta">Book a Diagnostic</a>
         <div class="theme-picker" id="theme-picker">
           <button class="theme-trigger" id="theme-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Color theme">
             <span class="theme-icon" id="theme-icon"></span>
@@ -232,714 +157,181 @@ const teamLogos = [
 
   <main>
     <!-- ── HERO ───────────────────────────────────────────────────────── -->
-    <section class="hero" id="product">
-      <div class="hero-glow" aria-hidden="true"></div>
+    <section class="hero" id="top">
       <div class="wrap hero-inner">
         <img src="/mateos-logo-secondary.svg" alt="" class="hero-logo" />
-        <h1><span class="brand-text">Mateos'</span><br /><span class="gradient-text">Operational Wizard</span></h1>
-        <p class="hero-tagline">A Chief AI Officer, as your personal assistant.</p>
+        <h1><span class="gradient-text">Your Chief AI Officer</span></h1>
+        <p class="hero-tagline"><span class="hl-orange">AI hype</span> is everywhere, and the fear of <span class="hl-teal">falling behind</span> is even louder. <span class="hl-purple">We cut through the noise</span>, find where AI actually pays off for your business, and build exactly that.</p>
         <div class="hero-actions">
-          <a href="#imagine" class="btn-ghost-lg btn-ghost-animated">See The Magic ↓</a>
+          <a href="#problem" class="btn-ghost-lg btn-magic">See how it works ↓</a>
         </div>
       </div>
     </section>
 
-    <!-- ── IMAGINE ──────────────────────────────────────────────────────── -->
-    <section class="imagine-section" id="imagine">
-      <div class="wrap imagine-inner">
-        <p class="imagine-intro" id="imagine-intro"><span class="tw-cursor">|</span></p>
-        <div class="imagine-lines" id="imagine-lines">
-          <p class="imagine-line imagine-line-hidden" set:html={`Priorities <span class="imagine-hl">sorted.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Drafts <span class="imagine-hl imagine-hl-teal">ready.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Issues <span class="imagine-hl imagine-hl-purple">flagged.</span>`} />
-          <p class="imagine-line imagine-line-hidden" set:html={`Opportunities <span class="imagine-hl-gradient">surfaced.</span>`} />
-        </div>
-      </div>
-    </section>
-
-    <!-- ── WORKFLOW (pinned, scroll-driven) ──────────────────────────────── -->
-    <section class="workflow-section pin-section sec-mono sec-orange" id="workflow">
-      <div class="pin-track" data-pin-track style={`--pin-steps: ${whatsappSteps.length}`}>
-        <div class="pin-stage" data-pin-stage data-step="0">
-          <div class="wrap pin-stage-inner">
-            <div class="pin-header">
-              <h2><span class="brand-text">It</span> Builds Workflows</h2>
-              <div class="pin-dots" aria-hidden="true">
-                {whatsappSteps.map((_s, i) => (
-                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
-                ))}
-              </div>
-            </div>
-
-            <div class="pin-deck">
-              {whatsappSteps.map((step, i) => {
-                const urls = ["mateos.ai/briefing", "mateos.ai/sync", "mateos.ai/wrap"];
-                return (
-                  <article
-                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
-                    data-panel={i}
-                    aria-hidden={i === 0 ? "false" : "true"}
-                  >
-                    <div class="pin-meta">
-                      <span class="step-icon" set:html={step.icon} />
-                      <div class="pin-meta-text">
-                        <div class="step-time">{step.time}</div>
-                        <h3>{step.title}</h3>
-                        <p class="pin-sub">{step.sub}</p>
-                        <div class="step-tags">
-                          {step.tags.map((tag) => (
-                            <span class={`tag tag-${step.color}`}>{tag}</span>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="pin-visual">
-                      {USE_VIDEO ? (
-                        <DemoVideo name={`workflow-${i}`} />
-                      ) : (
-                      <div class="pin-window" aria-hidden="true">
-                        <div class="pin-window-chrome">
-                          <span class="dot dot-red" />
-                          <span class="dot dot-amber" />
-                          <span class="dot dot-green" />
-                          <span class="pin-window-url">{urls[i]}</span>
-                        </div>
-                        <div class="pin-window-body">
-                          {i === 0 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>☀️ Good morning, David. Here's your day.</div>
-                              </div>
-                              <div class="bm-card bm-briefing" data-briefing data-prep-state="idle" data-brief-card>
-                                <!-- AGENDA VIEW -->
-                                <div data-agenda>
-                                  <div class="bm-card-head" data-brief-row>
-                                    <span>Today · Tue, Jun 24</span>
-                                    <span class="bm-chip bm-chip-amber">3 meetings</span>
-                                  </div>
-
-                                  <div class="bm-meeting" data-brief-row>
-                                    <span class="bm-time">09:00</span>
-                                    <span class="bm-line-title">Acme Corp · discovery call</span>
-                                    <span class="bm-press-wrap">
-                                      <button class="bm-btn bm-btn-sm" type="button" data-action="prep">Prep</button>
-                                    </span>
-                                    <span class="bm-chip bm-chip-teal" data-emailed hidden>Prep in email</span>
-                                  </div>
-                                  <div class="bm-statusbar" data-statusbar hidden>
-                                    <div class="bm-statusbar-track"><div class="bm-statusbar-fill" data-statusfill /></div>
-                                    <div class="bm-statusbar-text" data-statustext>Reading the event description…</div>
-                                  </div>
-
-                                  <div class="bm-meeting" data-brief-row>
-                                    <span class="bm-time">11:30</span>
-                                    <span class="bm-line-title">Dana Lee · check-in</span>
-                                    <span class="bm-chip bm-chip-teal">Prep in email</span>
-                                  </div>
-
-                                  <div class="bm-meeting" data-brief-row>
-                                    <span class="bm-time">15:00</span>
-                                    <span class="bm-line-title">Northwind · renewal review</span>
-                                    <span class="bm-chip bm-chip-teal">Prep in email</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 1 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>Your Acme call just wrapped. Want me to sync the CRM?</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>CRM update</span>
-                                  <span class="bm-chip bm-chip-amber" data-sync-status>Pending</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Stage</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Proposal">·</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Next step</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Follow-up Thu">·</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Call notes</span>
-                                  <span class="bm-chip bm-chip-empty" data-fill data-value="Added">·</span>
-                                </div>
-                                <div class="bm-actions" data-brief-row>
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="sync">Sync CRM</button>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 2 && (
-                            <div class="bm-chat" data-backlog data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-brief-greeting>End of day. Here's your backlog. Want me to run it? 🌙</div>
-                              </div>
-
-                              <div class="bm-card" data-backlog-card data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Backlog · 3 actions</span>
-                                  <span class="bm-chip bm-chip-indigo" data-backlog-count>3 selected</span>
-                                </div>
-                                <label class="bm-task" data-brief-row>
-                                  <input type="checkbox" class="bm-checkbox" data-task checked />
-                                  <span class="bm-task-box" />
-                                  <span class="bm-line-title">Send 3 drafted follow-up emails</span>
-                                </label>
-                                <label class="bm-task" data-brief-row>
-                                  <input type="checkbox" class="bm-checkbox" data-task checked />
-                                  <span class="bm-task-box" />
-                                  <span class="bm-line-title">Update John on at-risk leads</span>
-                                </label>
-                                <label class="bm-task" data-brief-row>
-                                  <input type="checkbox" class="bm-checkbox" data-task checked />
-                                  <span class="bm-task-box" />
-                                  <span class="bm-line-title">Move tomorrow's team sync to Friday</span>
-                                </label>
-                                <div class="bm-backlog-actions" data-brief-row>
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute">Execute backlog</button>
-                                  <button class="bm-textbtn" type="button" data-action="backlog-close">Close</button>
-                                </div>
-                              </div>
-
-                              <div class="bm-card bm-backlog-collapsed" data-backlog-collapsed hidden>
-                                <span class="bm-line-title" data-backlog-summary>Backlog saved for later</span>
-                                <button class="bm-btn bm-btn-sm" type="button" data-action="backlog-review">Review</button>
-                              </div>
-
-                              <div class="bm-msg" data-backlog-followup hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-followup-text>Anything else then?</div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── JUST ASK (pinned, scroll-driven) ──────────────────────────────── -->
-    <section class="workflow-section pin-section sec-mono sec-teal" id="just-ask">
-      <div class="pin-track" data-pin-track style={`--pin-steps: ${justAskSteps.length}`}>
-        <div class="pin-stage" data-pin-stage data-step="0">
-          <div class="wrap pin-stage-inner">
-            <div class="pin-header">
-              <h2><span class="brand-text">It</span> Takes Initiative</h2>
-              <div class="pin-dots" aria-hidden="true">
-                {justAskSteps.map((_s, i) => (
-                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
-                ))}
-              </div>
-            </div>
-
-            <div class="pin-deck">
-              {justAskSteps.map((step, i) => {
-                const urls = ["mateos.ai/inbox", "mateos.ai/compose", "mateos.ai/automations"];
-                return (
-                  <article
-                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
-                    data-panel={i}
-                    aria-hidden={i === 0 ? "false" : "true"}
-                  >
-                    <div class="pin-meta">
-                      <span class="step-icon" set:html={step.icon} />
-                      <div class="pin-meta-text">
-                        <div class="step-time">{step.eyebrow}</div>
-                        <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
-                        <p class="pin-sub">{step.sub}</p>
-                      </div>
-                    </div>
-
-                    <div class="pin-visual">
-                      {USE_VIDEO ? (
-                        <DemoVideo name={`just-ask-${i}`} />
-                      ) : (
-                      <div class="pin-window" aria-hidden="true">
-                        <div class="pin-window-chrome">
-                          <span class="dot dot-red" />
-                          <span class="dot dot-amber" />
-                          <span class="dot dot-green" />
-                          <span class="pin-window-url">{urls[i]}</span>
-                        </div>
-                        <div class="pin-window-body">
-                          {i === 0 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>3 deals are going cold this week. Here's who to call first. ↓</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Going cold</span>
-                                  <span class="bm-chip bm-chip-amber">At risk</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Acme Corp · Sarah Chen</span>
-                                  <span class="bm-chip bm-chip-empty" data-draft>5 days quiet</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Dana Lee · check-in</span>
-                                  <span class="bm-chip bm-chip-empty" data-draft>3 weeks quiet</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Northwind · renewal</span>
-                                  <span class="bm-chip bm-chip-empty" data-draft>8 days quiet</span>
-                                </div>
-                                <div class="bm-card-body" data-propose-q data-brief-row>Want me to draft outreach to all three?</div>
-                                <div class="bm-actions" data-brief-row>
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="propose">Draft them</button>
-                                </div>
-                              </div>
-
-                              <div class="bm-msg" data-propose-done hidden>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-propose-done-text></div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 1 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>Drafted your follow-up to Sarah. I referenced Tuesday's pricing chat.</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Follow-up · Acme Corp</span>
-                                  <span class="bm-chip bm-chip-amber" data-exec-status>Draft</span>
-                                </div>
-                                <div class="bm-line" data-brief-row><span class="bm-prep-key">To</span><span class="bm-line-title">sarah@acme.com</span></div>
-                                <div class="bm-line" data-brief-row><span class="bm-prep-key">Subject</span><span class="bm-line-title">Quick follow-up on pricing</span></div>
-                                <div class="bm-card-body" data-brief-row>Hi Sarah, great chatting Tuesday. As promised, here's how the ROI shakes out for your team…</div>
-                                <div class="bm-actions" data-brief-row>
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="execute-send">Send</button>
-                                  <button class="bm-btn" type="button" data-action="execute-edit">Edit</button>
-                                </div>
-                              </div>
-
-                              <div class="bm-msg bm-exec-confirm" data-exec-confirm hidden>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-exec-confirm-text></div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 2 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-brief-greeting>Hey John! I see you ask me to follow up on first meetings, want me to just handle it on my own without asking every time?</div>
-                              </div>
-                              <div class="bm-msg" data-brief-cardloader hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Suggested automation</span>
-                                  <span class="bm-chip bm-chip-indigo" data-auto-status>Off</span>
-                                </div>
-                                <div class="bm-rule" data-brief-row>
-                                  <div class="bm-rule-text">
-                                    <span class="bm-rule-title">Follow up after first meetings</span>
-                                    <span class="bm-rule-sub">Draft 3 days later, every time</span>
-                                  </div>
-                                  <button class="bm-switch" type="button" data-action="automate" aria-label="Turn on automation" />
-                                </div>
-                              </div>
-
-                              <div class="bm-msg bm-exec-confirm" data-auto-confirm hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble bm-bubble-indigo" data-auto-confirm-text></div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── STAY IN CONTROL (pinned, scroll-driven) ───────────────────────── -->
-    <section class="workflow-section pin-section sec-mono sec-purple" id="control">
-      <div class="pin-track" data-pin-track style={`--pin-steps: ${controlSteps.length}`}>
-        <div class="pin-stage" data-pin-stage data-step="0">
-          <div class="wrap pin-stage-inner">
-            <div class="pin-header">
-              <h2><span class="brand-text-purple">You</span> Stay In Control</h2>
-              <div class="pin-dots" aria-hidden="true">
-                {controlSteps.map((_s, i) => (
-                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
-                ))}
-              </div>
-            </div>
-
-            <div class="pin-deck">
-              {controlSteps.map((step, i) => {
-                const urls = ["mateos.ai/approvals", "mateos.ai/permissions", "mateos.ai/activity"];
-                return (
-                  <article
-                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
-                    data-panel={i}
-                    aria-hidden={i === 0 ? "false" : "true"}
-                  >
-                    <div class="pin-meta">
-                      <span class="step-icon" set:html={step.icon} />
-                      <div class="pin-meta-text">
-                        <div class="step-time">{step.eyebrow}</div>
-                        <h3><span class="brand-text-purple">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
-                        <p class="pin-sub">{step.sub}</p>
-                      </div>
-                    </div>
-
-                    <div class="pin-visual">
-                      {USE_VIDEO ? (
-                        <DemoVideo name={`control-${i}`} />
-                      ) : (
-                      <div class="pin-window" aria-hidden="true">
-                        <div class="pin-window-chrome">
-                          <span class="dot dot-red" />
-                          <span class="dot dot-amber" />
-                          <span class="dot dot-green" />
-                          <span class="pin-window-url">{urls[i]}</span>
-                        </div>
-                        <div class="pin-window-body">
-                          {i === 0 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">This affects 47 open leads. Want me to go ahead?</div>
-                              </div>
-                              <div class="bm-card bm-card-approve">
-                                <div class="bm-card-head">
-                                  <span>Approval needed</span>
-                                  <span class="bm-chip bm-chip-purple" data-approve-status>Waiting on you</span>
-                                </div>
-                                <div class="bm-card-body">Send the new pricing one-pager to all 47 open leads.</div>
-                                <div class="bm-actions" data-approve-actions>
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="approve">Approve</button>
-                                  <button class="bm-btn" type="button" data-action="hold">Hold</button>
-                                </div>
-                              </div>
-
-                              <div class="bm-msg bm-exec-confirm" data-approve-confirm hidden>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-approve-text></div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 1 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">Set how I handle each action. You're in charge.</div>
-                              </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
-                                  <span>Your permissions</span>
-                                  <span class="bm-chip bm-chip-indigo">3 rules</span>
-                                </div>
-                                <div class="bm-permrow">
-                                  <span class="bm-line-title">Send follow-ups</span>
-                                  <div class="bm-seg" data-seg>
-                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Ask first</button>
-                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Auto</button>
-                                  </div>
-                                </div>
-                                <div class="bm-permrow">
-                                  <span class="bm-line-title">Block calendar</span>
-                                  <div class="bm-seg" data-seg>
-                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
-                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
-                                  </div>
-                                </div>
-                                <div class="bm-permrow">
-                                  <span class="bm-line-title">Log to CRM</span>
-                                  <div class="bm-seg" data-seg>
-                                    <button class="bm-seg-opt" type="button" data-action="rule-opt">Ask first</button>
-                                    <button class="bm-seg-opt is-active" type="button" data-action="rule-opt">Auto</button>
-                                  </div>
-                                </div>
-                                <div class="bm-card-foot" data-rule-foot hidden>✓ Saved. You can change these any time.</div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 2 && (
-                            <div class="bm-chat">
-                              <div class="bm-msg">
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble">Every action I take is logged. Nothing happens off the record.</div>
-                              </div>
-                              <div class="bm-card">
-                                <div class="bm-card-head">
-                                  <span>Activity</span>
-                                  <span class="bm-chip bm-chip-indigo">9 automations active</span>
-                                </div>
-                                <div class="bm-activity" data-activity hidden>
-                                  <div class="bm-actline"><span class="bm-time">09:14</span><span class="bm-line-title">Drafted follow-up to Sarah @ Acme</span></div>
-                                  <div class="bm-actline"><span class="bm-time">08:30</span><span class="bm-line-title">Blocked 30 min prep before Notion call</span></div>
-                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Flagged Northwind · 8 days quiet</span></div>
-                                  <div class="bm-actline"><span class="bm-time">Yest.</span><span class="bm-line-title">Synced 4 calls to CRM</span></div>
-                                </div>
-                                <div class="bm-actions">
-                                  <button class="bm-btn bm-btn-primary" type="button" data-action="oversight">View activity log</button>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ── THE SALES MAGICIAN (pinned, scroll-driven) ──────────────────── -->
-    <section class="workflow-section pin-section sec-mono sec-steps" id="magician">
-      <div class="pin-track" data-pin-track style={`--pin-steps: ${magicianSteps.length}`}>
-        <div class="pin-stage" data-pin-stage data-step="0">
-          <div class="wrap pin-stage-inner">
-            <div class="pin-header">
-              <h2>Meet the <span class="gradient-text">Sales Magician</span></h2>
-              <p class="pin-lead">One teammate. Three superpowers across your funnel.</p>
-              <div class="pin-dots" aria-hidden="true">
-                {magicianSteps.map((_s, i) => (
-                  <span class={`pin-dot${i === 0 ? " is-active" : ""}`} data-dot={i} />
-                ))}
-              </div>
-            </div>
-
-            <div class="pin-deck">
-              {magicianSteps.map((step, i) => {
-                const urls = ["mateos.ai/prospecting", "mateos.ai/events", "mateos.ai/accounts"];
-                return (
-                  <article
-                    class={`pin-panel step-${step.color}${i === 0 ? " is-active" : " is-below"}`}
-                    data-panel={i}
-                    aria-hidden={i === 0 ? "false" : "true"}
-                  >
-                    <div class="pin-meta">
-                      <span class="step-icon" set:html={step.icon} />
-                      <div class="pin-meta-text">
-                        <div class="step-time">{step.eyebrow}</div>
-                        <h3><span class="brand-text">{step.title.split(' ')[0]}</span>{' ' + step.title.split(' ').slice(1).join(' ')}</h3>
-                        <p class="pin-sub">{step.sub}</p>
-                      </div>
-                    </div>
-
-                    <div class="pin-visual">
-                      {USE_VIDEO ? (
-                        <DemoVideo name={`magician-${i}`} />
-                      ) : (
-                      <div class="pin-window" aria-hidden="true">
-                        <div class="pin-window-chrome">
-                          <span class="dot dot-red" />
-                          <span class="dot dot-amber" />
-                          <span class="dot dot-green" />
-                          <span class="pin-window-url">{urls[i]}</span>
-                        </div>
-                        <div class="pin-window-body">
-                          {i === 0 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar">M</span>
-                                <div class="bm-bubble" data-brief-greeting>Found 3 fresh ways to fill your pipeline this week. 🔍</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Pipeline radar</span>
-                                  <span class="bm-chip bm-chip-amber">Live</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">New leads</span>
-                                  <span class="bm-chip bm-chip-teal">128 matched</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">New angle to sell</span>
-                                  <span class="bm-chip bm-chip-teal">Onboarding ROI</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">New market</span>
-                                  <span class="bm-chip bm-chip-teal">Fintech ops teams</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 1 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar bm-avatar-teal">M</span>
-                                <div class="bm-bubble bm-bubble-teal" data-brief-greeting>SaaSConf is in 2 weeks. I've got the whole event covered. 🎟️</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>SaaSConf · 2 weeks out</span>
-                                  <span class="bm-chip bm-chip-teal">Ready</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Attendees matched</span>
-                                  <span class="bm-chip bm-chip-teal">37 ICP fits</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Intro emails drafted</span>
-                                  <span class="bm-chip bm-chip-teal">12 ready</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Meetings booked</span>
-                                  <span class="bm-chip bm-chip-teal">5 confirmed</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Your agenda</span>
-                                  <span class="bm-chip bm-chip-teal">Built</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-
-                          {i === 2 && (
-                            <div class="bm-chat" data-brief-stream>
-                              <div class="bm-msg" data-brief-typing hidden>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble bm-typing"><span /><span /><span /></div>
-                              </div>
-                              <div class="bm-msg" data-brief-greeting-msg>
-                                <span class="bm-avatar bm-avatar-indigo">M</span>
-                                <div class="bm-bubble" data-brief-greeting>3 accounts in your network are ready to grow. Here's where. 📈</div>
-                              </div>
-                              <div class="bm-card" data-brief-card>
-                                <div class="bm-card-head" data-brief-row>
-                                  <span>Expansion signals</span>
-                                  <span class="bm-chip bm-chip-indigo">Detected</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Acme Corp</span>
-                                  <span class="bm-chip bm-chip-indigo">Ready for Enterprise</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Northwind</span>
-                                  <span class="bm-chip bm-chip-indigo">+2 seats likely</span>
-                                </div>
-                                <div class="bm-line" data-brief-row>
-                                  <span class="bm-line-title">Warm intros</span>
-                                  <span class="bm-chip bm-chip-indigo">4 in your network</span>
-                                </div>
-                              </div>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                      )}
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ── INTEGRATIONS ──────────────────────────────────────────────── -->
-    <section class="integrations-section" id="integrations">
+    <!-- ── PROBLEM ────────────────────────────────────────────────────── -->
+    <section class="section" id="problem">
       <div class="wrap">
-        <div class="section-header" data-reveal>
-          <div class="eyebrow">Integrations</div>
-          <h2>Works Everywhere</h2>
+        <div class="section-head" data-reveal>
+          <div class="eyebrow">The AI moment</div>
+          <h2><span class="hl-orange">You're not behind.</span><br />You're missing a translator.</h2>
+          <p class="section-lead">Every week there's a new agent, a new tool, a new reason you're "falling behind." Half of it is hype. Some could genuinely change your business. And you have no one whose only job is to tell you which is which.</p>
         </div>
-        <div class="carousel-track">
-          <div class="carousel-inner" aria-hidden="false">
-            {[...integrations, ...integrations].map((i, idx) => (
-              <img
-                src={i.src}
-                alt={i.name}
-                class="carousel-logo"
-                aria-label={idx < integrations.length ? i.name : undefined}
-              />
-            ))}
-          </div>
+        <div class="card-grid card-grid-3">
+          {problems.map((p, i) => (
+            <div class="card card-orange" data-reveal data-reveal-delay={i + 1}>
+              <div class="card-icon" set:html={p.icon} />
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>
 
+    <!-- ── PAYOFF ─────────────────────────────────────────────────────── -->
+    <section class="section section-alt" id="payoff">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow eyebrow-teal">The payoff</div>
+          <h2>The busywork disappears.<br /><span class="hl-teal">The wins compound.</span></h2>
+          <p class="section-lead">No AI transformation, no product we're pushing. Just the specific wins that move your numbers, wired together so your whole company feels it.</p>
+        </div>
+        <div class="card-grid card-grid-3">
+          {payoffs.map((p, i) => (
+            <div class="card card-teal" data-reveal data-reveal-delay={i + 1}>
+              <div class="card-icon" set:html={p.icon} />
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW IT WORKS (diagnose → build → measure timeline) ─────────── -->
+    <section class="section" id="process">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow eyebrow-purple">How it works</div>
+          <h2>We find it. We build it. We prove it.<br /><span class="hl-purple">No hype, no guesswork.</span></h2>
+          <p class="section-lead">A clear path from "we should probably do AI" to results you can put a number on.</p>
+        </div>
+        <div class="timeline">
+          {process.map((s, i) => (
+            <div class={`tl-step step-${s.color}`} data-reveal>
+              <div class="tl-marker">
+                <span class="tl-icon" set:html={s.icon} />
+              </div>
+              <div class="tl-card">
+                <span class="tl-num">Step {s.num}</span>
+                <h3>{s.title}</h3>
+                <p>{s.body}</p>
+                <ul class="tl-points">
+                  {s.points.map((pt) => (
+                    <li>{pt}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ── HOW WE BUILD (constellation) ───────────────────────────────── -->
+    <section class="section section-alt" id="how">
+      <div class="wrap">
+        <div class="section-head" data-reveal>
+          <div class="eyebrow">How we build</div>
+          <h2><span class="gradient-text">We connect everything.</span><br />Then we make it think.</h2>
+          <p class="section-lead">The diagnostic tells you what's worth building. This is how we build it.</p>
+        </div>
+
+        <div class="constellation" data-reveal>
+          <svg viewBox="0 0 900 520" role="img" aria-label="Your systems connect into one unified knowledge base that powers trusted agents, each with evals.">
+            <defs>
+              <filter id="cstShadow" x="-40%" y="-40%" width="180%" height="180%">
+                <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#14141e" flood-opacity="0.14" />
+              </filter>
+            </defs>
+
+            <!-- connectors: systems -> core -->
+            {sources.map((s, i) => (
+              <>
+                <line class="cst-line-base" x1={s.x} y1={s.y} x2={CORE.x} y2={CORE.y} />
+                <line class="cst-line-flow" x1={s.x} y1={s.y} x2={CORE.x} y2={CORE.y} style={`animation-delay:${(i * 0.13).toFixed(2)}s`} />
+              </>
+            ))}
+
+            <!-- connectors: core -> agents -->
+            {agents.map((a, i) => (
+              <>
+                <line class="cst-line-base" x1={CORE.x} y1={CORE.y} x2={a.x} y2={a.y} />
+                <line class="cst-line-flow out" x1={CORE.x} y1={CORE.y} x2={a.x} y2={a.y} style={`animation-delay:${(i * 0.2).toFixed(2)}s`} />
+              </>
+            ))}
+
+            <!-- core glow -->
+            <circle class="cst-core-glow" cx={CORE.x} cy={CORE.y} r={R_CORE} />
+
+            <!-- system tiles -->
+            {sources.map((s) => (
+              <g filter="url(#cstShadow)">
+                <rect class="cst-tile" x={s.x - TILE / 2} y={s.y - TILE / 2} width={TILE} height={TILE} rx="14" />
+                <image href={s.src} x={s.x - TILE / 2 + 11} y={s.y - TILE / 2 + 11} width={TILE - 22} height={TILE - 22} preserveAspectRatio="xMidYMid meet" />
+              </g>
+            ))}
+
+            <!-- core -->
+            <g filter="url(#cstShadow)">
+              <circle class="cst-core" cx={CORE.x} cy={CORE.y} r={R_CORE} />
+              <g transform="translate(421,221) scale(0.39)">
+                <circle cx="130" cy="70" r="27" fill="#FF8C42" />
+                <circle cx="70" cy="130" r="27" fill="#17BEBB" />
+                <circle cx="130" cy="130" r="27" fill="#5B53E8" />
+              </g>
+            </g>
+            <text class="cst-core-label" x={CORE.x} y={CORE.y + R_CORE + 24} text-anchor="middle">Unified knowledge base</text>
+
+            <!-- agents with evals -->
+            {agents.map((a) => {
+              const w = 176;
+              const h = 58;
+              const lx = a.x - w / 2;
+              const ly = a.y - h / 2;
+              return (
+                <g filter="url(#cstShadow)">
+                  <rect class="cst-agent" x={lx} y={ly} width={w} height={h} rx="14" />
+                  <circle class="cst-agent-live" cx={lx + 18} cy={a.y} r="4" />
+                  <text class="cst-agent-label" x={lx + 32} y={a.y - 3}>{a.label}</text>
+                  <text class="cst-agent-eval" x={lx + 32} y={a.y + 17}>evals() ✓ {a.score}</text>
+                </g>
+              );
+            })}
+          </svg>
+        </div>
+
+        <div class="card-grid card-grid-3 how-grid">
+          {pillars.map((p, i) => (
+            <div class="card" data-reveal data-reveal-delay={i + 1}>
+              <h3>{p.title}</h3>
+              <p>{p.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
 
     <!-- ── CTA ────────────────────────────────────────────────────────── -->
     <section class="cta-section" id="cta">
       <div class="wrap cta-inner" data-reveal>
-        <h2><span class="gradient-text">Join early access</span></h2>
-        <p>We'll reach out to set you up.</p>
+        <h2><span class="gradient-text">Find out where AI pays off for you.</span></h2>
+        <p>Book a fixed-scope diagnostic. Walk away with a roadmap and the numbers, whether or not you build with us.</p>
         <form class="early-form" id="form-cta" novalidate>
           <input type="email" class="early-input" placeholder="your@email.com" required autocomplete="email" />
-          <button type="submit" class="btn-primary-lg">Get early access →</button>
+          <button type="submit" class="btn-primary-lg">Book a Diagnostic →</button>
         </form>
-        <p class="early-success" id="success-cta" hidden>Thank you for joining the waitlist!</p>
+        <p class="early-success" id="success-cta" hidden>Thanks. We'll be in touch to schedule your diagnostic.</p>
       </div>
     </section>
   </main>
@@ -949,9 +341,9 @@ const teamLogos = [
     <div class="wrap footer-inner">
       <div class="brand" aria-label="Mateos.ai">
         <svg width="22" height="22" viewBox="43 43 114 114" aria-hidden="true">
-          <circle cx="130" cy="70" r="27" fill="#FF8C42"/>
-          <circle cx="70" cy="130" r="27" fill="#17BEBB"/>
-          <circle cx="130" cy="130" r="27" fill="#5B53E8"/>
+          <circle cx="130" cy="70" r="27" fill="#FF8C42" />
+          <circle cx="70" cy="130" r="27" fill="#17BEBB" />
+          <circle cx="130" cy="130" r="27" fill="#5B53E8" />
         </svg>
         <span class="brand-name">mateos<span class="brand-ai">.ai</span></span>
       </div>
@@ -971,27 +363,15 @@ const teamLogos = [
     -webkit-backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--nav-border);
   }
-  .bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    height: 64px;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .brand-mark {
-    height: 28px;
-    width: auto;
-  }
-  .nav-right {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  @media (min-width: 1024px) { .nav-right .btn-cta { margin-left: 20px; } }
+  .bar { display: flex; align-items: center; justify-content: space-between; height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand-mark { height: 28px; width: auto; }
+  .brand-name { font-family: var(--font-display); font-weight: 700; font-size: 1.15rem; color: var(--text-primary); letter-spacing: -0.01em; }
+  .brand-ai { color: var(--amber-500); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-link { font-size: 0.875rem; font-weight: 500; color: var(--text-secondary); transition: color 0.15s; }
+  .nav-link:hover { color: var(--text-primary); }
+  @media (max-width: 640px) { .nav-link { display: none; } }
   .btn-cta {
     display: inline-block;
     background: var(--color-primary);
@@ -1010,13 +390,11 @@ const teamLogos = [
     position: relative;
     overflow: hidden;
     background: var(--hero-bg);
-    min-height: 100vh;
-    padding: 0;
+    min-height: 92vh;
     text-align: center;
     display: flex;
     align-items: center;
   }
-  .hero-glow { display: none; }
   .hero-inner {
     position: relative;
     z-index: 1;
@@ -1025,24 +403,32 @@ const teamLogos = [
     align-items: center;
     gap: 20px;
   }
-  .hero-logo {
-    height: 72px;
-    width: auto;
-    margin-bottom: 8px;
+  .hero-logo { height: 64px; width: auto; margin-bottom: 4px; }
+  .hero-eyebrow {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--color-primary-text);
+    border: 1px solid var(--hero-pill-border);
+    background: var(--hero-pill-bg);
+    padding: 6px 14px;
+    border-radius: var(--radius-full);
   }
+  :global([data-theme="dark"]) .hero-eyebrow { color: var(--amber-400); }
   .hero h1 {
-    font-size: clamp(3rem, 8vw, 5.5rem);
+    font-size: clamp(2.5rem, 6.5vw, 4.75rem);
     color: var(--hero-heading);
-    line-height: 1.02;
+    line-height: 1.04;
     letter-spacing: -0.03em;
   }
   .hero-tagline {
-    font-family: var(--font-display);
-    font-size: clamp(1.25rem, 3vw, 1.75rem);
-    font-weight: 600;
+    max-width: 620px;
+    font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+    font-weight: 500;
     color: var(--hero-body);
-    letter-spacing: -0.01em;
-    line-height: 1.3;
+    line-height: 1.5;
   }
   .gradient-text {
     background: var(--gradient-brand);
@@ -1050,100 +436,45 @@ const teamLogos = [
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .hero-sub {
-    max-width: 520px;
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--hero-body);
-  }
-  .hero-pills {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .pill {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--hero-pill-text);
-    border: 1px solid var(--hero-pill-border);
-    background: var(--hero-pill-bg);
-    padding: 5px 12px;
-    border-radius: var(--radius-full);
-  }
+  /* section title accent colors */
+  .hl-orange { color: var(--amber-500); }
+  .hl-teal { color: var(--teal-500); }
+  .hl-purple { color: var(--color-secondary); }
+  :global([data-theme="dark"]) .hl-orange { color: var(--amber-400); }
+  :global([data-theme="dark"]) .hl-teal { color: var(--teal-400); }
+  :global([data-theme="dark"]) .hl-purple { color: var(--indigo-400); }
   .hero-actions {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     margin-top: 8px;
   }
-  .early-form {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-  .early-input {
-    padding: 0.75rem 1rem;
-    border-radius: var(--radius-sm);
-    border: 1px solid var(--border-strong);
-    background: var(--surface);
-    color: var(--text-primary);
-    font-family: var(--font-body);
-    font-size: 0.95rem;
-    width: 220px;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    outline: none;
-  }
-  .early-input:focus {
-    border-color: var(--amber-500);
-    box-shadow: 0 0 0 3px rgba(255,140,66,0.15);
-  }
-  .early-input::placeholder { color: var(--text-muted); }
-  .early-success {
-    font-size: 0.95rem;
-    color: var(--teal-600);
-    font-weight: 500;
-    margin-top: 4px;
-  }
-  :global([data-theme="dark"]) .early-success { color: var(--teal-400); }
+
+  /* ── Buttons (shared) ────────────────────────────────────────────────── */
   .btn-primary-lg {
     display: inline-block;
     background: var(--color-primary);
     color: var(--on-primary);
     font-weight: 700;
     font-size: 0.95rem;
-    padding: 0.75rem 1.6rem;
+    padding: 0.8rem 1.7rem;
+    border: none;
     border-radius: var(--radius-sm);
     transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     box-shadow: var(--shadow-md);
   }
-  .btn-primary-lg:hover {
-    background: var(--color-primary-hover);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-lg);
-  }
+  .btn-primary-lg:hover { background: var(--color-primary-hover); transform: translateY(-2px); box-shadow: var(--shadow-lg); }
   .btn-primary-lg.is-success {
-    background: transparent;
-    box-shadow: none;
-    border: none;
-    padding: 0;
-    pointer-events: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 44px;
-    height: 44px;
+    background: transparent; box-shadow: none; border: none; padding: 0; pointer-events: none;
+    display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px;
   }
   .btn-ghost-lg {
     display: inline-block;
     font-size: 0.95rem;
     color: var(--hero-ghost-text);
-    padding: 0.75rem 1.2rem;
+    padding: 0.8rem 1.3rem;
     border-radius: var(--radius-sm);
     border: 1px solid var(--hero-ghost-border);
     transition: border-color 0.3s, color 0.3s;
@@ -1174,18 +505,13 @@ const teamLogos = [
     -webkit-text-fill-color: transparent;
     animation: magic-gradient 2s linear infinite;
   }
-  .btn-ghost-lg:hover::before {
-    opacity: 1;
-    animation: magic-gradient 2s linear infinite;
-  }
-  @keyframes magic-gradient {
-    0%   { background-position: 0% 50%; }
-    100% { background-position: 300% 50%; }
-  }
+  .btn-ghost-lg:hover::before { opacity: 1; animation: magic-gradient 2s linear infinite; }
+  @keyframes magic-gradient { 0% { background-position: 0% 50%; } 100% { background-position: 300% 50%; } }
   :global([data-theme="dark"]) .btn-ghost-lg { color: #FFFFFF; border-color: rgba(255,255,255,0.6); }
   :global([data-theme="dark"]) .btn-ghost-lg:hover { -webkit-text-fill-color: transparent; }
-  .btn-ghost-animated {
-    border-color: transparent !important;
+  /* magic button: always-animated gradient text + border (v1 look) */
+  .btn-magic {
+    border-color: transparent;
     background: linear-gradient(90deg, var(--amber-500), var(--teal-500), var(--indigo-500), var(--amber-500));
     background-size: 300% 100%;
     -webkit-background-clip: text;
@@ -1193,1125 +519,270 @@ const teamLogos = [
     -webkit-text-fill-color: transparent;
     animation: magic-gradient 2s linear infinite;
   }
-  .btn-ghost-animated::before {
-    opacity: 1 !important;
-    animation: magic-gradient 2s linear infinite !important;
+  .btn-magic::before { opacity: 1; animation: magic-gradient 2s linear infinite; }
+  :global([data-theme="dark"]) .btn-magic { border-color: transparent; -webkit-text-fill-color: transparent; }
+  @media (prefers-reduced-motion: reduce) {
+    .btn-magic, .btn-magic::before { animation: none; }
   }
 
-  /* ── Imagine ─────────────────────────────────────────────────────────── */
-  .imagine-section {
-    background: var(--neutral-900);
-    padding: 80px 0;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-  }
-  .imagine-inner {
-    max-width: 760px;
-    width: 100%;
-  }
-  .imagine-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--amber-400);
-    margin-bottom: 48px;
-  }
-  .imagine-line-hidden {
-    opacity: 0;
-    transform: translateY(24px) scale(0.98);
-    transition: opacity 0.78s cubic-bezier(0.22,1,0.36,1), transform 0.78s cubic-bezier(0.22,1,0.36,1);
-  }
-  .tw-cursor {
-    display: inline-block;
-    color: var(--amber-500);
-    animation: tw-blink 0.7s steps(1) infinite;
-    font-weight: 300;
-  }
-  @keyframes tw-blink { 0%,100%{opacity:1} 50%{opacity:0} }
+  /* ── Sections ────────────────────────────────────────────────────────── */
+  .section { padding: 120px 0; background: var(--surface); }
+  .section-alt { background: var(--surface-subtle); }
+  .section-head { max-width: 720px; margin: 0 auto 56px; text-align: center; }
+  .section-head h2 { font-size: clamp(1.9rem, 4.2vw, 2.85rem); margin-bottom: 18px; }
+  .section-lead { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; }
 
-  /* ── Morning Brief streaming build ───────────────────────────────── */
-  .bm-typing { padding: 11px 13px; gap: 5px; }
-  .bm-typing span {
-    width: 6px; height: 6px; border-radius: var(--radius-full);
-    background: var(--text-muted); opacity: 0.5;
-    animation: bm-typing-bounce 1.2s ease-in-out infinite;
-  }
-  .bm-typing span:nth-child(2) { animation-delay: 0.18s; }
-  .bm-typing span:nth-child(3) { animation-delay: 0.36s; }
-  @keyframes bm-typing-bounce {
-    0%, 60%, 100% { transform: translateY(0); opacity: 0.45; }
-    30% { transform: translateY(-4px); opacity: 0.9; }
-  }
-  .bm-stream-hide { opacity: 0; transform: translateY(10px); }
-  .bm-stream-show {
-    opacity: 1; transform: none;
-    transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1), transform 0.6s cubic-bezier(0.22,1,0.36,1);
-  }
-  .imagine-intro {
-    font-family: var(--font-display);
-    font-size: clamp(1.6rem, 4vw, 2.5rem);
-    font-weight: 600;
-    letter-spacing: -0.02em;
-    color: #FFFFFF;
-    margin-bottom: 32px;
-    transition: color 1.04s ease;
-  }
-  .imagine-intro.is-gone { color: rgba(255,255,255,0.2); pointer-events: none; }
-  .imagine-lines {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-  .imagine-line {
-    font-family: var(--font-display);
-    font-size: clamp(1.8rem, 4.5vw, 3rem);
-    font-weight: 700;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
-    color: #FFFFFF;
-    transition: color 0.65s ease;
-  }
-  /* previous line dims once the next one arrives (accent words keep their color) */
-  .imagine-line.is-dim { color: rgba(255,255,255,0.4); }
-  .imagine-hl { color: var(--amber-500); }
-  .imagine-sub {
-    font-family: var(--font-body);
-    font-size: clamp(1rem, 2vw, 1.2rem);
-    font-weight: 400;
-    letter-spacing: 0;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.5);
-    margin-top: 40px;
-  }
-
-  /* ── Features ────────────────────────────────────────────────────────── */
-  .features-section {
-    padding: 80px 0;
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-  }
-  .features-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 20px;
-  }
-  @media (min-width: 640px) { .features-grid { grid-template-columns: repeat(3, 1fr); } }
-  .feat-card {
-    background: var(--surface-subtle);
+  /* ── Card grids ──────────────────────────────────────────────────────── */
+  .card-grid { display: grid; gap: 20px; }
+  .card-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .card-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .card {
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    background: var(--surface);
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   }
-  .feat-card:hover {
-    border-color: var(--border-strong);
+  .card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); border-color: var(--border-strong); }
+  .card h3 { font-size: 1.15rem; margin-bottom: 10px; }
+  .card p { color: var(--text-secondary); font-size: 0.98rem; line-height: 1.6; }
+  .card-center { text-align: center; }
+  .card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  .card-center .card-icon { margin-left: auto; margin-right: auto; }
+  /* orange-tinted cards (problem section) */
+  .card-orange { background: var(--color-primary-soft); border-color: rgba(255,140,66,0.28); }
+  .card-orange .card-icon { background: rgba(255,140,66,0.18); color: var(--amber-600); }
+  :global([data-theme="dark"]) .card-orange .card-icon { color: var(--amber-400); }
+  /* purple-tinted cards (execute section) */
+  .card-purple { background: var(--color-secondary-soft); border-color: rgba(91,83,232,0.28); }
+  .card-purple .card-icon { background: rgba(91,83,232,0.18); color: var(--indigo-500); }
+  :global([data-theme="dark"]) .card-purple .card-icon { color: var(--indigo-300); }
+
+  /* ── Payoff cards (teal) ─────────────────────────────────────────────── */
+  .card-teal { background: var(--color-accent-soft); border-color: rgba(23,190,187,0.28); }
+  .card-teal .card-icon { background: rgba(23,190,187,0.18); color: var(--teal-600); }
+  :global([data-theme="dark"]) .card-teal .card-icon { color: var(--teal-400); }
+
+  /* ── Eyebrow tints (per-section color lead) ──────────────────────────── */
+  .eyebrow-teal { color: var(--teal-700); }
+  .eyebrow-purple { color: var(--indigo-600); }
+  :global([data-theme="dark"]) .eyebrow-teal { color: var(--teal-400); }
+  :global([data-theme="dark"]) .eyebrow-purple { color: var(--indigo-300); }
+
+  /* ── Process timeline: diagnose → build → measure ────────────────────── */
+  .timeline { position: relative; max-width: 960px; margin: 0 auto; }
+  /* the connecting spine that guides the scroll (brand gradient) */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    top: 24px;
+    bottom: 24px;
+    left: 27px;
+    width: 3px;
+    border-radius: 3px;
+    background: linear-gradient(180deg, var(--teal-500), var(--indigo-500), var(--amber-500));
+    opacity: 0.5;
+  }
+  .tl-step {
+    position: relative;
+    display: flex;
+    gap: 26px;
+    align-items: flex-start;
+    padding-bottom: 56px;
+  }
+  .tl-step:last-child { padding-bottom: 0; }
+  .tl-marker { flex-shrink: 0; width: 56px; display: flex; justify-content: center; }
+  .tl-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-full);
+    background: var(--surface);
+    border: 2px solid var(--step-color);
+    color: var(--step-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
     box-shadow: var(--shadow-sm);
   }
-  .feat-card:first-child { border-top: 3px solid var(--amber-500); }
-  .feat-card:nth-child(2) { border-top: 3px solid var(--teal-500); }
-  .feat-card:last-child { border-top: 3px solid var(--indigo-500); }
-  .feat-icon {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-sm);
-    background: var(--color-primary-soft);
-    color: var(--amber-600);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  [data-theme="dark"] .feat-icon { color: var(--amber-400); }
-  .feat-card:nth-child(2) .feat-icon { background: var(--color-accent-soft); color: var(--teal-600); }
-  [data-theme="dark"] .feat-card:nth-child(2) .feat-icon { color: var(--teal-400); }
-  .feat-card:last-child .feat-icon { background: var(--color-secondary-soft); color: var(--indigo-600); }
-  [data-theme="dark"] .feat-card:last-child .feat-icon { color: var(--indigo-400); }
-  .feat-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-  }
-  .feat-card p {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-  }
-
-  /* ── Workflow ─────────────────────────────────────────────────────────── */
-  .workflow-section {
-    padding: 96px 0;
-    background: var(--surface-subtle);
-    border-bottom: 1px solid var(--border);
-  }
-  .section-header {
-    text-align: center;
-    margin-bottom: 64px;
-  }
-  .section-eyebrow {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--amber-500);
-    margin-bottom: 14px;
-  }
-  .section-header h2 {
-    font-size: clamp(2.25rem, 5vw, 3.5rem);
-    margin-bottom: 12px;
-  }
-  .section-sub {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-  .timeline {
-    max-width: 680px;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-  .timeline-step {
-    display: flex;
-    gap: 24px;
-    align-items: flex-start;
-  }
-  .step-marker {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-shrink: 0;
-    padding-top: 4px;
-  }
-  .step-icon {
-    width: 48px;
-    height: 48px;
-    border-radius: var(--radius-full);
-    background: var(--surface);
-    border: 2px solid var(--border);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-    position: relative;
-  }
-  .step-amber .step-icon { border-color: var(--amber-400); background: var(--color-primary-soft); color: var(--amber-600); }
-  .step-teal .step-icon  { border-color: var(--teal-400);  background: var(--color-accent-soft);  color: var(--teal-600); }
-  .step-indigo .step-icon { border-color: var(--indigo-400); background: var(--color-secondary-soft); color: var(--indigo-600); }
-  :global([data-theme="dark"]) .step-amber .step-icon { color: var(--amber-400); }
-  :global([data-theme="dark"]) .step-teal .step-icon  { color: var(--teal-400); }
-  :global([data-theme="dark"]) .step-indigo .step-icon { color: var(--indigo-400); }
-  .step-line {
-    width: 2px;
+  .tl-card {
     flex: 1;
-    min-height: 48px;
-    background: var(--border);
-    margin: 4px 0;
-  }
-  .step-body {
-    padding-bottom: 48px;
-    flex: 1;
-  }
-  .timeline-step:last-child .step-body { padding-bottom: 0; }
-  .step-time {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .step-body h3 {
-    font-size: 1.15rem;
-    margin-bottom: 8px;
-  }
-  .step-body p {
-    font-size: 0.925rem;
-    color: var(--text-secondary);
-    line-height: 1.65;
-    margin-bottom: 14px;
-  }
-  .step-tags { display: flex; flex-wrap: wrap; gap: 6px; }
-  .tag {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    font-weight: 500;
-    padding: 4px 10px;
-    border-radius: var(--radius-sm);
-  }
-  .tag-amber { background: var(--color-primary-soft); color: var(--amber-700); }
-  .tag-teal  { background: var(--color-accent-soft);  color: var(--teal-700); }
-  .tag-indigo { background: var(--color-secondary-soft); color: var(--indigo-600); }
-  :global([data-theme="dark"]) .tag-amber { color: var(--amber-200); }
-  :global([data-theme="dark"]) .tag-teal  { color: var(--teal-200); }
-  :global([data-theme="dark"]) .tag-indigo { color: var(--indigo-200); }
-
-  /* ── Two-column split: text + browser mockup (big screens only) ───────── */
-  .split-visual { display: none; }
-
-  @media (min-width: 1024px) {
-    .section-split {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-      gap: 56px;
-      align-items: center;
-    }
-    .section-split > .section-header { grid-column: 1 / -1; margin-bottom: 0; }
-    .split-text { min-width: 0; }
-    .split-text .timeline { margin: 0; max-width: none; }
-    .split-visual { display: block; }
-  }
-
-  /* ── Browser mockup content ───────────────────────────────────────────── */
-  .bm-chat { display: flex; flex-direction: column; gap: 12px; }
-  .bm-msg { display: flex; gap: 10px; align-items: flex-start; }
-  .bm-avatar {
-    width: 28px; height: 28px; flex-shrink: 0;
-    border-radius: var(--radius-full);
-    background: var(--color-primary); color: var(--on-primary);
-    font-family: var(--font-display); font-weight: 700; font-size: 0.8rem;
-    display: flex; align-items: center; justify-content: center;
-  }
-  .bm-avatar-teal { background: var(--color-accent); }
-  .bm-avatar-indigo { background: var(--color-secondary); color: #fff; }
-  .bm-bubble {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: 4px 14px 14px 14px;
-    padding: 9px 13px;
-    font-size: 0.82rem; line-height: 1.5; color: var(--text-primary);
-    box-shadow: var(--shadow-xs);
-    display: flex; align-items: center; flex-wrap: wrap; gap: 6px;
-  }
-  .bm-bubble-teal {
-    border-color: var(--teal-300); background: var(--color-accent-soft); color: var(--teal-700);
-  }
-  :global([data-theme="dark"]) .bm-bubble-teal { color: var(--teal-200); }
-  .bm-bubble-indigo {
-    border-color: var(--indigo-300); background: var(--color-secondary-soft); color: var(--indigo-600);
-  }
-  :global([data-theme="dark"]) .bm-bubble-indigo { color: var(--indigo-200); }
-
-  .bm-card {
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    padding: 14px; box-shadow: var(--shadow-sm);
-    display: flex; flex-direction: column; gap: 10px;
-  }
-  .bm-card-approve { border-color: var(--indigo-300); }
-  .bm-card-head {
-    display: flex; align-items: center; justify-content: space-between; gap: 8px;
-    font-family: var(--font-mono); font-size: 0.66rem; letter-spacing: 0.04em;
-    text-transform: uppercase; color: var(--text-muted);
-  }
-  .bm-card-body { font-size: 0.82rem; line-height: 1.5; color: var(--text-primary); }
-  .bm-line {
-    display: flex; align-items: center; gap: 10px;
-    font-size: 0.8rem; color: var(--text-primary);
-  }
-  .bm-time {
-    font-family: var(--font-mono); font-size: 0.72rem; color: var(--text-muted);
-    width: 38px; flex-shrink: 0;
-  }
-  .bm-line-title { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-  .bm-chip {
-    font-family: var(--font-mono); font-size: 0.6rem; font-weight: 600;
-    padding: 3px 8px; border-radius: var(--radius-full); white-space: nowrap;
-    text-transform: uppercase; letter-spacing: 0.04em; flex-shrink: 0;
-  }
-  .bm-chip-amber { background: var(--color-primary-soft); color: var(--amber-700); }
-  .bm-chip-teal  { background: var(--color-accent-soft);  color: var(--teal-700); }
-  .bm-chip-indigo { background: var(--color-secondary-soft); color: var(--indigo-600); }
-  .bm-chip-purple { background: var(--color-secondary-soft); color: var(--color-secondary); }
-  :global([data-theme="dark"]) .bm-chip-amber { color: var(--amber-200); }
-  :global([data-theme="dark"]) .bm-chip-teal  { color: var(--teal-200); }
-  :global([data-theme="dark"]) .bm-chip-indigo,
-  :global([data-theme="dark"]) .bm-chip-purple { color: var(--indigo-200); }
-
-  .bm-actions { display: flex; gap: 8px; }
-  .bm-btn {
-    font-size: 0.76rem; font-weight: 600; padding: 6px 14px;
-    border-radius: var(--radius-sm); border: 1px solid var(--border);
-    color: var(--text-secondary); background: var(--surface);
-  }
-  .bm-btn-primary {
-    background: var(--color-primary); border-color: var(--color-primary); color: var(--on-primary);
-  }
-
-  .bm-panel { display: flex; flex-direction: column; gap: 10px; }
-  .bm-panel-label {
-    font-family: var(--font-mono); font-size: 0.66rem; text-transform: uppercase;
-    letter-spacing: 0.08em; color: var(--text-muted); margin-top: 6px;
-  }
-  .bm-rule {
-    display: flex; align-items: center; justify-content: space-between; gap: 12px;
-    background: var(--surface); border: 1px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 12px;
-  }
-  .bm-rule-text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-  .bm-rule-title { font-size: 0.82rem; font-weight: 600; color: var(--text-primary); }
-  .bm-rule-sub { font-size: 0.72rem; color: var(--text-muted); }
-  .bm-switch {
-    width: 34px; height: 20px; border-radius: var(--radius-full);
-    background: var(--neutral-300); position: relative; flex-shrink: 0;
-  }
-  .bm-switch.on { background: var(--color-accent); }
-  .bm-switch::after {
-    content: ''; position: absolute; top: 2px; left: 2px;
-    width: 16px; height: 16px; border-radius: var(--radius-full);
-    background: #fff; box-shadow: var(--shadow-xs);
-  }
-  .bm-switch.on::after { left: 16px; }
-  .bm-panel-foot {
-    font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-muted);
-    text-align: center; margin-top: 4px;
-  }
-
-  /* ── Pinned, scroll-driven workflow section ──────────────────────────── */
-  .pin-track { position: relative; }
-  .pin-header { text-align: center; margin-bottom: 36px; position: relative; z-index: 2; }
-  .pin-header h2 { font-size: clamp(2rem, 4.5vw, 3.25rem); }
-  .pin-lead { margin-top: 12px; font-size: clamp(0.95rem, 1.6vw, 1.15rem); color: var(--text-muted); }
-  .pin-dots { display: none; justify-content: center; gap: 8px; margin-top: 18px; }
-  .pin-dot {
-    width: 8px; height: 8px; border-radius: var(--radius-full);
-    background: var(--border-strong); transition: width 0.3s, background 0.3s;
-  }
-  .pin-dot.is-active { width: 22px; background: var(--color-primary); }
-
-  .pin-deck { position: relative; z-index: 1; }
-  /* each card fills (about) a full viewport so only one demo shows at a time */
-  .pin-panel {
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column; gap: 24px; align-items: center;
-    justify-content: center;
-    min-height: 100vh; min-height: 100svh;
-    padding: 48px 0;
-  }
-  .pin-meta { display: flex; gap: 20px; align-items: flex-start; width: 100%; max-width: 460px; }
-  .pin-meta .step-icon { flex-shrink: 0; }
-  .pin-meta-text h3 { font-size: 1.5rem; margin: 4px 0 10px; }
-  .pin-sub {
-    font-size: 0.95rem; line-height: 1.6; color: var(--text-secondary);
-    max-width: 46ch; margin: 0;
-  }
-  .pin-visual { width: 100%; max-width: 460px; }
-
-  .pin-window {
-    position: relative;
-    border-radius: var(--radius-lg); background: var(--surface);
-    border: 1px solid var(--border); box-shadow: var(--shadow-xl); overflow: hidden;
-  }
-  /* .demo-cursor is created at runtime, so it's styled in global.css (unscoped) */
-  .pin-window-chrome {
-    display: flex; align-items: center; gap: 8px;
-    padding: 11px 14px; background: var(--surface-muted); border-bottom: 1px solid var(--border);
-  }
-  .pin-window-chrome .dot { width: 11px; height: 11px; border-radius: var(--radius-full); flex-shrink: 0; }
-  .pin-window-chrome .dot-red { background: #FF5F57; }
-  .pin-window-chrome .dot-amber { background: #FEBC2E; }
-  .pin-window-chrome .dot-green { background: #28C840; }
-  .pin-window-url {
-    flex: 1; text-align: center; font-family: var(--font-mono);
-    font-size: 0.72rem; color: var(--text-muted);
-  }
-  .pin-window-body { padding: 18px; background: var(--surface-subtle); }
-  :global([data-theme="dark"]) .pin-window-body { background: var(--neutral-900); }
-
-  @media (min-width: 1024px) {
-    /* three-column timeline: text | centred icon (on the line) | browser mockup.
-       text and mockup sit in opposite columns on the same row; they swap sides
-       on alternating cards. */
-    .pin-panel {
-      position: relative;
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 56px minmax(0, 1fr);
-      align-items: center; column-gap: 40px;
-    }
-    .pin-meta { display: contents; }                 /* icon + text become panel grid items */
-    /* pin all three to row 1 so grid auto-placement can't bump any to a new row */
-    .pin-panel .step-icon { grid-column: 2; grid-row: 1; justify-self: center; position: relative; z-index: 2; }
-    /* connecting line: a gradient segment from each icon UP to the previous one.
-       :not(:first-of-type) excludes the first icon of every section. */
-    .pin-panel:not(:first-of-type) .step-icon::before {
-      content: ''; position: absolute; left: 50%; transform: translateX(-50%);
-      bottom: calc(100% + 6px); width: 3px; height: calc(100svh - 54px);
-      border-radius: 2px; z-index: -1;
-    }
-    .step-teal .step-icon::before   { background: linear-gradient(180deg, var(--amber-500), var(--teal-500)); }
-    .step-indigo .step-icon::before { background: linear-gradient(180deg, var(--teal-500), var(--indigo-500)); }
-
-    .pin-meta-text { grid-column: 1; grid-row: 1; justify-self: end; text-align: right; max-width: 380px; }
-    .pin-sub { max-width: none; }
-    .pin-visual { grid-column: 3; grid-row: 1; justify-self: start; width: 100%; max-width: 460px; }
-
-    /* every other card: text and mockup swap to the opposite columns (same row) */
-    .pin-panel:nth-of-type(even) .pin-meta-text { grid-column: 3; justify-self: start; text-align: left; }
-    .pin-panel:nth-of-type(even) .pin-visual { grid-column: 1; justify-self: end; }
-  }
-
-  /* ── Pinned mode (JS opt-in) ─────────────────────────────────────────── */
-  .pin-section.pin-active { padding: 0; }
-  .pin-section.pin-active .pin-track {
-    height: calc((var(--pin-steps) + 1) * 100vh);
-    height: calc((var(--pin-steps) + 1) * 100svh);
-  }
-  .pin-section.pin-active .pin-stage {
-    position: sticky; top: 0;
-    height: 100vh;
-    height: 100svh;
-  }
-  .pin-section.pin-active .pin-stage-inner {
-    height: 100%; display: flex; flex-direction: column; justify-content: center;
-    padding-top: 76px; padding-bottom: 32px;
-  }
-  .pin-section.pin-active .pin-dots { display: flex; }
-  .pin-section.pin-active .pin-deck { flex: 1 1 auto; min-height: 0; }
-  .pin-section.pin-active .pin-panel {
-    position: absolute; inset: 0; margin: 0;
-    opacity: 0; transform: translateY(40px); pointer-events: none;
-    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
-  }
-  .pin-section.pin-active .pin-panel.is-active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-  .pin-section.pin-active .pin-panel.is-above { opacity: 0; transform: translateY(-48px); }
-  .pin-section.pin-active .pin-panel.is-below { opacity: 0; transform: translateY(40px); }
-
-  /* ── Demo-card interaction helpers (new classes only) ────────────────── */
-  .bm-chip-empty { background: var(--surface-muted); color: var(--text-muted); }
-  .bm-chip-loading { background: transparent; box-shadow: none; display: inline-flex; align-items: center; justify-content: center; min-width: 64px; padding: 3px 0; }
-  /* .bm-chip-bar / .bm-chip-bar-fill live in global.css - created at runtime via innerHTML */
-  .bm-chip.is-filling { animation: bmPop 0.3s ease; }
-  @keyframes bmPop { 0% { transform: scale(0.85); } 60% { transform: scale(1.08); } 100% { transform: scale(1); } }
-  .bm-result.is-in { animation: bmSlideIn 0.4s ease; }
-  @keyframes bmSlideIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-  /* hidden helpers inside any card (beats .bm-line / .bm-msg display) */
-  .pin-window-body [hidden] { display: none; }
-  /* completed action: a confirmation, not a pressable button */
-  .bm-btn-done {
-    background: none; border-color: transparent; box-shadow: none;
-    color: var(--teal-700); font-weight: 700; cursor: default;
-    padding-left: 0; padding-right: 0;
-  }
-  :global([data-theme="dark"]) .bm-btn-done { color: var(--teal-300); }
-  /* .bm-scrollhint styles live in global.css so JS-created hints are styled */
-  /* in-card confirmation message (Takes Initiative) */
-  .bm-exec-confirm { margin-top: 12px; }
-  .bm-exec-confirm.is-in { animation: bmSlideIn 0.4s ease; }
-  .bm-switch[data-action] { border: 0; padding: 0; cursor: pointer; }
-
-  /* You Stay In Control: segmented rule controls */
-  .bm-permrow { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 0; border-top: 1px solid var(--border); }
-  .bm-permrow:first-of-type { border-top: 0; }
-  .bm-permrow .bm-line-title { font-size: 0.82rem; }
-  .bm-seg { display: inline-flex; background: var(--surface-muted); border-radius: var(--radius-full); padding: 3px; flex-shrink: 0; }
-  .bm-seg-opt {
-    border: 0; background: none; cursor: pointer;
-    font-family: var(--font-mono); font-size: 0.66rem; font-weight: 600;
-    text-transform: uppercase; letter-spacing: 0.03em;
-    padding: 5px 11px; border-radius: var(--radius-full); color: var(--text-muted);
-    transition: background 0.18s, color 0.18s;
-  }
-  .bm-seg-opt.is-active { background: var(--color-secondary); color: #fff; }
-  .bm-card-foot { margin-top: 12px; font-size: 0.74rem; color: var(--teal-700); font-family: var(--font-mono); animation: bmSlideIn 0.35s ease; }
-  :global([data-theme="dark"]) .bm-card-foot { color: var(--teal-200); }
-
-  /* You Stay In Control: activity log */
-  .bm-activity { display: flex; flex-direction: column; gap: 9px; margin: 4px 0 14px; }
-  .bm-actline { display: flex; gap: 12px; align-items: baseline; font-size: 0.8rem; transition: opacity 0.3s ease; }
-  .bm-actline.is-in { animation: bmSlideIn 0.35s ease; }
-  .bm-actline .bm-time { flex-shrink: 0; width: 44px; }
-
-  /* ── "This card is interactive" affordance ───────────────────────────── */
-  /* per-step accent for the glow / hint */
-  .pin-panel.step-amber  { --hint: 255,140,66; }
-  .pin-panel.step-teal   { --hint: 23,190,187; }
-  .pin-panel.step-indigo { --hint: 91,83,232; }
-  /* glow only on the active, not-yet-used step's primary control */
-  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target {
-    animation: hintGlow 3.6s ease-in-out infinite;
-  }
-  /* each beat grows bigger than the last until a capped max, then rests and repeats */
-  @keyframes hintGlow {
-    0%   { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    8%   { box-shadow: 0 0 0 4px  rgba(var(--hint), 0.20); }   /* beat 1 - small */
-    18%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    30%  { box-shadow: 0 0 0 8px  rgba(var(--hint), 0.26); }   /* beat 2 - medium */
-    42%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    56%  { box-shadow: 0 0 0 13px rgba(var(--hint), 0.30); }   /* beat 3 - max */
-    70%  { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }
-    100% { box-shadow: 0 0 0 0  rgba(var(--hint), 0); }        /* brief rest, then repeat */
-  }
-  /* big "Press here" coachmark - right beside the first card's Prep button */
-  .bm-press-wrap { position: relative; display: inline-flex; flex-shrink: 0; }
-  .bm-presshere {
-    position: absolute; top: 50%; right: calc(100% + 14px);
-    transform: translateY(-50%);
-    display: none; z-index: 6;
-    background: var(--color-primary); color: var(--on-primary);
-    font-family: var(--font-display); font-weight: 700; font-size: 1rem;
-    padding: 7px 14px; border-radius: var(--radius-sm);
-    box-shadow: var(--shadow-md); white-space: nowrap; pointer-events: none;
-  }
-  .bm-presshere::after {
-    content: ''; position: absolute; left: 100%; top: 50%; transform: translateY(-50%);
-    border: 7px solid transparent; border-left-color: var(--color-primary);
-  }
-  .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere {
-    display: block; animation: pressBob 0.9s ease-in-out infinite;
-  }
-  /* nudge horizontally toward the button (keeps the vertical centering) */
-  @keyframes pressBob {
-    0%, 100% { transform: translateY(-50%) translateX(0); }
-    50%      { transform: translateY(-50%) translateX(5px); }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-hint-target { animation: none; box-shadow: 0 0 0 3px rgba(var(--hint), 0.22); }
-    .pin-section.pin-active .pin-panel.is-active:not(.is-engaged) .bm-presshere { animation: none; }
-  }
-  .bm-todo { gap: 10px; }
-  .bm-check {
-    width: 18px; height: 18px; flex-shrink: 0; border-radius: var(--radius-full);
-    border: 2px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center;
-    transition: background 0.25s, border-color 0.25s;
-  }
-  .bm-check::after { content: '✓'; font-size: 0.66rem; line-height: 1; color: #fff; opacity: 0; transition: opacity 0.2s; }
-  .bm-check.is-done { background: var(--color-accent); border-color: var(--color-accent); }
-  .bm-check.is-done::after { opacity: 1; }
-  .bm-btn.is-busy { opacity: 0.75; cursor: default; }
-
-  /* Morning-briefing: agenda + prep-detail flow */
-  .bm-briefing [hidden] { display: none; }
-  .bm-btn-sm { padding: 4px 12px; font-size: 0.72rem; flex-shrink: 0; }
-  .bm-meeting { display: flex; align-items: center; gap: 10px; border-top: 1px solid var(--border); padding: 11px 0; }
-  .bm-meeting:first-of-type { border-top: 0; }
-  .bm-meeting .bm-line-title { flex: 1; }
-
-  /* status bar */
-  .bm-statusbar { padding: 4px 0 10px; animation: bmSlideIn 0.3s ease; }
-  .bm-statusbar-track { height: 6px; border-radius: var(--radius-full); background: var(--surface-muted); overflow: hidden; }
-  .bm-statusbar-fill { height: 100%; width: 0; border-radius: var(--radius-full); background: var(--color-primary); }
-  .bm-statusbar-text { margin-top: 8px; font-size: 0.74rem; color: var(--text-secondary); font-family: var(--font-mono); }
-
-  /* prep detail (card takeover) */
-  .bm-back {
-    background: none; border: 0; padding: 0; margin-bottom: 14px; cursor: pointer;
-    font-family: var(--font-body); font-size: 0.78rem; color: var(--text-muted);
-  }
-  .bm-back:hover { color: var(--text-primary); }
-  .bm-detail-title { display: flex; align-items: center; gap: 9px; margin-bottom: 16px; font-family: var(--font-display); font-weight: 700; font-size: 1.05rem; }
-  .bm-detail-title .bm-time { font-size: 0.95rem; color: var(--text-muted); }
-  .bm-detail-sep { color: var(--border-strong); font-weight: 400; }
-  .bm-prep-brief { display: flex; flex-direction: column; gap: 9px; }
-  .bm-prep-row { display: flex; gap: 12px; font-size: 0.82rem; line-height: 1.45; }
-  .bm-prep-key {
-    flex-shrink: 0; width: 80px; font-family: var(--font-mono); font-size: 0.66rem;
-    text-transform: uppercase; letter-spacing: 0.04em; color: var(--text-muted); padding-top: 2px;
-  }
-  .bm-prep-brief + .bm-actions { margin-top: 16px; }
-  .bm-btn-spin {
-    display: inline-block; width: 12px; height: 12px; margin-right: 7px; vertical-align: -1px;
-    border-radius: var(--radius-full);
-    border: 2px solid rgba(0,0,0,0.2); border-top-color: currentColor;
-    animation: bmSpin 0.6s linear infinite;
-  }
-  @keyframes bmSpin { to { transform: rotate(360deg); } }
-  @media (prefers-reduced-motion: reduce) { .bm-btn-spin { animation: none; } }
-
-  /* Zero admin backlog: checklist + execute / close */
-  [data-backlog] [hidden] { display: none; }
-  [data-backlog-card] { gap: 0; }
-  [data-backlog-card] .bm-card-head { padding-bottom: 4px; }
-  .bm-task {
-    display: flex; align-items: center; gap: 11px; cursor: pointer;
-    border-top: 1px solid var(--border); padding: 11px 0;
-  }
-  .bm-task:first-of-type { border-top: 0; }
-  .bm-checkbox { position: absolute; opacity: 0; width: 0; height: 0; }
-  .bm-task-box {
-    flex-shrink: 0; width: 19px; height: 19px; border-radius: var(--radius-xs);
-    border: 2px solid var(--border-strong); display: inline-flex; align-items: center; justify-content: center;
-    transition: background 0.15s, border-color 0.15s;
-  }
-  .bm-task-box::after { content: '✓'; font-size: 0.72rem; line-height: 1; color: #fff; opacity: 0; transition: opacity 0.15s; }
-  .bm-checkbox:checked + .bm-task-box { background: var(--color-secondary); border-color: var(--color-secondary); }
-  .bm-checkbox:checked + .bm-task-box::after { opacity: 1; }
-  .bm-checkbox:focus-visible + .bm-task-box { outline: 2px solid var(--color-secondary); outline-offset: 2px; }
-  .bm-task .bm-line-title { flex: 1; transition: color 0.2s; }
-  .bm-task.is-done { cursor: default; }
-  .bm-task.is-done .bm-task-box { background: var(--color-accent); border-color: var(--color-accent); }
-  .bm-task.is-done .bm-line-title { color: var(--text-muted); text-decoration: line-through; }
-
-  .bm-backlog-actions { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 14px; }
-  .bm-btn:disabled { opacity: 0.45; cursor: not-allowed; }
-  .bm-textbtn {
-    background: none; border: 0; padding: 6px 4px; cursor: pointer;
-    font-family: var(--font-body); font-size: 0.8rem; color: var(--text-muted);
-  }
-  .bm-textbtn:hover { color: var(--text-primary); }
-  .bm-backlog-collapsed { flex-direction: row; align-items: center; justify-content: space-between; gap: 12px; }
-  .bm-backlog-collapsed .bm-line-title { color: var(--text-secondary); font-size: 0.85rem; }
-  .bm-backlog-collapsed.is-complete {
-    border-color: var(--color-accent);
-    background: var(--color-accent-soft);
-  }
-  .bm-backlog-collapsed.is-complete .bm-line-title {
-    color: var(--teal-700); font-weight: 600;
-    display: inline-flex; align-items: center; gap: 8px;
-  }
-  .bm-backlog-collapsed.is-complete .bm-line-title::before {
-    content: '✓'; flex-shrink: 0;
-    width: 18px; height: 18px; border-radius: var(--radius-full);
-    background: var(--color-accent); color: #fff;
-    font-size: 0.7rem; line-height: 1;
-    display: inline-flex; align-items: center; justify-content: center;
-  }
-  :global([data-theme="dark"]) .bm-backlog-collapsed.is-complete .bm-line-title { color: var(--teal-200); }
-
-  @media (prefers-reduced-motion: reduce) {
-    .pin-section.pin-active { padding: 96px 0; }
-    .pin-section.pin-active .pin-track { height: auto !important; }
-    .pin-section.pin-active .pin-stage { position: static; height: auto; }
-    .pin-section.pin-active .pin-stage-inner { display: block; padding-top: 0; }
-    .pin-section.pin-active .pin-dots { display: none; }
-    .pin-section.pin-active .pin-panel {
-      position: static; inset: auto; opacity: 1; transform: none;
-      pointer-events: auto; margin-bottom: 48px;
-    }
-  }
-
-  /* ── Coming soon ─────────────────────────────────────────────────────── */
-  .coming-soon-section {
-    padding: 80px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .coming-card {
-    max-width: 640px;
-    margin: 0 auto;
-    text-align: center;
-    background: var(--surface-subtle);
-    border: 1px solid var(--border);
-    border-radius: var(--radius-xl);
-    padding: 56px 40px;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
-  }
-  .coming-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: var(--gradient-soft);
-    opacity: 0.5;
-    pointer-events: none;
-  }
-  .coming-card > * { position: relative; z-index: 1; }
-  .coming-badge {
-    font-family: var(--font-mono);
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--indigo-600);
-    background: var(--color-secondary-soft);
-    border: 1px solid var(--indigo-200);
-    padding: 5px 14px;
-    border-radius: var(--radius-full);
-    display: inline-block;
-  }
-  :global([data-theme="dark"]) .coming-badge {
-    color: #FFFFFF !important;
-    border-color: rgba(255, 255, 255, 0.5);
-    background: transparent;
-  }
-  .coming-card h2 {
-    font-size: clamp(1.75rem, 4vw, 2.25rem);
-  }
-  .coming-title { color: var(--amber-500); }
-  .coming-card p {
-    color: var(--text-secondary);
-    font-size: 1rem;
-    max-width: 420px;
-    line-height: 1.7;
-  }
-  .btn-outline-lg {
-    display: inline-block;
-    font-weight: 600;
-    font-size: 0.9rem;
-    padding: 0.65rem 1.4rem;
-    border-radius: var(--radius-sm);
-    border: 1.5px solid var(--color-primary);
-    color: var(--color-primary-text);
-    transition: background 0.2s, transform 0.15s;
-    margin-top: 4px;
-  }
-  .btn-outline-lg:hover {
-    background: var(--color-primary-soft);
-    transform: translateY(-1px);
-  }
-  [data-theme="dark"] .btn-outline-lg { color: var(--amber-400); }
-
-  /* ── Team ────────────────────────────────────────────────────────────── */
-  .team-section {
-    padding: 96px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .team-grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-  .team-left { display: flex; flex-direction: column; align-items: center; gap: 20px; max-width: 600px; }
-  .team-left h2 { font-size: clamp(1.6rem, 3.5vw, 2.25rem); }
-  .team-left p { color: var(--text-secondary); font-size: 1rem; line-height: 1.7; }
-  .credential-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 24px;
-    margin-top: 60px;
-    width: 100%;
-    max-width: 560px;
-    align-self: center;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  :global(.credential-logo svg) {
-    width: auto !important;
-    height: 90px !important;
-    display: block;
-    opacity: 0.85;
-  }
-  @media (max-width: 639px) {
-    :global(.credential-logo svg) { height: 60px !important; }
-  }
-  .team-right {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  .stat-card {
-    background: var(--surface-subtle);
+    min-width: 0;
+    padding: 26px 28px;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
-    padding: 32px;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    border-top: 3px solid var(--amber-500);
+    background: var(--surface);
+    border-left: 3px solid var(--step-color);
+    transition: transform 0.2s, box-shadow 0.2s;
   }
-  .stat-card-secondary { border-top-color: var(--indigo-500); }
-  .stat-card-accent { border-top-color: var(--teal-500); }
-  .stat-number {
-    font-family: var(--font-display);
-    font-size: 3.5rem;
-    font-weight: 800;
-    letter-spacing: -0.04em;
-    color: var(--text-primary);
-    line-height: 1;
+  .tl-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+  .tl-num {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--step-color);
   }
-  .stat-plus { color: var(--amber-500); }
-  .stat-label {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
+  .tl-card h3 { font-size: 1.35rem; margin: 6px 0 10px; }
+  .tl-card > p { color: var(--text-secondary); font-size: 1rem; line-height: 1.65; margin-bottom: 18px; }
+  .tl-points { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; }
+  .tl-points li {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 500;
+    padding: 5px 11px;
+    border-radius: var(--radius-full);
+    background: var(--step-soft);
+    color: var(--step-color);
+  }
+  .step-teal   { --step-color: var(--teal-600);   --step-soft: rgba(23,190,187,0.14); }
+  .step-purple { --step-color: var(--indigo-500); --step-soft: rgba(91,83,232,0.14); }
+  .step-amber  { --step-color: var(--amber-600);  --step-soft: rgba(255,140,66,0.16); }
+  :global([data-theme="dark"]) .step-teal   { --step-color: var(--teal-400); }
+  :global([data-theme="dark"]) .step-purple { --step-color: var(--indigo-300); }
+  :global([data-theme="dark"]) .step-amber  { --step-color: var(--amber-400); }
+
+  /* alternating left/right layout on big screens (v1 guideline) */
+  @media (min-width: 900px) {
+    .timeline::before { left: 50%; transform: translateX(-50%); }
+    .tl-step {
+      display: grid;
+      grid-template-columns: 1fr 56px 1fr;
+      column-gap: 44px;
+      align-items: center;
+      padding-bottom: 64px;
+    }
+    .tl-marker { grid-column: 2; }
+    .tl-step:nth-child(odd) .tl-card { grid-column: 1; border-left: none; border-right: 3px solid var(--step-color); text-align: right; }
+    .tl-step:nth-child(odd) .tl-points { justify-content: flex-end; }
+    .tl-step:nth-child(even) .tl-card { grid-column: 3; }
   }
 
-  /* ── Bottom CTA ──────────────────────────────────────────────────────── */
-  .cta-section {
-    padding: 100px 0;
-    background: var(--hero-bg);
-    position: relative;
-    overflow: hidden;
+  /* ── Constellation ───────────────────────────────────────────────────── */
+  .constellation { max-width: 920px; margin: 0 auto 56px; }
+  .constellation svg { width: 100%; height: auto; overflow: visible; }
+
+  .cst-line-base { stroke: var(--border-strong); stroke-width: 1.4; opacity: 0.5; fill: none; }
+  .cst-line-flow {
+    stroke: var(--amber-500);
+    stroke-width: 3.4;
+    stroke-linecap: round;
+    stroke-dasharray: 0.1 14;
+    fill: none;
+    animation: cstFlow 1.5s linear infinite;
   }
-  .cta-section::before { display: none; }
-  .cta-inner {
-    position: relative;
-    z-index: 1;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 16px;
+  .cst-line-flow.out { stroke: var(--teal-500); }
+  @keyframes cstFlow { to { stroke-dashoffset: -14; } }
+
+  .cst-tile { fill: #ffffff; stroke: rgba(20,20,30,0.08); stroke-width: 1; }
+  .cst-core { fill: var(--surface); stroke: var(--amber-500); stroke-width: 2.5; }
+  .cst-core-glow {
+    fill: var(--amber-400);
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: cstPulse 3.2s ease-in-out infinite;
   }
-  .cta-inner h2 {
-    font-size: clamp(1.75rem, 4vw, 2.5rem);
-    color: var(--hero-heading);
+  @keyframes cstPulse {
+    0%, 100% { transform: scale(1); opacity: 0.10; }
+    50% { transform: scale(1.18); opacity: 0.20; }
   }
-  .cta-inner p { color: var(--hero-body); font-size: 1rem; }
+  .cst-core-label {
+    fill: var(--text-muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .cst-agent { fill: var(--surface); stroke: var(--border); stroke-width: 1.2; }
+  .cst-agent-label { fill: var(--text-primary); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
+  .cst-agent-eval { fill: var(--teal-600); font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+  :global([data-theme="dark"]) .cst-agent-eval { fill: var(--teal-400); }
+  .cst-agent-live { fill: var(--teal-500); animation: cstLive 1.7s ease-in-out infinite; }
+  @keyframes cstLive { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cst-line-flow, .cst-core-glow, .cst-agent-live { animation: none; }
+    .cst-line-flow { stroke-dasharray: none; opacity: 0.55; }
+    .cst-core-glow { opacity: 0.16; }
+  }
+
+  /* ── Team ────────────────────────────────────────────────────────────── */
+  .team-inner { max-width: 720px; margin: 0 auto; text-align: center; }
+  .team-inner h2 { font-size: clamp(1.9rem, 4.2vw, 2.85rem); margin: 12px 0 18px; }
+  .team-inner p { color: var(--text-secondary); font-size: 1.1rem; line-height: 1.7; }
+
+  /* ── CTA ─────────────────────────────────────────────────────────────── */
+  .cta-section { padding: 100px 0; background: var(--hero-bg); position: relative; overflow: hidden; }
+  .cta-inner { position: relative; z-index: 1; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .cta-inner h2 { font-size: clamp(1.75rem, 4vw, 2.6rem); color: var(--hero-heading); max-width: 640px; }
+  .cta-inner p { color: var(--hero-body); font-size: 1.05rem; max-width: 520px; }
+  .early-form { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-top: 8px; }
+  .early-input {
+    padding: 0.8rem 1rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-strong);
+    background: var(--surface);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    width: 240px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+  .early-input:focus { border-color: var(--amber-500); box-shadow: 0 0 0 3px rgba(255,140,66,0.15); }
+  .early-input::placeholder { color: var(--text-muted); }
+  .early-success { font-size: 0.95rem; color: var(--teal-600); font-weight: 500; margin-top: 4px; }
+  :global([data-theme="dark"]) .early-success { color: var(--teal-400); }
 
   /* ── Footer ──────────────────────────────────────────────────────────── */
-  footer {
-    background: var(--surface);
-    border-top: 1px solid var(--border);
-    padding: 28px 0;
-  }
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .footer-copy {
-    font-size: 0.8rem;
-    color: var(--text-muted);
-  }
-  /* needed for footer brand text */
-  .brand-name {
-    font-family: var(--font-display);
-    font-weight: 700;
-    font-size: 1rem;
-    letter-spacing: -0.02em;
-    color: var(--neutral-900);
-  }
-  :global([data-theme="dark"]) .brand-name { color: #FFFFFF; }
-  .brand-ai { color: var(--amber-500); }
+  footer { background: var(--surface); border-top: 1px solid var(--border); padding: 28px 0; }
+  .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+  .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
 
-
-  /* ── Integrations carousel ───────────────────────────────────────────── */
-  .integrations-section {
-    padding: 120px 0;
-    border-bottom: 1px solid var(--border);
-    background: var(--surface);
-    overflow: hidden;
-  }
-  .carousel-track {
-    overflow: hidden;
-    margin-top: 56px;
-    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-    mask-image: linear-gradient(to right, transparent 0%, black 10%, black 90%, transparent 100%);
-  }
-  .carousel-inner {
-    display: flex;
-    align-items: center;
-    width: max-content;
-    animation: carousel-scroll 32s linear infinite;
-  }
-  @keyframes carousel-scroll {
-    from { transform: translateX(0); }
-    to   { transform: translateX(-50%); }
-  }
-  .carousel-logo {
-    width: 160px;
-    height: 160px;
-    object-fit: contain;
-    border-radius: 18px;
-    flex-shrink: 0;
-    opacity: 0.85;
-    margin-right: 300px;
-  }
-
-  /* ── Mobile (≤ 639px) ────────────────────────────────────────────────── */
-  @media (max-width: 639px) {
-    /* Nav: keep only the CTA button + theme picker; shrink to fit */
-    .nav-right { gap: 10px; }
-    .btn-cta { font-size: 0.8rem; padding: 0.45rem 0.85rem; }
-    .brand-mark { height: 22px; }
-    .hero-logo { height: 52px; }
-
-    /* Section padding */
-    .hero { min-height: 100svh; }
-    .features-section { padding: 52px 0; }
-    .workflow-section { padding: 60px 0; }
-    .integrations-section { padding: 52px 0; }
-    .coming-soon-section { padding: 52px 0; }
-    .team-section { padding: 60px 0; }
-    .cta-section { padding: 64px 0; }
-
-    /* Hero eyebrow: smaller to avoid overflow */
-    .hero-eyebrow { font-size: 0.78rem; padding: 8px 14px; letter-spacing: 0.08em; }
-
-    /* Coming card: reduce side padding */
-    .coming-card { padding: 36px 20px; }
-
-    /* Footer: stack vertically */
-    .footer-inner { flex-direction: column; align-items: flex-start; }
-
-    /* Section header: tighter */
-    .section-header { margin-bottom: 40px; }
-
-    /* Workflow timeline: tighten step spacing */
-    .step-body { padding-bottom: 36px; }
-
-  }
-
-  /* ── Dark mode section differentiation ─────────────────────────────── */
-  :global([data-theme="dark"]) .workflow-section,
-  :global([data-theme="dark"]) .team-section {
-    background: #1C1C2B;
-  }
-  :global([data-theme="dark"]) .integrations-section,
-  :global([data-theme="dark"]) .coming-soon-section {
-    background: #181825;
-  }
-  /* Subtle gradient divider on top of each section */
-  :global([data-theme="dark"]) .workflow-section::before,
-  :global([data-theme="dark"]) .integrations-section::before,
-  :global([data-theme="dark"]) .coming-soon-section::before,
-  :global([data-theme="dark"]) .team-section::before {
-    content: '';
-    display: block;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,140,66,0.2), rgba(91,83,232,0.2), rgba(23,190,187,0.2), transparent);
-  }
-
-  /* ── Scroll reveal ───────────────────────────────────────────────────── */
+  /* ── Reveal on scroll ────────────────────────────────────────────────── */
   [data-reveal] {
     opacity: 0;
     transform: translateY(28px) scale(0.98);
     transition: opacity 0.65s cubic-bezier(0.22,1,0.36,1), transform 0.65s cubic-bezier(0.22,1,0.36,1);
   }
-  [data-reveal].is-visible {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-  [data-reveal][data-reveal-delay="1"] { transition-delay: 0.1s; }
-  [data-reveal][data-reveal-delay="2"] { transition-delay: 0.2s; }
-  [data-reveal][data-reveal-delay="3"] { transition-delay: 0.3s; }
-  [data-reveal][data-reveal-delay="4"] { transition-delay: 0.4s; }
-
-  /* ── Section / step monochrome theming ───────────────────────────────────
-     Every colored component (icon, connector line, avatar, chip, bubble, tag,
-     button, switch, segmented control, checkbox, glow, and the highlighted
-     title word) reads from the --sec-* variables. Sections 1-3 set those vars
-     once on the wrapper (sec-orange / sec-teal / sec-purple) so the whole
-     section is one color. The Sales Magician (sec-steps) instead sets them
-     per step, so each step is its own color (orange → teal → purple) while the
-     section keeps its multi-color gradient connector line. */
-  .sec-orange {
-    --sec: var(--amber-500);
-    --sec-strong: var(--amber-600);
-    --sec-soft: var(--color-primary-soft);
-    --sec-text: var(--amber-700);
-    --sec-text-dk: var(--amber-200);
-    --sec-icon: var(--amber-600);
-    --sec-icon-dk: var(--amber-400);
-    --sec-border: var(--amber-400);
-    --sec-on: var(--on-primary);
-    --sec-hint: 255, 140, 66;
-  }
-  .sec-teal {
-    --sec: var(--teal-500);
-    --sec-strong: var(--teal-600);
-    --sec-soft: var(--color-accent-soft);
-    --sec-text: var(--teal-700);
-    --sec-text-dk: var(--teal-200);
-    --sec-icon: var(--teal-600);
-    --sec-icon-dk: var(--teal-400);
-    --sec-border: var(--teal-400);
-    --sec-on: var(--on-accent);
-    --sec-hint: 23, 190, 187;
-  }
-  .sec-purple {
-    --sec: var(--indigo-500);
-    --sec-strong: var(--indigo-600);
-    --sec-soft: var(--color-secondary-soft);
-    --sec-text: var(--indigo-600);
-    --sec-text-dk: var(--indigo-200);
-    --sec-icon: var(--indigo-600);
-    --sec-icon-dk: var(--indigo-400);
-    --sec-border: var(--indigo-300);
-    --sec-on: #fff;
-    --sec-hint: 91, 83, 232;
+  [data-reveal].is-visible { opacity: 1; transform: translateY(0) scale(1); }
+  [data-reveal][data-reveal-delay="1"] { transition-delay: 0.08s; }
+  [data-reveal][data-reveal-delay="2"] { transition-delay: 0.16s; }
+  [data-reveal][data-reveal-delay="3"] { transition-delay: 0.24s; }
+  [data-reveal][data-reveal-delay="4"] { transition-delay: 0.32s; }
+  @media (prefers-reduced-motion: reduce) {
+    [data-reveal] { opacity: 1; transform: none; transition: none; }
   }
 
-  /* Sales Magician: same palette, but assigned per step (orange → teal → purple) */
-  .sec-steps .step-amber {
-    --sec: var(--amber-500); --sec-strong: var(--amber-600); --sec-soft: var(--color-primary-soft);
-    --sec-text: var(--amber-700); --sec-text-dk: var(--amber-200);
-    --sec-icon: var(--amber-600); --sec-icon-dk: var(--amber-400);
-    --sec-border: var(--amber-400); --sec-on: var(--on-primary); --sec-hint: 255, 140, 66;
+  /* ── Responsive ──────────────────────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .card-grid-4 { grid-template-columns: repeat(2, 1fr); }
   }
-  .sec-steps .step-teal {
-    --sec: var(--teal-500); --sec-strong: var(--teal-600); --sec-soft: var(--color-accent-soft);
-    --sec-text: var(--teal-700); --sec-text-dk: var(--teal-200);
-    --sec-icon: var(--teal-600); --sec-icon-dk: var(--teal-400);
-    --sec-border: var(--teal-400); --sec-on: var(--on-accent); --sec-hint: 23, 190, 187;
+  @media (max-width: 720px) {
+    .section { padding: 64px 0; }
+    .card-grid-3 { grid-template-columns: 1fr; }
+    .cta-section { padding: 72px 0; }
   }
-  .sec-steps .step-indigo {
-    --sec: var(--indigo-500); --sec-strong: var(--indigo-600); --sec-soft: var(--color-secondary-soft);
-    --sec-text: var(--indigo-600); --sec-text-dk: var(--indigo-200);
-    --sec-icon: var(--indigo-600); --sec-icon-dk: var(--indigo-400);
-    --sec-border: var(--indigo-300); --sec-on: #fff; --sec-hint: 91, 83, 232;
+  @media (max-width: 480px) {
+    .card-grid-4 { grid-template-columns: 1fr; }
+    .footer-inner { flex-direction: column; align-items: flex-start; }
   }
-
-  /* title accent ("It", "You", …) */
-  .sec-mono .brand-text,
-  .sec-mono .brand-text-purple { color: var(--sec); }
-
-  /* step icon + connector line */
-  .sec-mono .step-icon { border-color: var(--sec-border); background: var(--sec-soft); color: var(--sec-icon); }
-  :global([data-theme="dark"]) .sec-mono .step-icon { color: var(--sec-icon-dk); }
-  .sec-mono:not(.sec-steps) .pin-panel .step-icon::before { background: var(--sec); }
-
-  /* avatars */
-  .sec-mono .bm-avatar,
-  .sec-mono .bm-avatar-teal,
-  .sec-mono .bm-avatar-indigo { background: var(--sec); color: var(--sec-on); }
-
-  /* chips + status badges */
-  .sec-mono .bm-chip-amber,
-  .sec-mono .bm-chip-teal,
-  .sec-mono .bm-chip-indigo,
-  .sec-mono .bm-chip-purple { background: var(--sec-soft); color: var(--sec-text); }
-  :global([data-theme="dark"]) .sec-mono .bm-chip-amber,
-  :global([data-theme="dark"]) .sec-mono .bm-chip-teal,
-  :global([data-theme="dark"]) .sec-mono .bm-chip-indigo,
-  :global([data-theme="dark"]) .sec-mono .bm-chip-purple { color: var(--sec-text-dk); }
-
-  /* confirmation bubbles */
-  .sec-mono .bm-bubble-teal,
-  .sec-mono .bm-bubble-indigo { border-color: var(--sec-border); background: var(--sec-soft); color: var(--sec-text); }
-  :global([data-theme="dark"]) .sec-mono .bm-bubble-teal,
-  :global([data-theme="dark"]) .sec-mono .bm-bubble-indigo { color: var(--sec-text-dk); }
-
-  /* tags */
-  .sec-mono .tag-amber,
-  .sec-mono .tag-teal,
-  .sec-mono .tag-indigo { background: var(--sec-soft); color: var(--sec-text); }
-  :global([data-theme="dark"]) .sec-mono .tag-amber,
-  :global([data-theme="dark"]) .sec-mono .tag-teal,
-  :global([data-theme="dark"]) .sec-mono .tag-indigo { color: var(--sec-text-dk); }
-
-  /* buttons */
-  .sec-mono .bm-btn-primary { background: var(--sec); border-color: var(--sec); color: var(--sec-on); }
-  .sec-mono .bm-btn-done { color: var(--sec-text); }
-  :global([data-theme="dark"]) .sec-mono .bm-btn-done { color: var(--sec-text-dk); }
-
-  /* toggle switch, segmented control, checkboxes */
-  .sec-mono .bm-switch.on { background: var(--sec); }
-  .sec-mono .bm-seg-opt.is-active { background: var(--sec); color: var(--sec-on); }
-  .sec-mono .bm-checkbox:checked + .bm-task-box,
-  .sec-mono .bm-task.is-done .bm-task-box { background: var(--sec); border-color: var(--sec); }
-  .sec-mono .bm-checkbox:focus-visible + .bm-task-box { outline-color: var(--sec); }
-
-  /* approval card border + saved footnote */
-  .sec-mono .bm-card-approve { border-color: var(--sec-border); }
-  .sec-mono .bm-card-foot { color: var(--sec-text); }
-  :global([data-theme="dark"]) .sec-mono .bm-card-foot { color: var(--sec-text-dk); }
-
-  /* interactive-hint glow */
-  .sec-mono .pin-panel { --hint: var(--sec-hint); }
-
-  /* runtime-created CRM sync loader bar (lives outside Astro scoping) */
-  .sec-mono :global(.bm-chip-bar-fill) { background: linear-gradient(90deg, var(--sec-strong), var(--sec)); }
 </style>
 
 <script>
+  // -- Reveal on scroll --------------------------------------------------------
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
@@ -2324,713 +795,6 @@ const teamLogos = [
     { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
   );
   document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
-
-  // -- Demo videos: lazy-load + autoplay the theme-matching clip when in view ----
-  (function () {
-    var vids = Array.prototype.slice.call(document.querySelectorAll('video[data-demo]'));
-    if (!vids.length) return;
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    function theme() { return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'; }
-    function asset(name, t, ext) { return '/demos/' + name + '-' + t + '.' + ext; }
-    function sources(v, t) {
-      var name = v.getAttribute('data-demo');
-      v.querySelector('source[data-webm]').src = asset(name, t, 'webm');
-      v.querySelector('source[data-mp4]').src = asset(name, t, 'mp4');
-      v.load();
-    }
-    function poster(v) {
-      var t = theme();
-      if (v.getAttribute('data-poster-theme') === t) return;
-      v.setAttribute('data-poster-theme', t);
-      v.setAttribute('poster', asset(v.getAttribute('data-demo'), t, 'poster.jpg'));
-    }
-
-    // Everything is below the fold, so nothing loads until it nears the viewport:
-    // the poster streams in first (tiny, and all a reduced-motion user needs), then
-    // the clip. This keeps the initial page load free of demo bytes.
-    var io = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        var v = e.target;
-        if (e.isIntersecting) {
-          poster(v);
-          if (!reduce) {
-            if (v.dataset.live !== '1') { v.dataset.live = '1'; sources(v, theme()); }
-            v.play().catch(function () {});
-          }
-        } else if (!reduce) { v.pause(); }
-      });
-    }, { rootMargin: '300px 0px', threshold: 0.15 });
-    vids.forEach(function (v) { io.observe(v); });
-
-    // follow the theme toggle: reset the poster and (if already loaded) reload sources
-    new MutationObserver(function () {
-      vids.forEach(function (v) {
-        if (v.getAttribute('data-poster-theme')) poster(v);
-        if (v.dataset.live === '1') { sources(v, theme()); if (!reduce) v.play().catch(function () {}); }
-      });
-    }).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
-  })();
-
-
-  // ── Demo cards: self-playing looping demos driven by a fake cursor ──────
-  (function () {
-    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduce) return;   // reduced-motion / no-JS users see the static authored cards
-
-    var TYPING_MS = 950;      // typing-dots dwell before the message
-    var CHAR_MS = 45;         // per-character typing speed
-    var ROW_MS = 220;         // stagger between card rows
-    var CARD_GAP_MS = 600;    // pause between the message landing and the card building
-    var CARD_LOADER_MS = 1300;// optional "preparing" loader beat before a card builds
-    var HOLD_MS = 2600;       // dwell on the finished state before the demo loops
-    var CURSOR_MOVE_MS = 720; // must match the .demo-cursor transform transition
-    var CURSOR = '<span class="tw-cursor">|</span>';
-
-    // how long each auto-clicked action takes to play out before we loop
-    var ACTION_MS = {
-      prep: 4400, sync: 4800, execute: 3600, propose: 4600,
-      'execute-send': 2600, automate: 2200, approve: 2400,
-      oversight: 1500, 'rule-opt': 1400
-    };
-
-    // a classic pointer arrow, filled with the brand orange
-    var CURSOR_SVG = '<svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 2.2 L5 19.6 L9.3 15.4 L12.1 21.6 L14.9 20.4 L12.1 14.4 L18.4 14.4 Z"/></svg>';
-
-    var panels = document.querySelectorAll('.pin-panel');
-    for (var i = 0; i < panels.length; i++) setupCard(panels[i]);
-
-    function setupCard(panel) {
-      var windowEl = panel.querySelector('.pin-window');
-      var body = panel.querySelector('.pin-window-body');
-      if (!windowEl || !body) return;
-
-      // Pristine authored markup - restored on every loop so the demo replays
-      // from scratch (typed message, empty chips, un-sent emails, off toggles…).
-      var originalHTML = body.innerHTML;
-
-      // one fake cursor per card window; it lives outside `body` so the innerHTML
-      // reset between loops never removes it
-      var cursor = document.createElement('span');
-      cursor.className = 'demo-cursor';
-      cursor.setAttribute('aria-hidden', 'true');
-      cursor.innerHTML = CURSOR_SVG;
-      windowEl.appendChild(cursor);
-
-      var token = 0;
-      var running = false;
-      var timers = [];
-      function wait(ms, fn) { var t = setTimeout(fn, ms); timers.push(t); return t; }
-      function clearTimers() { for (var i = 0; i < timers.length; i++) clearTimeout(timers[i]); timers = []; }
-      function hideCursor() { cursor.style.opacity = '0'; cursor.classList.remove('is-click'); }
-
-      function reset() {
-        clearTimers();
-        body.innerHTML = originalHTML;   // event handling is delegated on <main>, so this is safe
-        hideCursor();
-      }
-
-      // start at the component's centre, then glide to the element and "click" it
-      function moveCursorTo(el, cb) {
-        var wr = windowEl.getBoundingClientRect();
-        var er = el.getBoundingClientRect();
-        var x = (er.left - wr.left) + er.width / 2;
-        var y = (er.top - wr.top) + er.height / 2;
-        // jump to the centre with no animation, then transition over to the target
-        cursor.style.transition = 'none';
-        cursor.style.transform = 'translate(' + (wr.width / 2) + 'px, ' + (wr.height / 2) + 'px)';
-        cursor.style.opacity = '1';
-        void cursor.offsetWidth;          // commit the centre position before animating
-        cursor.style.transition = '';     // restore the transition from the stylesheet
-        requestAnimationFrame(function () {
-          cursor.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
-        });
-        wait(CURSOR_MOVE_MS + 120, function () {
-          cursor.classList.add('is-click');
-          wait(240, function () { cursor.classList.remove('is-click'); if (cb) cb(); });
-        });
-      }
-
-      // the one control this card's demo should auto-click (null = display only)
-      function primaryTarget() {
-        var sel = '[data-action="prep"],[data-action="sync"],[data-action="execute"],' +
-                  '[data-action="propose"],[data-action="execute-send"],[data-action="automate"],' +
-                  '[data-action="approve"],[data-action="oversight"]';
-        var t = body.querySelector(sel);
-        if (t) return t;
-        // "You Set the Rules": flip the first row's segmented control over to Auto
-        var seg = body.querySelector('[data-seg]');
-        if (seg) {
-          var opts = seg.querySelectorAll('[data-action="rule-opt"]');
-          return opts.length > 1 ? opts[1] : null;
-        }
-        return null;
-      }
-      function actionMs(el) { return ACTION_MS[el.getAttribute('data-action')] || 2500; }
-
-      // ── the intro stream: typing dots → typewriter greeting → card builds ──
-      function playStream(my, done) {
-        var root = body.querySelector('[data-brief-stream]');
-        if (!root) { done(); return; }   // control cards have no stream - show statically
-        var typingEl = root.querySelector('[data-brief-typing]');
-        var greetMsg = root.querySelector('[data-brief-greeting-msg]');
-        var greetEl = root.querySelector('[data-brief-greeting]');
-        var cardLoader = root.querySelector('[data-brief-cardloader]');
-        var card = root.querySelector('[data-brief-card]');
-        var rows = root.querySelectorAll('[data-brief-row]');
-        if (!typingEl || !greetEl || !card) { done(); return; }
-        var chars = Array.from(greetEl.textContent);   // grapheme-safe (keeps ☀️/🌙 intact)
-
-        typingEl.hidden = false;
-        greetMsg.hidden = true;
-        greetEl.textContent = '';
-        if (cardLoader) cardLoader.hidden = true;
-        // keep the card in layout (opacity only) so its height is reserved from
-        // the start - in normal flow, display:none → block would jump the page
-        card.classList.add('bm-stream-hide');
-        card.classList.remove('bm-stream-show');
-        for (var i = 0; i < rows.length; i++) {
-          rows[i].classList.add('bm-stream-hide');
-          rows[i].classList.remove('bm-stream-show');
-        }
-
-        wait(TYPING_MS, function () {
-          if (my !== token) return;
-          typingEl.hidden = true;
-          greetMsg.hidden = false;
-          typeChar(0);
-        });
-
-        function typeChar(i) {
-          if (my !== token) return;
-          if (i <= chars.length) {
-            greetEl.innerHTML = chars.slice(0, i).join('') + CURSOR;
-            wait(CHAR_MS, function () { typeChar(i + 1); });
-          } else {
-            greetEl.textContent = chars.join('');   // drop the cursor
-            if (cardLoader) {
-              cardLoader.hidden = false;
-              wait(CARD_LOADER_MS, function () { if (my !== token) return; cardLoader.hidden = true; revealCard(); });
-            } else {
-              wait(CARD_GAP_MS, revealCard);
-            }
-          }
-        }
-        function revealCard() {
-          if (my !== token) return;
-          card.classList.remove('bm-stream-hide');
-          card.classList.add('bm-stream-show');
-          revealRows(0);
-        }
-        function revealRows(i) {
-          if (my !== token) return;
-          if (i >= rows.length) { done(); return; }
-          rows[i].classList.remove('bm-stream-hide');
-          rows[i].classList.add('bm-stream-show');
-          wait(ROW_MS, function () { revealRows(i + 1); });
-        }
-      }
-
-      // ── one loop: reset → stream in → cursor clicks the action → hold → repeat ──
-      function cycle() {
-        var my = ++token;
-        reset();
-        playStream(my, function () {
-          if (my !== token) return;
-          var target = primaryTarget();
-          if (target) {
-            wait(450, function () {
-              if (my !== token) return;
-              moveCursorTo(target, function () {
-                if (my !== token) return;
-                target.click();
-                wait(actionMs(target), finish);
-              });
-            });
-          } else {
-            wait(900, finish);
-          }
-        });
-        function finish() {
-          if (my !== token) return;
-          hideCursor();
-          wait(HOLD_MS, function () { if (my === token && running) cycle(); });
-        }
-      }
-
-      function start() { if (running) return; running = true; cycle(); }
-      function stop() { running = false; token++; clearTimers(); reset(); }
-
-      // only play once the whole browser mockup is in view; pause + reset otherwise
-      new IntersectionObserver(function (entries) {
-        var e = entries[0];
-        if (e.isIntersecting && e.intersectionRatio >= 0.95) start(); else stop();
-      }, { threshold: [0, 0.95, 1] }).observe(windowEl);
-    }
-  })();
-
-  // ── Pinned sections: interactive demo-card actions (local only) ─────────
-  (function () {
-    var root = document.querySelector('main');
-    if (!root) return;
-
-    var PREP_STEPS = [
-      'Reading the event description',
-      'Analyzing the participants',
-      'Reading company info in CRM',
-      'Gathering everything',
-      'Writing summary'
-    ];
-    var PREP_LINE_MS = 700;
-
-    root.addEventListener('click', function (e) {
-      var btn = e.target.closest('[data-action]');
-      if (!btn || btn.classList.contains('is-busy')) return;
-      var action = btn.getAttribute('data-action');
-      if (action === 'prep') runPrep(btn);
-      else if (action === 'sync') runSync(btn);
-      else if (action === 'execute') runExecute(btn);
-      else if (action === 'backlog-close') backlogClose(btn);
-      else if (action === 'backlog-review') backlogReview(btn);
-      else if (action === 'propose') runPropose(btn);
-      else if (action === 'execute-send') runSendFollowup(btn);
-      else if (action === 'automate') runAutomate(btn);
-      else if (action === 'approve') runApprove(btn, true);
-      else if (action === 'hold') runApprove(btn, false);
-      else if (action === 'rule-opt') runRuleOpt(btn);
-      else if (action === 'oversight') runOversight(btn);
-    });
-
-    // keep the "Execute backlog" button in sync with the checkboxes
-    root.addEventListener('change', function (e) {
-      var box = e.target.closest('[data-task]');
-      if (box) updateBacklog(box.closest('[data-backlog]'));
-    });
-
-    function runPrep(btn) {
-      var card = btn.closest('[data-briefing]');
-      if (!card) return;
-
-      // idle → run the status-bar loading, then drop "Prep in email" on the row
-      card.setAttribute('data-prep-state', 'loading');
-      btn.classList.add('is-busy');
-      btn.style.visibility = 'hidden';
-
-      var bar = card.querySelector('[data-statusbar]');
-      var fill = card.querySelector('[data-statusfill]');
-      var text = card.querySelector('[data-statustext]');
-      bar.hidden = false;
-      fill.style.width = '0%';
-
-      var i = 0;
-      text.textContent = PREP_STEPS[0] + '…';
-      // kick the bar to full over the whole sequence
-      requestAnimationFrame(function () {
-        fill.style.transition = 'width ' + (PREP_STEPS.length * PREP_LINE_MS) + 'ms linear';
-        fill.style.width = '100%';
-      });
-
-      (function nextLine() {
-        i++;
-        if (i < PREP_STEPS.length) {
-          text.textContent = PREP_STEPS[i] + '…';
-          setTimeout(nextLine, PREP_LINE_MS);
-        } else {
-          setTimeout(function () {
-            bar.hidden = true;
-            // Acme joins the already-prepped meetings: button → "Prep in email" chip
-            var wrap = btn.closest('.bm-press-wrap') || btn;
-            wrap.hidden = true;
-            var chip = card.querySelector('[data-emailed]');
-            if (chip) chip.hidden = false;
-            card.setAttribute('data-prep-state', 'emailed');
-            // all three meetings prepped → nudge onward
-            scrollHint();
-          }, PREP_LINE_MS);
-        }
-      })();
-    }
-
-    function runSync(btn) {
-      btn.classList.add('is-busy');
-      btn.innerHTML = '<span class="bm-btn-spin"></span>Syncing…';
-      var card = btn.closest('.bm-card');
-      var fills = card.querySelectorAll('[data-fill]');
-      var SYNC_STEP = 1350;     // time between fields
-      var SYNC_RESOLVE = 1080;  // green liquid fills the gray loader, then the value resolves
-
-      var status = card.querySelector('[data-sync-status]');
-      if (status) { status.textContent = 'Syncing…'; }
-
-      for (var i = 0; i < fills.length; i++) {
-        (function (chip, idx) {
-          setTimeout(function () {
-            fillChip(chip, SYNC_RESOLVE, chip.getAttribute('data-value'));
-          }, idx * SYNC_STEP);
-        })(fills[i], i);
-      }
-
-      setTimeout(function () {
-        if (status) {
-          status.textContent = 'Synced';
-          status.classList.remove('bm-chip-amber');
-          status.classList.add('bm-chip-teal');
-        }
-        // terminal state: a confirmation, not a pressable button
-        markDone(btn, 'Synced ✓');
-        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-      }, fills.length * SYNC_STEP + 450);
-    }
-
-    // turn an action button into a non-interactive "done" confirmation
-    function markDone(btn, label) {
-      btn.classList.remove('is-busy', 'bm-btn-primary', 'bm-hint-target');
-      btn.classList.add('bm-btn-done');
-      btn.disabled = true;
-      if (label != null) btn.innerHTML = label;
-    }
-
-    // type text into a chat bubble: brief typing-dots beat, then a typewriter
-    // reveal (grapheme-safe, blinking cursor) - like the card greetings
-    function streamBubble(bubble, text, onDone) {
-      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-        bubble.textContent = text;
-        if (onDone) onDone();
-        return;
-      }
-      var chars = Array.from(text);   // keeps 🎉 intact
-      var CURSOR = '<span class="tw-cursor">|</span>';
-      bubble.classList.add('bm-typing');
-      bubble.innerHTML = '<span></span><span></span><span></span>';
-      setTimeout(function () {
-        bubble.classList.remove('bm-typing');
-        var i = 0;
-        (function step() {
-          i++;
-          if (i <= chars.length) {
-            bubble.innerHTML = chars.slice(0, i).join('') + CURSOR;
-            setTimeout(step, 55);
-          } else {
-            bubble.textContent = chars.join('');
-            if (onDone) onDone();
-          }
-        })();
-      }, 700);
-    }
-
-    // run the gray→green "liquid" loader on a chip, then resolve it to `label`
-    function fillChip(chip, resolveMs, label) {
-      chip.classList.remove('bm-chip-empty');
-      chip.classList.add('bm-chip-loading');
-      chip.innerHTML = '<span class="bm-chip-bar"><span class="bm-chip-bar-fill"></span></span>';
-      var f = chip.querySelector('.bm-chip-bar-fill');
-      f.style.transition = 'width ' + resolveMs + 'ms linear';
-      void f.offsetWidth;   // commit the 0% baseline so the fill actually animates
-      f.style.width = '100%';
-      setTimeout(function () {
-        chip.classList.remove('bm-chip-loading');
-        chip.classList.add('bm-chip-teal', 'is-filling');
-        chip.textContent = label;
-      }, resolveMs);
-    }
-
-    // The cards no longer pin/advance on scroll, so the "Keep scrolling" nudge
-    // is gone. The demo action functions below still call scrollHint() at the
-    // end of their sequence - keep it as a harmless no-op.
-    function scrollHint() {}
-
-    function backlogParts(node) {
-      var root = node.closest ? node.closest('[data-backlog]') : node;
-      return {
-        root: root,
-        card: root.querySelector('[data-backlog-card]'),
-        collapsed: root.querySelector('[data-backlog-collapsed]'),
-        followup: root.querySelector('[data-backlog-followup]'),
-        summary: root.querySelector('[data-backlog-summary]'),
-        count: root.querySelector('[data-backlog-count]'),
-        execBtn: root.querySelector('[data-action="execute"]'),
-        tasks: root.querySelectorAll('[data-task]')
-      };
-    }
-
-    function taskDone(box) {
-      var t = box.closest('.bm-task');
-      return t && t.classList.contains('is-done');
-    }
-
-    // count tasks that are still actionable (checked and not already done)
-    function countChecked(p) {
-      var n = 0;
-      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) n++;
-      return n;
-    }
-
-    function updateBacklog(root) {
-      var p = backlogParts(root);
-      var n = countChecked(p);
-      if (p.count) p.count.textContent = n ? (n + ' selected') : 'none selected';
-      if (p.execBtn) p.execBtn.disabled = (n === 0);
-    }
-
-    function collapseBacklog(root, summaryText, opts) {
-      var p = backlogParts(root);
-      opts = opts || {};
-      if (p.summary) p.summary.textContent = summaryText;
-      // green "all done" treatment
-      p.collapsed.classList.toggle('is-complete', !!opts.complete);
-      // hide the Review button once the backlog is fully executed - nothing to review
-      var reviewBtn = p.collapsed.querySelector('[data-action="backlog-review"]');
-      if (reviewBtn) reviewBtn.hidden = !!opts.complete;
-      // swap the closing message - streamed in like a chat message
-      var followText = p.followup.querySelector('[data-followup-text]');
-      var msg = opts.complete ? 'Great job! You can go rest now 🎉' : 'Anything else then?';
-      // success message gets the avatar-matched (indigo) tint
-      if (followText) followText.classList.toggle('bm-bubble-indigo', !!opts.complete);
-      p.card.hidden = true;
-      p.collapsed.hidden = false;
-      p.followup.hidden = false;
-      if (followText) streamBubble(followText, msg);
-      scrollHint(p.followup);
-    }
-
-    function runExecute(btn) {
-      var p = backlogParts(btn);
-      var n = countChecked(p);
-      if (n === 0) return;
-      btn.classList.add('is-busy');
-      btn.innerHTML = '<span class="bm-btn-spin"></span>Executing…';
-
-      var checked = [];
-      for (var i = 0; i < p.tasks.length; i++) if (p.tasks[i].checked && !taskDone(p.tasks[i])) checked.push(p.tasks[i]);
-      var STEP = 480;
-      checked.forEach(function (box, idx) {
-        setTimeout(function () {
-          var task = box.closest('.bm-task');
-          if (task) task.classList.add('is-done');
-          box.disabled = true; // done tasks stay done; can't be toggled again
-        }, idx * STEP);
-      });
-      setTimeout(function () {
-        // report the actual total handled (everything currently done)
-        var done = 0;
-        for (var i = 0; i < p.tasks.length; i++) if (taskDone(p.tasks[i])) done++;
-        var remaining = p.tasks.length - done;
-        var complete = (remaining === 0);
-        var summary = complete
-          ? 'All executed. Backlog clear'
-          : '✓ ' + done + (done === 1 ? ' task handled' : ' tasks handled') + ' · ' + remaining + ' left';
-        collapseBacklog(p.root, summary, { complete: complete });
-        btn.classList.remove('is-busy');
-        btn.innerHTML = 'Execute backlog';
-      }, checked.length * STEP + 350);
-    }
-
-    function backlogClose(btn) {
-      collapseBacklog(btn.closest('[data-backlog]'), 'Backlog saved for later');
-    }
-
-    function backlogReview(btn) {
-      var p = backlogParts(btn);
-      p.collapsed.hidden = true;
-      p.followup.hidden = true;
-      // reopen exactly as the user left it: keep each checkbox state,
-      // keep already-executed tasks marked done. Just refresh the button.
-      updateBacklog(p.root);
-      p.card.hidden = false;
-    }
-
-    // ── Takes Initiative cards ──────────────────────────────────────────
-    // It Proposes - agent drafts outreach to the at-risk deals
-    function runPropose(btn) {
-      btn.classList.add('is-busy');
-      btn.innerHTML = '<span class="bm-btn-spin"></span>Drafting…';
-      var card = btn.closest('.bm-card');
-      var q = card.querySelector('[data-propose-q]');
-      if (q) q.hidden = true;
-
-      var drafts = card.querySelectorAll('[data-draft]');
-      var DRAFT_STEP = 1350;     // time between emails
-      var DRAFT_RESOLVE = 1080;  // green liquid fills the loader, then "Drafted"
-
-      for (var i = 0; i < drafts.length; i++) {
-        (function (chip, idx) {
-          setTimeout(function () { fillChip(chip, DRAFT_RESOLVE, 'Drafted'); }, idx * DRAFT_STEP);
-        })(drafts[i], i);
-      }
-
-      // once all three are prepared → stream a confirmation that the drafts
-      // landed in the user's own system (Outlook)
-      setTimeout(function () {
-        markDone(btn, 'Drafted ✓');
-        var root = card.closest('[data-brief-stream]') || card.parentNode;
-        var doneMsg = root.querySelector('[data-propose-done]');
-        if (doneMsg) {
-          doneMsg.hidden = false;
-          var bubble = doneMsg.querySelector('[data-propose-done-text]');
-          if (bubble) streamBubble(bubble, 'Drafts ready in your Outlook ✓');
-        }
-        scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-      }, (drafts.length - 1) * DRAFT_STEP + DRAFT_RESOLVE + 300);
-    }
-
-    // It Executes - send the drafted follow-up
-    function runSendFollowup(btn) {
-      btn.classList.add('is-busy');
-      btn.innerHTML = '<span class="bm-btn-spin"></span>Sending…';
-      var card = btn.closest('.bm-card');
-      var status = card.querySelector('[data-exec-status]');
-      var editBtn = card.querySelector('[data-action="execute-edit"]');
-      setTimeout(function () {
-        if (status) { status.textContent = 'Sent'; status.classList.remove('bm-chip-amber'); status.classList.add('bm-chip-teal'); }
-        if (editBtn) editBtn.hidden = true;
-        markDone(btn, 'Sent ✓');
-        // confirmation now lives under the card and streams in like a message
-        var root = card.closest('[data-brief-stream]') || card.parentNode;
-        var confirm = root.querySelector('[data-exec-confirm]');
-        if (confirm) {
-          confirm.hidden = false;
-          var bubble = confirm.querySelector('[data-exec-confirm-text]');
-          if (bubble) streamBubble(bubble, '✓ Sent to Sarah. CRM updated with the thread.');
-        }
-        scrollHint(confirm);
-      }, 1100);
-    }
-
-    // It Automates - flip the rule on
-    function runAutomate(btn) {
-      if (btn.classList.contains('on')) return;
-      btn.classList.add('on');
-      var card = btn.closest('.bm-card');
-      var status = card.querySelector('[data-auto-status]');
-      if (status) { status.textContent = 'On'; status.classList.remove('bm-chip-indigo'); status.classList.add('bm-chip-teal'); }
-      // confirmation now lives under the card and streams in like a message
-      var root = card.closest('[data-brief-stream]') || card.parentNode;
-      var confirm = root.querySelector('[data-auto-confirm]');
-      if (confirm) {
-        confirm.hidden = false;
-        var bubble = confirm.querySelector('[data-auto-confirm-text]');
-        if (bubble) streamBubble(bubble, '✓ Automation on. I\'ll handle it from now on.');
-      }
-      scrollHint(card);
-    }
-
-    // ── You Stay In Control cards ───────────────────────────────────────
-    // You Decide - approve / hold, two outcomes
-    function runApprove(btn, approved) {
-      var card = btn.closest('.bm-card');
-      var actions = card.querySelector('[data-approve-actions]');
-      var status = card.querySelector('[data-approve-status]');
-      // confirmation now lives under the card and streams in like a message
-      var root = card.closest('[data-brief-stream]') || card.parentNode;
-      var confirm = root.querySelector('[data-approve-confirm]');
-      var text = confirm ? confirm.querySelector('[data-approve-text]') : null;
-      if (actions) actions.hidden = true;
-      var msg;
-      if (approved) {
-        if (status) { status.textContent = 'Approved'; status.classList.remove('bm-chip-purple'); status.classList.add('bm-chip-teal'); }
-        msg = '✓ On it, reaching out to all 47 leads now.';
-      } else {
-        if (status) { status.textContent = 'On hold'; }
-        msg = "Holding. I won't reach out until you say so.";
-      }
-      if (confirm) {
-        confirm.hidden = false;
-        if (text) streamBubble(text, msg);
-      }
-      scrollHint(confirm);
-    }
-
-    // You Set the Rules - segmented control per action
-    function runRuleOpt(btn) {
-      var seg = btn.closest('[data-seg]');
-      if (!seg) return;
-      var opts = seg.querySelectorAll('[data-action="rule-opt"]');
-      for (var i = 0; i < opts.length; i++) opts[i].classList.toggle('is-active', opts[i] === btn);
-      var foot = btn.closest('.bm-card').querySelector('[data-rule-foot]');
-      if (foot && foot.hidden) { foot.hidden = false; scrollHint(foot); }
-    }
-
-    // You have full oversight - reveal the activity log
-    function runOversight(btn) {
-      var card = btn.closest('.bm-card');
-      var log = card.querySelector('[data-activity]');
-      if (!log) return;
-      log.hidden = false;
-      var lines = log.querySelectorAll('.bm-actline');
-      for (var i = 0; i < lines.length; i++) {
-        (function (line, idx) {
-          line.style.opacity = '0';
-          setTimeout(function () { line.style.opacity = ''; line.classList.add('is-in'); }, idx * 160);
-        })(lines[i], i);
-      }
-      markDone(btn, 'Live · 9 automations active');
-      scrollHint(btn.closest('.bm-actions') || btn.parentNode);
-    }
-  })();
-
-  // Typewriter for imagine section
-  const introEl = document.getElementById('imagine-intro');
-  const imagineLines = document.querySelectorAll('#imagine-lines .imagine-line-hidden');
-  const plainText = 'Imagine you do nothing but your...';
-  const finalHTML = 'Imagine you do nothing but your...';
-
-  function revealLines() {
-    imagineLines.forEach((line, i) => {
-      setTimeout(() => {
-        line.style.opacity = '1';
-        line.style.transform = 'translateY(0) scale(1)';
-        // dim the previous line now that the next one has arrived
-        if (i > 0) imagineLines[i - 1].classList.add('is-dim');
-      }, i * 715);
-    });
-    // after the same interval, dim the final line too
-    const last = imagineLines.length - 1;
-    if (last >= 0) {
-      setTimeout(() => imagineLines[last].classList.add('is-dim'), imagineLines.length * 715);
-    }
-  }
-
-  function runTypewriter() {
-    let i = 0;
-    const cursor = '<span class="tw-cursor">|</span>';
-    const interval = setInterval(() => {
-      i++;
-      introEl.innerHTML = plainText.slice(0, i) + cursor;
-      if (i === plainText.length) {
-        clearInterval(interval);
-        introEl.innerHTML = finalHTML;
-        setTimeout(() => {
-          introEl.classList.add('is-gone');
-          revealLines();
-        }, 1950);
-      }
-    }, 98);
-  }
-
-  const imagineSection = document.getElementById('imagine');
-  let twStarted = false;
-  const twObserver = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting && !twStarted) {
-      twStarted = true;
-      twObserver.disconnect();
-      setTimeout(runTypewriter, 260);
-    }
-  }, { threshold: 0.3 });
-  if (imagineSection) twObserver.observe(imagineSection);
-
-  // Focus email input helper
-  function focusEmailInput() {
-    const input = document.querySelector('.early-input');
-    if (!input) return;
-    const ctaSection = document.getElementById('cta');
-    ctaSection?.scrollIntoView({ behavior: 'smooth' });
-    setTimeout(() => input.focus(), 500);
-  }
-
-  document.getElementById('join-waitlist-btn')?.addEventListener('click', focusEmailInput);
-  document.querySelector('.btn-cta')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    focusEmailInput();
-  });
 </script>
 
 <script define:vars={{ supabaseUrl: import.meta.env.PUBLIC_SUPABASE_URL, supabaseKey: import.meta.env.PUBLIC_SUPABASE_ANON_KEY }}>
@@ -3098,7 +862,6 @@ const teamLogos = [
     });
   }
 
-  wireForm('form-hero', 'success-hero');
   wireForm('form-cta', 'success-cta');
 </script>
 
@@ -3129,14 +892,7 @@ const teamLogos = [
     stroke-dashoffset: 48;
     animation: checkmark-stroke 0.3s cubic-bezier(0.65, 0, 0.45, 1) 0.8s forwards;
   }
-  @keyframes checkmark-stroke {
-    100% { stroke-dashoffset: 0; }
-  }
-  @keyframes checkmark-scale {
-    0%, 100% { transform: none; }
-    50% { transform: scale3d(1.1, 1.1, 1); }
-  }
-  @keyframes checkmark-fill {
-    100% { box-shadow: inset 0px 0px 0px 30px #22c55e; }
-  }
+  @keyframes checkmark-stroke { 100% { stroke-dashoffset: 0; } }
+  @keyframes checkmark-scale { 0%, 100% { transform: none; } 50% { transform: scale3d(1.1, 1.1, 1); } }
+  @keyframes checkmark-fill { 100% { box-shadow: inset 0px 0px 0px 30px #22c55e; } }
 </style>
