@@ -33,9 +33,21 @@ const sources = [
 ];
 
 const agents = [
-  { label: "Support agent", score: "98%", x: 745, y: 130 },
-  { label: "Revenue agent", score: "96%", x: 785, y: 260 },
-  { label: "Ops agent",     score: "99%", x: 745, y: 390 },
+  {
+    label: "Support agent",
+    x: 745, y: 130,
+    icons: ["/zendesk.webp", "/notion.webp", "/gmail.webp"],
+  },
+  {
+    label: "Revenue agent",
+    x: 785, y: 260,
+    icons: ["/salesforce.webp", "/hubspot.webp", "/gcalendar.webp"],
+  },
+  {
+    label: "Ops agent",
+    x: 745, y: 390,
+    icons: ["/slack.webp", "/datadog.webp", "/notion.webp"],
+  },
 ];
 
 const problems = [
@@ -96,21 +108,24 @@ const process = [
     color: "amber",
     icon: ICON.barChart,
     title: "Measure",
-    body: "Every agent ships with evals() so you can see its accuracy and the payoff you were promised. We prove the win with numbers, then move to the next one.",
-    points: ["evals() on every agent", "Track the ROI", "Then the next win"],
+    body: "Every agent ships with an accuracy score so you can see how well it performs and the payoff you were promised. We prove the win with numbers, then move to the next one.",
+    points: ["Accuracy on every agent", "Track the ROI", "Then the next win"],
   },
 ];
 
 const pillars = [
   {
+    color: "teal",
     title: "Connect your stack",
     body: "Gmail, Slack, Zendesk, Datadog, your CRM, your docs. The tools you already run, wired together.",
   },
   {
+    color: "purple",
     title: "One knowledge base",
     body: "Scattered data becomes a single source of truth your agents can actually reason over.",
   },
   {
+    color: "amber",
     title: "Agents that learn",
     body: "Not brittle automations. They adapt as your business changes.",
   },
@@ -253,6 +268,12 @@ const pillars = [
               <filter id="cstShadow" x="-40%" y="-40%" width="180%" height="180%">
                 <feDropShadow dx="0" dy="3" stdDeviation="6" flood-color="#14141e" flood-opacity="0.14" />
               </filter>
+              <!-- brand gradient for the brain at the core (teal → purple → orange) -->
+              <linearGradient id="cstBrain" gradientUnits="userSpaceOnUse" x1="3" y1="4" x2="21" y2="20">
+                <stop offset="0" stop-color="#17BEBB" />
+                <stop offset="0.5" stop-color="#5B53E8" />
+                <stop offset="1" stop-color="#FF8C42" />
+              </linearGradient>
             </defs>
 
             <!-- connectors: systems -> core -->
@@ -282,29 +303,42 @@ const pillars = [
               </g>
             ))}
 
-            <!-- core -->
+            <!-- core: the client's unified brain -->
             <g filter="url(#cstShadow)">
               <circle class="cst-core" cx={CORE.x} cy={CORE.y} r={R_CORE} />
-              <g transform="translate(421,221) scale(0.39)">
-                <circle cx="130" cy="70" r="27" fill="#FF8C42" />
-                <circle cx="70" cy="130" r="27" fill="#17BEBB" />
-                <circle cx="130" cy="130" r="27" fill="#5B53E8" />
-              </g>
+              <svg x={CORE.x - 31} y={CORE.y - 31} width="62" height="62" viewBox="0 0 24 24"
+                   fill="none" stroke="url(#cstBrain)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1 .556 6.588A4 4 0 1 1 12 18Z" />
+                <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+                <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
+                <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+                <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
+                <path d="M19.938 10.5a4 4 0 0 1 .585.396" />
+                <path d="M6 18a4 4 0 0 1-1.967-.516" />
+                <path d="M19.967 17.484A4 4 0 0 1 18 18" />
+              </svg>
             </g>
             <text class="cst-core-label" x={CORE.x} y={CORE.y + R_CORE + 24} text-anchor="middle">Unified knowledge base</text>
 
             <!-- agents with evals -->
             {agents.map((a) => {
               const w = 176;
-              const h = 58;
+              const h = 60;
               const lx = a.x - w / 2;
               const ly = a.y - h / 2;
+              const iSize = 18;
+              const iGap = 6;
+              const iX = lx + 18;
+              const iY = a.y + 3;
               return (
                 <g filter="url(#cstShadow)">
                   <rect class="cst-agent" x={lx} y={ly} width={w} height={h} rx="14" />
-                  <circle class="cst-agent-live" cx={lx + 18} cy={a.y} r="4" />
-                  <text class="cst-agent-label" x={lx + 32} y={a.y - 3}>{a.label}</text>
-                  <text class="cst-agent-eval" x={lx + 32} y={a.y + 17}>evals() ✓ {a.score}</text>
+                  <circle class="cst-agent-live" cx={lx + 18} cy={a.y - 12} r="4" />
+                  <text class="cst-agent-label" x={lx + 32} y={a.y - 8}>{a.label}</text>
+                  {a.icons.map((src, i) => (
+                    <image class="cst-agent-icon" href={src} x={iX + i * (iSize + iGap)} y={iY} width={iSize} height={iSize} preserveAspectRatio="xMidYMid meet" />
+                  ))}
                 </g>
               );
             })}
@@ -313,7 +347,7 @@ const pillars = [
 
         <div class="card-grid card-grid-3 how-grid">
           {pillars.map((p, i) => (
-            <div class="card" data-reveal data-reveal-delay={i + 1}>
+            <div class={`card pill-${p.color}`} data-reveal data-reveal-delay={i + 1}>
               <h3>{p.title}</h3>
               <p>{p.body}</p>
             </div>
@@ -571,6 +605,20 @@ const pillars = [
   .card-teal .card-icon { background: rgba(23,190,187,0.18); color: var(--teal-600); }
   :global([data-theme="dark"]) .card-teal .card-icon { color: var(--teal-400); }
 
+  /* ── Pillar cards (how we build): one brand color per card, ─────────────
+     shown as a top accent bar + colored title (the outline / title look) */
+  .how-grid .card { border-top-width: 3px; }
+  /* .how-grid prefix keeps the accent winning over .card:hover's border reset */
+  .how-grid .pill-teal   { border-top-color: var(--teal-500); }
+  .how-grid .pill-purple { border-top-color: var(--indigo-500); }
+  .how-grid .pill-amber  { border-top-color: var(--amber-500); }
+  .pill-teal   h3 { color: var(--teal-600); }
+  .pill-purple h3 { color: var(--indigo-500); }
+  .pill-amber  h3 { color: var(--amber-600); }
+  :global([data-theme="dark"]) .pill-teal   h3 { color: var(--teal-400); }
+  :global([data-theme="dark"]) .pill-purple h3 { color: var(--indigo-300); }
+  :global([data-theme="dark"]) .pill-amber  h3 { color: var(--amber-400); }
+
   /* ── Eyebrow tints (per-section color lead) ──────────────────────────── */
   .eyebrow-teal { color: var(--teal-700); }
   .eyebrow-purple { color: var(--indigo-600); }
@@ -662,10 +710,13 @@ const pillars = [
       align-items: center;
       padding-bottom: 64px;
     }
-    .tl-marker { grid-column: 2; }
-    .tl-step:nth-child(odd) .tl-card { grid-column: 1; border-left: none; border-right: 3px solid var(--step-color); text-align: right; }
+    /* pin every cell to row 1 so the marker centers against the card;
+       without this, sparse auto-placement pushes the left-hand (odd) cards
+       to row 2 and their icons ride up to the top of the row */
+    .tl-marker { grid-column: 2; grid-row: 1; }
+    .tl-step:nth-child(odd) .tl-card { grid-column: 1; grid-row: 1; border-left: none; border-right: 3px solid var(--step-color); text-align: right; }
     .tl-step:nth-child(odd) .tl-points { justify-content: flex-end; }
-    .tl-step:nth-child(even) .tl-card { grid-column: 3; }
+    .tl-step:nth-child(even) .tl-card { grid-column: 3; grid-row: 1; }
   }
 
   /* ── Constellation ───────────────────────────────────────────────────── */
@@ -674,7 +725,7 @@ const pillars = [
 
   .cst-line-base { stroke: var(--border-strong); stroke-width: 1.4; opacity: 0.5; fill: none; }
   .cst-line-flow {
-    stroke: var(--amber-500);
+    stroke: var(--indigo-500);
     stroke-width: 3.4;
     stroke-linecap: round;
     stroke-dasharray: 0.1 14;
@@ -707,8 +758,7 @@ const pillars = [
 
   .cst-agent { fill: var(--surface); stroke: var(--border); stroke-width: 1.2; }
   .cst-agent-label { fill: var(--text-primary); font-family: var(--font-body); font-size: 15px; font-weight: 600; }
-  .cst-agent-eval { fill: var(--teal-600); font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
-  :global([data-theme="dark"]) .cst-agent-eval { fill: var(--teal-400); }
+  .cst-agent-icon { opacity: 0.95; }
   .cst-agent-live { fill: var(--teal-500); animation: cstLive 1.7s ease-in-out infinite; }
   @keyframes cstLive { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
 
