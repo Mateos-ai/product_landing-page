@@ -1,0 +1,88 @@
+/* >>> M11 m-surf surfaces, product P4 (spec §6 M11). The figure is the size container: 1 column < 560 · 2×2 at 560–999 · 4 columns ≥ 1000
+   (the spec says 900; below 1000px the sheet cells and warehouse names truncate in four columns). */
+.m-surf-fig{container:m-surf / inline-size}
+/* Pause button: outside the mock, 12px below its inline-end corner; the figure reserves the room (motion only: no button without it) */
+.v7-motion .m-surf-fig{padding-bottom:44px}
+.m-surf-fig>.v7-pause{inset-block-end:0;inset-inline-end:0}
+.m-surf{padding:16px;border-radius:16px;border:1px solid var(--m-line);background:var(--m-sunken)}
+.m-surf-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.m-surf-kicker{min-width:0;font:400 11px/1.3 var(--font-mono);color:var(--m-text-3)}
+
+.m-surf-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+
+/* Pane: a generic app window (text label only, no logos) */
+.m-surf-pane{position:relative;display:flex;flex-direction:column;min-height:180px;padding:0;overflow:clip;
+  transition:border-color 240ms,box-shadow 240ms}
+.m-surf-pane[data-on]{border-color:var(--m-you);box-shadow:0 0 0 3px var(--m-you-soft)}
+.m-surf-bar{display:flex;align-items:center;gap:8px;flex:none;height:32px;padding-inline:12px;background:var(--m-sunken);border-bottom:1px solid var(--m-line);
+  font:400 11.5px/1 var(--font-mono);color:var(--m-text-2);white-space:nowrap}
+.m-surf-bar .v7-ic{width:14px;height:14px;color:var(--m-text-3)}
+.m-surf-name{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.m-surf-dock{position:absolute;top:-3px;inset-inline-start:50%;width:0;height:0} /* where the Q-1042 token docks: straddling the pane's top edge, centred, clear of the title */
+.m-surf-body{display:flex;flex-direction:column;align-items:flex-start;gap:10px;flex:1;min-width:0;padding:12px}
+.m-surf-body>*{max-width:100%}
+.m-surf-foot{margin-top:auto}
+.m-surf-foot .v7-mark{width:12px;height:12px}
+
+/* 1 · ERP inventory: three aligned mono rows */
+.m-surf-inv{align-self:stretch;display:grid}
+.m-surf-r{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:baseline;gap:10px;padding:6px;
+  font:400 11.5px/1.3 var(--font-mono);color:var(--m-text)}
+.m-surf-r+.m-surf-r{border-top:1px solid var(--m-line)}
+.m-surf-r>span{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--m-text-2)}
+.m-surf-r>b{font-weight:600;text-align:end;font-variant-numeric:tabular-nums}
+
+/* 2 · Spreadsheet look-alike: 1px cell lines, mono cells, header row */
+.m-surf-xl{align-self:stretch;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1.2fr) minmax(0,1fr);gap:1px;border:1px solid var(--m-line);border-radius:6px;
+  overflow:clip;background:var(--m-line);font:400 11.5px/1.3 var(--font-mono)}
+.m-surf-xl>*{min-width:0;padding:6px 7px;background:var(--m-raised);color:var(--m-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-surf-xl>.is-h{background:var(--m-sunken);color:var(--m-text-3);font-size:11px}
+.m-surf-cell{outline:1.5px solid transparent;outline-offset:-1.5px;transition:outline-color 200ms}
+.m-surf-cell[data-hot]{outline-color:var(--m-you)}
+
+/* 3 · Mailbox: sender + subject rows; Mate's draft row inserts */
+.m-surf-mail{align-self:stretch;display:grid}
+.m-surf-msg{display:grid;grid-template-columns:12px minmax(0,1fr);column-gap:7px;row-gap:1px;align-items:center;padding:7px 2px;font-size:12px;line-height:1.3}
+.m-surf-mail>li+li .m-surf-msg,.m-surf-mail>li+li.m-surf-msg{box-shadow:0 -1px 0 var(--m-line)}
+.m-surf-msg>b{grid-column:2;min-width:0;font-weight:650;color:var(--m-text);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m-surf-msg>span:not(.v7-pill){grid-column:2;min-width:0;color:var(--m-text-2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.m-surf-dot{grid-row:1;grid-column:1;justify-self:center;width:6px;height:6px;border-radius:50%}
+.m-surf-msg.is-unread .m-surf-dot{background:var(--m-you)}
+.m-surf-msg.is-draft>.v7-ic{grid-row:1;grid-column:1;width:12px;height:12px;color:var(--m-text-3)}
+.m-surf-dpill{grid-column:2;justify-self:start;margin-top:5px;max-width:100%}
+/* "Draft by Mate · waiting for approval" is the longest status: in a tight pane it wraps instead of clipping */
+.m-surf-dpill{height:auto;min-height:22px;padding-block:4px;line-height:1.25;white-space:normal}
+
+/* 4 · Chat look-alike (no brand colour): Mate's bubble at the inline-start, the person's reply at the inline-end.
+   An earlier, dimmed exchange always sits on top, so the pane is never empty while Q-1042 is on its way. */
+.m-surf-chat{gap:8px}
+.m-surf-prev{max-width:100%;padding:6px 10px;border-radius:12px;border-end-start-radius:4px;background:var(--m-sunken);border:1px solid var(--m-line);
+  font-size:12px;line-height:1.35;color:var(--m-text-2)}
+.m-surf-ask{max-width:100%;padding:9px 11px 10px;border-radius:12px;border-end-start-radius:4px;background:var(--m-mate-soft);font-size:12.5px;line-height:1.4;color:var(--m-text)}
+.m-surf-acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.m-surf-reply{align-self:stretch}
+.m-surf-reply>div{display:flex;justify-content:flex-end}
+.m-surf-rb{padding:7px 11px;border-radius:12px;border-end-end-radius:4px;background:var(--m-you-soft);color:var(--m-you-ink);font-size:12.5px;font-weight:600;line-height:1.3}
+
+/* The quote token that travels between panes */
+.m-surf-token{position:absolute;left:0;top:0;z-index:4;display:inline-flex;align-items:center;padding:3px 8px;border-radius:999px;background:var(--m-you);
+  color:var(--neutral-900);font:600 11px/1.2 var(--font-mono);white-space:nowrap;box-shadow:var(--shadow-md);pointer-events:none}
+.m-surf-token[hidden]{display:none}
+
+@container m-surf (min-width:560px){
+  .m-surf{padding:20px}
+  .m-surf-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@container m-surf (min-width:1000px){
+  /* the sheet title and Mate's draft status are the widest content, so those panes get a little more room */
+  .m-surf-grid{grid-template-columns:minmax(0,.92fr) minmax(0,1.05fr) minmax(0,1.13fr) minmax(0,.9fr)}
+}
+/* Hebrew (M11.he.html): Hebrew labels in the mono spots (kicker, window titles, warehouse names, sheet header) use the body face,
+   no tracking; SKUs, quantities and the travelling Q-1042 token stay mono. The preview tag follows the same rule here. */
+html[lang=he] :is(.m-surf-kicker,.m-surf-bar,.m-surf-r>span,.m-surf-xl>.is-h,.m-surf-foot){font-family:var(--font-body);letter-spacing:0;text-transform:none}
+html[lang=he] .m-surf-kicker{font-size:12px}
+html[lang=he] .m-surf-foot{font-size:11.5px}
+html[lang=he] :is(.m-surf-bar,.m-surf-r>span){font-size:12px}
+html[lang=he] .m-surf-xl>.is-h{font-size:11.5px;font-weight:600}
+html[lang=he] .m-surf .v7-preview-tag{font-family:var(--font-body);font-size:11px;font-weight:500;letter-spacing:0;text-transform:none}
+/* <<< M11 */

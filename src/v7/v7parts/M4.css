@@ -1,0 +1,99 @@
+/* >>> M4 m-flow: flow builder (spec §6 M4). Mobile-first on the "screen" container. The canvas is its own container
+   ("flowcv"): the branch moves beside node 4 once the canvas has room for it, below that it is a row under node 4. */
+.m-flow{display:flex;flex-direction:column;gap:12px}
+
+/* Header: title + sub on the inline-start, status and actions at the inline-end */
+.m-flow-head{display:grid;grid-template-columns:minmax(0,1fr) auto;grid-template-areas:"t c" "s s";align-items:center;column-gap:12px;row-gap:1px}
+.m-flow-title{grid-area:t;min-width:0;font-size:15px;font-weight:650;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-flow-sub{grid-area:s;min-width:0;font:400 11px/1.4 var(--font-mono);color:var(--m-text-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.m-flow-ctl{grid-area:c;display:flex;align-items:center;gap:8px}
+.m-flow-review,.m-flow-live{display:none}
+
+/* Body: canvas (+ inspector in wide) */
+.m-flow-body{display:flex;flex-direction:column;flex:1 1 auto;min-height:0}
+.m-flow-canvas{container:flowcv / inline-size;position:relative;flex:1 1 auto;padding:16px;border-radius:12px;border:1px solid var(--m-line);
+  background:radial-gradient(var(--m-dot) 1px,transparent 1.2px) 7px 7px/16px 16px,var(--m-sunken)}
+
+/* Mate status line: a small chip (above the column when narrow, floating at the canvas's top inline-end otherwise) */
+.m-flow-mate{display:inline-flex;align-items:center;gap:6px;height:26px;margin-bottom:12px;padding-inline:9px 11px;border-radius:999px;
+  border:1px solid var(--m-line);background:var(--m-raised);box-shadow:var(--shadow-xs);font-size:12px;line-height:1;color:var(--m-text-2);white-space:nowrap}
+.m-flow-mate .v7-mark{width:14px;height:14px}
+.m-flow-slot{display:inline-grid;place-items:center;width:20px;height:14px;margin-inline:-1px}
+.m-flow-slot>*{grid-area:1 / 1}
+.m-flow-slot .v7-thinking{gap:2.5px}
+.m-flow-mchk{width:14px;height:14px;color:var(--m-ok-ink);stroke-width:2.25}
+.m-flow-mstat{display:inline-block}
+
+/* The column of steps */
+.m-flow-col{position:relative;display:flex;flex-direction:column}
+.m-flow-col .v7-node{z-index:1}
+.m-flow-col .v7-node:not([data-kind=person]){grid-template-columns:26px minmax(0,1fr)} /* no empty third track (and its gap) */
+.m-flow-link{display:block;flex:none;width:1.5px;height:12px;margin-inline-start:22.25px;border-radius:1px;background:var(--m-mate)}
+.m-flow .v7-node[data-selected]{outline-color:transparent}
+.m-flow-gate{display:none}
+
+/* Branch from node 4. Narrow: a row under node 4, with the main line running past it. */
+.m-flow-br{position:relative;display:flex;flex-direction:column;align-items:flex-start;padding-inline-start:34px}
+.m-flow-blink{position:absolute;inset-inline-start:22.25px;top:0;bottom:0;width:1.5px;background:var(--m-mate)}
+.m-flow-bline{display:block;flex:none;width:1.5px;height:10px;margin-inline-start:13px;
+  background:linear-gradient(to bottom,var(--m-you) 50%,transparent 0) 0 0/1.5px 4px}
+.m-flow-branch{display:inline-flex;align-items:center;height:22px;padding-inline:9px;border-radius:999px;border:1px solid var(--m-you);
+  background:var(--m-raised);color:var(--m-you-ink);font-size:11.5px;font-weight:600;line-height:1;white-space:nowrap}
+.m-flow-bwho{display:none;white-space:pre}
+
+/* Run dot */
+.m-flow-dot{position:absolute;left:0;top:0;z-index:3;width:8px;height:8px;border-radius:50%;background:var(--m-you);
+  box-shadow:0 0 0 3px var(--m-you-soft);pointer-events:none}
+
+/* Inspector (wide only) */
+.m-flow-insp{display:none;flex-direction:column;gap:12px;align-self:start;padding:14px}
+.m-flow-ih{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:650;line-height:1.3}
+.m-flow-itile{display:grid;place-items:center;flex:none;width:22px;height:22px;border-radius:6px;background:var(--m-mate-soft);color:var(--m-mate-ink)}
+.m-flow-itile .v7-ic{width:13px;height:13px}
+.m-flow-idl{display:grid;gap:10px;padding-top:12px;border-top:1px solid var(--m-line)}
+.m-flow-idl>div{display:grid;gap:2px}
+.m-flow-idl dt{font:400 11px/1.3 var(--font-mono);color:var(--m-text-3)}
+.m-flow-idl dd{font-size:12.5px;line-height:1.4;color:var(--m-text);text-wrap:pretty}
+.m-flow-ifoot{display:flex;align-items:center;gap:6px;padding-top:12px;border-top:1px solid var(--m-line);font:400 11px/1.35 var(--font-mono);color:var(--m-text-3)}
+.m-flow-ifoot .v7-ic{width:12px;height:12px}
+
+/* Branch beside node 4 once the canvas has room (canvas content ≥ 430px). The column leaves room for the Mate chip at the
+   top inline-end (207px while building, 4px into the padding, 8px gap) and the branch (20px line + 169px pill); the full
+   pill with "· Dana K." (221px) needs ≥ 530px. Node 2's title needs a 228px column. */
+@container flowcv (min-width:430px){
+  .m-flow-col{width:min(280px,100% - 211px)}
+  .m-flow-n4{position:relative}
+  .m-flow-br{position:absolute;top:0;inset-inline-start:100%;flex-direction:row;align-items:center;height:44px;padding:0}
+  .m-flow-blink{display:none}
+  .m-flow-bline{width:20px;height:1.5px;margin:0;background:linear-gradient(to right,var(--m-you) 50%,transparent 0) 0 0/6px 1.5px}
+  .m-flow-mate{position:absolute;top:12px;inset-inline-end:12px;z-index:2;margin:0}
+}
+/* "Human gate" needs a 278px column (the person node's meta plus the tag) */
+@container flowcv (min-width:490px){.m-flow-gate{display:inline-flex}}
+@container flowcv (min-width:530px){
+  .m-flow-col{width:min(280px,100% - 250px)}
+  .m-flow-bline{width:28px}
+  .m-flow-bwho{display:inline}
+}
+@container screen (min-width:480px){
+  .m-flow-head{grid-template-areas:"t c" "s c"}
+  .m-flow-live{display:inline-flex}
+}
+@container screen (min-width:620px){.m-flow-review{display:inline-flex}}
+/* narrow content inside a fixed-height rail shell (app 560–573px): a slightly smaller chip keeps node 2's title whole */
+@container app (min-width:560px){
+  @container screen (max-width:479.98px){
+    @container flowcv (min-width:430px){
+      .m-flow-mate{font-size:11.5px;padding-inline:8px 10px}
+      .m-flow-col{width:min(280px,100% - 203px)}
+    }
+  }
+}
+@container screen (min-width:760px){
+  /* the root's paint box reaches 16px into the shell's padding, so the inspector's slide-in (x 16) is never clipped */
+  .v7-screen.m-flow{margin-inline-end:-16px;padding-inline-end:16px}
+  .m-flow-body{display:grid;grid-template-columns:minmax(0,1fr) 240px;gap:14px}
+  .m-flow-insp{display:flex}
+  .m-flow .v7-node[data-selected]{outline-color:var(--m-you)}
+}
+/* <<< M4 */

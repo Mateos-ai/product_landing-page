@@ -1,0 +1,59 @@
+<!-- figcaption: Product preview: monitoring the goal. Today 51% against a plan of 48%. Mate's forecast is 78% by January 15, so it flags the goal at risk: large orders wait for a stock check. Dana K. approves Mate's fix to check stock in parallel; the forecast rises to 91% and the goal is back on track. -->
+<div class="v7-screen m-mon" data-v7-mock="M5" data-v7-play="host" data-nav="monitor" data-title="Monitor">
+  <div class="m-mon-head">
+    <b class="m-mon-title"><bdi>G-01</bdi> · Quotes out within 4&nbsp;h</b>
+    <span class="v7-pill m-mon-status" data-tone="ok">On track</span>
+    <span class="m-mon-week">Week 5 of 10 · <bdi>Dec 11</bdi></span>
+  </div>
+  <div class="m-mon-kpis">
+    <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Today</span><b class="m-mon-kv m-mon-now">51%</b><span class="m-mon-ks">Plan 48%</span></div>
+    <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Target</span><b class="m-mon-kv">90%</b><span class="m-mon-ks">by <bdi>Jan 15</bdi></span></div>
+    <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Forecast</span><b class="m-mon-kv m-mon-fcv is-ok">91%</b><span class="m-mon-ks">by <bdi>Jan 15</bdi></span></div>
+  </div>
+  <div class="m-mon-body">
+    <div class="m-mon-main">
+      <div class="v7-card m-mon-chart" dir="ltr">
+        <div class="m-mon-plot">
+          <svg class="m-mon-svg" viewBox="0 0 640 220" preserveAspectRatio="none">
+            <path class="m-mon-grid" d="M40 190H620M40 147.5H620M40 105H620M40 62.5H620M40 20H620" vector-effect="non-scaling-stroke"/>
+            <path class="m-mon-glide" d="M40 179.8 L620 37" vector-effect="non-scaling-stroke"/>
+            <path class="m-mon-target" d="M40 37 H620" vector-effect="non-scaling-stroke"/>
+            <path class="m-mon-today" d="M330 20 V190" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <svg class="m-mon-svg m-mon-act" viewBox="0 0 640 220" preserveAspectRatio="none">
+            <path class="m-mon-area" d="M40 179.8 L98 176.4 L156 157.7 L214 133.9 L272 115.2 L330 103.3 L330 190 L40 190 Z"/>
+            <path class="m-mon-actual" d="M40 179.8 L98 176.4 L156 157.7 L214 133.9 L272 115.2 L330 103.3" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <svg class="m-mon-svg m-mon-fcl" viewBox="0 0 640 220" preserveAspectRatio="none">
+            <line class="m-mon-fc" x1="330" y1="103.3" x2="620" y2="35.3" vector-effect="non-scaling-stroke"/>
+          </svg>
+          <div class="m-mon-ov">
+            <span class="m-mon-y" style="top:9.1%">100%</span><span class="m-mon-y" style="top:47.7%">50%</span><span class="m-mon-y" style="top:86.4%">0%</span>
+            <span class="m-mon-tgt">Target 90%</span>
+            <span class="m-mon-tl">Today</span>
+            <i class="m-mon-end"></i>
+          </div>
+        </div>
+        <div class="m-mon-x"><span style="left:6.25%">W0</span><span style="left:51.6%">W5</span><span style="left:96.9%">W10</span></div>
+      </div>
+      <ul class="v7-card m-mon-flows">
+        <li><span>Quote turnaround · 7 steps</span><span class="v7-pill" data-tone="ok">Healthy</span></li>
+        <li class="m-mon-lrow"><span>Large orders (over 200 units) · median 9&nbsp;h 20&nbsp;m</span><span class="v7-pill m-mon-large" data-tone="ok">Fix live</span></li>
+        <li><span>Exception desk · 2 open</span><span class="v7-pill" data-tone="neutral">Normal</span></li>
+      </ul>
+    </div>
+    <div class="v7-card m-mon-alert">
+      <p class="m-mon-ah"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><b class="m-mon-atitle"><span class="m-mon-att">Fix approved: stock is now checked in parallel.</span></b></p>
+      <p class="m-mon-ab">Stock is checked after pricing. Checking both in parallel saves about 5&nbsp;h per large order (estimate). Forecast after fix: 91% by <bdi>Jan 15</bdi>.</p>
+      <div class="m-mon-cmp">
+        <p class="m-mon-cmph">Forecast by <bdi>Jan 15</bdi></p>
+        <p class="m-mon-cr"><span class="m-mon-cl">Without fix</span><span class="v7-bar" data-tone="you"><i class="v7-bar-fill" style="--v:.78"></i><i class="v7-bar-tick" style="--at:.9"></i></span><b class="m-mon-cv">78%</b></p>
+        <p class="m-mon-cr"><span class="m-mon-cl">With fix</span><span class="v7-bar" data-tone="ok"><i class="v7-bar-fill m-mon-cfill" style="--v:.91"></i><i class="v7-bar-tick" style="--at:.9"></i></span><b class="m-mon-cv m-mon-cnew">91%</b></p>
+      </div>
+      <div class="m-mon-afoot">
+        <span class="m-mon-acts"><span class="v7-fbtn is-ok m-mon-approve"><svg class="v7-ic"><use href="#i-check"/></svg>Approved by Dana K.</span></span>
+        <span class="m-mon-anote">Now rule <bdi>R-11</bdi> · logged</span>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,35 @@
+<!-- M0 app shell (spec §6 M0). The page sets, per placement:
+     1. style="--v7-app-h:516px" on the figure (556px for the tour);
+     2. data-active on exactly one .v7-nav-item (goals flows monitor exceptions rules audit settings);
+     3. the .v7-app-title text (shown only in the narrow shell);
+     4. the sr-only figcaption text (from the screen's "figcaption:" comment);
+     5. one or more .v7-screen roots at the SCREENS placeholder, in tab order for the tour. -->
+<figure class="v7-figure v7-fig-app" style="--v7-app-h:516px">
+  <div class="v7-mock v7-app v7-cursor-host" aria-hidden="true" inert>
+    <div class="v7-app-top">
+      <span class="v7-app-brand"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>MateOS</b><i>/</i><span class="v7-app-ws">Your company <small>Sample data</small></span></span>
+      <span class="v7-app-title">Goals</span>
+      <span class="v7-app-search"><svg class="v7-ic"><use href="#i-search"/></svg>Ask Mate or search<kbd class="v7-kbd">⌘K</kbd></span>
+      <span class="v7-app-end"><span class="v7-preview-tag">Product preview</span><span class="v7-avatar is-you"><svg class="v7-ic"><use href="#i-person"/></svg></span></span>
+    </div>
+    <div class="v7-app-body">
+      <nav class="v7-app-nav">
+        <span class="v7-nav-item" data-nav="goals" data-active><svg class="v7-ic"><use href="#i-goal"/></svg><span>Goals</span></span>
+        <span class="v7-nav-item" data-nav="flows"><svg class="v7-ic"><use href="#i-flow"/></svg><span>Flows</span></span>
+        <span class="v7-nav-item" data-nav="monitor"><svg class="v7-ic"><use href="#i-monitor"/></svg><span>Monitor</span></span>
+        <span class="v7-nav-item" data-nav="exceptions"><svg class="v7-ic"><use href="#i-inbox"/></svg><span>Exceptions</span><b class="v7-nav-badge">2</b></span>
+        <span class="v7-nav-item" data-nav="rules"><svg class="v7-ic"><use href="#i-rules"/></svg><span>Rules</span></span>
+        <span class="v7-nav-item" data-nav="audit"><svg class="v7-ic"><use href="#i-audit"/></svg><span>Audit</span></span>
+        <hr>
+        <span class="v7-nav-item" data-nav="settings"><svg class="v7-ic"><use href="#i-settings"/></svg><span>Settings</span></span>
+        <div class="v7-app-conn"><p>Connected</p>
+          <span><i></i>ERP · read-only</span><span><i></i>Mailbox · after approval</span><span><i></i>WhatsApp · approvals</span><span><i></i>Excel · read-only</span>
+        </div>
+        <div class="v7-app-mate"><span class="v7-live"></span>Mate · watching 3 goals</div>
+      </nav>
+      <div class="v7-app-main"><!-- SCREENS --></div>
+    </div>
+    <span class="v7-cursor"><svg viewBox="0 0 24 24"><use href="#i-cursor"/></svg></span><span class="v7-tap"></span>
+  </div>
+  <figcaption class="sr-only"><!-- FIGCAPTION --></figcaption>
+</figure>

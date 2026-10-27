@@ -1,0 +1,124 @@
+/* >>> P-HOME homepage sections (spec §4 with §0 A1–A4). Home-only hooks use .v7-home-* so /mateos/ is never touched. */
+
+/* No content-visibility here (§3.10 deviation): with site.css's smooth scrolling, a jump to #start aimed at the
+   estimated section sizes and landed ~311px off once the skipped sections rendered at their real height. */
+
+/* ---------- H1 hero (§4 H1). Stepper visuals ship in M1.css; only spacing lives here. ---------- */
+.v7-home-hero{position:relative;isolation:isolate;padding-block:40px 64px;overflow:clip} /* hard band edge: mock shadows never smudge the next section */
+.v7-home-hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.2px) 0 0/24px 24px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 70% 45%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 60% at 70% 45%,#000 20%,transparent 75%)}
+.v7-home-hero .v7-hero-grid{display:grid}
+/* The grid stays .v7-wrap-wide (the mock bleeds ~80px toward the inline-end), but the copy starts on the header's edge:
+   the percentage resolves against the full-width band, so this equals the .v7-wrap content edge at every width. */
+.v7-home-hero .v7-wrap-wide.v7-hero-grid{padding-inline-start:clamp(var(--v7-gutter),calc((100% - var(--v7-wrap)) / 2 + var(--v7-gutter)),calc((var(--v7-wrap-wide) - var(--v7-wrap)) / 2 + var(--v7-gutter)))}
+.v7-home-hero .v7-hero-copy{max-width:640px}
+.v7-home-hero .v7-h1 .v7-line:last-child{color:var(--amber-500)}
+/* The web font wraps line 1 below 399px and the fallback fonts only below 369px, so the H1 re-wrapped (a layout shift)
+   when Bricolage arrived. A fixed break up to 404px gives both fonts the same lines; wider screens wrap on their own. */
+@media (min-width:405px){.v7-home-hero .v7-h1-br{display:none}}
+.v7-home-hero .v7-stepper{margin-block:28px 32px}
+.v7-home-hero .v7-figure{margin-top:40px;min-width:0}
+@media (min-width:640px){
+  .v7-home-hero{padding-block:56px 96px}
+  .v7-home-hero .v7-figure{margin-top:48px;max-width:720px}
+}
+@media (min-width:1024px){
+  .v7-home-hero{padding-block:72px 112px}
+  .v7-home-hero .v7-hero-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px;align-items:center}
+  .v7-home-hero .v7-figure{margin-top:0;max-width:700px}
+}
+
+/* ---------- H2 the gap (§0 A1), then K1 ---------- */
+.v7-gap{list-style:none;display:grid;gap:32px;margin-top:48px;max-width:800px}
+.v7-gap>li{display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:1px solid var(--border)}
+.v7-gap-num{font-family:var(--font-display);font-size:clamp(3rem,2.2rem + 3vw,4.5rem);font-weight:700;line-height:1;letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;color:var(--text-primary)}
+.v7-gap>li:first-child .v7-gap-num{color:var(--v7-you-display)}
+.v7-gap-line{max-width:26ch;font-size:1.0625rem;line-height:1.45;color:var(--text-secondary);text-wrap:balance}
+.v7-source{margin-top:20px;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--text-muted)}
+.v7-bridge{margin-block:40px 8px;font-family:var(--font-display);font-size:clamp(1.375rem,1.2rem + .8vw,1.75rem);font-weight:600;
+  line-height:1.25;letter-spacing:-.015em;color:var(--text-primary);text-wrap:balance}
+@media (min-width:640px){.v7-gap{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* ---------- H4 a person approves (§4 H4, §0 A4). M7 sizes and centres itself; never clip this grid. ---------- */
+.v7-home-split{display:grid;gap:48px}
+.v7-home-copy .v7-h2{max-width:14ch}
+.v7-home-copy .v7-lead{margin-top:20px}
+.v7-home-copy .v7-check-list{margin-top:32px}
+.v7-home-copy .v7-link-arrow{margin-top:32px}
+@media (min-width:1024px){
+  .v7-home-split{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:center}
+}
+
+/* ---------- H5 field stories (§4 H5, §0 A2). Real proof: no preview tag. ---------- */
+.v7-field-lead{margin-top:20px}
+.v7-stories{display:grid;gap:20px;margin-top:48px}
+.v7-story{--v7-tone:var(--amber-500);position:relative;display:flex;flex-direction:column;min-width:0;padding:28px 24px;
+  border:1px solid var(--border);border-radius:16px;background:var(--surface);overflow:hidden}
+.v7-story::before{content:"";position:absolute;inset:0 0 auto;height:3px;background:var(--v7-tone)}
+.v7-story[data-tone=ok]{--v7-tone:var(--teal-500)}
+.v7-story[data-tone=mate]{--v7-tone:var(--indigo-500)}
+.v7-story-big{font-family:var(--font-display);font-size:clamp(2rem,1.6rem + 1.6vw,2.75rem);font-weight:700;line-height:1.05;
+  letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--text-primary);text-wrap:balance}
+.v7-story-big.is-quote{font-size:clamp(1.5rem,1.3rem + .8vw,1.875rem);line-height:1.15;letter-spacing:-.02em}
+.v7-story-body{margin-top:14px;font-size:1rem;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
+.v7-story-q{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--text-muted)}
+.v7-story-q::before{content:"";flex:none;width:10px;height:10px;margin-top:4px;border:1px dashed currentColor;border-radius:50%}
+.v7-field-more{margin-top:32px}
+@media (min-width:900px){
+  .v7-stories{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* three rows shared across the cards (subgrid): the big lines, the bodies and the footnotes start on one line */
+  @supports (grid-template-rows:subgrid){
+    .v7-stories{grid-template-rows:auto auto auto;row-gap:0}
+    .v7-story{display:grid;grid-row:span 3;grid-template-rows:subgrid;align-content:start}
+    .v7-story-q{margin-top:0}
+  }
+}
+/* Card effects (P-HOME.js). Final markup is the final text; JS swaps in a ghost + live pair only while an effect runs,
+   so the card never changes height. */
+.v7-story[data-v7-fx=type] .v7-fx{display:grid}
+.v7-story[data-v7-fx=type] .v7-fx>*{grid-area:1/1;min-width:0}
+.v7-story[data-v7-fx=clock] .v7-fx{display:inline-block}
+.v7-fx-n{display:inline-grid;justify-items:start} /* the live count sits left, with "hours" attached; the ghost holds the final width */
+.v7-fx-n>*{grid-area:1/1}
+.v7-fx-ghost{visibility:hidden}
+.v7-story .v7-caret{width:.09em;height:1em;margin-inline-start:.04em;vertical-align:-.12em;background:var(--v7-tone)}
+.v7-story:not(.is-in) .v7-caret{animation:none} /* the armed caret does not blink before its card is in */
+
+/* ---------- H6 your move (§4 H6) ---------- */
+.v7-home-cta{display:grid;gap:48px}
+#start.v7-cta:has(.v7-home-cta){overflow:clip} /* hard band edge above the footer */
+.v7-ladder{--v7-dot-c:calc(1.375rem * 1.25 / 2);position:relative;list-style:none;display:grid;gap:24px;margin-top:40px;padding-inline-start:36px}
+.v7-ladder::before{content:"";position:absolute;inset-inline-start:5px;top:var(--v7-dot-c);bottom:0;width:2px;border-radius:2px;
+  background:rgba(255,255,255,.18);transform-origin:50% 0;
+  -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 44px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 44px),transparent)}
+.v7-ladder>li{position:relative}
+.v7-ladder>li::before{content:"";position:absolute;inset-inline-start:-36px;top:calc(var(--v7-dot-c) - 6px);width:12px;height:12px;border-radius:50%;
+  background:linear-gradient(rgba(255,255,255,.35),rgba(255,255,255,.35)),var(--dark-surface);box-shadow:0 0 0 4px var(--dark-surface)}
+.v7-ladder>li:first-child::before{background:var(--amber-500)}
+.v7-ladder-name{display:flex;flex-wrap:wrap;align-items:center;gap:6px 12px;font-family:var(--font-display);font-size:1.375rem;font-weight:650;
+  line-height:1.25;letter-spacing:-.015em;color:#fff}
+.v7-ladder-tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;background:rgba(255,140,66,.14);color:var(--amber-500);
+  font:500 12px/1.4 var(--font-mono);letter-spacing:.02em;white-space:nowrap}
+.v7-band-dark .v7-ladder-body{margin-top:6px;max-width:46ch;line-height:1.55;color:var(--dark-text-2)}
+.v7-home-cta .v7-fine{margin-top:24px;max-width:52ch;font-size:.9375rem;line-height:1.55;color:var(--dark-text-2)}
+.v7-home-cta .v7-actions{margin-top:32px}
+@media (min-width:1024px){
+  .v7-home-cta{grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:64px;align-items:center}
+}
+/* Ladder motion: JS arms it (data-v7-armed) and adds .is-on at 40% visible. No JS or reduced motion: final state.
+   Arming is instant; transitions exist only on .is-on, so arming never animates (or freezes mid-fade while the
+   section is skipped by content-visibility). */
+.v7-motion .v7-ladder[data-v7-armed]:not(.is-on)::before{transform:scaleY(0)}
+.v7-motion .v7-ladder[data-v7-armed]:not(.is-on)>li::before{transform:scale(0)}
+.v7-motion .v7-ladder[data-v7-armed]:not(.is-on)>li>*{opacity:0;translate:0 12px}
+.v7-motion .v7-ladder.is-on::before{transition:transform 800ms var(--ease-in-out)}
+.v7-motion .v7-ladder.is-on>li::before{transition:transform 300ms var(--ease-pop) 100ms}
+.v7-motion .v7-ladder.is-on>li:nth-child(2)::before{transition-delay:300ms}
+.v7-motion .v7-ladder.is-on>li:nth-child(3)::before{transition-delay:500ms}
+.v7-motion .v7-ladder.is-on>li>*{transition:opacity 600ms var(--ease-out) 150ms,translate 600ms var(--ease-out) 150ms}
+.v7-motion .v7-ladder.is-on>li:nth-child(2)>*{transition-delay:270ms}
+.v7-motion .v7-ladder.is-on>li:nth-child(3)>*{transition-delay:390ms}
+/* <<< P-HOME */

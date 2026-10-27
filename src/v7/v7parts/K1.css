@@ -1,0 +1,46 @@
+/* >>> K1 k-flip reverse flip: kinetic type, homepage H2 (spec §6 K1, §0 A1) */
+/* Markup is the final state. JS arms the start state (.is-old rows, old order) only under .v7-motion.
+   Until v7.js has run, a motion page hides the block so the final state never flashes first
+   (the head gate removes .v7-motion after 2500ms if v7.js never runs, so this fails open). */
+.v7-motion:not(.v7-ready) [data-v7-flip]{visibility:hidden}
+
+/* 1000px, not 960: at the 80px cap the longest rows measure ~921px, which left 1-2px before a desktop wrap. */
+.k-flip{position:relative;max-width:1000px}
+.k-flip-old{margin-bottom:28px;font-size:.9375rem;line-height:1.5;color:var(--text-muted)}
+.k-flip-old>.v7-label{margin-inline-end:.35em}
+.k-flip-old s{text-decoration-thickness:1.5px}
+.k-flip-label{margin-bottom:12px}
+.k-lab{display:inline-block}
+
+.k-flip-list{display:flex;flex-direction:column;gap:6px;list-style:none}
+/* Rows align to the top (no baseline alignment: WebKit synthesizes a baseline for the empty dot and mis-sizes the row). */
+.k-row{position:relative;display:grid;grid-template-columns:20px minmax(0,1fr);align-items:start;column-gap:18px;
+  font-family:var(--font-display);font-size:var(--v7-kinetic);font-weight:760;line-height:1.05;letter-spacing:-.035em;
+  color:var(--text-primary);transform-origin:0 50%}
+[dir=rtl] .k-row{transform-origin:100% 50%}
+/* The dot sits on the middle of the text's first line (half a line box: .525em at line-height 1.05). */
+.k-dot{align-self:start;justify-self:center;width:12px;height:12px;margin-top:calc(.525em - 6px);border-radius:50%;background:var(--amber-500)}
+.k-row[data-tone=mate] .k-dot{background:var(--indigo-500)}
+.k-row[data-tone=ok] .k-dot{background:var(--teal-500)}
+/* A row is as tall as the text it shows: the other text takes no room (even rhythm in the final state at every width). */
+.k-text{display:block;min-width:0;align-self:start}
+.k-text>*{display:block;min-width:0;text-wrap:balance}
+.k-old{position:relative;display:none}
+
+/* Start state (JS adds .is-old; rows also get an inline order). */
+.k-row.is-old{font-weight:300;color:var(--text-muted)}
+.k-row.is-old .k-new{display:none}
+.k-row.is-old .k-old{display:block}
+/* Strike: one bar per rendered line of the old text, measured by JS, drawn with scaleX from the inline-start.
+   3px at the full kinetic size, 2px at 390px where the weight-300 strokes are thinner. */
+.k-strike{--k-sw:clamp(2px,.0375em,3px);position:absolute;height:var(--k-sw);margin-top:calc(var(--k-sw) / -2);border-radius:2px;background:currentColor;transform:scaleX(0);transform-origin:0 50%;pointer-events:none}
+[dir=rtl] .k-strike{transform-origin:100% 50%}
+
+.k-caption{margin-top:28px;font-family:var(--font-display);font-size:1.25rem;font-weight:600;line-height:1.35;letter-spacing:-.01em;color:var(--text-secondary)}
+.k-last{color:var(--text-muted);text-decoration:line-through 2px;text-decoration-color:currentColor}
+[data-v7-flip][data-v7-state=running] .k-last{transition:text-decoration-color 300ms var(--ease-out)}
+.k-last.is-plain{text-decoration-color:transparent}
+.k-first{display:inline-block;font-weight:700;color:var(--v7-you-ink)}
+/* Hebrew: no letter-spacing (Heebo) */
+html[lang=he] :is(.k-row,.k-caption){letter-spacing:0}
+/* <<< K1 */

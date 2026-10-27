@@ -1,0 +1,31 @@
+/* >>> P-HE2 Hebrew page rules for /he/industries/ (hub and four industry pages) and /he/how-we-work/
+   (phe/build-hub-he.py, phe/build-industries-he.py, phe/build-hww-he.py). Every rule is scoped to html[lang=he] and to the
+   page hooks (.v7-hub-*, .v7-ind-*, .v7-hww-*), so the English pages and the other Hebrew pages never match. */
+
+/* A Hebrew prefix stays on the line of the Latin word or number it attaches to (the same rule as P-HE, for these pages) */
+html[lang=he] .v7-nw{display:inline;margin:0;white-space:nowrap}
+
+/* Industry hero: Heebo sets larger on the em than Bricolage, so the pain H1 is a notch smaller (lines are set per phrase
+   in the builder); the dot texture centres on the mock, which sits on the left in RTL */
+html[lang=he] .v7-ind-hero{--v7-ind-h1:clamp(2.375rem,1.5rem + 2.2vw,3.5rem)}
+@media (max-width:339.98px){html[lang=he] .v7-ind-hero{--v7-ind-h1:2.125rem}}
+html[lang=he] .v7-ind-hero::before{
+  -webkit-mask-image:radial-gradient(ellipse 70% 60% at 30% 45%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 60% at 30% 45%,#000 20%,transparent 75%)}
+
+/* Hub stepper in one column (< 720px): the separator points down. P-IND sets transform:none there, but the RTL flip
+   ([dir=rtl] .v7-ic-flip, scaleX(-1)) wins on specificity and, with the 90deg rotate, the arrow would point up */
+@media (max-width:719.98px){html[lang=he] .v7-hub-sep{transform:none}}
+
+/* No tracking on Hebrew display and label text (the English rules set negative or positive letter-spacing) */
+html[lang=he] :is(.v7-ind-card-t,.v7-ind-after,.v7-hub-name,.v7-hub-step,.v7-hub-bt,.v7-hub-fact,.v7-hub-field,
+  .v7-hww-name,.v7-hww-tag,.v7-hww-wl,.v7-hww-fine,.v7-hww-num-title){letter-spacing:0}
+/* mono labels that hold Hebrew read in the body face */
+html[lang=he] :is(.v7-hww-tag,.v7-hww-wl,.v7-hww-fine){font-family:var(--font-body)}
+html[lang=he] .v7-hww-fine{font-size:13px}
+
+/* The number card's bar is a chart (dir=ltr, like its columns) inside an RTL page: C2's [dir=rtl] fill origin reaches
+   through it, so the fill would grow from the right while the tick and flag sit from the left. Reset it here. */
+html[lang=he] .v7-hww-num-bar[dir=ltr]{--v7-dir:1}
+html[lang=he] .v7-hww-num-bar[dir=ltr] .v7-bar-fill{transform-origin:left center}
+/* <<< P-HE2 */

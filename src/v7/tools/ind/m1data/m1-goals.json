@@ -1,0 +1,154 @@
+{
+  "insurance": {
+    "caption": "Product preview: a goal is typed, 'Answer 90% of complete claims in 2 days by March 31.' Mate turns it into a metric, a 22% baseline and a 90% target, and builds seven steps from the claims mailbox through a missing-document check and a drafted letter to an approval by Noa S. The goal shows 47%, on track. A second goal follows: flag every missing document within an hour of intake, which goes at risk until a proposed fix is approved.",
+    "goals": [
+      {
+        "text": "Answer 90% of complete claims in 2 days by March 31.",
+        "highlight": { "metric": "complete claims in 2 days", "target": "90%", "date": "March 31" },
+        "chips": ["Claims answered in 2 days", "22% today", "90% by Mar 31"],
+        "nodes": [
+          { "kind": "trigger", "icon": "mail", "title": "Claim email in", "meta": "Mailbox" },
+          { "kind": "mate", "icon": "db", "title": "Link and sort", "meta": "Claims, read-only" },
+          { "kind": "rule", "icon": "rules", "title": "Missing-document check", "meta": "Rule" },
+          { "kind": "mate", "icon": "doc", "title": "Summarize the case", "meta": "Mate" },
+          { "kind": "mate", "icon": "doc", "title": "Draft the letter", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Adjuster approves", "meta": "Noa S." },
+          { "kind": "action", "icon": "send", "title": "Send and log", "meta": "Mailbox" }
+        ],
+        "track": { "name": "Claims answered in 2 days", "period": "Week 4 of 12", "value": 47, "baseline": 0.22, "target": 0.9 },
+        "status": "ok"
+      },
+      {
+        "text": "Flag every missing document within 1 hour of intake.",
+        "highlight": { "metric": "missing document within 1 hour" },
+        "chips": ["Missing docs found in 1 h", "15% today", "90% by Feb 15"],
+        "nodes": [
+          { "kind": "trigger", "icon": "mail", "title": "Documents in", "meta": "Mailbox" },
+          { "kind": "mate", "icon": "db", "title": "Link to the claim", "meta": "Claims, read-only" },
+          { "kind": "rule", "icon": "rules", "title": "Required list", "meta": "Rule, by policy" },
+          { "kind": "mate", "icon": "doc", "title": "Compare and flag", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Adjuster checks", "meta": "Noa S." },
+          { "kind": "action", "icon": "send", "title": "Ask the insured", "meta": "After approval" }
+        ],
+        "track": { "name": "Missing docs found in 1 h", "period": "Week 3 of 8", "value": 52, "baseline": 0.15, "target": 0.9 },
+        "status": "risk",
+        "note": "Scanned PDFs slow the check. Fix: read them on arrival.",
+        "forecast": "Forecast 74% → 91% by Feb 15"
+      }
+    ]
+  },
+  "manufacturing": {
+    "caption": "Product preview: a goal is typed, 'Key 95% of orders the same day by February 1.' Mate turns it into a metric, a 58% baseline and a 95% target, and builds seven steps from the incoming order through the ERP and a price rule to exceptions approved by Yossi M., then keys and confirms the order. The goal shows 76%, on track. A second goal follows: answer every quote request within a day, which goes at risk until a proposed fix is approved.",
+    "goals": [
+      {
+        "text": "Key 95% of orders the same day by February 1.",
+        "highlight": { "metric": "orders the same day", "target": "95%", "date": "February 1" },
+        "chips": ["Orders keyed same day", "58% today", "95% by Feb 1"],
+        "nodes": [
+          { "kind": "trigger", "icon": "mail", "title": "Order arrives", "meta": "Email, scan" },
+          { "kind": "mate", "icon": "doc", "title": "Read the order", "meta": "Mate" },
+          { "kind": "mate", "icon": "db", "title": "Match customer and items", "meta": "ERP, read-only" },
+          { "kind": "rule", "icon": "rules", "title": "Price and stock", "meta": "Rule: max 10%" },
+          { "kind": "person", "icon": "person", "title": "Approves exceptions", "meta": "Yossi M." },
+          { "kind": "mate", "icon": "db", "title": "Key into the ERP", "meta": "After approval" },
+          { "kind": "action", "icon": "send", "title": "Confirm to customer", "meta": "Mailbox" }
+        ],
+        "track": { "name": "Orders keyed same day", "period": "Week 3 of 10", "value": 76, "baseline": 0.58, "target": 0.95 },
+        "status": "ok"
+      },
+      {
+        "text": "Answer every quote request within 1 day.",
+        "highlight": { "metric": "quote request within 1 day" },
+        "chips": ["Quotes answered in 1 day", "30% today", "90% by Mar 1"],
+        "nodes": [
+          { "kind": "trigger", "icon": "mail", "title": "Request with drawing", "meta": "Email" },
+          { "kind": "mate", "icon": "doc", "title": "Read the drawing", "meta": "Mate" },
+          { "kind": "mate", "icon": "db", "title": "Parts and operations", "meta": "ERP, read-only" },
+          { "kind": "rule", "icon": "rules", "title": "Price rules", "meta": "Rule" },
+          { "kind": "mate", "icon": "doc", "title": "Draft the quote", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Estimator checks", "meta": "Yossi M." }
+        ],
+        "track": { "period": "Week 4 of 10", "value": 61, "baseline": 0.3, "target": 0.9 },
+        "status": "risk",
+        "note": "Large drawings wait in line. Fix: draft them first.",
+        "forecast": "Forecast 72% → 90% by Mar 1"
+      }
+    ]
+  },
+  "construction-and-real-estate": {
+    "caption": "Product preview: a goal is typed, 'Send every supplier payment notice by the 5th.' Mate turns it into a metric, a 41% baseline and a 100% target, and builds seven steps from the transfer file through a check against the bank to an approval by Dana K., then sends each notice from your domain and archives it. The goal shows 88%, on track. A second goal follows: close every handover file 14 days before keys, which goes at risk until a proposed fix is approved.",
+    "goals": [
+      {
+        "text": "Send every supplier payment notice by the 5th.",
+        "highlight": { "metric": "supplier payment notice", "date": "the 5th" },
+        "chips": ["Supplier notices by the 5th", "41% today", "100% by April"],
+        "nodes": [
+          { "kind": "trigger", "icon": "sheet", "title": "Transfer file in", "meta": "Excel" },
+          { "kind": "mate", "icon": "db", "title": "Check against the bank", "meta": "Bank, read-only" },
+          { "kind": "mate", "icon": "db", "title": "Match supplier and project", "meta": "ERP, read-only" },
+          { "kind": "mate", "icon": "doc", "title": "Draft the notice", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Finance approves", "meta": "Dana K." },
+          { "kind": "action", "icon": "send", "title": "Send from your domain", "meta": "Mailbox" },
+          { "kind": "action", "icon": "audit", "title": "Log and archive", "meta": "SharePoint" }
+        ],
+        "track": { "name": "Supplier notices by the 5th", "period": "Month 2 of 4", "value": 88, "baseline": 0.41, "target": 1 },
+        "status": "ok"
+      },
+      {
+        "text": "Close every handover file 14 days before keys.",
+        "highlight": { "metric": "handover file 14 days before keys" },
+        "chips": ["Files closed 14 days early", "35% today", "95% by June"],
+        "nodes": [
+          { "kind": "trigger", "icon": "sheet", "title": "Apartment list", "meta": "Excel" },
+          { "kind": "mate", "icon": "db", "title": "Guarantees on file", "meta": "SharePoint" },
+          { "kind": "rule", "icon": "rules", "title": "Required documents", "meta": "Rule" },
+          { "kind": "mate", "icon": "doc", "title": "Find what’s missing", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Customer team checks", "meta": "Noa S." },
+          { "kind": "action", "icon": "send", "title": "Remind the buyer", "meta": "After approval" }
+        ],
+        "track": { "period": "Week 6 of 12", "value": 70, "baseline": 0.35, "target": 0.95 },
+        "status": "risk",
+        "note": "Three buildings lack guarantee scans. Fix: ask the bank weekly.",
+        "forecast": "Forecast 81% → 96% by June"
+      }
+    ]
+  },
+  "logistics-and-distribution": {
+    "caption": "Product preview: a goal is typed, 'Confirm 98% of orders the same day by March 1.' Mate turns it into a metric, a 63% baseline and a 98% target, and builds seven steps from orders on email and WhatsApp through a stock check and receiving hours to an approval by Yossi M., then confirms to the customer on WhatsApp. The goal shows 84%, on track. A second goal follows: collect 95% of invoices on time, which goes at risk until a proposed fix is approved.",
+    "goals": [
+      {
+        "text": "Confirm 98% of orders the same day by March 1.",
+        "highlight": { "metric": "orders the same day", "target": "98%", "date": "March 1" },
+        "chips": ["Orders confirmed same day", "63% today", "98% by Mar 1"],
+        "nodes": [
+          { "kind": "trigger", "icon": "chat", "title": "Orders arrive", "meta": "Email, WhatsApp" },
+          { "kind": "mate", "icon": "doc", "title": "Read and match", "meta": "Mate" },
+          { "kind": "mate", "icon": "db", "title": "Check stock", "meta": "WMS, read-only" },
+          { "kind": "rule", "icon": "rules", "title": "Receiving hours", "meta": "Rule" },
+          { "kind": "mate", "icon": "doc", "title": "Chase missing documents", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Order desk approves", "meta": "Yossi M." },
+          { "kind": "action", "icon": "send", "title": "Confirm to customer", "meta": "WhatsApp" }
+        ],
+        "track": { "name": "Orders confirmed same day", "period": "Week 5 of 12", "value": 84, "baseline": 0.63, "target": 0.98 },
+        "status": "ok"
+      },
+      {
+        "text": "Collect 95% of invoices on time by April 30.",
+        "highlight": { "metric": "invoices on time", "target": "95%", "date": "April 30" },
+        "chips": ["Invoices paid on time", "72% today", "95% by Apr 30"],
+        "nodes": [
+          { "kind": "trigger", "icon": "db", "title": "Open invoices", "meta": "ERP, read-only" },
+          { "kind": "mate", "icon": "doc", "title": "Find missing documents", "meta": "Mate" },
+          { "kind": "mate", "icon": "doc", "title": "Draft the reminder", "meta": "Mate" },
+          { "kind": "person", "icon": "person", "title": "Collections approves", "meta": "Noa S." },
+          { "kind": "action", "icon": "send", "title": "Send on WhatsApp", "meta": "After approval" },
+          { "kind": "action", "icon": "audit", "title": "Log the reply", "meta": "Audit trail" }
+        ],
+        "track": { "period": "Week 5 of 12", "value": 81, "baseline": 0.72, "target": 0.95 },
+        "status": "risk",
+        "note": "Ten customers ignore email. Fix: remind them on WhatsApp.",
+        "forecast": "Forecast 86% → 95% by Apr 30"
+      }
+    ]
+  }
+}

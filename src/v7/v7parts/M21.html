@@ -1,0 +1,116 @@
+<figure class="v7-figure m-bound-fig" data-v7-mode="cloud">
+  <div class="v7-mock m-bound" data-v7-mock="M21" data-v7-play="loop" data-v7-start-delay="600" aria-hidden="true" inert>
+    <div class="m-bound-in">
+      <div class="m-bound-head">
+        <span class="m-bound-label">MateOS · data boundary</span>
+        <span class="v7-preview-tag">Example</span>
+      </div>
+      <div class="m-bound-dia">
+        <span class="m-bound-env"></span>
+
+        <div class="m-bound-api m-bound-node">
+          <span class="m-bound-tile"><svg class="v7-ic" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 3v3.5M14 3v3.5M10 17.5V21M14 17.5V21M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg></span>
+          <span class="m-bound-tx"><b>Model API</b><span>no data retention</span></span>
+          <i class="m-bound-ring"></i>
+        </div>
+
+        <div class="m-bound-envlab">
+          <span class="m-bound-envt"><svg class="v7-ic"><use href="#i-lock"/></svg>Your environment</span>
+          <span class="m-bound-x m-bound-envs">
+            <span class="m-bound-parts" data-m="cloud"><span>Your cloud tenant</span><span>in region</span></span>
+            <span class="m-bound-parts" data-m="dmz"><span>Your DMZ</span><span>read-only API over your ERP</span></span>
+            <span class="m-bound-parts" data-m="onprem"><span>Your network</span><span>over your VPN</span></span>
+          </span>
+        </div>
+
+        <ul class="m-bound-sys">
+          <li class="m-bound-chip m-bound-node"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="m-bound-tx"><b>ERP</b><span>read-only</span></span></li>
+          <li class="m-bound-chip m-bound-node"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-mail"/></svg></span><span class="m-bound-tx"><b>Mailbox</b><span>send after approval</span></span></li>
+          <li class="m-bound-chip m-bound-node m-bound-x">
+            <span class="m-bound-cv" data-m="cloud dmz"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-chat"/></svg></span><span class="m-bound-tx"><b>WhatsApp</b><span>approvals</span></span></span>
+            <span class="m-bound-cv" data-m="onprem"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-building"/></svg></span><span class="m-bound-tx"><b>Warehouse</b><span>read-only</span></span></span>
+          </li>
+          <li class="m-bound-chip m-bound-node m-bound-x">
+            <span class="m-bound-cv" data-m="cloud dmz"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-sheet"/></svg></span><span class="m-bound-tx"><b>Excel</b><span>read-only</span></span></span>
+            <span class="m-bound-cv" data-m="onprem"><span class="m-bound-tile"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3.5v2.5h-7"/><circle cx="6.5" cy="17.5" r="1.75"/><circle cx="16.5" cy="17.5" r="1.75"/></svg></span><span class="m-bound-tx"><b>Delivery</b><span>read-only</span></span></span>
+          </li>
+        </ul>
+
+        <!-- Wires: static lines in markup (normalised 0–100 boxes, stretched to their grid cells). data-p names the pulse
+             routes each path belongs to: key[:order][~ = run it backwards]. One set per layout; CSS shows one. -->
+        <span class="m-bound-w" data-w="sys" data-l="wide"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+          <path data-p="sys1" d="M0 12.5C55 12.5 45 50 100 50"/>
+          <path data-p="sys2" d="M0 37.5C55 37.5 45 50 100 50"/>
+          <path data-p="sys3" d="M0 62.5C55 62.5 45 50 100 50"/>
+          <path data-p="sys4" d="M0 87.5C55 87.5 45 50 100 50"/>
+        </g></svg></span>
+        <span class="m-bound-w" data-w="api" data-l="wide"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+          <path data-p="api" d="M0 100C0 62 100 72 100 40L100 0"/>
+        </g></svg></span>
+        <span class="m-bound-w" data-w="sys" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+          <path data-p="sys1" d="M0 25C30 25 50 28 50 40L50 100"/>
+          <path data-p="sys2" d="M100 25C70 25 50 28 50 40L50 100"/>
+          <path data-p="sys3" d="M0 75C30 75 50 78 50 88L50 100"/>
+          <path data-p="sys4" d="M100 75C70 75 50 78 50 88L50 100"/>
+          <path data-p="api:2~" d="M50 0L50 100"/>
+        </g></svg></span>
+        <span class="m-bound-w" data-w="down" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+          <path data-p="sys1:2 sys2:2 sys3:2 sys4:2 api:1~" d="M50 0L50 100"/>
+        </g></svg></span>
+        <span class="m-bound-w" data-w="api" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+          <path data-p="api:3~" d="M50 0L50 100"/>
+        </g></svg></span>
+
+        <span class="m-bound-pkt m-bound-x">
+          <span class="m-bound-pill" data-m="cloud"><b>Question text only</b><span>no names</span><i class="m-bound-ring"></i></span>
+          <span class="m-bound-pill" data-m="dmz"><b>Question text and audio</b><span>for transcription</span><i class="m-bound-ring"></i></span>
+          <span class="m-bound-pill" data-m="onprem"><b>Question text only</b><span>placeholders</span><i class="m-bound-ring"></i></span>
+        </span>
+
+        <div class="m-bound-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>Mate</b><i class="m-bound-ring"></i></div>
+
+        <div class="m-bound-out">
+          <span class="m-bound-w" data-w="ok"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+            <path data-p="ok" data-l="wide" d="M0 50L100 50"/>
+            <path data-p="ok" data-l="stack" d="M100 0C100 55 0 45 0 100"/>
+          </g></svg></span>
+          <div class="m-bound-person m-bound-node">
+            <span class="v7-avatar">DK</span>
+            <span class="m-bound-tx"><b>Person approves</b><span>Dana K.</span></span>
+            <span class="m-bound-ok"><svg class="v7-ic"><use href="#i-check"/></svg></span>
+            <i class="m-bound-ring"></i>
+          </div>
+          <span class="m-bound-w" data-w="sent"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+            <path data-p="sent" data-l="wide" d="M50 0L50 100"/>
+            <path data-p="sent" data-l="stack" d="M0 50L100 50"/>
+          </g></svg></span>
+          <div class="m-bound-sent m-bound-node">
+            <span class="m-bound-tile"><svg class="v7-ic"><use href="#i-send"/></svg></span>
+            <span class="m-bound-tx"><b>Sent · logged</b></span>
+            <i class="m-bound-ring"></i>
+          </div>
+        </div>
+
+        <div class="m-bound-audit">
+          <span class="m-bound-audk"><svg class="v7-ic"><use href="#i-audit"/></svg>Audit</span>
+          <div class="m-bound-log">
+            <ol>
+              <li data-tone="mate"><span class="m-bound-t">09:31</span><b>Mate</b><span>read ERP</span></li>
+              <li data-tone="you"><span class="m-bound-t">09:32</span><b>Dana K.</b><span>approved</span></li>
+              <li data-tone="ok"><span class="m-bound-t">09:32</span><b>sent</b><span>logged</span></li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="m-bound-bar">
+    <div class="m-bound-toggle" role="radiogroup" aria-label="Where MateOS runs">
+      <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="cloud"><span class="m-bound-long">Your cloud tenant</span><span class="m-bound-short" aria-hidden="true">Cloud tenant</span></button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="dmz"><span class="m-bound-long">Your DMZ</span><span class="m-bound-short" aria-hidden="true">DMZ</span></button>
+      <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="onprem">On-prem</button>
+    </div>
+  </div>
+  <button class="v7-pause" type="button" aria-label="Pause animation"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
+  <figcaption class="sr-only">Example: MateOS inside your environment. Mate reads your ERP, mailbox, WhatsApp and Excel; ERP and Excel are read-only, and mail goes out only after a person approves it. A person approves every output before it is sent and logged. Only question text crosses your boundary to the model API, with no data retention; in the DMZ setup, audio for transcription crosses too. The same setup runs in your cloud tenant, your DMZ or on-prem.</figcaption>
+</figure>

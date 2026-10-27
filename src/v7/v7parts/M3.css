@@ -1,0 +1,106 @@
+/* >>> M3 m-goal: goal setup (spec §6 M3). Mobile-first on the "screen" container: < 480 narrow · 480–759 medium · ≥ 760 wide. */
+.m-goal{display:flex;flex-direction:column;gap:12px}
+.m-goal-crumb{display:none;align-items:center;gap:7px;font:400 11.5px/1.3 var(--font-mono);color:var(--m-text-3);white-space:nowrap}
+.m-goal-crumb i{font-style:normal;opacity:.55}
+.m-goal-crumb b{font-weight:400;color:var(--m-text-2)}
+.m-goal-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start}
+
+/* Composer */
+.m-goal-comp{display:flex;flex-direction:column;gap:8px;padding:14px 16px}
+.m-goal-label{font-size:12px;font-weight:600;line-height:1.4;color:var(--m-text-2)}
+.m-goal-field{min-height:64px;padding:10px;border:1px solid var(--m-line-strong);border-radius:8px;background:var(--m-bg);
+  color:var(--m-text);font-size:14px;line-height:1.45;transition:border-color 200ms,box-shadow 200ms}
+.m-goal-field.is-focus{border-color:var(--m-you);box-shadow:0 0 0 3px var(--m-you-soft)}
+.m-goal-und{display:flex;flex-direction:column}
+.m-goal-uh{display:flex;align-items:center;gap:6px;margin-top:6px;padding-top:12px;margin-bottom:9px;border-top:1px solid var(--m-line);
+  font:500 11px/1.2 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--m-mate-ink)}
+.m-goal-uh .v7-mark{width:12px;height:12px}
+.m-goal-uht{display:inline-block}
+.m-goal-dl{display:grid;gap:7px}
+.m-goal-row{position:relative;display:grid;grid-template-columns:84px minmax(0,1fr);column-gap:8px;align-items:baseline}
+.m-goal-row dt{font:400 11px/1.4 var(--font-mono);color:var(--m-text-3)}
+.m-goal-row dd{min-width:0;text-wrap:pretty;font-size:12.5px;line-height:1.4;color:var(--m-text)}
+.m-goal-row dd b{font-weight:700}
+/* a separator travels with the segment after it, so a wrapped line never ends on "·" */
+.m-goal-nw{white-space:nowrap}
+.m-goal-tgt{color:var(--m-you-ink)}
+.m-goal-src{display:none;margin-top:3px}
+.m-goal-owner{display:none}
+.m-goal-owner dd{display:flex;align-items:center;gap:7px}
+.m-goal-owner .v7-avatar{margin-block:-3px}
+
+/* Mate panel */
+.m-goal-mate{display:flex;flex-direction:column;gap:10px;background:var(--m-sunken)}
+.m-goal-mh{display:flex;align-items:center;gap:8px;font-size:13px;line-height:22px}
+.m-goal-mh b{font-weight:650}
+.m-goal-qn{margin-inline-start:auto;font:400 11px/1 var(--font-mono);color:var(--m-text-3);white-space:nowrap}
+.m-goal-qs{display:grid;gap:12px}
+.m-goal-qa{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.m-goal-q{position:relative;max-width:100%;padding:8px 10px;border-radius:10px;border-start-start-radius:3px;background:var(--m-mate-soft);
+  color:var(--m-text);font-size:12.5px;line-height:1.4}
+.m-goal-as{display:flex;flex-wrap:wrap;gap:6px}
+.m-goal-a{position:relative;display:inline-flex;align-items:center;gap:5px;height:26px;padding-inline:10px;border-radius:999px;border:1px solid var(--m-line-strong);
+  background:var(--m-raised);color:var(--m-text);font:600 12.5px/1 var(--font-body);white-space:nowrap;
+  transition:background-color 200ms,border-color 200ms,color 200ms}
+.m-goal-a .v7-ic{display:none;width:12px;height:12px;stroke-width:2.25}
+.m-goal-a[data-selected]{background:var(--m-ok-soft);border-color:transparent;color:var(--m-ok-ink)}
+.m-goal-a[data-selected] .v7-ic{display:inline-block}
+.m-goal-foot{display:flex;flex-wrap:wrap;gap:8px;padding-top:12px;border-top:1px solid var(--m-line)}
+.m-goal-foot>.v7-fbtn{flex:1 1 auto}
+.m-goal-qt{display:block}
+
+/* Placeholders (JS, while the goal is typed): static 8px bars, no loop. A value bar sits on its row's first line; a
+   question bubble keeps its tint and size with one bar per line (tinted, since --m-line vanishes on --m-mate-soft),
+   and shows Mate's thinking dots just before its question resolves. */
+.m-goal-skb{display:block;width:var(--w,60%);max-width:100%;height:8px;border-radius:4px;background:var(--m-line)}
+.m-goal-row>dt{grid-area:1/1}
+.m-goal-row>dd,.m-goal-row>.m-goal-skb{grid-area:1/2}
+.m-goal-row>.m-goal-skb{align-self:start;margin-top:5px}
+.m-goal-qsk{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;gap:10px;padding:8px 10px;pointer-events:none}
+.m-goal-qsk>.m-goal-skb{background:var(--m-line-strong);background:color-mix(in srgb,var(--m-mate) 22%,transparent)}
+.m-goal-qsk>.v7-thinking{position:absolute;inset-inline-start:11px;top:50%;translate:0 -50%}
+/* an answer chip before its question: an outlined pill holding a bar (its label is transparent, so the size is final) */
+.m-goal-a::after{content:"";position:absolute;inset-inline:10px;top:50%;height:8px;margin-top:-4px;border-radius:4px;background:var(--m-line);opacity:0;transition:opacity 200ms}
+.m-goal-a.is-sk{border-color:var(--m-line);background:transparent;color:transparent}
+.m-goal-a.is-sk::after{opacity:1}
+
+/* medium + wide: composer 3fr | Mate panel 2fr */
+@container screen (min-width:480px){
+  .m-goal{gap:14px}
+  .m-goal-crumb{display:flex}
+  .m-goal-grid{grid-template-columns:minmax(0,3fr) minmax(0,2fr);gap:16px;align-items:stretch}
+  .m-goal-owner{display:grid}
+  .m-goal-foot{margin-top:auto}
+}
+/* the narrowest medium widths give the Mate panel a little more room, so its chips and buttons stay on one row */
+@container screen (min-width:480px) and (max-width:599.98px){.m-goal-grid{grid-template-columns:minmax(0,5fr) minmax(0,4fr)}}
+@container screen (min-width:760px){
+  .m-goal{gap:16px}
+  .m-goal-src{display:flex}
+  .m-goal-grid{gap:18px}
+  .m-goal-comp,.m-goal-mate{padding:18px 20px}
+  .m-goal-comp{gap:10px}
+  .m-goal-label{font-size:12.5px}
+  .m-goal-field{min-height:92px;padding:12px 14px;font-size:16px;line-height:1.45}
+  .m-goal-uh{margin-top:10px;padding-top:16px;margin-bottom:12px}
+  .m-goal-dl{gap:10px}
+  .m-goal-row{grid-template-columns:96px minmax(0,1fr)}
+  .m-goal-mate{gap:14px}
+  .m-goal-qs{gap:16px}
+  .m-goal-q{padding:9px 12px;font-size:13px}
+  .m-goal-a{height:28px;padding-inline:11px}
+}
+/* rail and full shells (fixed height): both cards fill the screen's height; the Mate panel's buttons sit at its bottom,
+   the goal card's content stays at the top */
+@container app (min-width:560px){
+  .m-goal-grid{flex:1 1 auto;align-items:stretch}
+  .m-goal-foot{margin-top:auto}
+}
+/* narrow inside a fixed-height shell (rail, e.g. the homepage at 1024px): one-line field, the two questions side by side */
+@container app (min-width:560px){
+  @container screen (max-width:479.98px){
+    .m-goal-field{min-height:44px}
+    .m-goal-qs{grid-template-columns:repeat(2,minmax(0,1fr))}
+  }
+}
+/* <<< M3 */

@@ -1,0 +1,98 @@
+/* >>> C1 motion core: gating, reveal, primitive helpers, keyframes (spec §3) */
+
+/* Gating (§3.2): a mock stays invisible until JS has armed it, so the final state never flashes first. */
+.v7-motion [data-v7-mock]:not([data-v7-state]){visibility:hidden}
+html:not(.v7-motion) .v7-pause,
+html:not(.v7-motion) .v7-tab-prog{display:none!important}
+
+/* Every mock root is a layout and paint boundary (§3.10). */
+[data-v7-mock]{contain:layout paint}
+
+/* Instant arm states set by V7.off / gone / collapse / shrink / clip / undraw (§3.6). */
+[data-v7-off]{opacity:0!important}
+[data-v7-gone]{display:none!important}
+[data-v7-shrunk=y]{scale:1 0}
+[data-v7-shrunk=x]{scale:0 1}
+[data-v7-clip]{clip-path:inset(0 100% 0 0)}
+[data-v7-undrawn]{stroke-dasharray:1 2;stroke-dashoffset:1.01}
+
+/* insert / remove: a one-child grid whose row animates 0fr <-> 1fr. Clips only while moving or collapsed. */
+.v7-collapse{display:grid;grid-template-rows:1fr;min-width:0}
+.v7-collapse>*{min-height:0;min-width:0}
+.v7-collapse:is([data-v7-moving],[data-v7-collapsed])>*{overflow:clip}
+.v7-collapse[data-v7-collapsed]{grid-template-rows:0fr;opacity:0}
+
+/* roll(): the label wrapper V7 adds inside pills and fake buttons */
+.v7-lbl{display:inline-block}
+
+/* A paused timeline also freezes CSS keyframe loops inside it, and so does a figure that is off screen
+   (data-v7-offscreen, C1 mount) or a mock that is armed but not started. Pseudo-elements are listed too:
+   animation-play-state does not inherit, and the live dot pulses on ::after. */
+[data-v7-paused],[data-v7-paused] *,[data-v7-paused] *::after,
+[data-v7-offscreen] *,[data-v7-offscreen] *::after,
+[data-v7-state=armed] *,[data-v7-state=armed] *::after{animation-play-state:paused!important}
+
+/* Keyframe loops run only with motion; without .v7-motion the atoms are static (C2 styles them). */
+@keyframes v7-think{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes v7-ring{from{transform:scale(1);opacity:.5}to{transform:scale(2.2);opacity:0}}
+@keyframes v7-blink{from{opacity:1}to{opacity:0}}
+.v7-motion .v7-thinking i{animation:v7-think 900ms ease-in-out infinite}
+.v7-motion .v7-thinking i:nth-child(2){animation-delay:150ms}
+.v7-motion .v7-thinking i:nth-child(3){animation-delay:300ms}
+.v7-motion .v7-live::after{animation:v7-ring 2000ms var(--ease-out) infinite}
+.v7-motion .v7-caret{animation:v7-blink 1000ms steps(2,jump-none) infinite}
+/* A finished mock rests on its final markup: no loops, the same look as reduced motion. */
+.v7-motion :is([data-v7-state=done],[data-v7-state=final]) :is(.v7-thinking i,.v7-caret),
+.v7-motion :is([data-v7-state=done],[data-v7-state=final]) .v7-live::after{animation:none}
+
+/* Reveal (§3.7). Start states apply only under .v7-motion, so no-JS and reduced motion see the copy at once.
+   Individual transform properties (translate/scale) are used so an element's own transform is never clobbered. */
+.v7-motion [data-v7-reveal]:not(.is-in){opacity:0;translate:0 16px}
+.v7-motion [data-v7-reveal=fade]:not(.is-in){translate:none}
+.v7-motion [data-v7-reveal=rise]:not(.is-in){translate:0 32px;scale:.97}
+.v7-motion [data-v7-reveal=mask]:not(.is-in){opacity:1;translate:none}
+.v7-motion [data-v7-reveal=mask]:not(.is-in) .v7-line>span{translate:0 120%}
+/* JS marks pending reveals with data-v7-revealing and drops it once the reveal has played,
+   so hover and state transitions of the element itself work again afterwards. */
+[data-v7-revealing]{
+  transition:opacity 600ms var(--ease-out),translate 600ms var(--ease-out),scale 600ms var(--ease-out)!important;
+  transition-delay:calc(var(--v7-delay,0ms) + var(--v7-i,0) * var(--v7-stagger,0ms))!important}
+[data-v7-revealing][data-v7-reveal=rise]{transition-duration:1000ms!important}
+[data-v7-revealing][data-v7-reveal=mask]{transition:none!important}
+[data-v7-revealing][data-v7-reveal=mask] .v7-line>span{
+  transition:translate 700ms var(--ease-out);
+  transition-delay:calc(var(--v7-delay,0ms) + var(--v7-i,0) * var(--v7-stagger,0ms) + var(--v7-li,0) * 80ms)}
+/* Keyboard focus inside a reveal that has not come in shows it at once (C1.js also reveals on focusin). */
+.v7-motion [data-v7-reveal]:not(.is-in):focus-within{opacity:1;translate:none;scale:none;transition:none!important}
+.v7-motion [data-v7-reveal=mask]:not(.is-in):focus-within .v7-line>span{translate:none;transition:none!important}
+
+/* Hero copy (eyebrow, H1 lines, stepper, lead, actions, micro; never figures) reveals with CSS keyframes at first paint,
+   with the same look, timings and stagger as the JS reveal, so it never waits for the deferred v7.js. C1.js marks it
+   .is-in without animating it again. Delays come from the data attributes (JS also sets the same values inline). */
+@keyframes v7-rv-up{from{opacity:0;translate:0 16px}}
+@keyframes v7-rv-fade{from{opacity:0}}
+@keyframes v7-rv-line{from{translate:0 120%}}
+.v7-hero [data-v7-delay="80"]{--v7-delay:80ms}.v7-hero [data-v7-delay="160"]{--v7-delay:160ms}
+.v7-hero [data-v7-delay="240"]{--v7-delay:240ms}.v7-hero [data-v7-delay="300"]{--v7-delay:300ms}
+.v7-hero [data-v7-delay="320"]{--v7-delay:320ms}.v7-hero [data-v7-delay="380"]{--v7-delay:380ms}
+.v7-hero [data-v7-delay="400"]{--v7-delay:400ms}.v7-hero [data-v7-delay="480"]{--v7-delay:480ms}
+.v7-hero [data-v7-delay="560"]{--v7-delay:560ms}.v7-hero [data-v7-delay="640"]{--v7-delay:640ms}
+.v7-hero [data-v7-stagger="80"]>*{--v7-stagger:80ms}.v7-hero [data-v7-stagger="100"]>*{--v7-stagger:100ms}
+.v7-hero [data-v7-stagger]>:nth-child(2){--v7-i:1}.v7-hero [data-v7-stagger]>:nth-child(3){--v7-i:2}
+.v7-hero [data-v7-stagger]>:nth-child(4){--v7-i:3}.v7-hero [data-v7-stagger]>:nth-child(5){--v7-i:4}
+.v7-hero .v7-line:nth-child(2){--v7-li:1}.v7-hero .v7-line:nth-child(3){--v7-li:2}
+.v7-motion .v7-hero [data-v7-reveal]:not(.v7-figure,.v7-figure *){opacity:1;translate:none;scale:none;
+  animation:v7-rv-up 600ms var(--ease-out) backwards;animation-delay:calc(var(--v7-delay,0ms) + var(--v7-i,0) * var(--v7-stagger,0ms))}
+.v7-motion .v7-hero [data-v7-reveal=fade]:not(.v7-figure,.v7-figure *){animation-name:v7-rv-fade}
+.v7-motion .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *){animation:none}
+.v7-motion .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *) .v7-line>span{translate:none;
+  animation:v7-rv-line 700ms var(--ease-out) backwards;animation-delay:calc(var(--v7-delay,0ms) + var(--v7-li,0) * 80ms)}
+/* Late boot (C1.js): motion came back after the head gate failed open, and the hero copy was already on screen. */
+.v7-late .v7-hero [data-v7-reveal]:not(.v7-figure,.v7-figure *),
+.v7-late .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *) .v7-line>span{animation:none}
+
+/* Mask lines: the clip box is padded so descenders and accents are not cut at line-height .95. The pending offset is 120%
+   (not 105%): the inner span must clear its own height plus the .14em bottom padding, or glyph tops peek out. */
+.v7-line{display:block;overflow:clip;padding-block:.06em .14em;margin-block:-.06em -.14em}
+.v7-line>span{display:inline-block}
+/* <<< C1 */

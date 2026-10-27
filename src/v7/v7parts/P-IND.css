@@ -1,0 +1,174 @@
+/* >>> P-IND industries hub /industries/ (Industries spec §5). Every rule hangs off a .v7-hub-* hook, which exists only on
+   the hub, so nothing here reaches another page (v7.css is shared). The hub reuses P1's centred copy (.v7-pp-hcopy) and
+   P8's closing band (.v7-pp-cta / .v7-pp-ctacopy) from P-PROD unchanged. */
+
+/* ---------- X1 hero: centred copy; the band runs on behind the first row of cards (X2), like P1's window ---------- */
+.v7-hero.v7-hub-hero{position:relative;isolation:isolate;padding-block:44px 36px}
+.v7-hero.v7-hub-hero::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+  background:radial-gradient(rgba(255,255,255,.07) 1px,transparent 1.2px) 0 0/24px 24px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 70% at 50% 42%,#000 20%,transparent 75%);
+  mask-image:radial-gradient(ellipse 70% 70% at 50% 42%,#000 20%,transparent 75%)}
+/* Bricolage wraps "Four industries." below 360px, the fallback fonts only below ~336px: a fixed break up to 359px gives
+   both the same lines, so the H1 never re-wraps when the web font arrives (the homepage H1 approach) */
+@media (min-width:360px){.v7-hub-hero .v7-h1-br{display:none}}
+.v7-hub-hcopy .v7-h1 .v7-line.v7-hub-accent,.v7-hub-hcopy .v7-h1 .v7-line.v7-hub-accent>span{color:var(--amber-500)}
+.v7-hub-hcopy .v7-lead{max-width:42ch}
+.v7-hub-proof{max-width:62ch;margin:22px auto 0;text-wrap:balance}
+@media (min-width:1024px){.v7-hub-pbr{display:none}} /* the price gets its own line below desktop, in every font */
+.v7-hub-nw{white-space:nowrap}
+@media (min-width:640px){.v7-hero.v7-hub-hero{padding-block:64px 44px}}
+@media (min-width:1024px){
+  .v7-hero.v7-hub-hero{padding-block:64px 40px}
+  .v7-hub-hcopy .v7-lead,.v7-hub-proof{max-width:none} /* one line each on desktop: the cards come up sooner */
+}
+/* Short laptop screens: the same tightening as P1, so the first row of cards shows above the fold */
+@media (min-width:1024px) and (max-height:820px){
+  .v7-hero.v7-hub-hero{padding-block:36px 32px}
+  .v7-hub-steps{margin-top:22px}
+  .v7-hub-proof{margin-top:18px}
+  .v7-hub-gridhead{margin-bottom:8px}
+}
+
+/* Inline stepper: three pills, goal (amber) → flows (indigo) → on track (teal). One row from 720px, a column below.
+   P-IND.js sets data-sync / data-active while the card goals play, like the homepage stepper follows M1. */
+.v7-hub-steps{list-style:none;display:flex;flex-direction:column;align-items:center;gap:4px;margin:28px 0 0;padding:0}
+.v7-hub-steps>li{display:flex;flex-direction:column;align-items:center;gap:4px;--v7-step:var(--amber-500)}
+.v7-hub-steps>li[data-stage=flows]{--v7-step:var(--indigo-400)}
+.v7-hub-steps>li[data-stage=track]{--v7-step:var(--teal-400)}
+.v7-hub-step{display:inline-flex;align-items:center;gap:10px;height:40px;padding-inline:14px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);color:#fff;
+  font:600 1rem/1 var(--font-display);letter-spacing:-.005em;white-space:nowrap;
+  transition:color 300ms var(--ease-out),border-color 300ms var(--ease-out),background-color 300ms var(--ease-out)}
+.v7-hub-dot{flex:none;width:8px;height:8px;border-radius:50%;background:var(--v7-step);box-shadow:0 0 0 0 transparent;transition:box-shadow 300ms var(--ease-out)}
+.v7-hub-sep{width:16px;height:16px;color:rgba(255,255,255,.42)}
+.v7-hub-steps[data-sync]>li:not([data-active]) .v7-hub-step{color:var(--dark-text-3);border-color:rgba(255,255,255,.08);background:transparent}
+.v7-hub-steps[data-sync]>li[data-active] .v7-hub-step{border-color:color-mix(in srgb,var(--v7-step) 55%,transparent);background:color-mix(in srgb,var(--v7-step) 12%,transparent)}
+.v7-hub-steps[data-sync]>li[data-active] .v7-hub-dot{box-shadow:0 0 0 4px color-mix(in srgb,var(--v7-step) 25%,transparent)}
+@media (max-width:719.98px){
+  .v7-hub-step{height:38px;font-size:.9375rem}
+  .v7-hub-sep{width:14px;height:14px;transform:none;rotate:90deg} /* points down in both directions */
+}
+@media (min-width:720px){
+  .v7-hub-steps{flex-direction:row;justify-content:center;gap:10px;margin-top:30px}
+  .v7-hub-steps>li{flex-direction:row;gap:10px}
+}
+
+/* ---------- X2 the four industries: the page's main visual. The section's top is still the dark band. ---------- */
+.v7-hub-ind{--v7-hub-band:104px;padding-top:0;background:linear-gradient(to bottom,var(--dark-surface) var(--v7-hub-band),var(--surface) var(--v7-hub-band))}
+@media (min-width:768px){.v7-hub-ind{--v7-hub-band:156px}}
+/* "Sample goals" honesty tag, at the grid's top inline-end, on the band (dark tokens in both themes). In one column (< 760px)
+   the lower cards sit far below it, so each card's goal carries its own "Sample goal" tag instead (.v7-hub-gtag). */
+.v7-hub-gridhead{display:flex;justify-content:flex-end;margin-bottom:12px;--m-line-strong:rgba(255,255,255,.3);--m-text-3:var(--dark-text-3)}
+@media (max-width:759.98px){
+  .v7-hub-ind{--v7-hub-band:72px} /* the band still runs 72px into the first card, as it did under the grid tag */
+  .v7-hub-gridhead{display:none}
+}
+
+.v7-hub-cards{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.v7-hub-card{--v7-hub-tone:var(--teal-500);--v7-hub-soft:var(--color-accent-soft);--v7-hub-ink:var(--v7-ok-ink);
+  position:relative;display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:24px;border-radius:20px;
+  border:1px solid var(--border);background:var(--surface);color:var(--text-primary);text-decoration:none;
+  box-shadow:0 14px 36px rgba(20,20,30,.10),0 1px 3px rgba(20,20,30,.06);
+  transition:transform 220ms var(--ease-out),border-color 220ms var(--ease-out),box-shadow 220ms var(--ease-out)}
+.v7-hub-card>*{max-width:100%}
+.v7-hub-card[data-tone=mate]{--v7-hub-tone:var(--indigo-500);--v7-hub-soft:var(--color-secondary-soft);--v7-hub-ink:var(--v7-mate-ink)}
+.v7-hub-card[data-tone=you]{--v7-hub-tone:var(--amber-500);--v7-hub-soft:var(--color-primary-soft);--v7-hub-ink:var(--v7-you-ink)}
+[data-theme=dark] .v7-hub-card{background:var(--surface-subtle);box-shadow:0 0 0 1px rgba(255,255,255,.02),0 18px 40px rgba(0,0,0,.45)}
+[data-theme=dark] .v7-hub-card{--v7-hub-tone:var(--teal-400)}
+[data-theme=dark] .v7-hub-card[data-tone=mate]{--v7-hub-tone:var(--indigo-400)}
+[data-theme=dark] .v7-hub-card[data-tone=you]{--v7-hub-tone:var(--amber-400)}
+@media (hover:hover){
+  .v7-hub-card:hover{transform:translateY(-2px);border-color:var(--v7-hub-tone);box-shadow:0 20px 44px rgba(20,20,30,.14),0 2px 6px rgba(20,20,30,.07)}
+  [data-theme=dark] .v7-hub-card:hover{box-shadow:0 0 0 1px rgba(255,255,255,.02),0 22px 48px rgba(0,0,0,.55)}
+  .v7-hub-card:hover .v7-hub-tile{background:var(--v7-hub-soft);color:var(--v7-hub-ink);box-shadow:inset 0 0 0 1px transparent}
+  .v7-hub-card:hover .v7-hub-more .v7-ic{translate:calc(3px * var(--v7-dir)) 0}
+}
+.v7-hub-card:focus-visible{outline-offset:3px}
+@media (min-width:640px){.v7-hub-card{padding:28px}}
+@media (min-width:1024px) and (max-height:820px){.v7-hub-card{padding-top:24px}}
+/* after the card rule, so the subgrid display wins */
+@media (min-width:760px){
+  .v7-hub-cards{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+  /* rows shared across a row of cards (subgrid): names, pain lines, goals and links start on one line */
+  @supports (grid-template-rows:subgrid){
+    .v7-hub-cards{row-gap:0}
+    .v7-hub-card{display:grid;grid-row:span 4;grid-template-rows:subgrid;align-content:start}
+    .v7-hub-card:nth-child(-n+2){margin-bottom:20px}
+    /* name + pain line are one row (.v7-hub-head): where the row's other name wraps, a one-line name stays 20px under its
+       icon and the slack falls under the pain line, above the goal (the goals still share one line) */
+  }
+}
+
+.v7-hub-tile{display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--surface-subtle);
+  box-shadow:inset 0 0 0 1px var(--border);color:var(--text-primary);transition:background-color 220ms,color 220ms,box-shadow 220ms}
+.v7-hub-tile .v7-ic{width:20px;height:20px}
+[data-theme=dark] .v7-hub-tile{background:var(--neutral-800)}
+.v7-hub-name{margin-top:20px;font:650 1.375rem/1.2 var(--font-display);letter-spacing:-.015em;color:var(--text-primary);text-wrap:balance}
+.v7-hub-pain{margin-top:6px;font-size:1rem;line-height:1.5;color:var(--text-secondary);text-wrap:pretty}
+.v7-hub-more{position:relative;display:inline-flex;align-items:center;gap:6px;margin-top:20px;font-weight:600;line-height:1.4;color:var(--v7-you-ink)}
+.v7-hub-more .v7-ic{width:16px;height:16px;transition:translate 200ms var(--ease-out)}
+
+/* The card's goal: a mini M1 (sunken dotted frame, goal bar, status row). Sample data inside a .v7-mock, aria-hidden. */
+.v7-hub-goal{container:hubgoal / inline-size;align-self:stretch;margin-top:20px;padding:8px 8px 9px;border-radius:14px;border:1px solid var(--m-line);
+  background:var(--m-sunken) radial-gradient(var(--m-dot) 1px,transparent 1.2px) 0 0/14px 14px}
+.v7-hub-gtag{display:flex;justify-content:flex-end;margin:0 0 6px}
+@media (min-width:760px){.v7-hub-gtag{display:none}} /* the grid's one "Sample goals" tag covers the 2 x 2 grid */
+.v7-hub-bar{display:flex;align-items:center;gap:8px;min-height:44px;padding:7px 8px 7px 10px;border-radius:10px;border:1px solid var(--m-line);
+  background:var(--m-raised);box-shadow:var(--shadow-xs)}
+.v7-hub-bar>.v7-mark{width:16px;height:16px}
+/* Sizes by the goal's own width (longest goal: 209px at 13px, 225px at 14px, 241px at 15px). Narrow: two lines
+   reserved, top-aligned like M1, so typing never changes the height; then one line at 13px (needs 253px); the Enter key cap and 14px
+   from 312px; 15px from 400px. */
+.v7-hub-bar{align-items:flex-start}
+.v7-hub-bar>.v7-mark{margin-top:.5px}
+.v7-hub-field{position:relative;display:block;flex:1;min-width:0;min-height:2.6em;font:600 13px/1.3 var(--font-display);letter-spacing:-.01em}
+.v7-hub-text{color:var(--m-text-2);transition:color 300ms var(--ease-out)}
+.v7-hub-hl{color:var(--m-text);background:linear-gradient(var(--m-you),var(--m-you)) no-repeat 0 100%/100% 2px;padding-bottom:1px;transition:background-size 420ms var(--ease-out)}
+[dir=rtl] .v7-hub-hl{background-position:100% 100%}
+.v7-hub-bar.is-typing .v7-hub-text{color:var(--m-text)}
+.v7-hub-bar.is-typing .v7-hub-hl{background-size:0% 2px}
+.v7-hub-ph{position:absolute;inset-inline-start:0;top:0;color:var(--m-text-3);white-space:nowrap;pointer-events:none}
+.v7-hub-kbd{display:none;flex:none}
+@container hubgoal (min-width:256px){
+  .v7-hub-bar{align-items:center}
+  .v7-hub-bar>.v7-mark{margin-top:0}
+  .v7-hub-field{min-height:1.3em}
+  .v7-hub-text{white-space:nowrap}
+}
+@container hubgoal (min-width:312px){.v7-hub-field{font-size:14px}.v7-hub-kbd{display:inline-block}}
+@container hubgoal (min-width:400px){.v7-hub-field{font-size:15px}}
+.v7-hub-status{display:flex;align-items:center;justify-content:space-between;gap:8px;min-height:24px;margin-top:10px;padding-inline:2px}
+.v7-hub-pill{min-width:94px;justify-content:center} /* every state fits: New goal, ••• Building, On track */
+.v7-hub-pill.is-busy::before{display:none}
+.v7-hub-who{display:inline-flex;align-items:center;gap:7px;min-width:0;font:500 12px/1.2 var(--font-body);color:var(--m-text-2);white-space:nowrap}
+.v7-hub-whot{min-width:0;overflow:hidden;text-overflow:ellipsis}
+@container hubgoal (max-width:239.98px){.v7-hub-whot{display:none}} /* pill 94 + gap 8 + approver up to 133 + 4 */
+
+/* ---------- X3 what repeats ---------- */
+.v7-hub-blocks{list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:16px;margin:48px 0 0;padding:0}
+@media (min-width:560px){.v7-hub-blocks{grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}}
+@media (min-width:1024px){.v7-hub-blocks{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.v7-hub-block{display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:24px;border-radius:16px;border:1px solid var(--border);background:var(--surface)}
+.v7-hub-btile{position:relative;display:grid;place-items:center;width:40px;height:40px;border-radius:12px;background:var(--color-secondary-soft);color:var(--v7-mate-ink)}
+.v7-hub-btile .v7-ic{width:20px;height:20px}
+.v7-hub-btile::after{content:"";position:absolute;inset:-5px;border-radius:16px;border:1.5px solid var(--indigo-400);opacity:0;pointer-events:none}
+.v7-hub-bt{margin-top:20px;font:650 1.125rem/1.3 var(--font-display);letter-spacing:-.01em;color:var(--text-primary)}
+.v7-hub-bl{margin-top:8px;font-size:1rem;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
+/* the icon tile pops and draws its accent ring once, as its tile comes in (C1 reveal adds .is-in; motion only) */
+@keyframes v7-hub-pop{from{opacity:0;scale:.6}}
+@keyframes v7-hub-ring{from{opacity:.75;scale:.86}to{opacity:0;scale:1.22}}
+.v7-motion .v7-hub-block.is-in .v7-hub-btile{animation:v7-hub-pop 440ms var(--ease-pop) backwards;animation-delay:calc(var(--v7-i,0) * 100ms + 180ms)}
+.v7-motion .v7-hub-block.is-in .v7-hub-btile::after{animation:v7-hub-ring 820ms var(--ease-out) backwards;animation-delay:calc(var(--v7-i,0) * 100ms + 440ms)}
+
+/* ---------- X4 who we serve: three facts, the homepage gap-stat look ---------- */
+.v7-hub-facts{list-style:none;display:grid;grid-template-columns:minmax(0,1fr);gap:28px;margin:48px 0 0;padding:0}
+.v7-hub-facts>li{display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:1px solid var(--border)}
+.v7-hub-fact{font-family:var(--font-display);font-size:clamp(2.5rem,1.9rem + 2.4vw,3rem);font-weight:700;line-height:1;letter-spacing:-.035em;
+  font-variant-numeric:tabular-nums;color:var(--text-primary);white-space:nowrap}
+.v7-hub-factl{font-size:1.0625rem;line-height:1.45;color:var(--text-secondary)}
+@media (min-width:760px){
+  .v7-hub-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+  .v7-hub-fact{font-size:clamp(2rem,.6rem + 3vw,3.25rem)}
+}
+.v7-hub-hww{margin-top:40px}
+/* <<< P-IND */
