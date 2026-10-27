@@ -88,6 +88,9 @@ html:not(.v7-motion) .v7-tab-prog{display:none!important}
 .v7-motion .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *){animation:none}
 .v7-motion .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *) .v7-line>span{translate:none;
   animation:v7-rv-line 700ms var(--ease-out) backwards;animation-delay:calc(var(--v7-delay,0ms) + var(--v7-li,0) * 80ms)}
+/* Late boot (C1.js): motion came back after the head gate failed open, and the hero copy was already on screen. */
+.v7-late .v7-hero [data-v7-reveal]:not(.v7-figure,.v7-figure *),
+.v7-late .v7-hero [data-v7-reveal=mask]:not(.v7-figure,.v7-figure *) .v7-line>span{animation:none}
 
 /* Mask lines: the clip box is padded so descenders and accents are not cut at line-height .95. The pending offset is 120%
    (not 105%): the inner span must clear its own height plus the .14em bottom padding, or glyph tops peek out. */
@@ -916,6 +919,8 @@ html[lang=he] .v7-stepper{letter-spacing:0}
 }
 /* Hebrew: the week labels ("ש׳ 10") are wider than W10; keep each on one line */
 html[lang=he] .m-mon-x span{white-space:nowrap}
+/* Hebrew KPI sub-labels wrap instead of truncating in narrow tiles (an ellipsis would eat the number) */
+html[lang=he] .m-mon-ks{white-space:normal;overflow:visible;text-overflow:clip}
 /* <<< M5 */
 
 /* >>> M6 m-exc: exception desk (spec §6 M6). Mobile-first on the "screen" container.
@@ -4057,6 +4062,7 @@ html[lang=he] .v7-pp-hcopy{max-width:1060px}
 
 /* No tracking on Hebrew display and label text (the English rules set negative or positive letter-spacing) */
 html[lang=he] :is(.v7-story-big,.v7-story-big.is-quote,.v7-bridge,.v7-ladder-name,.v7-ladder-tag,.v7-pp-q>summary){letter-spacing:0}
+html[lang=he] .eyebrow{letter-spacing:0}
 html[lang=he] .v7-ladder-tag{font-family:var(--font-body)}
 
 /* Mono-sized page notes read small in Heebo: the same half step up C2 gives .v7-micro and .v7-note */

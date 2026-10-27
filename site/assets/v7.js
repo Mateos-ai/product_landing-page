@@ -10,6 +10,27 @@
   V7.core = 1;
   function mq(q) { try { return w.matchMedia(q); } catch (e) { return null; } }
   var RMQ = mq('(prefers-reduced-motion: reduce)');
+  // Late boot. On a slow phone link the head gate fails open after 2500ms (html loses .v7-motion), so the visitor sees
+  // the final look. When this script still arrives, motion comes back for what has not been seen yet: reveals that start
+  // above the bottom of the viewport stay in, the hero copy does not replay (C1.css, html.v7-late), and a mock already on
+  // screen fades in from its start state (mount below). Reduced motion, pages without the head gate and no-JS stay static.
+  V7.late = false;
+  function gated() {
+    var s = d.querySelectorAll('head script:not([src])'), i;
+    for (i = 0; i < s.length; i++) if (s[i].textContent.indexOf("add('v7-motion')") >= 0) return true;
+    return false;
+  }
+  if (!H.classList.contains('v7-motion') && !(RMQ && RMQ.matches)) try {
+    if (gated()) {
+      var vh0 = w.innerHeight || H.clientHeight;
+      Array.prototype.forEach.call(d.querySelectorAll('[data-v7-reveal]'), function (e) { if (e.getBoundingClientRect().top < vh0) e.classList.add('is-in'); });
+      Array.prototype.forEach.call(d.querySelectorAll('[data-v7-mock]'), function (r) {
+        var b = (r.closest('.v7-figure') || r).getBoundingClientRect();
+        if (b.top < vh0 && b.bottom > 0) r.__v7late = 1;
+      });
+      H.classList.add('v7-late'); H.classList.add('v7-motion'); V7.late = true;
+    }
+  } catch (e) {}
   V7.static = !H.classList.contains('v7-motion');
   V7.coarse = !!(mq('(pointer: coarse)') || 0).matches;
   // Page language from <html lang> ('he' on the Hebrew pages). Informational: components read the lang attribute themselves.
@@ -829,6 +850,10 @@
     gate: function () { H.classList.add('v7-ready'); V7.static = !H.classList.contains('v7-motion'); phase = 1; },
     mount: function () {
       V7.$$(d, '[data-v7-mock]').forEach(function (r) { try { V7.get(r); } catch (e) { report('mount', e); } });
+      // Late boot: a mock the visitor already saw in its final look fades in from its start state, without a jump
+      if (V7.late && !V7.static) V7.$$(d, '[data-v7-mock]').forEach(function (r) {
+        if (r.__v7late && r.animate) try { r.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 400, easing: 'ease-out' }); } catch (e) {}
+      });
       rprep();
       // Keyframe loops (live dot, caret, thinking dots) pause while their figure is off screen (C1.css)
       if (!V7.static) V7.$$(d, '.v7-figure').forEach(function (f) {

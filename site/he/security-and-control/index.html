@@ -7,5 +7,325 @@
           document.documentElement.setAttribute("data-theme", resolved);
         } catch (e) {}
       })();
-    </script><link rel="stylesheet" href="../../assets/site.css"><script type="module">const h=document.documentElement,p=window.matchMedia("(prefers-color-scheme: dark)"),r=document.getElementById("theme-toggle");function y(){return h.getAttribute("data-theme")==="dark"?"dark":"light"}function b(){if(!r)return;const e=y()==="dark";r.setAttribute("aria-pressed",String(e));const t=e?r.dataset.light:r.dataset.dark;r.setAttribute("aria-label",`${r.dataset.title}: ${t}`),r.setAttribute("title",`${r.dataset.title}: ${t}`)}function g(e,t=!0){if(h.setAttribute("data-theme",e),t)try{localStorage.setItem("mateos-theme",e)}catch{}b()}r?.addEventListener("click",()=>g(y()==="dark"?"light":"dark"));p.addEventListener("change",()=>{try{localStorage.getItem("mateos-theme")||g(p.matches?"dark":"light",!1)}catch{}});b();const k=document.querySelectorAll(".nav-more");function m(){k.forEach(e=>{e.setAttribute("aria-expanded","false"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.remove("is-open")})}k.forEach(e=>{e.addEventListener("click",t=>{t.stopPropagation();const a=e.getAttribute("aria-expanded")==="true";m(),a||(e.setAttribute("aria-expanded","true"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.add("is-open"))})});document.addEventListener("click",m);document.addEventListener("keydown",e=>{e.key==="Escape"&&(m(),E())});const c=document.querySelector(".menu-btn"),i=document.getElementById("mobile-menu");function E(){c?.setAttribute("aria-expanded","false"),i&&(i.hidden=!0)}c?.addEventListener("click",e=>{e.stopPropagation(),c.getAttribute("aria-expanded")==="true"?E():(c.setAttribute("aria-expanded","true"),i&&(i.hidden=!1))});i?.addEventListener("click",e=>e.stopPropagation());const n=document.getElementById("xray-form");if(n){const e=n.dataset.key||"",t=n.querySelector("button[type=submit]"),a=document.getElementById("form-success"),o=document.getElementById("form-error");n.addEventListener("submit",async v=>{v.preventDefault();const d=n.elements.namedItem("email"),l=n.elements.namedItem("company"),x=n.elements.namedItem("note"),A=n.elements.namedItem("botcheck");if(o.hidden=!0,!d.checkValidity()){d.reportValidity();return}if(!l.checkValidity()){l.reportValidity();return}if(A.checked)return;if(!e){const he=document.documentElement.lang==="he",v=x.value.trim();o.textContent=he?"אפליקציית המייל אמורה להיפתח עם הבקשה מוכנה. אם היא לא נפתחת, כתבו ל-hello@mateos.ai.":"Your email app should open with the request filled in. If it does not, write to hello@mateos.ai.";o.hidden=!1;location.href="mailto:hello@mateos.ai?subject="+encodeURIComponent("X-ray request: "+l.value.trim())+"&body="+encodeURIComponent("Email: "+d.value.trim()+"\nCompany: "+l.value.trim()+(v?"\n\n"+v:""));return}t.disabled=!0,t.textContent=n.dataset.sending||"...";const u=new AbortController,I=setTimeout(()=>u.abort(),15e3);try{const s=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:e,subject:"New X-ray request (mateos.ai)",from_name:"mateos.ai",email:d.value.trim(),company:l.value.trim(),note:x.value.trim(),page:location.pathname}),signal:u.signal}),f=await s.json().catch(()=>null);if(s.ok&&f?.success){n.querySelectorAll(".field, button").forEach(w=>w.hidden=!0),a.hidden=!1;return}console.error("[xray] submit failed",s.status,f)}catch(s){console.error("[xray] request failed",s)}finally{clearTimeout(I)}t.disabled=!1,t.textContent=n.dataset.retry||n.dataset.button||"",o.hidden=!1})}if(window.matchMedia("(prefers-reduced-motion: no-preference)").matches&&"IntersectionObserver"in window){const e=document.querySelectorAll(".cell, .step, .story, .person, .stat, .role-card");e.forEach(a=>a.classList.add("reveal"));const t=new IntersectionObserver(a=>{a.forEach(o=>{o.isIntersecting&&(o.target.classList.add("is-visible"),t.unobserve(o.target))})},{threshold:.1,rootMargin:"0px 0px -30px 0px"});e.forEach(a=>t.observe(a))}
-</script></head> <body>  <a class="skip" href="#main" data-astro-cid-3ef6ksr2>דילוג לתוכן</a> <header class="site-header" data-astro-cid-3ef6ksr2> <div class="wrap bar" data-astro-cid-3ef6ksr2> <a class="brand" href="../../he/" data-astro-cid-3ef6ksr2> <svg width="26" height="26" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-3ef6ksr2> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-3ef6ksr2></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-3ef6ksr2></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-3ef6ksr2></circle> </svg> <span class="brand-name" data-astro-cid-3ef6ksr2>mateos<span class="brand-ai" data-astro-cid-3ef6ksr2>.ai</span></span> </a> <nav class="nav" aria-label="Main" data-astro-cid-3ef6ksr2> <ul class="nav-list" data-astro-cid-3ef6ksr2> <li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/how-we-work/" data-astro-cid-3ef6ksr2>איך אנחנו עובדים</a>  </li><li class="nav-item has-children" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/industries/" data-astro-cid-3ef6ksr2>ענפים</a>  <button class="nav-more" type="button" aria-expanded="false" aria-label="ענפים" data-menu="industries" data-astro-cid-3ef6ksr2> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><polyline points="6 9 12 15 18 9" data-astro-cid-3ef6ksr2></polyline></svg> </button> <ul class="nav-sub" id="menu-industries" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/insurance/" data-astro-cid-3ef6ksr2>ביטוח</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/manufacturing/" data-astro-cid-3ef6ksr2>תעשייה</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>בנייה ונדל&quot;ן</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>לוגיסטיקה והפצה</a></li> </ul>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link is-active" href="../../he/security-and-control/" aria-current="page" data-astro-cid-3ef6ksr2>אבטחה ובקרה</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/about/" data-astro-cid-3ef6ksr2>אודות</a>  </li> </ul> </nav> <div class="bar-right" data-astro-cid-3ef6ksr2> <a class="lang" href="../../security-and-control/" lang="en" hreflang="en" data-astro-cid-3ef6ksr2>English</a> <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" data-title="החלפת מצב תצוגה" data-light="בהיר" data-dark="כהה" aria-label="החלפת מצב תצוגה" data-astro-cid-3ef6ksr2> <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><circle cx="12" cy="12" r="4" data-astro-cid-3ef6ksr2></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-astro-cid-3ef6ksr2></path></svg> </button> <a class="btn btn-primary btn-sm nav-cta" href="../../he/contact/" data-astro-cid-3ef6ksr2>מתחילים ב-X-ray</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="תפריט" data-astro-cid-3ef6ksr2> <svg class="ico-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M4 7h16M4 12h16M4 17h16" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M6 6l12 12M18 6L6 18" data-astro-cid-3ef6ksr2></path></svg> </button> </div> </div> <div class="mobile-menu" id="mobile-menu" hidden data-astro-cid-3ef6ksr2> <div class="wrap" data-astro-cid-3ef6ksr2> <ul class="m-list" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/how-we-work/" data-astro-cid-3ef6ksr2>איך אנחנו עובדים</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/industries/" data-astro-cid-3ef6ksr2>ענפים</a> <ul class="m-sub" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/insurance/" data-astro-cid-3ef6ksr2>ביטוח</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/manufacturing/" data-astro-cid-3ef6ksr2>תעשייה</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>בנייה ונדל&quot;ן</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>לוגיסטיקה והפצה</a></li> </ul> </li><li data-astro-cid-3ef6ksr2> <a class="m-link is-active" href="../../he/security-and-control/" data-astro-cid-3ef6ksr2>אבטחה ובקרה</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/about/" data-astro-cid-3ef6ksr2>אודות</a>  </li> </ul> <a class="btn btn-primary btn-lg m-cta" href="../../he/contact/" data-astro-cid-3ef6ksr2>מתחילים ב-X-ray</a> </div> </div> </header>   <main id="main"> <section class="pagehead" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>אבטחה ובקרה</span><h1 class="h1" data-astro-cid-psngowx4>בתוך הסביבה שלכם. אדם מאשר כל פלט.</h1><p class="lead lead-lg" data-astro-cid-psngowx4>השאלות שה-CTO שואל בשיחה השנייה, עם תשובות כבר בראשונה. הדף הזה כתוב למי שמחזיק את המערכות באוויר.</p></div></section><section class="section" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>איפה זה רץ</span><h2 class="h2" data-astro-cid-psngowx4>בענן שלכם, ב-DMZ שלכם או על שרת שלכם.</h2><div class="grid cols-3 style-cards" data-astro-cid-psngowx4><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>בענן שלכם.</h3><p data-astro-cid-psngowx4>מנוי ייעודי ומוגבל בתוך חשבון הענן שלכם, שמוקם יחד עם האינטגרטור שלכם. אחסון ועיבוד מסמכים באזור. קריאות למודל בלי שמירת נתונים.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>ב-DMZ שלכם.</h3><p data-astro-cid-psngowx4>שער ב-DMZ ושכבת API לקריאה בלבד מעל ה-ERP. יוצאים רק טקסט השאלה, ואודיו לתמלול.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>על שרת אצלכם.</h3><p data-astro-cid-psngowx4>שרת ייעודי בתוך הרשת שלכם, דרך ה-VPN שלכם, עם מערכות המחסן וההפצה שלכם כקלט.</p></article></div></div></section><section class="section" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>במה זה נוגע</span><h2 class="h2" data-astro-cid-psngowx4>קריאה בלבד, כברירת מחדל.</h2><div class="grid cols-2 style-tiles" data-astro-cid-psngowx4><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>גישה.</h3><p data-astro-cid-psngowx4>קריאה בלבד מהמערכות שלכם אלא אם תחליטו אחרת, לכל מערכת ולכל תהליך. בפיילוט אין גישת כתיבה למערכת הליבה.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>מה יוצא.</h3><p data-astro-cid-psngowx4>כתוב לפני שמחברים משהו: אילו שדות, לאיזה שירות, לאיזו מטרה. בלי שמות של אנשים בקריאות למודל כשהתהליך מאפשר מצייני מקום.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>מי מאשר.</h3><p data-astro-cid-psngowx4>אדם בשם לכל תהליך. הסוכן מציע, האדם מאשר. שום דבר לא נשלח, משובץ או מוחלט לבד.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>מה מתועד.</h3><p data-astro-cid-psngowx4>כל ריצה, כל פעולה, כל החלטה וכל שינוי כלל, עם תאריך ושם. השוואת תכנון מול ביצוע יומית כשלתהליך יש כזו.</p></article></div></div></section><section class="section" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>לפני הקוד</span><h2 class="h2" data-astro-cid-psngowx4>שלושה מסמכים, חתומים לפני שורת הקוד הראשונה.</h2><div class="grid cols-3 style-numbered" data-astro-cid-psngowx4><article class="cell" data-astro-cid-psngowx4><span class="num" aria-hidden="true" data-astro-cid-psngowx4>01</span><h3 data-astro-cid-psngowx4>קווים אדומים.</h3><p data-astro-cid-psngowx4>מה הסוכן לעולם לא עושה. אתם כותבים, אנחנו שומרים.</p></article><article class="cell" data-astro-cid-psngowx4><span class="num" aria-hidden="true" data-astro-cid-psngowx4>02</span><h3 data-astro-cid-psngowx4>כלל עצירה.</h3><p data-astro-cid-psngowx4>מתי עוצרים, במספרים. למשל: שלוש טעויות עובדתיות בעשרים מקרים.</p></article><article class="cell" data-astro-cid-psngowx4><span class="num" aria-hidden="true" data-astro-cid-psngowx4>03</span><h3 data-astro-cid-psngowx4>רף הצלחה.</h3><p data-astro-cid-psngowx4>המספר שצריך לזוז ובכמה, מסוכם מראש.</p></article></div></div></section><section class="section" data-astro-cid-psngowx4><div class="wrap prose-wrap" data-astro-cid-psngowx4><div class="prose-sec" data-astro-cid-psngowx4><h2 class="h3" data-astro-cid-psngowx4>תיקון 13 לחוק הגנת הפרטיות</h2><div class="prose" data-astro-cid-psngowx4><p data-astro-cid-psngowx4>MateOS בנויה לפי חוק הגנת הפרטיות כפי שתוקן בתיקון 13: צמצום נתונים, הגבלת מטרה, תיעוד גישה, אחראי בשם מהצד שלנו, ועיבוד בתוך הסביבה שלכם. אנחנו מתעדים את זרימות הנתונים של כל תהליך לפני שהוא עולה לאוויר ומוסרים לכם את התיעוד.</p></div></div><div class="prose-sec" data-astro-cid-psngowx4><h2 class="h3" data-astro-cid-psngowx4>שאלוני אבטחה</h2><div class="prose" data-astro-cid-psngowx4><p data-astro-cid-psngowx4>אנחנו עונים על שאלון האבטחה שלכם לפני חתימת הסכם ההתקשרות, ועובדים עם האינטגרטור שלכם על הסביבה. כתבו ל-hello@mateos.ai עם השאלון ושם האחראי מצדכם.</p></div></div></div></section><section class="section dark cta" id="start" data-astro-cid-psngowx4><div class="wrap cta-inner" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>המהלך שלכם</span><h2 class="h2" data-astro-cid-psngowx4>זאת החברה שלכם. המהלך שלכם.</h2><p class="lead" data-astro-cid-psngowx4>מתחילים ב-X-ray: יום אחד אצלכם עם האנשים שעושים את העבודה, או סוכן קטן אחד. יוצאים עם כל תהליך מדורג לפי ההחזר שלו. החל מ-990 דולר.</p><div class="actions" data-astro-cid-psngowx4><a class="btn btn-primary btn-lg" href="../../he/contact/" data-astro-cid-psngowx4>מתחילים ב-X-ray</a><a class="btn btn-ghost btn-lg" href="../../he/contact/" data-astro-cid-psngowx4>קודם נדבר</a></div></div></section> </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="wrap" data-astro-cid-sz7xmlte> <div class="f-top" data-astro-cid-sz7xmlte> <div class="f-brand" data-astro-cid-sz7xmlte> <a class="brand" href="../../he/" data-astro-cid-sz7xmlte> <svg width="30" height="30" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-sz7xmlte> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-sz7xmlte></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-sz7xmlte></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-sz7xmlte></circle> </svg> <span class="brand-name" data-astro-cid-sz7xmlte>mateos<span class="brand-ai" data-astro-cid-sz7xmlte>.ai</span></span> </a> <p class="f-tag" data-astro-cid-sz7xmlte>זאת החברה שלכם. מהירה פי 10.</p> </div> <nav class="f-cols" aria-label="Footer" data-astro-cid-sz7xmlte> <div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>המוצר</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/mateos/" data-astro-cid-sz7xmlte>MateOS</a></li><li data-astro-cid-sz7xmlte><a href="../../he/how-we-work/" data-astro-cid-sz7xmlte>איך אנחנו עובדים</a></li><li data-astro-cid-sz7xmlte><a href="../../he/security-and-control/" data-astro-cid-sz7xmlte>אבטחה ובקרה</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>ענפים</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/industries/insurance/" data-astro-cid-sz7xmlte>ביטוח</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/manufacturing/" data-astro-cid-sz7xmlte>תעשייה</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/construction-and-real-estate/" data-astro-cid-sz7xmlte>בנייה ונדל&quot;ן</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/logistics-and-distribution/" data-astro-cid-sz7xmlte>לוגיסטיקה והפצה</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>החברה</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/about/" data-astro-cid-sz7xmlte>אודות</a></li><li data-astro-cid-sz7xmlte><a href="../../he/careers/" data-astro-cid-sz7xmlte>קריירה</a></li><li data-astro-cid-sz7xmlte><a href="../../he/contact/" data-astro-cid-sz7xmlte>יצירת קשר</a></li><li data-astro-cid-sz7xmlte><a href="mailto:hello@mateos.ai" data-astro-cid-sz7xmlte>hello@mateos.ai</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>משפטי</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/privacy/" data-astro-cid-sz7xmlte>מדיניות פרטיות</a></li><li data-astro-cid-sz7xmlte><a href="../../he/accessibility/" data-astro-cid-sz7xmlte>הצהרת נגישות</a></li> </ul> </div> </nav> </div> <div class="f-bottom" data-astro-cid-sz7xmlte> <p class="f-legal" data-astro-cid-sz7xmlte>Mateos AI, Inc., חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.</p> <p class="f-copy" data-astro-cid-sz7xmlte>© 2026 Mateos AI, Inc. כל הזכויות שמורות.</p> </div> </div> </footer>    </body> </html>
+    </script><script>(function(d){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('v7-motion');setTimeout(function(){if(!d.classList.contains('v7-ready'))d.classList.remove('v7-motion')},2500)}}catch(e){}})(document.documentElement)</script><link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/v7.css"><script type="module">const h=document.documentElement,p=window.matchMedia("(prefers-color-scheme: dark)"),r=document.getElementById("theme-toggle");function y(){return h.getAttribute("data-theme")==="dark"?"dark":"light"}function b(){if(!r)return;const e=y()==="dark";r.setAttribute("aria-pressed",String(e));const t=e?r.dataset.light:r.dataset.dark;r.setAttribute("aria-label",`${r.dataset.title}: ${t}`),r.setAttribute("title",`${r.dataset.title}: ${t}`)}function g(e,t=!0){if(h.setAttribute("data-theme",e),t)try{localStorage.setItem("mateos-theme",e)}catch{}b()}r?.addEventListener("click",()=>g(y()==="dark"?"light":"dark"));p.addEventListener("change",()=>{try{localStorage.getItem("mateos-theme")||g(p.matches?"dark":"light",!1)}catch{}});b();const k=document.querySelectorAll(".nav-more");function m(){k.forEach(e=>{e.setAttribute("aria-expanded","false"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.remove("is-open")})}k.forEach(e=>{e.addEventListener("click",t=>{t.stopPropagation();const a=e.getAttribute("aria-expanded")==="true";m(),a||(e.setAttribute("aria-expanded","true"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.add("is-open"))})});document.addEventListener("click",m);document.addEventListener("keydown",e=>{e.key==="Escape"&&(m(),E())});const c=document.querySelector(".menu-btn"),i=document.getElementById("mobile-menu");function E(){c?.setAttribute("aria-expanded","false"),i&&(i.hidden=!0)}c?.addEventListener("click",e=>{e.stopPropagation(),c.getAttribute("aria-expanded")==="true"?E():(c.setAttribute("aria-expanded","true"),i&&(i.hidden=!1))});i?.addEventListener("click",e=>e.stopPropagation());const n=document.getElementById("xray-form");if(n){const e=n.dataset.key||"",t=n.querySelector("button[type=submit]"),a=document.getElementById("form-success"),o=document.getElementById("form-error");n.addEventListener("submit",async v=>{v.preventDefault();const d=n.elements.namedItem("email"),l=n.elements.namedItem("company"),x=n.elements.namedItem("note"),A=n.elements.namedItem("botcheck");if(o.hidden=!0,!d.checkValidity()){d.reportValidity();return}if(!l.checkValidity()){l.reportValidity();return}if(A.checked)return;if(!e){const he=document.documentElement.lang==="he",v=x.value.trim();o.textContent=he?"אפליקציית המייל אמורה להיפתח עם הבקשה מוכנה. אם היא לא נפתחת, כתבו ל-hello@mateos.ai.":"Your email app should open with the request filled in. If it does not, write to hello@mateos.ai.";o.hidden=!1;location.href="mailto:hello@mateos.ai?subject="+encodeURIComponent("X-ray request: "+l.value.trim())+"&body="+encodeURIComponent("Email: "+d.value.trim()+"\nCompany: "+l.value.trim()+(v?"\n\n"+v:""));return}t.disabled=!0,t.textContent=n.dataset.sending||"...";const u=new AbortController,I=setTimeout(()=>u.abort(),15e3);try{const s=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:e,subject:"New X-ray request (mateos.ai)",from_name:"mateos.ai",email:d.value.trim(),company:l.value.trim(),note:x.value.trim(),page:location.pathname}),signal:u.signal}),f=await s.json().catch(()=>null);if(s.ok&&f?.success){n.querySelectorAll(".field, button").forEach(w=>w.hidden=!0),a.hidden=!1;return}console.error("[xray] submit failed",s.status,f)}catch(s){console.error("[xray] request failed",s)}finally{clearTimeout(I)}t.disabled=!1,t.textContent=n.dataset.retry||n.dataset.button||"",o.hidden=!1})}if(window.matchMedia("(prefers-reduced-motion: no-preference)").matches&&"IntersectionObserver"in window){const e=document.querySelectorAll(".cell, .step, .story, .person, .stat, .role-card");e.forEach(a=>a.classList.add("reveal"));const t=new IntersectionObserver(a=>{a.forEach(o=>{o.isIntersecting&&(o.target.classList.add("is-visible"),t.unobserve(o.target))})},{threshold:.1,rootMargin:"0px 0px -30px 0px"});e.forEach(a=>t.observe(a))}
+</script><script src="../../assets/v7.js" defer></script></head> <body>  <a class="skip" href="#main" data-astro-cid-3ef6ksr2>דילוג לתוכן</a> <header class="site-header" data-astro-cid-3ef6ksr2> <div class="wrap bar" data-astro-cid-3ef6ksr2> <a class="brand" href="../../he/" data-astro-cid-3ef6ksr2> <svg width="26" height="26" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-3ef6ksr2> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-3ef6ksr2></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-3ef6ksr2></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-3ef6ksr2></circle> </svg> <span class="brand-name" data-astro-cid-3ef6ksr2>mateos<span class="brand-ai" data-astro-cid-3ef6ksr2>.ai</span></span> </a> <nav class="nav" aria-label="Main" data-astro-cid-3ef6ksr2> <ul class="nav-list" data-astro-cid-3ef6ksr2> <li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/how-we-work/" data-astro-cid-3ef6ksr2>איך אנחנו עובדים</a>  </li><li class="nav-item has-children" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/industries/" data-astro-cid-3ef6ksr2>ענפים</a>  <button class="nav-more" type="button" aria-expanded="false" aria-label="ענפים" data-menu="industries" data-astro-cid-3ef6ksr2> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><polyline points="6 9 12 15 18 9" data-astro-cid-3ef6ksr2></polyline></svg> </button> <ul class="nav-sub" id="menu-industries" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/insurance/" data-astro-cid-3ef6ksr2>ביטוח</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/manufacturing/" data-astro-cid-3ef6ksr2>תעשייה</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>בנייה ונדל&quot;ן</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="../../he/industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>לוגיסטיקה והפצה</a></li> </ul>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link is-active" href="../../he/security-and-control/" aria-current="page" data-astro-cid-3ef6ksr2>אבטחה ובקרה</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="../../he/about/" data-astro-cid-3ef6ksr2>אודות</a>  </li> </ul> </nav> <div class="bar-right" data-astro-cid-3ef6ksr2> <a class="lang" href="../../security-and-control/" lang="en" hreflang="en" data-astro-cid-3ef6ksr2>English</a> <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" data-title="החלפת מצב תצוגה" data-light="בהיר" data-dark="כהה" aria-label="החלפת מצב תצוגה" data-astro-cid-3ef6ksr2> <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><circle cx="12" cy="12" r="4" data-astro-cid-3ef6ksr2></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-astro-cid-3ef6ksr2></path></svg> </button> <a class="btn btn-primary btn-sm nav-cta" href="../../he/contact/" data-astro-cid-3ef6ksr2>מתחילים ב-X-ray</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="תפריט" data-astro-cid-3ef6ksr2> <svg class="ico-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M4 7h16M4 12h16M4 17h16" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M6 6l12 12M18 6L6 18" data-astro-cid-3ef6ksr2></path></svg> </button> </div> </div> <div class="mobile-menu" id="mobile-menu" hidden data-astro-cid-3ef6ksr2> <div class="wrap" data-astro-cid-3ef6ksr2> <ul class="m-list" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/how-we-work/" data-astro-cid-3ef6ksr2>איך אנחנו עובדים</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/industries/" data-astro-cid-3ef6ksr2>ענפים</a> <ul class="m-sub" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/insurance/" data-astro-cid-3ef6ksr2>ביטוח</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/manufacturing/" data-astro-cid-3ef6ksr2>תעשייה</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>בנייה ונדל&quot;ן</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="../../he/industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>לוגיסטיקה והפצה</a></li> </ul> </li><li data-astro-cid-3ef6ksr2> <a class="m-link is-active" href="../../he/security-and-control/" data-astro-cid-3ef6ksr2>אבטחה ובקרה</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="../../he/about/" data-astro-cid-3ef6ksr2>אודות</a>  </li> </ul> <a class="btn btn-primary btn-lg m-cta" href="../../he/contact/" data-astro-cid-3ef6ksr2>מתחילים ב-X-ray</a> </div> </div> </header>   <main id="main">
+<svg class="v7-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="i-mark" overflow="visible"><!-- no viewBox: the outer svg.v7-mark carries viewBox="43 43 114 114"; a second one would offset the dots --><circle cx="130" cy="70" r="27" fill="#FF8C42"/><circle cx="70" cy="130" r="27" fill="#17BEBB"/><circle cx="130" cy="130" r="27" fill="#5B53E8"/></symbol>
+<symbol id="i-goal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+<symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 12h10"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+<symbol id="i-rules" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></symbol>
+<symbol id="i-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="i-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6v12M15 6v12"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"/></symbol>
+<symbol id="i-replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17v.5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18M12 9h8v12"/><path d="M8 8h.01M8 12h.01M8 16h.01M16 13h.01M16 17h.01"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z" style="fill:var(--m-cursor-fill);stroke:var(--m-cursor-stroke)" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+</svg>
+
+<section class="v7-band-dark v7-hero v7-home-hero v7-sec-hero" id="top" aria-labelledby="hero-h1">
+  <div class="v7-wrap-wide v7-hero-grid">
+    <div class="v7-hero-copy">
+      <span class="eyebrow" data-v7-reveal>אבטחה ובקרה</span>
+      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>בתוך הסביבה<br> שלכם.</span></span><span class="v7-line"><span>אדם מאשר<br> כל פלט.</span></span></h1>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="240">קריאה בלבד כברירת מחדל. כאן התשובות לשאלות <span class="v7-nw">שה-CTO</span> שואל בשיחה השנייה.</p>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="320"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="mailto:hello@mateos.ai?subject=%D7%A9%D7%90%D7%9C%D7%95%D7%9F%20%D7%90%D7%91%D7%98%D7%97%D7%94">שלחו את שאלון האבטחה שלכם</a></div>
+    </div>
+    <figure class="v7-figure m-bound-fig" data-v7-reveal="rise" data-v7-delay="300" data-v7-mode="cloud">
+      <div class="v7-mock m-bound" data-v7-mock="M21" data-v7-play="loop" data-v7-start-delay="600" aria-hidden="true" inert>
+        <div class="m-bound-in">
+          <div class="m-bound-head">
+            <span class="m-bound-label"><bdi>MateOS</bdi> · גבול הנתונים</span>
+            <span class="v7-preview-tag">דוגמה</span>
+          </div>
+          <div class="m-bound-dia">
+            <span class="m-bound-env"></span>
+
+            <div class="m-bound-api m-bound-node">
+              <span class="m-bound-tile"><svg class="v7-ic" viewBox="0 0 24 24"><rect x="6.5" y="6.5" width="11" height="11" rx="2"/><path d="M10 3v3.5M14 3v3.5M10 17.5V21M14 17.5V21M3 10h3.5M3 14h3.5M17.5 10H21M17.5 14H21"/></svg></span>
+              <span class="m-bound-tx"><b>ה-API של המודל</b><span>בלי שמירת נתונים</span></span>
+              <i class="m-bound-ring"></i>
+            </div>
+
+            <div class="m-bound-envlab">
+              <span class="m-bound-envt"><svg class="v7-ic"><use href="#i-lock"/></svg>הסביבה שלכם</span>
+              <span class="m-bound-x m-bound-envs">
+                <span class="m-bound-parts" data-m="cloud"><span>חשבון הענן שלכם</span><span>באזור שלכם</span></span>
+                <span class="m-bound-parts" data-m="dmz"><span>ה-DMZ שלכם</span><span>API לקריאה בלבד מעל ה-ERP</span></span>
+                <span class="m-bound-parts" data-m="onprem"><span>הרשת שלכם</span><span>דרך ה-VPN שלכם</span></span>
+              </span>
+            </div>
+
+            <ul class="m-bound-sys">
+              <li class="m-bound-chip m-bound-node"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="m-bound-tx"><b>ERP</b><span>קריאה בלבד</span></span></li>
+              <li class="m-bound-chip m-bound-node"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-mail"/></svg></span><span class="m-bound-tx"><b>מייל</b><span>שליחה אחרי אישור</span></span></li>
+              <li class="m-bound-chip m-bound-node m-bound-x">
+                <span class="m-bound-cv" data-m="cloud dmz"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-chat"/></svg></span><span class="m-bound-tx"><b>וואטסאפ</b><span>אישורים</span></span></span>
+                <span class="m-bound-cv" data-m="onprem"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-building"/></svg></span><span class="m-bound-tx"><b>מחסן</b><span>קריאה בלבד</span></span></span>
+              </li>
+              <li class="m-bound-chip m-bound-node m-bound-x">
+                <span class="m-bound-cv" data-m="cloud dmz"><span class="m-bound-tile"><svg class="v7-ic"><use href="#i-sheet"/></svg></span><span class="m-bound-tx"><b>אקסל</b><span>קריאה בלבד</span></span></span>
+                <span class="m-bound-cv" data-m="onprem"><span class="m-bound-tile"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M2.5 6.5h11v9h-11zM13.5 9.5h4l3 3.5v2.5h-7"/><circle cx="6.5" cy="17.5" r="1.75"/><circle cx="16.5" cy="17.5" r="1.75"/></svg></span><span class="m-bound-tx"><b>הפצה</b><span>קריאה בלבד</span></span></span>
+              </li>
+            </ul>
+
+            <!-- Wires: static lines in markup (normalised 0–100 boxes, stretched to their grid cells). data-p names the pulse
+                 routes each path belongs to: key[:order][~ = run it backwards]. One set per layout; CSS shows one. -->
+            <span class="m-bound-w" data-w="sys" data-l="wide"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+              <path data-p="sys1" d="M0 12.5C55 12.5 45 50 100 50"/>
+              <path data-p="sys2" d="M0 37.5C55 37.5 45 50 100 50"/>
+              <path data-p="sys3" d="M0 62.5C55 62.5 45 50 100 50"/>
+              <path data-p="sys4" d="M0 87.5C55 87.5 45 50 100 50"/>
+            </g></svg></span>
+            <span class="m-bound-w" data-w="api" data-l="wide"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+              <path data-p="api" d="M0 100C0 62 100 72 100 40L100 0"/>
+            </g></svg></span>
+            <span class="m-bound-w" data-w="sys" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+              <path data-p="sys1" d="M0 25C30 25 50 28 50 40L50 100"/>
+              <path data-p="sys2" d="M100 25C70 25 50 28 50 40L50 100"/>
+              <path data-p="sys3" d="M0 75C30 75 50 78 50 88L50 100"/>
+              <path data-p="sys4" d="M100 75C70 75 50 78 50 88L50 100"/>
+              <path data-p="api:2~" d="M50 0L50 100"/>
+            </g></svg></span>
+            <span class="m-bound-w" data-w="down" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+              <path data-p="sys1:2 sys2:2 sys3:2 sys4:2 api:1~" d="M50 0L50 100"/>
+            </g></svg></span>
+            <span class="m-bound-w" data-w="api" data-l="stack"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+              <path data-p="api:3~" d="M50 0L50 100"/>
+            </g></svg></span>
+
+            <span class="m-bound-pkt m-bound-x">
+              <span class="m-bound-pill" data-m="cloud"><b>רק טקסט השאלה</b><span>בלי שמות</span><i class="m-bound-ring"></i></span>
+              <span class="m-bound-pill" data-m="dmz"><b>טקסט השאלה ואודיו</b><span>לתמלול</span><i class="m-bound-ring"></i></span>
+              <span class="m-bound-pill" data-m="onprem"><b>רק טקסט השאלה</b><span>עם מצייני מקום</span><i class="m-bound-ring"></i></span>
+            </span>
+
+            <div class="m-bound-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>Mate</b><i class="m-bound-ring"></i></div>
+
+            <div class="m-bound-out">
+              <span class="m-bound-w" data-w="ok"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+                <path data-p="ok" data-l="wide" d="M0 50L100 50"/>
+                <path data-p="ok" data-l="stack" d="M100 0C100 55 0 45 0 100"/>
+              </g></svg></span>
+              <div class="m-bound-person m-bound-node">
+                <span class="v7-avatar">דק</span>
+                <span class="m-bound-tx"><b>אדם מאשר</b><span>דנה ק.</span></span>
+                <span class="m-bound-ok"><svg class="v7-ic"><use href="#i-check"/></svg></span>
+                <i class="m-bound-ring"></i>
+              </div>
+              <span class="m-bound-w" data-w="sent"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><g>
+                <path data-p="sent" data-l="wide" d="M50 0L50 100"/>
+                <path data-p="sent" data-l="stack" d="M0 50L100 50"/>
+              </g></svg></span>
+              <div class="m-bound-sent m-bound-node">
+                <span class="m-bound-tile"><svg class="v7-ic"><use href="#i-send"/></svg></span>
+                <span class="m-bound-tx"><b>נשלח · מתועד</b></span>
+                <i class="m-bound-ring"></i>
+              </div>
+            </div>
+
+            <div class="m-bound-audit">
+              <span class="m-bound-audk"><svg class="v7-ic"><use href="#i-audit"/></svg>יומן פעולות</span>
+              <div class="m-bound-log">
+                <ol>
+                  <li data-tone="mate"><span class="m-bound-t">09:31</span><b>Mate</b><span>קרא מה-ERP</span></li>
+                  <li data-tone="you"><span class="m-bound-t">09:32</span><b>דנה ק.</b><span>אישרה</span></li>
+                  <li data-tone="ok"><span class="m-bound-t">09:32</span><b>נשלח</b><span>תועד</span></li>
+                </ol>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="m-bound-bar">
+        <div class="m-bound-toggle" role="radiogroup" aria-label="איפה MateOS רץ">
+          <button type="button" role="radio" aria-checked="true" tabindex="0" data-mode="cloud"><span class="m-bound-long">חשבון הענן שלכם</span><span class="m-bound-short" aria-hidden="true">ענן</span></button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="dmz"><span class="m-bound-long">ה-DMZ שלכם</span><span class="m-bound-short" aria-hidden="true">DMZ</span></button>
+          <button type="button" role="radio" aria-checked="false" tabindex="-1" data-mode="onprem"><span class="m-bound-long">שרת אצלכם</span><span class="m-bound-short" aria-hidden="true">שרת</span></button>
+        </div>
+      </div>
+      <button class="v7-pause" type="button" aria-label="השהיית האנימציה"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
+      <figcaption class="sr-only">דוגמה: MateOS בתוך הסביבה שלכם. Mate קורא את ה-ERP, את תיבת הדואר, את הוואטסאפ ואת האקסל; ה-ERP והאקסל בקריאה בלבד, ומייל יוצא רק אחרי שאדם מאשר אותו. אדם מאשר כל פלט לפני שהוא נשלח ומתועד. רק טקסט השאלה חוצה את הגבול שלכם אל ה-API של המודל, בלי שמירת נתונים; בהתקנה ב-DMZ חוצה גם אודיו לתמלול. אותה מערכת רצה בחשבון הענן שלכם, ב-DMZ שלכם או על שרת אצלכם.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec-page" id="touch" aria-labelledby="touch-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="touch-h" data-v7-reveal="mask"><span class="v7-line"><span>במה Mate יכול לגעת.</span></span></h2>
+    <ul class="v7-sec-touch" data-v7-stagger="100">
+      <li class="v7-sec-card" data-v7-reveal>
+        <div class="v7-mock v7-sec-stage" data-art="lock" aria-hidden="true" inert>
+          <div class="v7-sec-grp">
+            <span class="v7-sec-tile v7-sec-locktile"><svg class="v7-sec-lock" viewBox="0 0 24 24"><path class="v7-sec-shackle" d="M8 11V7.5a4 4 0 0 1 8 0V11"/><rect x="5" y="11" width="14" height="10" rx="2.5"/><path d="M12 15.2v1.8"/></svg><i class="v7-sec-ring"></i></span>
+            <span class="v7-sec-perms">
+              <span class="v7-sec-perm is-read"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="2.75"/></svg><span>קריאה</span><i class="v7-sec-yes"><svg class="v7-ic"><use href="#i-check"/></svg></i></span>
+              <span class="v7-sec-perm is-write"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M4.5 19.5h4l10-10a2.83 2.83 0 0 0-4-4l-10 10z"/><path d="M13 7l4 4"/></svg><span class="v7-sec-strike">כתיבה</span><i class="v7-sec-no"><svg class="v7-ic"><use href="#i-lock"/></svg></i></span>
+            </span>
+          </div>
+        </div>
+        <div class="v7-sec-card-tx">
+          <h3 class="v7-sec-card-t">גישה.</h3>
+          <p class="v7-sec-card-p">קריאה בלבד מהמערכות שלכם, אלא אם תחליטו אחרת, לכל מערכת בנפרד. בפיילוט אין גישת כתיבה למערכת הליבה.</p>
+        </div>
+      </li>
+      <li class="v7-sec-card" data-v7-reveal>
+        <div class="v7-mock v7-sec-stage" data-art="fields" aria-hidden="true" inert>
+          <div class="v7-sec-grp">
+            <span class="v7-sec-tile" data-tone="mate"><svg class="v7-ic"><use href="#i-doc"/></svg></span>
+            <span class="v7-sec-fields">
+              <span class="v7-sec-field"><b>שדות</b><i style="--w:.92"></i></span>
+              <span class="v7-sec-field"><b>שירות</b><i style="--w:.6"></i></span>
+              <span class="v7-sec-field"><b>מטרה</b><i style="--w:.78"></i></span>
+            </span>
+          </div>
+        </div>
+        <div class="v7-sec-card-tx">
+          <h3 class="v7-sec-card-t">מה יוצא.</h3>
+          <p class="v7-sec-card-p">כתוב לפני שמחברים משהו: אילו שדות, לאיזה שירות, לאיזו מטרה.</p>
+        </div>
+      </li>
+      <li class="v7-sec-card" data-v7-reveal>
+        <div class="v7-mock v7-sec-stage" data-art="approve" aria-hidden="true" inert>
+          <div class="v7-sec-grp">
+            <span class="v7-sec-draft"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><span class="v7-sec-lines"><i></i><i></i></span></span>
+            <span class="v7-sec-wire"><i class="v7-sec-dot"></i></span>
+            <span class="v7-sec-tile" data-tone="you"><svg class="v7-ic"><use href="#i-person"/></svg><span class="v7-sec-badge"><svg class="v7-ic"><use href="#i-check"/></svg></span><i class="v7-sec-ring"></i></span>
+          </div>
+        </div>
+        <div class="v7-sec-card-tx">
+          <h3 class="v7-sec-card-t">מי מאשר.</h3>
+          <p class="v7-sec-card-p">לכל תהליך יש אדם אחראי, בשמו. Mate מציע, האדם מאשר.</p>
+        </div>
+      </li>
+      <li class="v7-sec-card" data-v7-reveal>
+        <div class="v7-mock v7-sec-stage" data-art="log" aria-hidden="true" inert>
+          <span class="v7-preview-tag v7-sec-tag">דוגמה</span>
+          <div class="v7-sec-grp">
+            <span class="v7-sec-tile"><svg class="v7-ic"><use href="#i-audit"/></svg></span>
+            <span class="v7-sec-log"><span class="v7-sec-rows">
+              <span class="v7-sec-row" data-tone="mate"><span class="v7-sec-t">09:24</span><b>Mate</b><span>קרא <span class="v7-nw">מה-ERP</span></span></span>
+              <span class="v7-sec-row" data-tone="mate"><span class="v7-sec-t">09:27</span><b>Mate</b><span>ניסח את <bdi>Q-1042</bdi></span></span>
+              <span class="v7-sec-row" data-tone="mate"><span class="v7-sec-t">09:28</span><b>Mate</b><span>שאל את דנה ק.</span></span>
+              <span class="v7-sec-row is-new" data-tone="you"><span class="v7-sec-t">09:31</span><b>דנה ק.</b><span>אישרה את <bdi>Q-1042</bdi></span></span>
+            </span></span>
+          </div>
+        </div>
+        <div class="v7-sec-card-tx">
+          <h3 class="v7-sec-card-t">מה מתועד.</h3>
+          <p class="v7-sec-card-p">כל ריצה, פעולה, החלטה ושינוי כלל, עם תאריך ושם.</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-sec-page" id="before-code" aria-labelledby="before-h">
+  <div class="v7-wrap v7-sec-split">
+    <div class="v7-sec-copy">
+      <h2 class="v7-h2" id="before-h" data-v7-reveal="mask"><span class="v7-line"><span>הכול חתום לפני שורת הקוד הראשונה.</span></span></h2>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="120">קווים אדומים, כלל עצירה ורף הצלחה. אתם כותבים, אנחנו שומרים.</p>
+    </div>
+    <figure class="v7-figure m-deal-fig">
+      <div class="v7-mock m-deal" data-v7-mock="M20" data-v7-play="once" data-v7-threshold=".4" aria-hidden="true" inert>
+        <div class="m-deal-in">
+          <div class="m-deal-head">
+            <div class="m-deal-ttl">
+              <p class="m-deal-title"><svg class="v7-ic"><use href="#i-doc"/></svg><span class="m-deal-parts"><span>הסכם פיילוט</span><span>מענה להצעות מחיר</span></span></p>
+              <p class="m-deal-sub m-deal-parts"><span>החברה שלכם</span><span>נתונים לדוגמה</span></p>
+            </div>
+            <span class="v7-preview-tag">דוגמה</span>
+          </div>
+          <dl class="m-deal-fields">
+            <div class="m-deal-f">
+              <dt class="m-deal-k">רף הצלחה</dt>
+              <dd class="m-deal-v"><span class="m-deal-t">הצעות מחיר תוך&nbsp;4&nbsp;שעות: <bdi dir="ltr">⁦6% → 90%⁩</bdi> עד 15 בינואר</span></dd>
+            </div>
+            <div class="m-deal-f">
+              <dt class="m-deal-k">כלל עצירה</dt>
+              <dd class="m-deal-v"><span class="m-deal-t">עוצרים אם 3 מחירים שגויים ב-20 הצעות</span></dd>
+            </div>
+            <div class="m-deal-f">
+              <dt class="m-deal-k">קווים אדומים</dt>
+              <dd class="m-deal-v">
+                <ul class="m-deal-chips">
+                  <li class="m-deal-chip"><svg class="v7-ic"><use href="#i-lock"/></svg><span>לעולם לא כותב ל-ERP</span></li>
+                  <li class="m-deal-chip"><svg class="v7-ic"><use href="#i-lock"/></svg><span>לעולם לא עונה ללקוח בלי אישור</span></li>
+                  <li class="m-deal-chip"><svg class="v7-ic"><use href="#i-lock"/></svg><span>חומרים מסוכנים מטופלים ידנית <bdi>(R-07)</bdi></span></li>
+                </ul>
+              </dd>
+            </div>
+          </dl>
+          <div class="m-deal-foot">
+            <div class="m-deal-sig">
+              <svg class="m-deal-ink" viewBox="0 0 160 44" preserveAspectRatio="xMinYMid meet" dir="ltr"><path pathLength="1" d="M14 30 C 8 22, 14 8, 26 8 C 38 8, 40 22, 30 30 C 24 35, 18 34, 22 28 C 28 20, 40 18, 44 24 C 47 29, 44 33, 48 31 C 53 28, 55 21, 59 22 C 63 23, 59 31, 63 31 C 68 31, 70 22, 75 22 C 80 22, 76 31, 81 31 C 88 31, 96 18, 104 18 C 110 18, 106 30, 112 30 C 122 30, 138 22, 152 18"/></svg>
+              <span class="m-deal-who">אתם · בעל העסק</span>
+            </div>
+            <div class="m-deal-sig">
+              <svg class="m-deal-ink" viewBox="0 0 160 44" preserveAspectRatio="xMinYMid meet" dir="ltr"><path pathLength="1" d="M12 36 C 16 26, 20 14, 24 8 C 25 18, 27 28, 30 34 C 33 26, 38 14, 42 8 C 43 18, 44 28, 47 33 C 50 27, 54 22, 58 23 C 62 24, 58 31, 63 31 C 68 31, 72 22, 77 22 C 82 22, 79 30, 84 30 C 90 30, 94 24, 99 24 C 104 24, 101 30, 106 30 C 114 30, 122 27, 130 26 M 22 39 C 54 35, 100 34, 150 36"/></svg>
+              <span class="m-deal-who">מתאוס</span>
+            </div>
+            <span class="m-deal-stamp"><svg class="v7-ic"><use href="#i-check"/></svg>סוכם לפני הקוד</span>
+          </div>
+        </div>
+      </div>
+      <button class="v7-pause" type="button" aria-label="השהיית האנימציה"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
+      <figcaption class="sr-only">דוגמה: הסכם פיילוט שנכתב לפני הקוד. רף הצלחה: הצעות מחיר תוך 4 שעות, מ-6% ל-90% עד 15 בינואר. כלל עצירה: עוצרים אם 3 מחירים שגויים ב-20 הצעות. קווים אדומים: לעולם לא כותב ל-ERP, לעולם לא עונה ללקוח בלי אישור, חומרים מסוכנים נשארים ידניים. חתום על ידי בעל העסק ומתאוס.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec-page" id="privacy" aria-labelledby="privacy-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2 v7-sec-privh" id="privacy-h" data-v7-reveal="mask"><span class="v7-line"><span><bdi>MateOS</bdi> בנוי לפי תיקון&nbsp;13 לחוק הגנת הפרטיות.</span></span></h2>
+    <ul class="v7-check-list v7-sec-checks" data-v7-stagger="80" data-v7-delay="120">
+      <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>צמצום נתונים</li>
+      <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>הגבלת מטרה</li>
+      <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>תיעוד גישה</li>
+      <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>אחראי ייעודי מהצד שלנו, בשמו</li>
+      <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>עיבוד בתוך הסביבה שלכם</li>
+    </ul>
+    <p class="v7-sec-docline" data-v7-reveal><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-doc"/></svg><span>אנחנו מתעדים את זרימות הנתונים של כל תהליך לפני שהוא עולה לאוויר, ומוסרים לכם את התיעוד.</span></p>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-sec-page v7-sec-qsec" id="questionnaire" aria-labelledby="quest-h">
+  <div class="v7-wrap">
+    <div class="v7-sec-quest" data-v7-reveal>
+      <span class="v7-sec-qtile" aria-hidden="true"><svg viewBox="0 0 24 24" focusable="false"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path class="v7-sec-qcheck" d="M8.6 12.1l2.4 2.4 4.5-4.7" pathLength="1"/></svg></span>
+      <div class="v7-sec-qcopy">
+        <h2 class="v7-sec-qh" id="quest-h">שאלון אבטחה?</h2>
+        <p>אנחנו עונים עליו לפני חתימת ההסכם. שלחו אותו עם שם האחראי עליו מצדכם.</p>
+      </div>
+      <a class="v7-link-arrow v7-sec-qlink" href="mailto:hello@mateos.ai?subject=%D7%A9%D7%90%D7%9C%D7%95%D7%9F%20%D7%90%D7%91%D7%98%D7%97%D7%94"><bdi>hello@mateos.ai</bdi><svg class="v7-ic v7-ic-flip" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-band-dark v7-cta v7-pp-cta v7-sec-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap">
+    <div class="v7-pp-ctacopy" data-v7-stagger="80">
+      <h2 id="start-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span>זאת החברה שלכם.</span></span><span class="v7-line"><span>המהלך שלכם.</span></span></h2>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="160">מתחילים <span class="v7-nw">ב-X-ray</span>: יום אחד אצלכם עם האנשים שעושים את העבודה, או סוכן קטן אחד. כל תהליך מדורג לפי ההחזר שלו. החל&nbsp;<span class="v7-nw">מ-990</span>&nbsp;דולר.</p>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../../he/contact/">קודם מדברים</a></div>
+    </div>
+  </div>
+</section>
+</main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="wrap" data-astro-cid-sz7xmlte> <div class="f-top" data-astro-cid-sz7xmlte> <div class="f-brand" data-astro-cid-sz7xmlte> <a class="brand" href="../../he/" data-astro-cid-sz7xmlte> <svg width="30" height="30" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-sz7xmlte> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-sz7xmlte></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-sz7xmlte></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-sz7xmlte></circle> </svg> <span class="brand-name" data-astro-cid-sz7xmlte>mateos<span class="brand-ai" data-astro-cid-sz7xmlte>.ai</span></span> </a> <p class="f-tag" data-astro-cid-sz7xmlte>זאת החברה שלכם. מהירה פי 10.</p> </div> <nav class="f-cols" aria-label="Footer" data-astro-cid-sz7xmlte> <div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>המוצר</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/mateos/" data-astro-cid-sz7xmlte>MateOS</a></li><li data-astro-cid-sz7xmlte><a href="../../he/how-we-work/" data-astro-cid-sz7xmlte>איך אנחנו עובדים</a></li><li data-astro-cid-sz7xmlte><a href="../../he/security-and-control/" data-astro-cid-sz7xmlte>אבטחה ובקרה</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>ענפים</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/industries/insurance/" data-astro-cid-sz7xmlte>ביטוח</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/manufacturing/" data-astro-cid-sz7xmlte>תעשייה</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/construction-and-real-estate/" data-astro-cid-sz7xmlte>בנייה ונדל&quot;ן</a></li><li data-astro-cid-sz7xmlte><a href="../../he/industries/logistics-and-distribution/" data-astro-cid-sz7xmlte>לוגיסטיקה והפצה</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>החברה</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/about/" data-astro-cid-sz7xmlte>אודות</a></li><li data-astro-cid-sz7xmlte><a href="../../he/careers/" data-astro-cid-sz7xmlte>קריירה</a></li><li data-astro-cid-sz7xmlte><a href="../../he/contact/" data-astro-cid-sz7xmlte>יצירת קשר</a></li><li data-astro-cid-sz7xmlte><a href="mailto:hello@mateos.ai" data-astro-cid-sz7xmlte>hello@mateos.ai</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>משפטי</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="../../he/privacy/" data-astro-cid-sz7xmlte>מדיניות פרטיות</a></li><li data-astro-cid-sz7xmlte><a href="../../he/accessibility/" data-astro-cid-sz7xmlte>הצהרת נגישות</a></li> </ul> </div> </nav> </div> <div class="f-bottom" data-astro-cid-sz7xmlte> <p class="f-legal" data-astro-cid-sz7xmlte>Mateos AI, Inc., חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.</p> <p class="f-copy" data-astro-cid-sz7xmlte>© 2026 Mateos AI, Inc. כל הזכויות שמורות.</p> </div> </div> </footer>    </body> </html>
