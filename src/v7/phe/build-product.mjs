@@ -92,7 +92,7 @@ const TPL = `<!--@SPRITE-->
 <section class="v7-sec v7-sec--subtle v7-pp-sec" id="loop" aria-labelledby="loop-h">
   <div class="v7-wrap">
     <div class="v7-pp-center">
-      <h2 id="loop-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span>החריגים של הוותיק הופכים לכללים.</span></span></h2>
+      <h2 id="loop-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span>כל חריגה הופכת לכלל.</span></span></h2>
       <p class="v7-lead" data-v7-reveal data-v7-delay="120">חריג שנפתר פעם אחת נשאר פתור. המערכת לומדת את העסק שלכם, ולא להפך.</p>
     </div>
 <!--@M12-->
