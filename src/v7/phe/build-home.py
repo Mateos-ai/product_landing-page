@@ -27,7 +27,7 @@ TPL = '''<!--@SPRITE-->
   <div class="v7-wrap-wide v7-hero-grid">
     <div class="v7-hero-copy">
       <span class="eyebrow" data-v7-reveal>MateOS</span>
-      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>הופכים את סדר הבנייה.</span></span><span class="v7-line"><span>פי 10 מהר יותר.</span></span></h1>
+      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>החברה שלך.</span></span> <span class="v7-line"><span>פי 10 טובה יותר.</span></span></h1>
       <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
         <li data-stage="goal" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">מגדירים יעד.</span></li>
         <li data-stage="flows" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">Mate בונה את התהליכים.</span></li>
@@ -49,7 +49,7 @@ TPL = '''<!--@SPRITE-->
       <li data-v7-reveal><span class="v7-gap-num"><span aria-hidden="true">76%</span><span class="sr-only">76%</span></span><span class="v7-gap-line">מהם אומרים שזה לא רלוונטי לעסק שלהם.</span></li>
     </ul>
     <p class="v7-source" data-v7-reveal="fade" data-v7-delay="320">הלמ"ס, מרץ ויוני 2026</p>
-    <p class="v7-bridge" data-v7-reveal data-v7-delay="400">ב-MateOS מתחילים מהמספר שלכם.</p>
+    <p class="v7-bridge" data-v7-reveal data-v7-delay="400">הופכים את סדר הבנייה: מתחילים מהמספר שחשוב לכם, ובונים אליו את התהליך.</p>
 <!--@K1-->
   </div>
 </section>
