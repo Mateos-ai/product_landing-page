@@ -1,4 +1,3 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <!DOCTYPE html><html lang="en" dir="ltr"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Mateos · It&#39;s your company. 10x faster.</title><meta name="description" content="MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."><link rel="canonical" href="https://mateos.ai/"><link rel="alternate" hreflang="en" href="https://mateos.ai/"><link rel="alternate" hreflang="he" href="https://mateos.ai/he/"><link rel="alternate" hreflang="x-default" href="https://mateos.ai/"><meta name="theme-color" content="#14141E"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content="Mateos"><meta property="og:locale" content="en_US"><meta property="og:url" content="https://mateos.ai/"><meta property="og:title" content="Mateos · It's your company. 10x faster."><meta property="og:description" content="MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."><meta property="og:image" content="https://mateos.ai/og-v6.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content="Mateos. It's your company. 10x faster."><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Mateos · It's your company. 10x faster."><meta name="twitter:description" content="MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."><meta name="twitter:image" content="https://mateos.ai/og-v6.png"><link rel="icon" type="image/svg+xml" href="favicon.svg"><link rel="icon" href="favicon.ico" sizes="any"><script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"Mateos","url":"https://mateos.ai","logo":"https://mateos.ai/logo.png","description":"MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."}</script><!-- Anti-flash: apply the stored theme before first paint. --><script>
       (function () {
         try {
@@ -8,6 +7,515 @@
           document.documentElement.setAttribute("data-theme", resolved);
         } catch (e) {}
       })();
-    </script><link rel="stylesheet" href="assets/site.css"><script type="module">const h=document.documentElement,p=window.matchMedia("(prefers-color-scheme: dark)"),r=document.getElementById("theme-toggle");function y(){return h.getAttribute("data-theme")==="dark"?"dark":"light"}function b(){if(!r)return;const e=y()==="dark";r.setAttribute("aria-pressed",String(e));const t=e?r.dataset.light:r.dataset.dark;r.setAttribute("aria-label",`${r.dataset.title}: ${t}`),r.setAttribute("title",`${r.dataset.title}: ${t}`)}function g(e,t=!0){if(h.setAttribute("data-theme",e),t)try{localStorage.setItem("mateos-theme",e)}catch{}b()}r?.addEventListener("click",()=>g(y()==="dark"?"light":"dark"));p.addEventListener("change",()=>{try{localStorage.getItem("mateos-theme")||g(p.matches?"dark":"light",!1)}catch{}});b();const k=document.querySelectorAll(".nav-more");function m(){k.forEach(e=>{e.setAttribute("aria-expanded","false"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.remove("is-open")})}k.forEach(e=>{e.addEventListener("click",t=>{t.stopPropagation();const a=e.getAttribute("aria-expanded")==="true";m(),a||(e.setAttribute("aria-expanded","true"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.add("is-open"))})});document.addEventListener("click",m);document.addEventListener("keydown",e=>{e.key==="Escape"&&(m(),E())});const c=document.querySelector(".menu-btn"),i=document.getElementById("mobile-menu");function E(){c?.setAttribute("aria-expanded","false"),i&&(i.hidden=!0)}c?.addEventListener("click",e=>{e.stopPropagation(),c.getAttribute("aria-expanded")==="true"?E():(c.setAttribute("aria-expanded","true"),i&&(i.hidden=!1))});i?.addEventListener("click",e=>e.stopPropagation());const n=document.getElementById("xray-form");if(n){const e=n.dataset.key||"",t=n.querySelector("button[type=submit]"),a=document.getElementById("form-success"),o=document.getElementById("form-error");n.addEventListener("submit",async v=>{v.preventDefault();const d=n.elements.namedItem("email"),l=n.elements.namedItem("company"),x=n.elements.namedItem("note"),A=n.elements.namedItem("botcheck");if(o.hidden=!0,!d.checkValidity()){d.reportValidity();return}if(!l.checkValidity()){l.reportValidity();return}if(A.checked)return;if(!e){const he=document.documentElement.lang==="he",v=x.value.trim();o.textContent=he?"אפליקציית המייל אמורה להיפתח עם הבקשה מוכנה. אם היא לא נפתחת, כתבו ל-support@mateos.ai.":"Your email app should open with the request filled in. If it does not, write to support@mateos.ai.";o.hidden=!1;location.href="mailto:support@mateos.ai?subject="+encodeURIComponent("X-ray request: "+l.value.trim())+"&body="+encodeURIComponent("Email: "+d.value.trim()+"\nCompany: "+l.value.trim()+(v?"\n\n"+v:""));return}t.disabled=!0,t.textContent=n.dataset.sending||"...";const u=new AbortController,I=setTimeout(()=>u.abort(),15e3);try{const s=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:e,subject:"New X-ray request (mateos.ai)",from_name:"mateos.ai",email:d.value.trim(),company:l.value.trim(),note:x.value.trim(),page:location.pathname}),signal:u.signal}),f=await s.json().catch(()=>null);if(s.ok&&f?.success){n.querySelectorAll(".field, button").forEach(w=>w.hidden=!0),a.hidden=!1;return}console.error("[xray] submit failed",s.status,f)}catch(s){console.error("[xray] request failed",s)}finally{clearTimeout(I)}t.disabled=!1,t.textContent=n.dataset.retry||n.dataset.button||"",o.hidden=!1})}if(window.matchMedia("(prefers-reduced-motion: no-preference)").matches&&"IntersectionObserver"in window){const e=document.querySelectorAll(".cell, .step, .story, .person, .stat, .role-card");e.forEach(a=>a.classList.add("reveal"));const t=new IntersectionObserver(a=>{a.forEach(o=>{o.isIntersecting&&(o.target.classList.add("is-visible"),t.unobserve(o.target))})},{threshold:.1,rootMargin:"0px 0px -30px 0px"});e.forEach(a=>t.observe(a))}
-</script></head> <body>  <a class="skip" href="#main" data-astro-cid-3ef6ksr2>Skip to content</a> <header class="site-header" data-astro-cid-3ef6ksr2> <div class="wrap bar" data-astro-cid-3ef6ksr2> <a class="brand" href="./" data-astro-cid-3ef6ksr2> <svg width="26" height="26" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-3ef6ksr2> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-3ef6ksr2></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-3ef6ksr2></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-3ef6ksr2></circle> </svg> <span class="brand-name" data-astro-cid-3ef6ksr2>mateos<span class="brand-ai" data-astro-cid-3ef6ksr2>.ai</span></span> </a> <nav class="nav" aria-label="Main" data-astro-cid-3ef6ksr2> <ul class="nav-list" data-astro-cid-3ef6ksr2> <li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="how-we-work/" data-astro-cid-3ef6ksr2>How we work</a>  </li><li class="nav-item has-children" data-astro-cid-3ef6ksr2> <a class="nav-link" href="industries/" data-astro-cid-3ef6ksr2>Industries</a>  <button class="nav-more" type="button" aria-expanded="false" aria-label="Industries" data-menu="industries" data-astro-cid-3ef6ksr2> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><polyline points="6 9 12 15 18 9" data-astro-cid-3ef6ksr2></polyline></svg> </button> <ul class="nav-sub" id="menu-industries" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/insurance/" data-astro-cid-3ef6ksr2>Insurance</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/manufacturing/" data-astro-cid-3ef6ksr2>Manufacturing</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>Construction and real estate</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>Logistics and distribution</a></li> </ul>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="field-stories/" data-astro-cid-3ef6ksr2>Field stories</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="about/" data-astro-cid-3ef6ksr2>About</a>  </li> </ul> </nav> <div class="bar-right" data-astro-cid-3ef6ksr2> <a class="lang" href="he/" lang="he" hreflang="he" data-astro-cid-3ef6ksr2>עברית</a> <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" data-title="Switch theme" data-light="Light" data-dark="Dark" aria-label="Switch theme" data-astro-cid-3ef6ksr2> <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><circle cx="12" cy="12" r="4" data-astro-cid-3ef6ksr2></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-astro-cid-3ef6ksr2></path></svg> </button> <a class="btn btn-primary btn-sm nav-cta" href="contact/" data-astro-cid-3ef6ksr2>Start with an X-ray</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-astro-cid-3ef6ksr2> <svg class="ico-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M4 7h16M4 12h16M4 17h16" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M6 6l12 12M18 6L6 18" data-astro-cid-3ef6ksr2></path></svg> </button> </div> </div> <div class="mobile-menu" id="mobile-menu" hidden data-astro-cid-3ef6ksr2> <div class="wrap" data-astro-cid-3ef6ksr2> <ul class="m-list" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a class="m-link" href="mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="how-we-work/" data-astro-cid-3ef6ksr2>How we work</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="industries/" data-astro-cid-3ef6ksr2>Industries</a> <ul class="m-sub" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/insurance/" data-astro-cid-3ef6ksr2>Insurance</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/manufacturing/" data-astro-cid-3ef6ksr2>Manufacturing</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>Construction and real estate</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>Logistics and distribution</a></li> </ul> </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="field-stories/" data-astro-cid-3ef6ksr2>Field stories</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="about/" data-astro-cid-3ef6ksr2>About</a>  </li> </ul> <a class="btn btn-primary btn-lg m-cta" href="contact/" data-astro-cid-3ef6ksr2>Start with an X-ray</a> </div> </div> </header>   <main id="main"> <section class="hero dark" aria-labelledby="hero-h1" data-astro-cid-psngowx4><div class="wrap hero-grid" data-astro-cid-psngowx4><div class="hero-copy" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>Mateos</span><h1 id="hero-h1" data-astro-cid-psngowx4>It&#39;s your company.<br data-astro-cid-psngowx4><span class="amber" data-astro-cid-psngowx4>10x faster.</span></h1><p class="hero-sub" data-astro-cid-psngowx4>MateOS. Business processes that run themselves.</p><p class="hero-line" data-astro-cid-psngowx4>For owner-led companies. Priced on results.</p><div class="actions" data-astro-cid-psngowx4><a class="btn btn-primary btn-lg" href="contact/" data-astro-cid-psngowx4>Start with an X-ray</a><a class="btn btn-ghost btn-lg" href="how-we-work/" data-astro-cid-psngowx4>See how we work</a></div><p class="hero-caption" data-astro-cid-psngowx4>One day on site. From $990.</p></div><div class="hero-visual" data-astro-cid-psngowx4><div class="flow" role="img" aria-label="An example process: New lead, Qualify, Quote, Follow up, Closed deal. The Mateos layer: Access · Monitoring · Rules · Exception desk · Learning loop. Underneath: The ERP, CRM and mailboxes you already run. Nothing new to learn." data-slot="hero-mateos-overview" data-astro-cid-4ho7wgrt><span class="flow-cap" data-astro-cid-4ho7wgrt>An example process</span><ol class="flow-steps" aria-hidden="true" data-astro-cid-4ho7wgrt><li class="flow-step" data-astro-cid-4ho7wgrt>New lead</li><li class="flow-step" data-astro-cid-4ho7wgrt>Qualify</li><li class="flow-step" data-astro-cid-4ho7wgrt>Quote</li><li class="flow-step" data-astro-cid-4ho7wgrt>Follow up</li><li class="flow-step is-done" data-astro-cid-4ho7wgrt>Closed deal</li></ol><span class="flow-cap" data-astro-cid-4ho7wgrt>The Mateos layer</span><div class="flow-layer" aria-hidden="true" data-astro-cid-4ho7wgrt><svg width="20" height="20" viewBox="43 43 114 114" data-astro-cid-4ho7wgrt><circle cx="130" cy="70" r="27" fill="#14141E" data-astro-cid-4ho7wgrt></circle><circle cx="70" cy="130" r="27" fill="#14141E" data-astro-cid-4ho7wgrt></circle><circle cx="130" cy="130" r="27" fill="#14141E" data-astro-cid-4ho7wgrt></circle></svg><span data-astro-cid-4ho7wgrt>Access · Monitoring · Rules · Exception desk · Learning loop</span></div><span class="flow-cap" data-astro-cid-4ho7wgrt>Underneath</span><div class="flow-under" aria-hidden="true" data-astro-cid-4ho7wgrt>The ERP, CRM and mailboxes you already run. Nothing new to learn.</div></div></div></div></section><section class="section" data-astro-cid-psngowx4><div class="wrap split" data-astro-cid-psngowx4><div class="split-copy" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>The era</span><h2 class="h2" data-astro-cid-psngowx4>Inside the bubble everyone uses AI. Outside it, most businesses don&#39;t.</h2><div class="prose" data-astro-cid-psngowx4><p data-astro-cid-psngowx4>Most of the economy is still running on 2000. The first real AI use is the biggest jump a company will ever make, and the longer a company uses it, the bigger the gain.</p></div></div><div class="split-visual" data-astro-cid-psngowx4><figure class="photo photo-slot tone-1" style="aspect-ratio:4 / 3" data-slot="onsite-floor" role="img" aria-label="On site, with the people who do the work" data-astro-cid-w4fmld3g><svg class="mark" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-w4fmld3g><circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-w4fmld3g></circle><circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-w4fmld3g></circle><circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-w4fmld3g></circle></svg></figure></div></div></section><section class="section section-tight" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><ul class="stats" role="list" data-astro-cid-psngowx4><li class="stat" data-astro-cid-psngowx4><span class="stat-n" data-astro-cid-psngowx4>39%</span><span class="stat-t" data-astro-cid-psngowx4>of Israeli businesses use AI. Six in ten still do not.</span></li><li class="stat" data-astro-cid-psngowx4><span class="stat-n" data-astro-cid-psngowx4>76%</span><span class="stat-t" data-astro-cid-psngowx4>of the non-users say AI is not relevant to their business.</span></li><li class="stat" data-astro-cid-psngowx4><span class="stat-n" data-astro-cid-psngowx4>45%</span><span class="stat-t" data-astro-cid-psngowx4>of employed US adults use generative AI for work.</span></li></ul><p class="caption" data-astro-cid-psngowx4>Israel CBS, March and June 2026 · Bick, Blandin and Deming tracker, Q2 2026</p></div></section><section class="section dark" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>The problem</span><h2 class="h2" data-astro-cid-psngowx4>AI skipped the room that runs the company.</h2><p class="lead" data-astro-cid-psngowx4>The problem is no longer the technology.</p><div class="grid cols-2 style-cards" data-astro-cid-psngowx4><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>Generic.</h3><p data-astro-cid-psngowx4>Another tool, another bot, another demo. Enterprise contracts and chatbots were built for someone else. The next morning the business runs the same.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>Nobody sells to this room.</h3><p data-astro-cid-psngowx4>Twenty people at 6 a.m. updating claims by hand. No vendor builds for them, and the owner cannot buy a seat, a team or a platform.</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>One veteran is the memory.</h3><p data-astro-cid-psngowx4>She holds every exception in her head. The plan gets built at 4 a.m. from rules nobody wrote down. What happens when she retires?</p></article><article class="cell" data-astro-cid-psngowx4><h3 data-astro-cid-psngowx4>Dirty data, no learning.</h3><p data-astro-cid-psngowx4>Garbage goes in, nothing is learned. A five-hour day of meetings becomes 420 tasks, 410 of them wrong, and nobody has time to check.</p></article></div></div></section><section class="section subtle" id="ladder" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>Three steps</span><h2 class="h2" data-astro-cid-psngowx4>Pick a process. We make it 10x faster. In weeks.</h2><p class="lead" data-astro-cid-psngowx4>Cheap. Simple. Measurable. Decided in a day. Something the CEO can say yes to alone, without taking a real risk.</p><ol class="ladder" role="list" data-astro-cid-psngowx4><li class="step is-first" data-astro-cid-psngowx4><span class="step-n" aria-hidden="true" data-astro-cid-psngowx4>1</span><h3 data-astro-cid-psngowx4>X-ray</h3><p class="step-price" data-astro-cid-psngowx4>From $990</p><p data-astro-cid-psngowx4>One day on site with the people who do the work, or one small agent. Every process ranked by payback.</p></li><li class="step" data-astro-cid-psngowx4><span class="step-n" aria-hidden="true" data-astro-cid-psngowx4>2</span><h3 data-astro-cid-psngowx4>Pilot</h3><p class="step-price" data-astro-cid-psngowx4>Scoped per process</p><p data-astro-cid-psngowx4>One process. One number. A clear bar. Live in weeks.</p></li><li class="step" data-astro-cid-psngowx4><span class="step-n" aria-hidden="true" data-astro-cid-psngowx4>3</span><h3 data-astro-cid-psngowx4>Processes on MateOS</h3><p class="step-price" data-astro-cid-psngowx4>Scoped per process</p><p data-astro-cid-psngowx4>The next process, and the next, on the same system. Two at a time, up to eight months.</p></li></ol><div class="ladder-under" data-astro-cid-psngowx4><p data-astro-cid-psngowx4>You stay in charge. Start with an X-ray. Stop at any step.</p><p data-astro-cid-psngowx4>Success criteria, stop rule and red lines are agreed before the first line of code is written.</p><p class="lead-strong" data-astro-cid-psngowx4>Measured on a number the owner champions. Part of our fee rides on that number.</p></div></div></section><section class="section dark" data-astro-cid-psngowx4><div class="wrap split reverse" data-astro-cid-psngowx4><div class="split-copy" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>The product</span><h2 class="h2" data-astro-cid-psngowx4>One OS runs the whole process.</h2><div class="prose" data-astro-cid-psngowx4><p data-astro-cid-psngowx4>No new screen. Your staff keep working in their ERP, their mailbox, WhatsApp and Excel. The owner sets the rules: max 10% discount, no PO no payment. A human approves every output. The veteran&#39;s exceptions become rules, so the system learns your business, not the other way round.</p></div><ul class="bullets" data-astro-cid-psngowx4><li data-astro-cid-psngowx4><strong data-astro-cid-psngowx4>Always hybrid.</strong> <span data-astro-cid-psngowx4>The agents run behind the scenes. A person you can call stays in the room.</span></li><li data-astro-cid-psngowx4><strong data-astro-cid-psngowx4>Built for 60 people and no IT department.</strong> <span data-astro-cid-psngowx4>Live in weeks, not quarters.</span></li><li data-astro-cid-psngowx4><strong data-astro-cid-psngowx4>Full audit trail.</strong> <span data-astro-cid-psngowx4>Built to Israel&#39;s Privacy Amendment 13.</span></li></ul><div class="actions" data-astro-cid-psngowx4><a class="btn btn-ghost" href="mateos/" data-astro-cid-psngowx4>See MateOS</a></div></div><div class="split-visual" data-astro-cid-psngowx4><div class="bands" role="list" data-astro-cid-4ho7wgrt><div class="band" role="listitem" data-astro-cid-4ho7wgrt><span class="band-label" data-astro-cid-4ho7wgrt>An example process</span><span class="band-text" data-astro-cid-4ho7wgrt>New lead → Qualify → Quote → Follow up → Closed deal</span></div><div class="band band-amber" role="listitem" data-astro-cid-4ho7wgrt><span class="band-label" data-astro-cid-4ho7wgrt>The Mateos layer</span><span class="band-text" data-astro-cid-4ho7wgrt>Access · Monitoring · Rules · Exception desk · Learning loop</span></div><div class="band" role="listitem" data-astro-cid-4ho7wgrt><span class="band-label" data-astro-cid-4ho7wgrt>Underneath</span><span class="band-text" data-astro-cid-4ho7wgrt>The ERP, CRM and mailboxes you already run. Nothing new to learn.</span></div></div></div></div></section><section class="section subtle" data-astro-cid-psngowx4><div class="wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>From the field</span><h2 class="h2" data-astro-cid-psngowx4>Three rooms we sat in.</h2><div class="stories" data-astro-cid-psngowx4><article class="story edge-amber" data-astro-cid-psngowx4><h3 class="story-h" data-astro-cid-psngowx4>04:00 in the morning.</h3><p data-astro-cid-psngowx4>Every morning at four, one person sits and builds tomorrow&#39;s delivery routes in his head. All that knowledge? Only with him.</p><p data-astro-cid-psngowx4>We gave our system the history. It built the same plan. Alone.</p><p class="caption" data-astro-cid-psngowx4>Medical equipment distributor. Prototype tested on past data.</p></article><article class="story edge-teal" data-astro-cid-psngowx4><h3 class="story-h" data-astro-cid-psngowx4>9,700 hours a year.</h3><p data-astro-cid-psngowx4>That is the time the claims department of a large insurance agency spends reading medical files. By hand.</p><p data-astro-cid-psngowx4>After two days on site we knew how to give it back. Now we are doing it.</p><p class="caption" data-astro-cid-psngowx4>Insurance agency, 800 employees. Estimate from team interviews. Pilot in delivery.</p></article><article class="story edge-indigo" data-astro-cid-psngowx4><h3 class="story-h" data-astro-cid-psngowx4>“Hold on, I&#39;m checking with the office.”</h3><p data-astro-cid-psngowx4>That is what a veteran plant&#39;s sales rep says to a customer. On every price, every discount, every order.</p><p data-astro-cid-psngowx4>We are building him the answer on WhatsApp, straight from the plant&#39;s own systems, in seconds.</p><p class="caption" data-astro-cid-psngowx4>Manufacturing plant in the north. In development, inside the plant&#39;s existing systems.</p></article></div><p class="more" data-astro-cid-psngowx4><a class="link-arrow" href="field-stories/" data-astro-cid-psngowx4>All field stories</a></p></div></section><section class="section dark cta" id="start" data-astro-cid-psngowx4><div class="wrap cta-inner" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>Your move</span><h2 class="h2" data-astro-cid-psngowx4>It&#39;s your company. Your move.</h2><p class="lead" data-astro-cid-psngowx4>Start with an X-ray. One day on site with the people who do the work, or one small agent. Every process ranked by payback. From $990.</p><div class="actions" data-astro-cid-psngowx4><a class="btn btn-primary btn-lg" href="contact/" data-astro-cid-psngowx4>Start with an X-ray</a><a class="btn btn-ghost btn-lg" href="contact/" data-astro-cid-psngowx4>Talk to us first</a></div></div></section> </main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="wrap" data-astro-cid-sz7xmlte> <div class="f-top" data-astro-cid-sz7xmlte> <div class="f-brand" data-astro-cid-sz7xmlte> <a class="brand" href="./" data-astro-cid-sz7xmlte> <svg width="30" height="30" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-sz7xmlte> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-sz7xmlte></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-sz7xmlte></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-sz7xmlte></circle> </svg> <span class="brand-name" data-astro-cid-sz7xmlte>mateos<span class="brand-ai" data-astro-cid-sz7xmlte>.ai</span></span> </a> <p class="f-tag" data-astro-cid-sz7xmlte>It&#39;s your company. 10x faster.</p> </div> <nav class="f-cols" aria-label="Footer" data-astro-cid-sz7xmlte> <div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Product</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="mateos/" data-astro-cid-sz7xmlte>MateOS</a></li><li data-astro-cid-sz7xmlte><a href="how-we-work/" data-astro-cid-sz7xmlte>How we work</a></li><li data-astro-cid-sz7xmlte><a href="security-and-control/" data-astro-cid-sz7xmlte>Security and control</a></li><li data-astro-cid-sz7xmlte><a href="field-stories/" data-astro-cid-sz7xmlte>Field stories</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Industries</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="industries/insurance/" data-astro-cid-sz7xmlte>Insurance</a></li><li data-astro-cid-sz7xmlte><a href="industries/manufacturing/" data-astro-cid-sz7xmlte>Manufacturing</a></li><li data-astro-cid-sz7xmlte><a href="industries/construction-and-real-estate/" data-astro-cid-sz7xmlte>Construction and real estate</a></li><li data-astro-cid-sz7xmlte><a href="industries/logistics-and-distribution/" data-astro-cid-sz7xmlte>Logistics and distribution</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Company</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="about/" data-astro-cid-sz7xmlte>About</a></li><li data-astro-cid-sz7xmlte><a href="careers/" data-astro-cid-sz7xmlte>Careers</a></li><li data-astro-cid-sz7xmlte><a href="contact/" data-astro-cid-sz7xmlte>Contact</a></li><li data-astro-cid-sz7xmlte><a href="mailto:support@mateos.ai" data-astro-cid-sz7xmlte>support@mateos.ai</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Legal</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="privacy/" data-astro-cid-sz7xmlte>Privacy policy</a></li><li data-astro-cid-sz7xmlte><a href="accessibility/" data-astro-cid-sz7xmlte>Accessibility</a></li> </ul> </div> </nav> </div> <div class="f-bottom" data-astro-cid-sz7xmlte> <p class="f-legal" data-astro-cid-sz7xmlte>Mateos AI, Inc., a Delaware corporation. Israel, with operations in New York.</p> <p class="f-copy" data-astro-cid-sz7xmlte>© 2026 Mateos AI, Inc. All rights reserved.</p> </div> </div> </footer>    </body> </html>
-</body></html>
+    </script><script>(function(d){try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('v7-motion');setTimeout(function(){if(!d.classList.contains('v7-ready'))d.classList.remove('v7-motion')},2500)}}catch(e){}})(document.documentElement)</script><link rel="stylesheet" href="assets/site.css"><link rel="stylesheet" href="assets/v7.css"><script type="module">const h=document.documentElement,p=window.matchMedia("(prefers-color-scheme: dark)"),r=document.getElementById("theme-toggle");function y(){return h.getAttribute("data-theme")==="dark"?"dark":"light"}function b(){if(!r)return;const e=y()==="dark";r.setAttribute("aria-pressed",String(e));const t=e?r.dataset.light:r.dataset.dark;r.setAttribute("aria-label",`${r.dataset.title}: ${t}`),r.setAttribute("title",`${r.dataset.title}: ${t}`)}function g(e,t=!0){if(h.setAttribute("data-theme",e),t)try{localStorage.setItem("mateos-theme",e)}catch{}b()}r?.addEventListener("click",()=>g(y()==="dark"?"light":"dark"));p.addEventListener("change",()=>{try{localStorage.getItem("mateos-theme")||g(p.matches?"dark":"light",!1)}catch{}});b();const k=document.querySelectorAll(".nav-more");function m(){k.forEach(e=>{e.setAttribute("aria-expanded","false"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.remove("is-open")})}k.forEach(e=>{e.addEventListener("click",t=>{t.stopPropagation();const a=e.getAttribute("aria-expanded")==="true";m(),a||(e.setAttribute("aria-expanded","true"),document.getElementById(`menu-${e.dataset.menu}`)?.classList.add("is-open"))})});document.addEventListener("click",m);document.addEventListener("keydown",e=>{e.key==="Escape"&&(m(),E())});const c=document.querySelector(".menu-btn"),i=document.getElementById("mobile-menu");function E(){c?.setAttribute("aria-expanded","false"),i&&(i.hidden=!0)}c?.addEventListener("click",e=>{e.stopPropagation(),c.getAttribute("aria-expanded")==="true"?E():(c.setAttribute("aria-expanded","true"),i&&(i.hidden=!1))});i?.addEventListener("click",e=>e.stopPropagation());const n=document.getElementById("xray-form");if(n){const e=n.dataset.key||"",t=n.querySelector("button[type=submit]"),a=document.getElementById("form-success"),o=document.getElementById("form-error");n.addEventListener("submit",async v=>{v.preventDefault();const d=n.elements.namedItem("email"),l=n.elements.namedItem("company"),x=n.elements.namedItem("note"),A=n.elements.namedItem("botcheck");if(o.hidden=!0,!d.checkValidity()){d.reportValidity();return}if(!l.checkValidity()){l.reportValidity();return}if(A.checked)return;if(!e){const he=document.documentElement.lang==="he",v=x.value.trim();o.textContent=he?"אפליקציית המייל אמורה להיפתח עם הבקשה מוכנה. אם היא לא נפתחת, כתבו ל-hello@mateos.ai.":"Your email app should open with the request filled in. If it does not, write to hello@mateos.ai.";o.hidden=!1;location.href="mailto:hello@mateos.ai?subject="+encodeURIComponent("X-ray request: "+l.value.trim())+"&body="+encodeURIComponent("Email: "+d.value.trim()+"\nCompany: "+l.value.trim()+(v?"\n\n"+v:""));return}t.disabled=!0,t.textContent=n.dataset.sending||"...";const u=new AbortController,I=setTimeout(()=>u.abort(),15e3);try{const s=await fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify({access_key:e,subject:"New X-ray request (mateos.ai)",from_name:"mateos.ai",email:d.value.trim(),company:l.value.trim(),note:x.value.trim(),page:location.pathname}),signal:u.signal}),f=await s.json().catch(()=>null);if(s.ok&&f?.success){n.querySelectorAll(".field, button").forEach(w=>w.hidden=!0),a.hidden=!1;return}console.error("[xray] submit failed",s.status,f)}catch(s){console.error("[xray] request failed",s)}finally{clearTimeout(I)}t.disabled=!1,t.textContent=n.dataset.retry||n.dataset.button||"",o.hidden=!1})}if(window.matchMedia("(prefers-reduced-motion: no-preference)").matches&&"IntersectionObserver"in window){const e=document.querySelectorAll(".cell, .step, .story, .person, .stat, .role-card");e.forEach(a=>a.classList.add("reveal"));const t=new IntersectionObserver(a=>{a.forEach(o=>{o.isIntersecting&&(o.target.classList.add("is-visible"),t.unobserve(o.target))})},{threshold:.1,rootMargin:"0px 0px -30px 0px"});e.forEach(a=>t.observe(a))}
+</script><script src="assets/v7.js" defer></script></head> <body>  <a class="skip" href="#main" data-astro-cid-3ef6ksr2>Skip to content</a> <header class="site-header" data-astro-cid-3ef6ksr2> <div class="wrap bar" data-astro-cid-3ef6ksr2> <a class="brand" href="./" data-astro-cid-3ef6ksr2> <svg width="26" height="26" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-3ef6ksr2> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-3ef6ksr2></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-3ef6ksr2></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-3ef6ksr2></circle> </svg> <span class="brand-name" data-astro-cid-3ef6ksr2>mateos<span class="brand-ai" data-astro-cid-3ef6ksr2>.ai</span></span> </a> <nav class="nav" aria-label="Main" data-astro-cid-3ef6ksr2> <ul class="nav-list" data-astro-cid-3ef6ksr2> <li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="how-we-work/" data-astro-cid-3ef6ksr2>How we work</a>  </li><li class="nav-item has-children" data-astro-cid-3ef6ksr2> <a class="nav-link" href="industries/" data-astro-cid-3ef6ksr2>Industries</a>  <button class="nav-more" type="button" aria-expanded="false" aria-label="Industries" data-menu="industries" data-astro-cid-3ef6ksr2> <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><polyline points="6 9 12 15 18 9" data-astro-cid-3ef6ksr2></polyline></svg> </button> <ul class="nav-sub" id="menu-industries" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/insurance/" data-astro-cid-3ef6ksr2>Insurance</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/manufacturing/" data-astro-cid-3ef6ksr2>Manufacturing</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>Construction and real estate</a></li><li data-astro-cid-3ef6ksr2><a class="nav-sublink" href="industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>Logistics and distribution</a></li> </ul>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="security-and-control/" data-astro-cid-3ef6ksr2>Security</a>  </li><li class="nav-item" data-astro-cid-3ef6ksr2> <a class="nav-link" href="about/" data-astro-cid-3ef6ksr2>About</a>  </li> </ul> </nav> <div class="bar-right" data-astro-cid-3ef6ksr2> <a class="lang" href="he/" lang="he" hreflang="he" data-astro-cid-3ef6ksr2>עברית</a> <button id="theme-toggle" class="theme-toggle" type="button" aria-pressed="false" data-title="Switch theme" data-light="Light" data-dark="Dark" aria-label="Switch theme" data-astro-cid-3ef6ksr2> <svg class="ico-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><circle cx="12" cy="12" r="4" data-astro-cid-3ef6ksr2></circle><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" data-astro-cid-3ef6ksr2></path></svg> </button> <a class="btn btn-primary btn-sm nav-cta" href="contact/" data-astro-cid-3ef6ksr2>Start with an X-ray</a> <button class="menu-btn" type="button" aria-expanded="false" aria-controls="mobile-menu" aria-label="Menu" data-astro-cid-3ef6ksr2> <svg class="ico-menu" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M4 7h16M4 12h16M4 17h16" data-astro-cid-3ef6ksr2></path></svg> <svg class="ico-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" data-astro-cid-3ef6ksr2><path d="M6 6l12 12M18 6L6 18" data-astro-cid-3ef6ksr2></path></svg> </button> </div> </div> <div class="mobile-menu" id="mobile-menu" hidden data-astro-cid-3ef6ksr2> <div class="wrap" data-astro-cid-3ef6ksr2> <ul class="m-list" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2> <a class="m-link" href="mateos/" data-astro-cid-3ef6ksr2>MateOS</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="how-we-work/" data-astro-cid-3ef6ksr2>How we work</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="industries/" data-astro-cid-3ef6ksr2>Industries</a> <ul class="m-sub" data-astro-cid-3ef6ksr2> <li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/insurance/" data-astro-cid-3ef6ksr2>Insurance</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/manufacturing/" data-astro-cid-3ef6ksr2>Manufacturing</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/construction-and-real-estate/" data-astro-cid-3ef6ksr2>Construction and real estate</a></li><li data-astro-cid-3ef6ksr2><a class="m-sublink" href="industries/logistics-and-distribution/" data-astro-cid-3ef6ksr2>Logistics and distribution</a></li> </ul> </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="security-and-control/" data-astro-cid-3ef6ksr2>Security and control</a>  </li><li data-astro-cid-3ef6ksr2> <a class="m-link" href="about/" data-astro-cid-3ef6ksr2>About</a>  </li> </ul> <a class="btn btn-primary btn-lg m-cta" href="contact/" data-astro-cid-3ef6ksr2>Start with an X-ray</a> </div> </div> </header>   <main id="main">
+<svg class="v7-sprite" aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+<symbol id="i-mark" overflow="visible"><!-- no viewBox: the outer svg.v7-mark carries viewBox="43 43 114 114"; a second one would offset the dots --><circle cx="130" cy="70" r="27" fill="#FF8C42"/><circle cx="70" cy="130" r="27" fill="#17BEBB"/><circle cx="130" cy="130" r="27" fill="#5B53E8"/></symbol>
+<symbol id="i-goal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1.5"/></symbol>
+<symbol id="i-flow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="12" r="2"/><path d="M6 7v10M6 12h10"/></symbol>
+<symbol id="i-monitor" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/></symbol>
+<symbol id="i-inbox" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M3 13l3-8h12l3 8v6H3z"/><path d="M3 13h5l1 2h6l1-2h5"/></symbol>
+<symbol id="i-rules" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6h11M10 12h11M10 18h11"/><path d="M3 6l1.5 1.5L7 5M3 12l1.5 1.5L7 11M3 18l1.5 1.5L7 17"/></symbol>
+<symbol id="i-audit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-settings" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h9M17 6h3M4 12h3M11 12h9M4 18h11M19 18h1"/><circle cx="15" cy="6" r="2"/><circle cx="9" cy="12" r="2"/><circle cx="17" cy="18" r="2"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></symbol>
+<symbol id="i-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="i-person" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></symbol>
+<symbol id="i-db" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></symbol>
+<symbol id="i-sheet" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></symbol>
+<symbol id="i-doc" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 13h6M9 17h6"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12l16-8-6 16-3-6z"/></symbol>
+<symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+<symbol id="i-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></symbol>
+<symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></symbol>
+<symbol id="i-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6v12M15 6v12"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5l11 7-11 7z"/></symbol>
+<symbol id="i-replay" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.3-5.6"/><path d="M4 4v4h4"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l9.5 17h-19z"/><path d="M12 10v4M12 17v.5"/></symbol>
+<symbol id="i-shield" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></symbol>
+<symbol id="i-building" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 21V5l8-2v18M12 9h8v12"/><path d="M8 8h.01M8 12h.01M8 16h.01M16 13h.01M16 17h.01"/></symbol>
+<symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+<symbol id="i-cursor" viewBox="0 0 24 24"><path d="M5 3l14 7-6 2-2 6z" style="fill:var(--m-cursor-fill);stroke:var(--m-cursor-stroke)" stroke-width="1.5" stroke-linejoin="round"/></symbol>
+</svg>
+
+<section class="v7-band-dark v7-hero v7-home-hero" id="top" aria-labelledby="hero-h1">
+  <div class="v7-wrap-wide v7-hero-grid">
+    <div class="v7-hero-copy">
+      <span class="eyebrow" data-v7-reveal>MateOS</span>
+      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>Reverse <br class="v7-h1-br">the build.</span></span><span class="v7-line"><span>10x faster.</span></span></h1>
+      <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
+        <li data-stage="goal" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">Set the goal.</span></li>
+        <li data-stage="flows" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">Mate builds the flows.</span></li>
+        <li data-stage="track" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">Mate keeps you on track.</span></li>
+      </ol>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href="contact/">Start with an X-ray</a><a class="btn btn-lg v7-btn-ghost" href="mateos/#tour">Take the tour</a></div>
+      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="640">For owner-led companies with no CTO. X-ray&nbsp;from&nbsp;$990.</p>
+    </div>
+    <figure class="v7-figure m-hero-fig" data-v7-reveal="rise" data-v7-delay="300">
+      <div class="v7-mock m-hero v7-cursor-host" data-v7-mock="M1" data-v7-play="loop" data-v7-start-delay="400" data-v7-threshold=".12" aria-hidden="true" inert>
+        <div class="m-hero-in">
+          <div class="m-hero-head"><span class="m-hero-label">MateOS · new goal</span><span class="v7-preview-tag">Product preview</span></div>
+          <div class="m-hero-goal v7-card">
+            <svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg>
+            <div class="m-hero-field"><p class="m-hero-text">Get <span class="m-hero-hl" data-k="target">90%</span> of <span class="m-hero-hl" data-k="metric">quotes out within 4 hours</span> by <span class="m-hero-hl" data-k="date">January 15</span>.</p><span class="m-hero-ph" data-v7-gone>Set a goal…</span></div>
+            <span class="m-hero-enter"><kbd class="v7-kbd">↵</kbd><span>Set goal</span></span>
+          </div>
+          <div class="m-hero-chips">
+            <span class="v7-chip"><b>Metric</b><span>Quotes out within 4 h</span></span>
+            <span class="v7-chip"><b>Baseline</b><span>6% at start</span></span>
+            <span class="v7-chip is-you"><b>Target</b><span>90% by Jan 15</span></span>
+          </div>
+          <div class="m-hero-flows v7-card">
+            <div class="m-hero-fhead"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><span class="m-hero-fstat">Mate built 7 steps</span><span class="v7-thinking" data-v7-gone><i></i><i></i><i></i></span><span class="v7-pill m-hero-ready" data-tone="ok">Ready</span></div>
+            <ol class="m-hero-nodes">
+              <li class="v7-node is-compact" data-kind="trigger"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-mail"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Request in</b><span class="v7-node-m">Mailbox</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="mate"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Read and match</b><span class="v7-node-m">ERP, read-only</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="mate"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Check stock</b><span class="v7-node-m">ERP, read-only</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="rule"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-rules"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Price</b><span class="v7-node-m">Rule: max 10%</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="mate"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-doc"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Draft quote</b><span class="v7-node-m">Mate</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="person"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-person"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Approve</b><span class="v7-node-m">Dana K.</span></span><i class="m-hero-link"></i></li>
+              <li class="v7-node is-compact" data-kind="action"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-send"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Send and log</b><span class="v7-node-m">Mailbox</span></span></li>
+            </ol>
+            <div class="m-hero-note v7-card" data-v7-gone>
+              <span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span>
+              <p>Long files wait in line. Fix: summarize them overnight.</p>
+              <span class="m-hero-acts"><span class="v7-fbtn is-primary">Approve</span><span class="v7-fbtn is-ghost">Details</span></span>
+            </div>
+            <i class="m-hero-dot" data-v7-gone></i>
+          </div>
+          <div class="m-hero-foot">
+            <div class="m-hero-track v7-card">
+              <div class="m-hero-row">
+                <b class="m-hero-name">Quotes out within 4 h</b>
+                <span class="m-hero-week">Week 5 of 10</span>
+                <span class="m-hero-val">51%</span>
+                <span class="v7-pill m-hero-status" data-tone="ok">On track</span>
+              </div>
+              <div class="m-hero-row2">
+                <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.51"></i><i class="v7-bar-tick" style="--at:.06"></i><i class="v7-bar-flag" style="--at:.9"><b>Target</b></i></span>
+                <svg class="m-hero-spark" viewBox="0 0 120 28" dir="ltr"><path class="m-hero-area" d="M2 24.6 L25.2 24.1 L48.4 21.4 L71.6 18.1 L94.8 15.4 L118 13.8 L118 28 L2 28 Z"/><path class="m-hero-line" d="M2 24.6 L25.2 24.1 L48.4 21.4 L71.6 18.1 L94.8 15.4 L118 13.8"/><circle cx="118" cy="13.8" r="2.25"/></svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <span class="v7-cursor"><svg viewBox="0 0 24 24"><use href="#i-cursor"/></svg></span><span class="v7-tap"></span>
+      </div>
+      <button class="v7-pause" type="button" aria-label="Pause animation"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
+      <figcaption class="sr-only">Product preview: a goal is typed, 'Get 90% of quotes out within 4 hours by January 15.' Mate turns it into a metric, a 6% baseline and a 90% target, builds seven steps from the mailbox through the ERP to an approval by Dana K., and the goal shows 51%, on track. Two more examples follow: rep price answers on WhatsApp, and claim letters drafted the same day.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="v7-sec" id="reverse" aria-labelledby="reverse-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal>The gap</span>
+    <h2 class="v7-h2" id="reverse-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>Most AI starts with tools.</span></span></h2>
+    <ul class="v7-gap" data-v7-stagger="100" data-v7-delay="120">
+      <li data-v7-reveal><span class="v7-gap-num"><span aria-hidden="true">61%</span><span class="sr-only">61%</span></span><span class="v7-gap-line">of Israeli businesses still don’t use AI.</span></li>
+      <li data-v7-reveal><span class="v7-gap-num"><span aria-hidden="true">76%</span><span class="sr-only">76%</span></span><span class="v7-gap-line">of them say it isn’t relevant to their business.</span></li>
+    </ul>
+    <p class="v7-source" data-v7-reveal="fade" data-v7-delay="320">Israel CBS, March and June 2026</p>
+    <p class="v7-bridge" data-v7-reveal data-v7-delay="400">MateOS starts with your number.</p>
+    <div class="k-flip" data-v7-flip aria-hidden="true">
+      <p class="k-flip-old"><span class="v7-label">Old way</span> <s>Buy tools. Draw the processes. Hope the number moves.</s></p>
+      <p class="k-flip-label v7-label"><span class="k-lab">MateOS way</span></p>
+      <ol class="k-flip-list">
+        <li class="k-row" data-tone="you"  data-old-order="3"><span class="k-dot"></span><span class="k-text"><span class="k-new">Set the goal.</span><span class="k-old">Hope the number moves.</span></span></li>
+        <li class="k-row" data-tone="mate" data-old-order="2"><span class="k-dot"></span><span class="k-text"><span class="k-new">Mate builds the flows.</span><span class="k-old">Draw the processes.</span></span></li>
+        <li class="k-row" data-tone="ok"   data-old-order="1"><span class="k-dot"></span><span class="k-text"><span class="k-new">Mate keeps you on track.</span><span class="k-old">Buy tools.</span></span></li>
+      </ol>
+      <p class="k-caption">The number comes <s class="k-last">last.</s> <span class="k-first">first.</span></p>
+    </div>
+    <p class="sr-only">Reverse the build. The old way: buy tools, draw the processes, hope the number moves. The MateOS way: set the goal, Mate builds the flows, Mate keeps you on track. The number comes first.</p>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle" id="how" aria-labelledby="how-h">
+  <div class="v7-wrap-wide v7-how" data-v7-steps>
+    <h2 id="how-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span>How it works</span></span></h2>
+    <div class="v7-how-step" data-step="1" data-v7-reveal>
+      <p class="v7-label"><i data-tone="you"></i>Goal</p>
+      <h3 class="v7-h3"><span class="v7-sent">A number and a date.</span> <span class="v7-sent">That’s the spec.</span></h3>
+    </div>
+    <figure class="v7-figure v7-fig-app v7-how-win" data-step="1" style="--v7-app-h:516px">
+      <div class="v7-mock v7-app v7-cursor-host" aria-hidden="true" inert>
+        <div class="v7-app-top">
+          <span class="v7-app-brand"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>MateOS</b><i>/</i><span class="v7-app-ws">Your company <small>Sample data</small></span></span>
+          <span class="v7-app-title">New goal</span>
+          <span class="v7-app-search"><svg class="v7-ic"><use href="#i-search"/></svg>Ask Mate or search<kbd class="v7-kbd">⌘K</kbd></span>
+          <span class="v7-app-end"><span class="v7-preview-tag">Product preview</span><span class="v7-avatar is-you"><svg class="v7-ic"><use href="#i-person"/></svg></span></span>
+        </div>
+        <div class="v7-app-body">
+          <nav class="v7-app-nav">
+            <span class="v7-nav-item" data-nav="goals" data-active><svg class="v7-ic"><use href="#i-goal"/></svg><span>Goals</span></span>
+            <span class="v7-nav-item" data-nav="flows"><svg class="v7-ic"><use href="#i-flow"/></svg><span>Flows</span></span>
+            <span class="v7-nav-item" data-nav="monitor"><svg class="v7-ic"><use href="#i-monitor"/></svg><span>Monitor</span></span>
+            <span class="v7-nav-item" data-nav="exceptions"><svg class="v7-ic"><use href="#i-inbox"/></svg><span>Exceptions</span><b class="v7-nav-badge">2</b></span>
+            <span class="v7-nav-item" data-nav="rules"><svg class="v7-ic"><use href="#i-rules"/></svg><span>Rules</span></span>
+            <span class="v7-nav-item" data-nav="audit"><svg class="v7-ic"><use href="#i-audit"/></svg><span>Audit</span></span>
+            <hr>
+            <span class="v7-nav-item" data-nav="settings"><svg class="v7-ic"><use href="#i-settings"/></svg><span>Settings</span></span>
+            <div class="v7-app-conn"><p>Connected</p>
+              <span><i></i>ERP · read-only</span><span><i></i>Mailbox · after approval</span><span><i></i>WhatsApp · approvals</span><span><i></i>Excel · read-only</span>
+            </div>
+            <div class="v7-app-mate"><span class="v7-live"></span>Mate · watching 3 goals</div>
+          </nav>
+          <div class="v7-app-main"><div class="v7-screen m-goal" data-v7-mock="M3" data-v7-play="host" data-nav="goals" data-title="New goal">
+      <p class="m-goal-crumb"><span>Goals</span><i>/</i><b>New goal</b></p>
+      <div class="m-goal-grid">
+        <div class="v7-card m-goal-comp">
+          <p class="m-goal-label">What should change?</p>
+          <div class="m-goal-field"><span class="m-goal-text">Get 90% of quotes out within 4 hours by January 15.</span></div>
+          <div class="m-goal-und">
+            <p class="m-goal-uh"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><span class="m-goal-uht">Mate understood</span></p>
+            <dl class="m-goal-dl">
+              <div class="m-goal-row"><dt>Metric</dt><dd>Share of quote requests answered within 4&nbsp;h</dd></div>
+              <div class="m-goal-row"><dt>Baseline</dt><dd><span><b class="m-goal-base v7-num">6%</b> <span class="m-goal-nw">· median 2.1&nbsp;days</span> <span class="m-goal-nw">· last 90&nbsp;days</span></span><span class="v7-src m-goal-src"><svg class="v7-ic"><use href="#i-db"/></svg>Mailbox + ERP · read-only</span></dd></div>
+              <div class="m-goal-row"><dt>Target</dt><dd><b class="m-goal-tgt v7-num">90%</b></dd></div>
+              <div class="m-goal-row"><dt>Deadline</dt><dd><bdi>Jan 15</bdi> <span class="m-goal-nw">· 10 weeks</span></dd></div>
+              <div class="m-goal-row m-goal-owner"><dt>Owner</dt><dd><span class="v7-avatar">DK</span><span>Dana K. <span class="m-goal-nw">· Sales manager</span></span></dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="v7-card m-goal-mate">
+          <p class="m-goal-mh"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><b>Mate</b><span class="m-goal-qn">2 questions</span></p>
+          <div class="m-goal-qs">
+            <div class="m-goal-qa">
+              <p class="m-goal-q m-goal-q1"><span class="m-goal-qt">Who approves quotes above <bdi>$50,000</bdi>?</span></p>
+              <p class="m-goal-as"><span class="m-goal-a" data-selected><svg class="v7-ic"><use href="#i-check"/></svg>You · Owner</span><span class="m-goal-a">Dana K.</span></p>
+            </div>
+            <div class="m-goal-qa">
+              <p class="m-goal-q m-goal-q2"><span class="m-goal-qt">Should discounts above 10% always need a manager?</span></p>
+              <p class="m-goal-as"><span class="m-goal-a" data-selected><svg class="v7-ic"><use href="#i-check"/></svg>Yes</span><span class="m-goal-a">Up to 12%</span></p>
+            </div>
+          </div>
+          <p class="m-goal-foot"><span class="v7-fbtn is-ghost">Save draft</span><span class="v7-fbtn is-primary m-goal-build">Build flows</span></p>
+        </div>
+      </div>
+    </div></div>
+        </div>
+        <span class="v7-cursor"><svg viewBox="0 0 24 24"><use href="#i-cursor"/></svg></span><span class="v7-tap"></span>
+      </div>
+      <figcaption class="sr-only">Product preview: setting a goal. The owner types 'Get 90% of quotes out within 4 hours by January 15.' Mate reads it as a metric with a 6% baseline from the last 90 days, a 90% target by January 15 and Dana K. as owner, then asks who approves large quotes and whether discounts above 10% need a manager.</figcaption>
+    </figure>
+    <div class="v7-how-step" data-step="2" data-v7-reveal>
+      <p class="v7-label"><i data-tone="mate"></i>Flows</p>
+      <h3 class="v7-h3">Built back from the goal.</h3>
+      <p class="v7-how-p">In the ERP, mailbox, WhatsApp and Excel you already use.</p>
+    </div>
+    <figure class="v7-figure v7-fig-app v7-how-win" data-step="2" style="--v7-app-h:516px">
+      <div class="v7-mock v7-app v7-cursor-host" aria-hidden="true" inert>
+        <div class="v7-app-top">
+          <span class="v7-app-brand"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>MateOS</b><i>/</i><span class="v7-app-ws">Your company <small>Sample data</small></span></span>
+          <span class="v7-app-title">Quote turnaround</span>
+          <span class="v7-app-search"><svg class="v7-ic"><use href="#i-search"/></svg>Ask Mate or search<kbd class="v7-kbd">⌘K</kbd></span>
+          <span class="v7-app-end"><span class="v7-preview-tag">Product preview</span><span class="v7-avatar is-you"><svg class="v7-ic"><use href="#i-person"/></svg></span></span>
+        </div>
+        <div class="v7-app-body">
+          <nav class="v7-app-nav">
+            <span class="v7-nav-item" data-nav="goals"><svg class="v7-ic"><use href="#i-goal"/></svg><span>Goals</span></span>
+            <span class="v7-nav-item" data-nav="flows" data-active><svg class="v7-ic"><use href="#i-flow"/></svg><span>Flows</span></span>
+            <span class="v7-nav-item" data-nav="monitor"><svg class="v7-ic"><use href="#i-monitor"/></svg><span>Monitor</span></span>
+            <span class="v7-nav-item" data-nav="exceptions"><svg class="v7-ic"><use href="#i-inbox"/></svg><span>Exceptions</span><b class="v7-nav-badge">2</b></span>
+            <span class="v7-nav-item" data-nav="rules"><svg class="v7-ic"><use href="#i-rules"/></svg><span>Rules</span></span>
+            <span class="v7-nav-item" data-nav="audit"><svg class="v7-ic"><use href="#i-audit"/></svg><span>Audit</span></span>
+            <hr>
+            <span class="v7-nav-item" data-nav="settings"><svg class="v7-ic"><use href="#i-settings"/></svg><span>Settings</span></span>
+            <div class="v7-app-conn"><p>Connected</p>
+              <span><i></i>ERP · read-only</span><span><i></i>Mailbox · after approval</span><span><i></i>WhatsApp · approvals</span><span><i></i>Excel · read-only</span>
+            </div>
+            <div class="v7-app-mate"><span class="v7-live"></span>Mate · watching 3 goals</div>
+          </nav>
+          <div class="v7-app-main"><div class="v7-screen m-flow" data-v7-mock="M4" data-v7-play="host" data-nav="flows" data-title="Quote turnaround">
+      <div class="m-flow-head">
+        <b class="m-flow-title">Quote turnaround</b>
+        <span class="m-flow-sub">Built by Mate from <bdi>G-01</bdi> · 7 steps</span>
+        <span class="m-flow-ctl"><span class="v7-pill m-flow-state" data-tone="ok">Ready to review</span><span class="v7-fbtn is-ghost m-flow-review">Review changes</span><span class="v7-fbtn is-primary m-flow-live">Go live</span></span>
+      </div>
+      <div class="m-flow-body">
+        <div class="m-flow-canvas">
+          <p class="m-flow-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><span class="m-flow-slot"><svg class="v7-ic m-flow-mchk"><use href="#i-check"/></svg><span class="v7-thinking" data-v7-gone><i></i><i></i><i></i></span></span><span class="m-flow-mstat">Built 7 steps from <bdi>G-01</bdi></span></p>
+          <div class="m-flow-col">
+            <div class="v7-node" data-kind="trigger"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-mail"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Quote request arrives</b><span class="v7-node-m">Mailbox · sales@</span></span></div>
+            <i class="m-flow-link"></i>
+            <div class="v7-node" data-kind="mate"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Read request, match customer</b><span class="v7-node-m">ERP · read-only</span></span></div>
+            <i class="m-flow-link"></i>
+            <div class="v7-node m-flow-n3" data-kind="mate" data-selected><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-db"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Check stock</b><span class="v7-node-m">ERP · read-only</span></span></div>
+            <i class="m-flow-link"></i>
+            <div class="m-flow-n4">
+              <div class="v7-node" data-kind="rule"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-rules"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Price and discount</b><span class="v7-node-m">Rule <bdi>R-01</bdi> · max 10%</span></span></div>
+              <div class="m-flow-br"><i class="m-flow-blink"></i><i class="m-flow-bline"></i><span class="m-flow-branch"><bdi>Over 10%? → Exception desk</bdi><span class="m-flow-bwho"> · Dana K.</span></span></div>
+            </div>
+            <i class="m-flow-link"></i>
+            <div class="v7-node" data-kind="mate"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-doc"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Draft quote</b><span class="v7-node-m">Template · Standard quote</span></span></div>
+            <i class="m-flow-link"></i>
+            <div class="v7-node" data-kind="person"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-person"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Approve</b><span class="v7-node-m">Dana K. · WhatsApp</span></span><span class="v7-pill m-flow-gate" data-tone="you">Human gate</span></div>
+            <i class="m-flow-link"></i>
+            <div class="v7-node" data-kind="action"><span class="v7-node-tile"><svg class="v7-ic"><use href="#i-send"/></svg></span><span class="v7-node-body"><b class="v7-node-t">Send and log</b><span class="v7-node-m">Mailbox · Audit trail</span></span></div>
+          </div>
+          <i class="m-flow-dot" data-v7-off></i>
+        </div>
+        <div class="v7-card m-flow-insp">
+          <p class="m-flow-ih"><span class="m-flow-itile"><svg class="v7-ic"><use href="#i-db"/></svg></span>Step 3 · Check stock</p>
+          <dl class="m-flow-idl">
+            <div><dt>Source</dt><dd>ERP · read-only</dd></div>
+            <div><dt>Why</dt><dd>Quotes over 200 units need stock confirmed</dd></div>
+            <div><dt>Runs on</dt><dd>Every request</dd></div>
+            <div><dt>Goal</dt><dd><bdi>G-01</bdi> · Quotes out within 4&nbsp;h</dd></div>
+          </dl>
+          <p class="m-flow-ifoot"><svg class="v7-ic"><use href="#i-lock"/></svg>Mate never writes to the ERP.</p>
+        </div>
+      </div>
+    </div></div>
+        </div>
+        <span class="v7-cursor"><svg viewBox="0 0 24 24"><use href="#i-cursor"/></svg></span><span class="v7-tap"></span>
+      </div>
+      <figcaption class="sr-only">Product preview: the flow Mate built from the goal, seven steps: a quote request arrives in the mailbox, Mate matches the customer and checks stock in the ERP read-only, prices within rule R-01, drafts the quote, Dana K. approves, and it is sent and logged. Discounts over 10% go to the exception desk. Status: ready to review.</figcaption>
+    </figure>
+    <div class="v7-how-step" data-step="3" data-v7-reveal>
+      <p class="v7-label"><i data-tone="ok"></i>On track</p>
+      <h3 class="v7-h3">Checked every day.</h3>
+      <p class="v7-how-p">When the number drifts, Mate shows why and proposes a fix.</p>
+    </div>
+    <figure class="v7-figure v7-fig-app v7-how-win" data-step="3" style="--v7-app-h:516px">
+      <div class="v7-mock v7-app v7-cursor-host" aria-hidden="true" inert>
+        <div class="v7-app-top">
+          <span class="v7-app-brand"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg><b>MateOS</b><i>/</i><span class="v7-app-ws">Your company <small>Sample data</small></span></span>
+          <span class="v7-app-title">Monitor</span>
+          <span class="v7-app-search"><svg class="v7-ic"><use href="#i-search"/></svg>Ask Mate or search<kbd class="v7-kbd">⌘K</kbd></span>
+          <span class="v7-app-end"><span class="v7-preview-tag">Product preview</span><span class="v7-avatar is-you"><svg class="v7-ic"><use href="#i-person"/></svg></span></span>
+        </div>
+        <div class="v7-app-body">
+          <nav class="v7-app-nav">
+            <span class="v7-nav-item" data-nav="goals"><svg class="v7-ic"><use href="#i-goal"/></svg><span>Goals</span></span>
+            <span class="v7-nav-item" data-nav="flows"><svg class="v7-ic"><use href="#i-flow"/></svg><span>Flows</span></span>
+            <span class="v7-nav-item" data-nav="monitor" data-active><svg class="v7-ic"><use href="#i-monitor"/></svg><span>Monitor</span></span>
+            <span class="v7-nav-item" data-nav="exceptions"><svg class="v7-ic"><use href="#i-inbox"/></svg><span>Exceptions</span><b class="v7-nav-badge">2</b></span>
+            <span class="v7-nav-item" data-nav="rules"><svg class="v7-ic"><use href="#i-rules"/></svg><span>Rules</span></span>
+            <span class="v7-nav-item" data-nav="audit"><svg class="v7-ic"><use href="#i-audit"/></svg><span>Audit</span></span>
+            <hr>
+            <span class="v7-nav-item" data-nav="settings"><svg class="v7-ic"><use href="#i-settings"/></svg><span>Settings</span></span>
+            <div class="v7-app-conn"><p>Connected</p>
+              <span><i></i>ERP · read-only</span><span><i></i>Mailbox · after approval</span><span><i></i>WhatsApp · approvals</span><span><i></i>Excel · read-only</span>
+            </div>
+            <div class="v7-app-mate"><span class="v7-live"></span>Mate · watching 3 goals</div>
+          </nav>
+          <div class="v7-app-main"><div class="v7-screen m-mon" data-v7-mock="M5" data-v7-play="host" data-nav="monitor" data-title="Monitor">
+      <div class="m-mon-head">
+        <b class="m-mon-title"><bdi>G-01</bdi> · Quotes out within 4&nbsp;h</b>
+        <span class="v7-pill m-mon-status" data-tone="ok">On track</span>
+        <span class="m-mon-week">Week 5 of 10 · <bdi>Dec 11</bdi></span>
+      </div>
+      <div class="m-mon-kpis">
+        <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Today</span><b class="m-mon-kv m-mon-now">51%</b><span class="m-mon-ks">Plan 48%</span></div>
+        <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Target</span><b class="m-mon-kv">90%</b><span class="m-mon-ks">by <bdi>Jan 15</bdi></span></div>
+        <div class="v7-card m-mon-kpi"><span class="m-mon-kl">Forecast</span><b class="m-mon-kv m-mon-fcv is-ok">91%</b><span class="m-mon-ks">by <bdi>Jan 15</bdi></span></div>
+      </div>
+      <div class="m-mon-body">
+        <div class="m-mon-main">
+          <div class="v7-card m-mon-chart" dir="ltr">
+            <div class="m-mon-plot">
+              <svg class="m-mon-svg" viewBox="0 0 640 220" preserveAspectRatio="none">
+                <path class="m-mon-grid" d="M40 190H620M40 147.5H620M40 105H620M40 62.5H620M40 20H620" vector-effect="non-scaling-stroke"/>
+                <path class="m-mon-glide" d="M40 179.8 L620 37" vector-effect="non-scaling-stroke"/>
+                <path class="m-mon-target" d="M40 37 H620" vector-effect="non-scaling-stroke"/>
+                <path class="m-mon-today" d="M330 20 V190" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <svg class="m-mon-svg m-mon-act" viewBox="0 0 640 220" preserveAspectRatio="none">
+                <path class="m-mon-area" d="M40 179.8 L98 176.4 L156 157.7 L214 133.9 L272 115.2 L330 103.3 L330 190 L40 190 Z"/>
+                <path class="m-mon-actual" d="M40 179.8 L98 176.4 L156 157.7 L214 133.9 L272 115.2 L330 103.3" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <svg class="m-mon-svg m-mon-fcl" viewBox="0 0 640 220" preserveAspectRatio="none">
+                <line class="m-mon-fc" x1="330" y1="103.3" x2="620" y2="35.3" vector-effect="non-scaling-stroke"/>
+              </svg>
+              <div class="m-mon-ov">
+                <span class="m-mon-y" style="top:9.1%">100%</span><span class="m-mon-y" style="top:47.7%">50%</span><span class="m-mon-y" style="top:86.4%">0%</span>
+                <span class="m-mon-tgt">Target 90%</span>
+                <span class="m-mon-tl">Today</span>
+                <i class="m-mon-end"></i>
+              </div>
+            </div>
+            <div class="m-mon-x"><span style="left:6.25%">W0</span><span style="left:51.6%">W5</span><span style="left:96.9%">W10</span></div>
+          </div>
+          <ul class="v7-card m-mon-flows">
+            <li><span>Quote turnaround · 7 steps</span><span class="v7-pill" data-tone="ok">Healthy</span></li>
+            <li class="m-mon-lrow"><span>Large orders (over 200 units) · median 9&nbsp;h 20&nbsp;m</span><span class="v7-pill m-mon-large" data-tone="ok">Fix live</span></li>
+            <li><span>Exception desk · 2 open</span><span class="v7-pill" data-tone="neutral">Normal</span></li>
+          </ul>
+        </div>
+        <div class="v7-card m-mon-alert">
+          <p class="m-mon-ah"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><b class="m-mon-atitle"><span class="m-mon-att">Fix approved: stock is now checked in parallel.</span></b></p>
+          <p class="m-mon-ab">Stock is checked after pricing. Checking both in parallel saves about 5&nbsp;h per large order (estimate). Forecast after fix: 91% by <bdi>Jan 15</bdi>.</p>
+          <div class="m-mon-cmp">
+            <p class="m-mon-cmph">Forecast by <bdi>Jan 15</bdi></p>
+            <p class="m-mon-cr"><span class="m-mon-cl">Without fix</span><span class="v7-bar" data-tone="you"><i class="v7-bar-fill" style="--v:.78"></i><i class="v7-bar-tick" style="--at:.9"></i></span><b class="m-mon-cv">78%</b></p>
+            <p class="m-mon-cr"><span class="m-mon-cl">With fix</span><span class="v7-bar" data-tone="ok"><i class="v7-bar-fill m-mon-cfill" style="--v:.91"></i><i class="v7-bar-tick" style="--at:.9"></i></span><b class="m-mon-cv m-mon-cnew">91%</b></p>
+          </div>
+          <div class="m-mon-afoot">
+            <span class="m-mon-acts"><span class="v7-fbtn is-ok m-mon-approve"><svg class="v7-ic"><use href="#i-check"/></svg>Approved by Dana K.</span></span>
+            <span class="m-mon-anote">Now rule <bdi>R-11</bdi> · logged</span>
+          </div>
+        </div>
+      </div>
+    </div></div>
+        </div>
+        <span class="v7-cursor"><svg viewBox="0 0 24 24"><use href="#i-cursor"/></svg></span><span class="v7-tap"></span>
+      </div>
+      <figcaption class="sr-only">Product preview: monitoring the goal. Today 51% against a plan of 48%. Mate's forecast is 78% by January 15, so it flags the goal at risk: large orders wait for a stock check. Dana K. approves Mate's fix to check stock in parallel; the forecast rises to 91% and the goal is back on track.</figcaption>
+    </figure>
+    <span class="v7-how-rail" aria-hidden="true"><i></i></span>
+  </div>
+</section>
+
+<section class="v7-sec" id="control" aria-labelledby="control-h">
+  <div class="v7-wrap v7-home-split">
+    <div class="v7-home-copy" data-v7-stagger="80">
+      <h2 class="v7-h2" id="control-h" data-v7-reveal>A person approves every output.</h2>
+      <p class="v7-lead" data-v7-reveal>Mate proposes. Your people approve.</p>
+      <ul class="v7-check-list" data-v7-stagger="80" data-v7-delay="240">
+        <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>Read-only by default</li>
+        <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>Runs inside your environment</li>
+        <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>Full audit trail</li>
+        <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>Built to Israel’s Privacy Amendment 13</li>
+        <li data-v7-reveal><svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>A person you can call, always</li>
+      </ul>
+      <a class="v7-link-arrow" href="security-and-control/" data-v7-reveal data-v7-delay="480">Security and control<svg class="v7-ic v7-ic-flip" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+    </div>
+    <figure class="v7-figure m-phone-fig">
+      <div class="v7-mock m-phone-wrap" data-v7-mock="M7" data-v7-play="loop" aria-hidden="true" inert>
+        <span class="v7-preview-tag m-phone-tag">Product preview</span>
+        <div class="m-phone">
+          <div class="m-phone-screen v7-cursor-host">
+            <div class="m-phone-status"><span class="m-phone-clock">09:41</span><span class="m-phone-sys"><svg class="m-phone-sig" viewBox="0 0 17 11"><rect x="0" y="7" width="3" height="4" rx=".8"/><rect x="4.5" y="4.8" width="3" height="6.2" rx=".8"/><rect x="9" y="2.4" width="3" height="8.6" rx=".8"/><rect x="13.5" y="0" width="3" height="11" rx=".8"/></svg><svg class="m-phone-wifi" viewBox="0 0 16 11.5"><path d="M8 11.5 5.4 8.9a3.7 3.7 0 0 1 5.2 0z"/><path d="M2.7 6.2a7.6 7.6 0 0 1 10.6 0l-1.5 1.5a5.5 5.5 0 0 0-7.6 0z"/><path d="M0 3.4a11.4 11.4 0 0 1 16 0l-1.5 1.5a9.3 9.3 0 0 0-13 0z"/></svg><svg class="m-phone-bat" viewBox="0 0 25 12"><rect class="m-phone-bat-o" x=".5" y=".5" width="21" height="11" rx="3.2"/><rect x="2" y="2" width="15" height="8" rx="1.7"/><path class="m-phone-bat-n" d="M23 4.2v3.6a1.9 1.9 0 0 0 0-3.6z"/></svg></span></div>
+            <div class="m-phone-head">
+              <svg class="v7-ic m-phone-back"><use href="#i-chevron"/></svg>
+              <span class="v7-avatar is-mate m-phone-av"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span>
+              <span class="m-phone-who"><b>Mate</b><small>via WhatsApp · Your company</small></span>
+            </div>
+            <div class="m-phone-body">
+              <div class="m-phone-msgs">
+                <span class="m-phone-date">Yesterday</span>
+                <div class="m-phone-msg is-you m-phone-old"><div class="m-phone-b">Approve<span class="m-phone-meta">17:20<span class="m-phone-ticks is-read"><svg class="v7-ic"><use href="#i-check"/></svg><svg class="v7-ic"><use href="#i-check"/></svg></span></span></div></div>
+                <div class="m-phone-msg is-mate m-phone-old"><div class="m-phone-b">Sent <bdi>Q-1038</bdi> to <bdi>#3302</bdi>. Logged.<span class="m-phone-meta">17:21</span></div></div>
+                <span class="m-phone-date">Today</span>
+                <div class="v7-collapse m-phone-m1"><div class="m-phone-msg is-mate"><div class="m-phone-b m-phone-card">
+                  <b class="m-phone-ct">Quote <bdi>Q-1042</bdi> · ready for approval</b>
+                  <span class="m-phone-cr">Customer <bdi>#4471</bdi></span>
+                  <span class="m-phone-cr"><bdi>120 × SKU-2210</bdi> · safety gloves M</span>
+                  <span class="m-phone-cr">Discount 8% · <bdi>R-01</bdi> max 10%</span>
+                  <span class="m-phone-cr is-total">Total <bdi>$7,176</bdi></span>
+                  <span class="m-phone-cr">Stock confirmed · Central WH</span>
+                  <span class="m-phone-acts"><span class="v7-fbtn is-ok m-phone-ok">Approved</span><span class="v7-fbtn is-ghost">Edit</span><span class="v7-fbtn is-ghost">Why?</span><span class="m-phone-meta">09:41</span></span>
+                </div></div></div>
+                <div class="v7-collapse m-phone-m2"><div class="m-phone-msg is-you"><div class="m-phone-b">Approve<span class="m-phone-meta">09:42<span class="m-phone-ticks is-read"><svg class="v7-ic"><use href="#i-check"/></svg><svg class="v7-ic"><use href="#i-check"/></svg></span></span></div></div></div>
+                <div class="v7-collapse m-phone-m3"><div class="m-phone-msg is-mate"><div class="m-phone-b">Sent to the customer from sales@. Logged in the audit trail.<span class="m-phone-meta">09:42</span></div></div></div>
+                <div class="v7-collapse m-phone-m4"><div class="m-phone-msg is-you"><div class="m-phone-b">Price for 300 cases of <bdi>SKU-2210</bdi> for <bdi>#4471</bdi>?<span class="m-phone-meta">09:44<span class="m-phone-ticks is-read"><svg class="v7-ic"><use href="#i-check"/></svg><svg class="v7-ic"><use href="#i-check"/></svg></span></span></div></div></div>
+                <div class="v7-collapse m-phone-m5"><div class="m-phone-msg is-mate"><div class="m-phone-b"><bdi>$61.10</bdi> per case, 6% off list. Within <bdi>R-01</bdi>. 340 in stock, Central WH.<span class="v7-src m-phone-src"><svg class="v7-ic"><use href="#i-db"/></svg>ERP · read-only · 2 min ago</span><span class="m-phone-meta">09:44</span></div></div></div>
+                <div class="v7-collapse m-phone-typing" data-v7-gone><div class="m-phone-msg is-mate"><div class="m-phone-b"><span class="v7-thinking"><i></i><i></i><i></i></span></div></div></div>
+              </div>
+            </div>
+            <div class="m-phone-input"><span class="m-phone-field">Message</span><svg class="v7-ic"><use href="#i-send"/></svg></div>
+            <span class="v7-tap"></span>
+          </div>
+        </div>
+        <div class="v7-card m-phone-audit">
+          <p class="m-phone-atitle"><svg class="v7-ic"><use href="#i-audit"/></svg>Audit trail</p>
+          <div class="v7-collapse m-phone-ar m-phone-ar0"><p><span class="m-phone-at">09:31 ·</span> <b class="is-mate">Mate</b> · Held <bdi>INV-8820</bdi> · <bdi>R-02</bdi></p></div>
+          <div class="v7-collapse m-phone-ar"><p><span class="m-phone-at">09:42 ·</span> <b class="is-you">Dana K.</b> · Approved <bdi>Q-1042</bdi></p></div>
+          <div class="v7-collapse m-phone-ar"><p><span class="m-phone-at">09:42 ·</span> <b class="is-mate">Mate</b> · Sent <bdi>Q-1042</bdi> · sales@</p></div>
+          <div class="v7-collapse m-phone-ar"><p><span class="m-phone-at">09:44 ·</span> <b class="is-mate">Mate</b> · Read price list · ERP, read-only</p></div>
+        </div>
+      </div>
+      <button class="v7-pause" type="button" aria-label="Pause animation"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
+      <figcaption class="sr-only">Product preview: an approval on the phone. Mate sends quote Q-1042, 120 cases at 8% off, $7,176, within rule R-01. Dana K. taps Approve, and Mate sends it and logs it. Dana then asks for a price for 300 cases and Mate answers from the ERP: $61.10 per case. The audit trail records each step.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle" id="field" aria-labelledby="field-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span>Three rooms we sat in.</span></span></h2>
+    <p class="v7-lead v7-field-lead" data-v7-reveal data-v7-delay="120">Live with clients in insurance, real estate, logistics and manufacturing.</p>
+    <div class="v7-stories" data-v7-stagger="100">
+      <article class="v7-story" data-tone="you" data-v7-reveal data-v7-fx="clock">
+        <h3 class="v7-story-big"><span class="v7-fx" aria-hidden="true">04:00</span><span class="sr-only">04:00</span></h3>
+        <p class="v7-story-body">One man’s head held tomorrow’s delivery routes. Our system built the same plan from history.</p>
+        <p class="v7-story-q">Medical equipment distributor. Prototype tested on past data.</p>
+      </article>
+      <article class="v7-story" data-tone="ok" data-v7-reveal data-v7-fx="count">
+        <h3 class="v7-story-big"><span class="v7-fx" aria-hidden="true"><span class="v7-fx-n">9,700 hours</span> a year</span><span class="sr-only">9,700 hours a year</span></h3>
+        <p class="v7-story-body">reading medical files by hand.</p>
+        <p class="v7-story-q">Insurance agency, 800 employees. Estimate from team interviews. Pilot in delivery.</p>
+      </article>
+      <article class="v7-story" data-tone="mate" data-v7-reveal data-v7-fx="type">
+        <h3 class="v7-story-big is-quote"><span class="v7-fx" aria-hidden="true">“Hold on, I’m checking with the office.”</span><span class="sr-only">“Hold on, I’m checking with the office.”</span></h3>
+        <p class="v7-story-body">A sales rep, on every price. We’re building his answer on WhatsApp.</p>
+        <p class="v7-story-q">Manufacturing plant. In development.</p>
+      </article>
+    </div>
+    <a class="v7-link-arrow v7-field-more" href="industries/" data-v7-reveal>All industries<svg class="v7-ic v7-ic-flip" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></a>
+  </div>
+</section>
+
+<section class="v7-sec v7-band-dark v7-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap v7-home-cta">
+    <div class="v7-home-cta-copy">
+      <h2 class="v7-h2" id="start-h" data-v7-reveal="mask"><span class="v7-line"><span>It’s your company.</span></span> <span class="v7-line"><span>Your move.</span></span></h2>
+      <ol class="v7-ladder">
+        <li><h3 class="v7-ladder-name">X-ray <span class="v7-ladder-tag">From $990</span></h3><p class="v7-ladder-body">One day on site with the people who do the work, or one small agent. Every process ranked by payback.</p></li>
+        <li><h3 class="v7-ladder-name">Pilot</h3><p class="v7-ladder-body">One process. One number. Live in weeks.</p></li>
+        <li><h3 class="v7-ladder-name">Processes on MateOS</h3><p class="v7-ladder-body">The next one, same system.</p></li>
+      </ol>
+      <p class="v7-fine" data-v7-reveal>Pilot and Processes are scoped per process. Part of our fee rides on a number you champion. Stop at any step.</p>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href="contact/">Start with an X-ray</a><a class="btn btn-lg v7-btn-ghost" href="contact/">Talk to us first</a></div>
+    </div>
+    <figure class="v7-figure">
+      <div class="v7-mock m-xray" data-v7-mock="M14" data-v7-play="once" aria-hidden="true" inert>
+        <div class="m-xray-head">
+          <p class="m-xray-title">X-ray · ranked by payback</p>
+          <span class="v7-preview-tag">Sample X-ray</span>
+        </div>
+        <div class="m-xray-table">
+          <div class="m-xray-cols"><span class="m-xray-rank">#</span><span>Process</span><span>Payback</span><span class="m-xray-eff">Effort</span></div>
+          <ol class="m-xray-rows">
+            <li class="m-xray-row m-xray-top">
+              <span class="m-xray-rank">1</span>
+              <span class="m-xray-proc"><span class="m-xray-name">Quote turnaround</span><span class="v7-pill m-xray-start" data-tone="you">Start here</span></span>
+              <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.92"></i></span>
+              <span class="m-xray-eff"><span class="v7-pill">Low</span></span>
+            </li>
+            <li class="m-xray-row">
+              <span class="m-xray-rank">2</span>
+              <span class="m-xray-proc"><span class="m-xray-name">Order entry from email</span></span>
+              <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.80"></i></span>
+              <span class="m-xray-eff"><span class="v7-pill">Low</span></span>
+            </li>
+            <li class="m-xray-row">
+              <span class="m-xray-rank">3</span>
+              <span class="m-xray-proc"><span class="m-xray-name">Delivery route planning</span></span>
+              <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.66"></i></span>
+              <span class="m-xray-eff"><span class="v7-pill">Medium</span></span>
+            </li>
+            <li class="m-xray-row">
+              <span class="m-xray-rank">4</span>
+              <span class="m-xray-proc"><span class="m-xray-name">Supplier invoice matching</span></span>
+              <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.51"></i></span>
+              <span class="m-xray-eff"><span class="v7-pill">Medium</span></span>
+            </li>
+            <li class="m-xray-row">
+              <span class="m-xray-rank">5</span>
+              <span class="m-xray-proc"><span class="m-xray-name">Collections reminders</span></span>
+              <span class="v7-bar" data-tone="mate"><i class="v7-bar-fill" style="--v:.38"></i></span>
+              <span class="m-xray-eff"><span class="v7-pill">Low</span></span>
+            </li>
+          </ol>
+        </div>
+        <p class="m-xray-foot"><span>First pilot: <b>Quote turnaround</b></span><svg class="v7-ic v7-ic-flip" aria-hidden="true" focusable="false"><use href="#i-arrow"/></svg></p>
+      </div>
+      <figcaption class="sr-only">Illustration: a sample X-ray result, five processes ranked by payback. Quote turnaround ranks first and is marked as the first pilot.</figcaption>
+    </figure>
+  </div>
+</section>
+</main> <footer class="site-footer" data-astro-cid-sz7xmlte> <div class="wrap" data-astro-cid-sz7xmlte> <div class="f-top" data-astro-cid-sz7xmlte> <div class="f-brand" data-astro-cid-sz7xmlte> <a class="brand" href="./" data-astro-cid-sz7xmlte> <svg width="30" height="30" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-sz7xmlte> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-sz7xmlte></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-sz7xmlte></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-sz7xmlte></circle> </svg> <span class="brand-name" data-astro-cid-sz7xmlte>mateos<span class="brand-ai" data-astro-cid-sz7xmlte>.ai</span></span> </a> <p class="f-tag" data-astro-cid-sz7xmlte>It&#39;s your company. 10x faster.</p> </div> <nav class="f-cols" aria-label="Footer" data-astro-cid-sz7xmlte> <div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Product</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="mateos/" data-astro-cid-sz7xmlte>MateOS</a></li><li data-astro-cid-sz7xmlte><a href="how-we-work/" data-astro-cid-sz7xmlte>How we work</a></li><li data-astro-cid-sz7xmlte><a href="security-and-control/" data-astro-cid-sz7xmlte>Security and control</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Industries</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="industries/insurance/" data-astro-cid-sz7xmlte>Insurance</a></li><li data-astro-cid-sz7xmlte><a href="industries/manufacturing/" data-astro-cid-sz7xmlte>Manufacturing</a></li><li data-astro-cid-sz7xmlte><a href="industries/construction-and-real-estate/" data-astro-cid-sz7xmlte>Construction and real estate</a></li><li data-astro-cid-sz7xmlte><a href="industries/logistics-and-distribution/" data-astro-cid-sz7xmlte>Logistics and distribution</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Company</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="about/" data-astro-cid-sz7xmlte>About</a></li><li data-astro-cid-sz7xmlte><a href="careers/" data-astro-cid-sz7xmlte>Careers</a></li><li data-astro-cid-sz7xmlte><a href="contact/" data-astro-cid-sz7xmlte>Contact</a></li><li data-astro-cid-sz7xmlte><a href="mailto:hello@mateos.ai" data-astro-cid-sz7xmlte>hello@mateos.ai</a></li> </ul> </div><div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>Legal</h2> <ul data-astro-cid-sz7xmlte> <li data-astro-cid-sz7xmlte><a href="privacy/" data-astro-cid-sz7xmlte>Privacy policy</a></li><li data-astro-cid-sz7xmlte><a href="accessibility/" data-astro-cid-sz7xmlte>Accessibility</a></li> </ul> </div> </nav> </div> <div class="f-bottom" data-astro-cid-sz7xmlte> <p class="f-legal" data-astro-cid-sz7xmlte>Mateos AI, Inc., a Delaware corporation. Israel, with operations in New York.</p> <p class="f-copy" data-astro-cid-sz7xmlte>© 2026 Mateos AI, Inc. All rights reserved.</p> </div> </div> </footer>    </body> </html>
