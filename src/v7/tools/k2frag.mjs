@@ -49,15 +49,15 @@ const GOAL = NEW[NEW.length - 1];
 
 const T = {
   en: {
-    old: 'Old way: build first.', mine: 'Our way: start with the number.', why: 'why?', goal: 'Goal', ok: 'On track', oldTag: 'Old way',
+    old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', why: 'why?', goal: 'Goal', ok: 'On track', oldTag: 'Old way',
     lab: { crm: 'CRM', app: 'App', bot: 'Bot', excel: 'Excel', dash: 'Dashboard', data: 'Your data', person: 'Person', flow: 'Flow', flow2: 'Flow', goal: '90%' },
-    cap: 'Animation of two block towers. Old way: build first. Blocks labelled CRM, App, Bot, Excel and Dashboard are stacked with no target; the tower wobbles, someone asks why, and it falls into a pile. Our way: start with the number. A goal block of 90% appears first, high up. Then the tower is built downward beneath it: two Flow blocks, a Person block and Your data at the base. When the base touches the ground the tower stands straight, and the goal shows On track.',
+    cap: 'Animation of two block towers. Old way: build to replace a flow. Blocks labelled CRM, App, Bot, Excel and Dashboard are stacked with no target; the tower wobbles, someone asks why, and it falls into a pile. Our way: build to achieve a business goal. A goal block of 90% appears first, high up. Then the tower is built downward beneath it: two Flow blocks, a Person block and Your data at the base. When the base touches the ground the tower stands straight, and the goal shows On track.',
     pause: 'Pause animation',
   },
   he: {
-    old: 'הדרך הישנה: בונים קודם.', mine: 'הדרך שלנו: מתחילים מהמספר.', why: 'למה?', goal: 'יעד', ok: 'כמתוכנן', oldTag: 'הדרך הישנה',
+    old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', why: 'למה?', goal: 'יעד', ok: 'כמתוכנן', oldTag: 'הדרך הישנה',
     lab: { crm: '<bdi>CRM</bdi>', app: 'אפליקציה', bot: 'בוט', excel: 'אקסל', dash: 'דשבורד', data: 'הנתונים שלכם', person: 'אדם', flow: 'תהליך', flow2: 'תהליך', goal: '<bdi>90%</bdi>' },
-    cap: 'אנימציה של שני מגדלי קוביות. הדרך הישנה: בונים קודם. קוביות בשם CRM, אפליקציה, בוט, אקסל ודשבורד נערמות בלי יעד; המגדל מתנדנד, מישהו שואל למה, והוא קורס לערימה. הדרך שלנו: מתחילים מהמספר. קודם מופיעה למעלה קוביית יעד של 90%. אחר כך המגדל נבנה כלפי מטה מתחתיה: שתי קוביות תהליך, קוביית אדם, ובבסיס הנתונים שלכם. כשהבסיס נוגע בקרקע המגדל עומד ישר, והיעד מסומן כמתוכנן.',
+    cap: 'אנימציה של שני מגדלי קוביות. הדרך הישנה: בונים כדי להחליף תהליך. קוביות בשם CRM, אפליקציה, בוט, אקסל ודשבורד נערמות בלי יעד; המגדל מתנדנד, מישהו שואל למה, והוא קורס לערימה. הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיעה למעלה קוביית יעד של 90%. אחר כך המגדל נבנה כלפי מטה מתחתיה: שתי קוביות תהליך, קוביית אדם, ובבסיס הנתונים שלכם. כשהבסיס נוגע בקרקע המגדל עומד ישר, והיעד מסומן כמתוכנן.',
     pause: 'השהיית האנימציה',
   },
 };
