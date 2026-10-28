@@ -36,10 +36,10 @@ UI = {
         'stepper': [('goal', 'Set the goal.'), ('flows', 'Mate builds the flows.'), ('track', 'Mate keeps you on track.')],
         'cta_xray': 'Start with an X-ray',
         'cta_tour': 'Take the tour',
-        'cta_talk': 'Talk to us first',
+        'cta_talk': 'Contact us',
         # the bottom line's last two beats, in the homepage micro pattern ("For owner-led companies with no CTO. X-ray from $990.")
         # one sentence per line on phones (.v7-sent: inline-block), in both engines (WebKit otherwise re-balances mid-sentence)
-        'micro': '<span class="v7-sent">A person approves every output.</span> <span class="v7-sent">X-ray&nbsp;from&nbsp;$990.</span>',
+        'micro': '<span class="v7-sent">A person wherever it’s needed.</span> <span class="v7-sent">X-ray&nbsp;from&nbsp;$990.</span>',
         'start_h2': 'Where we start.',
         'field_h2': 'One room we sat in.',
         'all_industries': 'All industries',

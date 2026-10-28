@@ -1,17 +1,17 @@
 // >>> M19 m-eng engagement timeline (How We Work spec §2 M19), W1 hero. Loops while visible: maxLoops 2, selfExit.
-// Armed: the four steps stand as dim ghosts (frame, number, name, artifact in its start look), never an empty window.
+// Armed: the five steps stand as dim ghosts (frame, number, name, artifact in its start look), never an empty window.
 // A run dot rides the rail from number to number while the rail fills; each step lights (tone border, 300ms), then its
-// artifact plays: the station blocks grow and the 44 h block turns amber, the checks draw, the number counts and the bar
-// fills, the pill pops. Hold on all four lit, then restart. Each cycle ends on the final markup (all lit), so a later
+// artifact plays: the station blocks grow and the 44 h block turns amber, the checks draw, the pill pops (Run), the number
+// counts and the bar fills (Measure), the exception rings, the arrow slides and the rule fills its dashed slot, then
+// "Rule R-14 added" lands (Improve). Hold on all five lit, then restart. Each cycle ends on the final markup (all lit), so a later
 // cycle or a replay starts with a copy of that lit look laid over the armed ghost and fades it out (no blank frame).
-// Emits v7:stage {stage:'listen'|'build'|'measure'|'run'} as each step lights (optional page sync).
+// Emits v7:stage {stage:'listen'|'build'|'run'|'measure'|'improve'} as each step lights (optional page sync).
 // Transform, opacity and short colour changes only.
 (function () {
   'use strict';
   var V7 = window.V7;
   if (!V7 || !V7.define) return;
   var STUB = 4, LEAD = 700; // px every station block starts at · the fade a later cycle opens with
-  var IT = !!(window.CSS && CSS.supports && CSS.supports('translate', '1px 1px'));
   function cs(el) { try { return getComputedStyle(el); } catch (e) { return null; } }
   function from(el, props) { // the current computed values of props, as a WAAPI start keyframe ([keyframe prop, computed prop])
     var s = cs(el), k = { offset: 0 };
@@ -32,7 +32,8 @@
     var bars = $$('.m-eng-bar'), hi = $('.m-eng-bars > li.is-hi'), hiBar = hi && $('.m-eng-bar', hi), hiLbl = hi && $('.m-eng-bl', hi),
       chks = $$('.m-eng-chk'), boxes = $$('.m-eng-box'), ticks = $$('.m-eng-box path'),
       fromEl = $('.m-eng-from'), to = $('.m-eng-to'), mfill = $('.m-eng-mbar .v7-bar-fill'), mtick = $('.m-eng-mbar .v7-bar-tick'),
-      pill = $('.m-eng-pill'), arrow = $('.m-eng-next .v7-ic');
+      pill = $('.m-eng-pill'), exc = $('.m-eng-exc'), larr = $('.m-eng-larr'), rule = $('.m-eng-rule'), rin = $('.m-eng-rin'),
+      added = $('.m-eng-added');
     var mTo = mfill ? parseFloat(mfill.style.getPropertyValue('--v')) : NaN, mFrom = mtick ? parseFloat(mtick.style.getPropertyValue('--at')) : NaN,
       nTo = to ? parseFloat(to.textContent) : NaN, nFrom = fromEl ? parseFloat(fromEl.textContent) : NaN;
     if (isNaN(mTo)) mTo = .51;
@@ -95,14 +96,18 @@
       t.anim(b, [{ offset: 0, transform: 'scale(.7)' }], { duration: 320, easing: 'pop', fill: 'backwards' });
       if (p) V7.draw(t, p, { duration: 280, delay: 90 });
     }
-    function nudge(t, delay) { // the arrow of "Next process" leans forward twice
-      if (!arrow || !IT) return;
-      var x = 4 * V7.dir(root) + 'px 0px';
-      t.anim(arrow, [{ translate: '0px 0px' }, { translate: x, offset: .45 }, { translate: '0px 0px' }], { duration: 560, delay: delay, easing: 'ease-in-out', fill: 'none' });
+    function learn(t) { // the dashed slot fills: the rule chip takes its colour and its label pops in
+      if (!rule) return;
+      var k = from(rule, [['borderColor', 'borderTopColor'], ['backgroundColor']]);
+      rule.removeAttribute('data-pending');
+      t.anim(rule, [k], { duration: 260, easing: 'out', fill: 'backwards' });
+      t.anim(rule, [{ offset: 0, transform: 'scale(.86)' }], { duration: 380, easing: 'pop', fill: 'backwards' });
+      if (rin) t.anim(rin, [{ offset: 0, opacity: 0 }], { duration: 260, delay: 60, easing: 'out', fill: 'backwards' });
+      pulse(t, rule, tok(rule, '--m-ok-soft'), 6);
     }
 
     return {
-      length: R + 6900,
+      length: R + 8600,
       hold: 2600,
       maxLoops: 2,
       selfExit: true,
@@ -118,6 +123,8 @@
         if (to) to.textContent = '—'; // the target number is not known yet; the count starts from the baseline
         if (mfill) mfill.style.setProperty('--v', mFrom);
         if (pill) { pill.style.transition = 'none'; pill.setAttribute('data-tone', 'neutral'); }
+        if (rule) rule.setAttribute('data-pending', '');
+        V7.off(larr); V7.off(added);
         if (dot) { V7.gone(dot); dot.removeAttribute('data-tone'); }
       },
       steps: [
@@ -137,23 +144,29 @@
         [R + 2000, function (t) { light(t, 1); }],
         [R + 2200, function (t) { chks.forEach(function (c, i) { t.after(i * 170, function (t2) { check(t2, i); }); }); }],
         [R + 3050, function (t) { hop(t, 1); }],
-        // 3 · Measure
+        // 3 · Run
         [R + 3600, function (t) { light(t, 2); }],
         [R + 3800, function (t) {
-          V7.count(t, to, { from: nFrom, to: nTo, duration: 1000, suffix: '%' });
-          V7.bar(t, mfill, mTo, { duration: 1000, easing: 'cubic-bezier(.33,1,.68,1)' }); // the count's ease (outCubic), so number and bar move together
-        }],
-        [R + 4950, function (t) { hop(t, 2); }],
-        // 4 · Run
-        [R + 5500, function (t) { light(t, 3); }],
-        [R + 5700, function (t) {
           if (!pill) return;
           pill.style.transition = '';
           V7.status(t, pill, 'ok');
           t.anim(pill, [{ offset: 0, transform: 'scale(.86)' }], { duration: 380, easing: 'pop', fill: 'backwards' });
         }],
-        [R + 6100, function (t) { nudge(t, 0); nudge(t, 700); }],
-        [R + 6800, function () { if (dot) { V7.gone(dot); dot.removeAttribute('data-tone'); } }]
+        [R + 4350, function (t) { hop(t, 2); }],
+        // 4 · Measure
+        [R + 4900, function (t) { light(t, 3); }],
+        [R + 5100, function (t) {
+          V7.count(t, to, { from: nFrom, to: nTo, duration: 1000, suffix: '%' });
+          V7.bar(t, mfill, mTo, { duration: 1000, easing: 'cubic-bezier(.33,1,.68,1)' }); // the count's ease (outCubic), so number and bar move together
+        }],
+        [R + 6250, function (t) { hop(t, 3); }],
+        // 5 · Improve
+        [R + 6800, function (t) { light(t, 4); }],
+        [R + 7000, function (t) { if (exc) pulse(t, exc, tok(exc, '--m-you-soft'), 6); }],
+        [R + 7300, function (t) { V7.show(t, larr, { x: -6, y: 0, duration: 260 }); }],
+        [R + 7500, function (t) { learn(t); }],
+        [R + 8050, function (t) { V7.show(t, added, { y: 4, duration: 260 }); }],
+        [R + 8500, function () { if (dot) { V7.gone(dot); dot.removeAttribute('data-tone'); } }]
       ]
     };
   });

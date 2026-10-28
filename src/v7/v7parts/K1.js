@@ -9,7 +9,7 @@
   var V7 = window.V7, d = document;
   if (!V7 || !V7.ready) return;
   var HE = (d.documentElement.lang || '').slice(0, 2) === 'he'; // Hebrew markup: K1.he.html
-  var TX = HE ? { old: 'הדרך הישנה', mateos: 'הדרך של MateOS' } : { old: 'Old way', mateos: 'MateOS way' };
+  var TX = HE ? { old: 'הדרך הישנה: המספר מגיע אחרון.', mateos: 'הדרך שלנו: המספר מגיע ראשון.' } : { old: 'Old way: the number comes last.', mateos: 'Our way: the number comes first.' };
   var STRIKE_Y = HE ? .5 : .56; // strike height inside a rendered line box (content area); Hebrew letters sit higher than an x-height
   // Timeline (ms): a beat to read the old way, then one strike per line in turn (900/1600/2300, 550 each, so each is
   // seen being crossed out); reversal 3250–3950; old rows leave 3950–4290; new rows rise from 4370.

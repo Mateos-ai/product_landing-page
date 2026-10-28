@@ -2011,8 +2011,8 @@ html[lang=he] .m-plan-title{letter-spacing:0}
 /* <<< M18 */
 
 /* >>> M19 m-eng engagement timeline (How We Work spec §2 M19), W1 hero on the dark band.
-   Frame like M1: a sunken dot-grid window. Four step cards hang on a rail; each step carries a tone (--t, --t-soft, --t-ink):
-   Listen = you, Build = mate, Measure = ok, Run = ok. The final markup is the lit state; M19.js arms the dim ghost
+   Frame like M1: a sunken dot-grid window. Five step cards hang on a rail; each step carries a tone (--t, --t-soft, --t-ink):
+   Listen = you, Build = mate, Run = ok, Measure = ok, Improve = mate. The final markup is the lit state; M19.js arms the dim ghost
    (data-ghost on .m-eng-step) and lights the steps in turn. The root is the size container: narrow below 478px. */
 .m-eng{container:m-eng / inline-size;position:relative;border-radius:16px;border:1px solid var(--m-line);box-shadow:var(--m-shadow);overflow:clip;
   background:var(--m-sunken) radial-gradient(var(--m-dot) 1px,transparent 1.2px) 0 0/16px 16px}
@@ -2096,7 +2096,7 @@ html[lang=he] .m-plan-title{letter-spacing:0}
 .m-eng-box[data-unchecked]{border-color:var(--m-line-strong);background:transparent}
 @container m-eng (min-width:478px){.m-eng-chks{gap:8px}}
 
-/* 3 · Measure: the number moves toward its target flag */
+/* 4 · Measure: the number moves toward its target flag */
 .m-eng-ms{display:grid;gap:18px;min-width:0}
 /* narrow card: the metric reads as a caption under the number, so the flag's "90%" has the bar's end to itself */
 .m-eng-mrow{display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0}
@@ -2110,15 +2110,33 @@ html[lang=he] .m-plan-title{letter-spacing:0}
 .m-eng-mbar .v7-bar-tick{height:10px;margin-top:-5px}
 .m-eng-mbar .v7-bar-flag{height:12px;margin-top:-6px}
 
-/* 4 · Run: on track, and the next process waiting */
+/* 3 · Run: live, on track */
 .m-eng-run{display:flex;flex-wrap:wrap;align-items:center;gap:8px;min-width:0}
 .m-eng-pill{height:24px;padding-inline:10px}
-.m-eng-next{display:inline-flex;align-items:center;gap:6px;height:24px;padding-inline:10px 9px;border-radius:999px;border:1px dashed var(--m-line-strong);
-  font:600 12px/1 var(--font-body);color:var(--m-text-2);white-space:nowrap}
-.m-eng-next .v7-ic{width:13px;height:13px;stroke-width:2}
+
+/* 5 · Improve: an exception (amber, people's call) turns into a rule (ok); "Rule R-14 added" lands under it.
+   Armed: the rule chip waits as a dashed empty slot (data-pending), the arrow and the note are away. */
+.m-eng-imp{display:grid;gap:10px;min-width:0}
+/* the arrow travels with the rule chip, so a narrow card wraps to "exception" / "→ rule", never a dangling arrow */
+.m-eng-learn{display:flex;flex-wrap:wrap;align-items:center;gap:6px;min-width:0}
+.m-eng-lto{display:inline-flex;align-items:center;gap:6px;min-width:0}
+.m-eng-exc,.m-eng-rule{display:inline-flex;align-items:center;height:26px;border-radius:999px;font:600 12px/1 var(--font-body);white-space:nowrap}
+.m-eng-exc{gap:5px;padding-inline:7px 10px;background:var(--m-you-soft);color:var(--m-you-ink)}
+.m-eng-exc .v7-ic{width:13px;height:13px;stroke-width:2}
+.m-eng-larr{flex:none;width:13px;height:13px;color:var(--m-text-3);stroke-width:2}
+.m-eng-rule{border:1px dashed transparent;background:var(--m-ok-soft);color:var(--m-ok-ink)}
+.m-eng-rin{display:inline-flex;align-items:center;gap:5px;padding-inline:6px 9px}
+@container m-eng (min-width:478px){.m-eng-learn,.m-eng-lto{gap:8px}}
+.m-eng-rule .v7-ic{width:13px;height:13px;stroke-width:2}
+.m-eng-rule[data-pending]{border-color:var(--m-line-strong);background-color:transparent}
+.m-eng-rule[data-pending]>.m-eng-rin{opacity:0}
+.m-eng-imp .m-eng-metric{text-wrap:balance}
+.m-eng-lrow{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 12px;min-width:0}
+.m-eng-added{display:inline-flex;align-items:center;gap:5px;font:600 11px/1.3 var(--font-mono);color:var(--m-ok-ink);white-space:nowrap}
+.m-eng-added .v7-ic{width:12px;height:12px;stroke-width:2.4}
 /* Hebrew (M19.he.html): Heebo for the Hebrew mono labels; the hour unit (ש׳) in Heebo next to the mono digits */
-html[lang=he] :is(.m-eng-label,.m-eng-when,.m-eng-cap,.m-eng-metric,.m-eng-u){font-family:var(--font-body);letter-spacing:0;text-transform:none}
-html[lang=he] :is(.m-eng-label,.m-eng-when,.m-eng-cap,.m-eng-metric){font-size:12px}
+html[lang=he] :is(.m-eng-label,.m-eng-when,.m-eng-cap,.m-eng-metric,.m-eng-u,.m-eng-added){font-family:var(--font-body);letter-spacing:0;text-transform:none}
+html[lang=he] :is(.m-eng-label,.m-eng-when,.m-eng-cap,.m-eng-metric,.m-eng-added){font-size:12px}
 html[lang=he] .m-eng-label{font-weight:500}
 html[lang=he] .m-eng-name{letter-spacing:0}
 /* the measure bar is a chart (dir=ltr) inside an RTL page: C2's [dir=rtl] rules reach through it, so reset them here */
@@ -2618,6 +2636,13 @@ html[lang=he] .m-bound-toggle>button{font-size:13.5px}
 .k-first{display:inline-block;font-weight:700;color:var(--v7-you-ink)}
 /* Hebrew: no letter-spacing (Heebo) */
 html[lang=he] :is(.k-row,.k-caption){letter-spacing:0}
+
+/* labels carry the message now ("Old way: the number comes last." → "Our way: the number comes first."): set them as a readable line, not a mono tag */
+.k-flip-label.v7-label{font-family:var(--font-display);font-size:clamp(1.125rem,1rem + .5vw,1.375rem);font-weight:650;letter-spacing:-.01em;text-transform:none;color:var(--v7-you-ink);margin-bottom:12px}
+.k-flip-old>.v7-label{font-family:var(--font-body);font-weight:600;letter-spacing:0;text-transform:none}
+.v7-k1-more{margin-top:32px}
+html[lang=he] .k-flip .k-flip-label.v7-label{font-family:var(--font-display);font-size:clamp(1.125rem,1rem + .5vw,1.375rem);font-weight:700;letter-spacing:0}
+html[lang=he] .k-flip .k-flip-old>.v7-label{font-size:.9375rem;letter-spacing:0}
 /* <<< K1 */
 
 /* >>> S1 v7-how homepage "How it works" (spec §7 S1). Stacked by default (no JS, reduced motion, below 1024px);
@@ -3324,8 +3349,9 @@ html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
 /* ---------- W1 hero: the homepage hero with a lead in place of the stepper ---------- */
 .v7-hww-hero .v7-lead{max-width:46ch;margin-top:24px}
 .v7-hww-hero .v7-actions{margin-top:32px}
-/* H1: four mask lines, one word per step ("Listen." "Build." "Measure." "Run.", the last two amber), revealed 80ms apart.
-   Below 1024px they pair up on two rows (a wrapping flex row, broken by the empty .v7-hww-row); from 1024px each word stands
+/* H1: five mask lines, one word per step ("Listen." "Build." "Run." "Measure." "Improve.", the last two amber), revealed 80ms
+   apart. Below 1024px they pair up on three rows (a wrapping flex row, broken by the empty .v7-hww-row: "Listen. Build." /
+   "Run. Measure." / "Improve."); from 1024px each word stands
    on its own line at the full --v7-h1, the size of the homepage and /mateos/ heroes (88px at 1280+), and the longest,
    "Measure." (about 4.3em), fits the 5fr column. One word per line cannot re-wrap when the web font arrives. */
 /* column-gap = one word space of the H1 (.19em with its tracking). In the flex row the lines' block margins add up instead
@@ -3336,8 +3362,8 @@ html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
 .v7-hww-hero .v7-h1 .v7-line>span{white-space:nowrap}
 .v7-hww-hero .v7-h1 .v7-hww-hl{color:var(--amber-500)}
 .v7-hww-row{flex:0 0 100%;height:0}
-/* Bricolage fits "Measure. Run." on one row from 329px, the fallback fonts only from 302–322px: up to 340px "Run." always
-   takes its own row, so every font gives the same three rows (no layout shift when the web font arrives). */
+/* Bricolage fits "Run. Measure." on one row from 329px, the fallback fonts only from 302–322px: up to 340px "Measure." always
+   takes its own row, so every font gives the same four rows (no layout shift when the web font arrives). */
 @media (min-width:341px){.v7-hww-row--xs{display:none}}
 @media (min-width:1024px){
   .v7-hww-hero .v7-hero-copy{container:hww-copy / inline-size}
@@ -3406,18 +3432,20 @@ html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
 .v7-hww-rank{display:grid;row-gap:4px}
 .v7-hww-rank>i{display:block;width:calc(var(--w,1) * 100%);height:8px;border-radius:3px;background:var(--v7-hww-void);transform-origin:0 50%}
 .v7-hww-rank>i:first-child{background:var(--amber-500)}
-/* Pilot: six weeks, baseline (Mate) · live (you) · the number (ok) */
-.v7-hww-weeks{position:relative;display:block;padding-bottom:20px}
-.v7-hww-cells{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px}
+/* Pilot: four weeks, baseline (Mate, week 1) · build and test (you, weeks 2–3) · live (ok, week 4) */
+/* the labels sit in a 1 | 2 | 1 grid under the cells (baseline at the start, build and test centred under weeks 2–3, live at
+   the end); the columns grow to a label's longest word, so labels never overlap in the narrow three-card row (900–1023px) */
+.v7-hww-weeks{display:grid;grid-template-columns:1fr 2fr 1fr;column-gap:4px;row-gap:6px;align-items:start}
+.v7-hww-cells{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
 .v7-hww-cells>i{position:relative;display:block;height:12px;border-radius:3px;background:var(--v7-hww-void);overflow:hidden}
 .v7-hww-cells>i::after{content:"";position:absolute;inset:0;background:var(--indigo-500);transform-origin:0 50%}
 .v7-hww-cells>i[data-tone=you]::after{background:var(--amber-500)}
 .v7-hww-cells>i[data-tone=ok]::after{background:var(--teal-500)}
 [data-theme=dark] .v7-hww-cells>i[data-tone=mate]::after{background:var(--indigo-400)}
-.v7-hww-wl{position:absolute;bottom:0;font:400 11px/1.2 var(--font-mono);letter-spacing:.02em;color:var(--text-muted);white-space:nowrap}
-.v7-hww-wl[data-at="1"]{inset-inline-start:0}
-.v7-hww-wl[data-at="3"]{inset-inline-start:calc((100% - 20px) / 3 + 8px)}
-.v7-hww-wl[data-at="6"]{inset-inline-end:0}
+.v7-hww-wl{min-width:0;font:400 11px/1.25 var(--font-mono);letter-spacing:.02em;color:var(--text-muted)}
+.v7-hww-wl[data-at="1"]{justify-self:start;text-align:start}
+.v7-hww-wl[data-at="2"]{justify-self:center;text-align:center}
+.v7-hww-wl[data-at="4"]{justify-self:end;text-align:end}
 /* Processes: two at a time, each lane done (ok) → running (Mate) → next (dashed) */
 .v7-hww-lanes{display:grid;row-gap:6px}
 .v7-hww-lanes>span{display:grid;grid-template-columns:2.2fr 1.4fr 1fr;gap:4px}
@@ -3447,7 +3475,7 @@ html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
 
 /* W4 motion (P-HWW.js arms the track with data-v7-armed and gives each stop .is-on; no JS or reduced motion: final).
    From 900px (one row, about 300px tall) the three stops turn on together at 40% visible: the rail draws dot to dot, the
-   dots pop, the cards rise (stagger 120), then the artifacts fill: ranks, the six weeks one by one, the lanes.
+   dots pop, the cards rise (stagger 120), then the artifacts fill: ranks, the four weeks one by one, the lanes.
    Below 900px (a column about 700px tall) each stop turns on by itself as it scrolls in (30% of it visible): its dot pops,
    its card rises, its artifact fills and its rail segment draws on toward the next dot. No card waits for cards that are
    still below the fold, so the space under the heading is never left blank. Transitions exist only on .is-on, so arming
@@ -3468,8 +3496,6 @@ html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
 .v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(2)::after{transition-delay:820ms}
 .v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(3)::after{transition-delay:940ms}
 .v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(4)::after{transition-delay:1060ms}
-.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(5)::after{transition-delay:1180ms}
-.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(6)::after{transition-delay:1300ms}
 .v7-motion .v7-hww-stop.is-on .v7-hww-lanes i{transition:transform 360ms var(--ease-out) 640ms}
 .v7-motion .v7-hww-stop.is-on .v7-hww-lanes i:nth-child(2){transition-delay:840ms}
 .v7-motion .v7-hww-stop.is-on .v7-hww-lanes>span+span i{transition-delay:740ms}

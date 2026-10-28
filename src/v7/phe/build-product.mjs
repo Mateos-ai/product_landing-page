@@ -44,8 +44,7 @@ const TPL = `<!--@SPRITE-->
 <section class="v7-band-dark v7-hero v7-hero--center v7-pp-hero" id="top" aria-labelledby="hero-h1">
   <div class="v7-wrap">
     <div class="v7-pp-hcopy">
-      <span class="eyebrow" data-v7-reveal>MateOS · פי 10 מהר יותר</span>
-      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>נותנים יעד. <br class="v7-h1-br">מקבלים תהליכים.</span></span><span class="v7-line v7-pp-ok"><span>כמתוכנן.</span></span></h1>
+         <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>נותנים יעד. <br class="v7-h1-br">מקבלים תהליכים.</span></span><span class="v7-line v7-pp-ok"><span>כמתוכנן.</span></span></h1>
       <p class="v7-lead" data-v7-reveal data-v7-delay="300">תנו ל-Mate מספר ותאריך. Mate בונה את התהליכים במערכות שכבר עובדות אצלכם, ובודק את המספר כל יום.</p>
       <div class="v7-actions" data-v7-reveal data-v7-delay="380"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="#tour">לסיור במוצר</a></div>
     </div>
@@ -104,7 +103,7 @@ const TPL = `<!--@SPRITE-->
     <div class="v7-pp-copy">
       <h2 id="control-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span>אתם נשארים בשליטה.</span></span></h2>
       <ul class="v7-facts" data-v7-stagger="80" data-v7-delay="120">
-${fact('אדם מאשר כל פלט.', 'Mate מציע. אדם שבחרתם מאשר.')}
+${fact('אדם בכל מקום שהוא הכרחי.', 'Mate מאוטמט את השגרה. אדם שבחרתם מאשר את מה שחשוב.')}
 ${fact('קריאה בלבד כברירת מחדל.', 'הרשאת כתיבה רק אם תחליטו, לכל מערכת בנפרד.')}
 ${fact('בתוך הסביבה שלכם.', 'בענן שלכם, ב-DMZ שלכם או על שרת אצלכם.')}
 ${fact('תיעוד מלא.', 'בנוי לפי תיקון 13 לחוק הגנת הפרטיות.')}
@@ -127,7 +126,7 @@ ${fact('תמיד יש אדם שאפשר להתקשר אליו.', 'Mate עובד 
       </details>
       <details class="v7-pp-q" data-v7-reveal>
         <summary>ומה אם הוא טועה?<span class="v7-pp-plus" aria-hidden="true"></span></summary>
-        <p>אדם מאשר כל פלט לפני שהוא יוצא. כלל עצירה, שמסוכם מראש, עוצר את הפיילוט.</p>
+        <p>בפיילוט, אדם מאשר כל פלט לפני שהוא יוצא. כלל עצירה, שמסוכם מראש, עוצר אותו. שלבי אישור יורדים רק איפה שהמספרים מראים שזה בטוח.</p>
       </details>
     </div>
   </div>
@@ -140,7 +139,7 @@ ${fact('תמיד יש אדם שאפשר להתקשר אליו.', 'Mate עובד 
       <p class="v7-lead" data-v7-reveal data-v7-delay="160">לחברות בבעלות יזם, מ-20 עד <bdi>1,000</bdi> עובדים. באוויר תוך שבועות.</p>
       <p class="v7-lead" data-v7-reveal data-v7-delay="160">מתחילים ב-X-ray: יום אחד אצלכם עם האנשים שעושים את העבודה, או סוכן קטן אחד. כל תהליך מדורג לפי ההחזר שלו. החל מ-990 דולר.</p>
       <p class="v7-fine" data-v7-reveal data-v7-delay="160">פיילוט ותהליכים מתומחרים לפי תהליך. חלק מהתשלום שלנו תלוי במספר שאתם מובילים.</p>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../../he/contact/">קודם מדברים</a></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../../he/contact/">צרו קשר</a></div>
     </div>
   </div>
 </section>`;

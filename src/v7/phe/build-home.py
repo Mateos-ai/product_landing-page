@@ -42,15 +42,10 @@ TPL = '''<!--@SPRITE-->
 
 <section class="v7-sec" id="reverse" aria-labelledby="reverse-h">
   <div class="v7-wrap">
-    <span class="eyebrow" data-v7-reveal>הפער</span>
-    <h2 class="v7-h2" id="reverse-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>רוב פרויקטי ה-AI מתחילים בכלים.</span></span></h2>
-    <ul class="v7-gap" data-v7-stagger="100" data-v7-delay="120">
-      <li data-v7-reveal><span class="v7-gap-num"><span aria-hidden="true">61%</span><span class="sr-only">61%</span></span><span class="v7-gap-line">מהעסקים בישראל עדיין לא משתמשים ב-AI.</span></li>
-      <li data-v7-reveal><span class="v7-gap-num"><span aria-hidden="true">76%</span><span class="sr-only">76%</span></span><span class="v7-gap-line">מהם אומרים שזה לא רלוונטי לעסק שלהם.</span></li>
-    </ul>
-    <p class="v7-source" data-v7-reveal="fade" data-v7-delay="320">הלמ"ס, מרץ ויוני 2026</p>
+    <h2 class="sr-only" id="reverse-h">הופכים את סדר הבנייה.</h2>
     <p class="v7-bridge" data-v7-reveal data-v7-delay="400">הופכים את סדר הבנייה: מתחילים מהמספר שחשוב לכם, ובונים אליו את התהליך.</p>
 <!--@K1-->
+    <a class="v7-link-arrow v7-k1-more" href="../he/mateos/" data-v7-reveal>עוד על הפלטפורמה שלנו@ARROW</a>
   </div>
 </section>
 
@@ -81,8 +76,8 @@ TPL = '''<!--@SPRITE-->
 <section class="v7-sec" id="control" aria-labelledby="control-h">
   <div class="v7-wrap v7-home-split">
     <div class="v7-home-copy" data-v7-stagger="80">
-      <h2 class="v7-h2" id="control-h" data-v7-reveal>אדם מאשר כל פלט.</h2>
-      <p class="v7-lead" data-v7-reveal>Mate מציע. האנשים שלכם מאשרים.</p>
+      <h2 class="v7-h2" id="control-h" data-v7-reveal>אדם בכל מקום שהוא הכרחי.</h2>
+      <p class="v7-lead" data-v7-reveal>Mate מאוטמט את השגרה. האנשים שלכם נכנסים איפה שזה חשוב.</p>
       <ul class="v7-check-list" data-v7-stagger="80" data-v7-delay="240">
         <li data-v7-reveal>@CHECKקריאה בלבד כברירת מחדל</li>
         <li data-v7-reveal>@CHECKרץ בתוך הסביבה שלכם</li>
@@ -131,7 +126,7 @@ TPL = '''<!--@SPRITE-->
         <li><h3 class="v7-ladder-name">תהליכים על MateOS</h3><p class="v7-ladder-body">התהליך הבא, על אותה מערכת.</p></li>
       </ol>
       <p class="v7-fine" data-v7-reveal>פיילוט ותהליכים מתומחרים לפי תהליך. חלק מהתשלום שלנו תלוי במספר שאתם מובילים. עוצרים בכל שלב.</p>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href="../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../he/contact/">קודם מדברים</a></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href="../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../he/contact/">צרו קשר</a></div>
     </div>
 <!--@M14-->
   </div>
