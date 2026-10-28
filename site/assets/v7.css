@@ -2645,63 +2645,83 @@ html[lang=he] .k-flip .k-flip-label.v7-label{font-family:var(--font-display);fon
 html[lang=he] .k-flip .k-flip-old>.v7-label{font-size:.9375rem;letter-spacing:0}
 /* <<< K1 */
 
-/* >>> K2 reverse-the-build cubes (homepage #reverse). Two acts: the old way (a tower with no target falls into a pile)
-   and our way (the goal first, then a clean column of Mate's cubes that reaches it). Markup is the final state; K2.js
-   arms the start state. Transform and opacity only; the stage keeps a fixed aspect ratio, so nothing moves layout. */
-.k2{max-width:1040px}
-.k2-stage{--k2-o-t:#E3E6EE;--k2-o-l:#C3C8D5;--k2-o-r:#A6ADBE;
-  --k2-m-t:#8F8AF2;--k2-m-l:#5B53E8;--k2-m-r:#443CC9;
-  --k2-floor:var(--neutral-50,#F6F6F9);--k2-floor-line:var(--m-line);--k2-ghost:rgba(91,83,232,.38);--k2-goal:var(--amber-500,#FF8C42);
-  display:grid;border:1px solid var(--m-line);border-radius:20px;background:var(--m-bg);overflow:hidden}
-[data-theme=dark] .k2-stage{--k2-o-t:#666B82;--k2-o-l:#4C5065;--k2-o-r:#3A3D52;
-  --k2-m-t:#A29DFF;--k2-m-l:#6A62F0;--k2-m-r:#4B43CF;
-  --k2-floor:rgba(255,255,255,.035);--k2-ghost:rgba(162,157,255,.4)}
-.k2-act{position:relative;min-width:0;padding:20px 20px 8px}
-.k2-act+.k2-act{border-top:1px solid var(--m-line)}
-@media (min-width:760px){
-  .k2-stage{grid-template-columns:1fr 1fr}
-  .k2-act{padding:24px 28px 12px}
-  .k2-act+.k2-act{border-top:0;border-inline-start:1px solid var(--m-line)}
-}
-.k2-label{display:flex;align-items:center;gap:10px;font:600 15px/1.35 var(--font-body);color:var(--m-text)}
-.k2-label>i{flex:none;width:8px;height:8px;border-radius:2px;background:var(--k2-o-l);transform:rotate(45deg)}
-.k2-act[data-act=new] .k2-label>i{background:var(--k2-m-l)}
-.k2-act[data-act=old] .k2-label{color:var(--m-text-2)}
+/* >>> K2 reverse-the-build toy blocks (homepage #reverse). One stage, two acts: the old way (a wobbly tower of tools
+   with no target falls into a pile) and our way (the goal block first, high up, then the tower builds downward under it
+   until it reaches the ground: On track). Markup is the final state; K2.js arms the start. Every size is in stage units
+   (--u = one block height, from the figure width), so the stage height is fixed by its width: no layout shift.
+   Block places are custom properties from tools/k2frag.mjs; transform and opacity are the only things that move. */
+.k2{container:k2/inline-size;max-width:1040px;margin-inline:auto}
+.k2-stage{--u:clamp(42px,6.9cqw,76px);--g:calc(var(--u)*1.15);--k2-dir:var(--v7-dir,1);
+  --k2-bg:var(--neutral-50,#F7F7FB);--k2-floor:var(--neutral-100,#EEEEF4);--k2-shadow:rgba(28,28,56,.2);--k2-bubble:#FFFFFF;
+  --k2-ink-o:var(--neutral-700,#3C3C4F);--k2-lid-mix:#FFFFFF 55%;--k2-shade:rgba(20,20,48,.07);
+  position:relative;height:calc(var(--u)*7.6);border-radius:28px;background:var(--k2-bg);overflow:hidden;isolation:isolate}
+[data-theme=dark] .k2-stage{--k2-bg:#1C1C2B;--k2-floor:#171724;--k2-shadow:rgba(0,0,0,.55);--k2-bubble:#2A2A44;
+  --k2-ink-o:var(--neutral-200,#E0E0EA);--k2-lid-mix:#FFFFFF 16%;--k2-shade:rgba(0,0,0,.16)}
+.k2-probe{position:absolute;width:var(--u);height:0;visibility:hidden}
+.k2-ground{position:absolute;inset:auto 0 0;height:var(--g);background:var(--k2-floor)}
+.k2-old,.k2-new{position:absolute;inset:0;transform-origin:50% calc(100% - var(--g))}
+.k2-shadow{position:absolute;left:50%;bottom:calc(var(--g) - var(--u)*.13);width:calc(var(--u)*3.6);height:calc(var(--u)*.3);
+  margin-left:calc(var(--u)*-1.8);border-radius:50%;background:var(--k2-shadow);filter:blur(calc(var(--u)*.09))}
 
-.k2-pic{position:relative;aspect-ratio:4/3;max-width:480px;margin-inline:auto}
-.k2-svg{display:block;width:100%;height:100%;overflow:visible}
-.k2-floor{fill:var(--k2-floor);stroke:var(--k2-floor-line);stroke-width:1}
-.k2-cube,.k2-tower{transform-box:view-box}
-.k2-cube{transform-origin:0 0}
-.k2-cube path{stroke-linejoin:round}
-.k2-cube.is-old .k2-t{fill:var(--k2-o-t)}
-.k2-cube.is-old .k2-l{fill:var(--k2-o-l)}
-.k2-cube.is-old .k2-r{fill:var(--k2-o-r)}
-.k2-cube.is-mate .k2-t{fill:var(--k2-m-t)}
-.k2-cube.is-mate .k2-l{fill:var(--k2-m-l)}
-.k2-cube.is-mate .k2-r{fill:var(--k2-m-r)}
-.k2-cube .k2-t{stroke:rgba(255,255,255,.35);stroke-width:.75}
-.k2-glint{fill:#fff;opacity:0}
-.k2-ghost{opacity:0;fill:none;stroke:var(--k2-ghost);stroke-width:1;stroke-dasharray:3 4}
-.k2-goal-line{stroke:var(--k2-goal);stroke-width:1.5;stroke-dasharray:6 5;stroke-linecap:round}
-.k2-goal-end{fill:var(--k2-goal)}
+/* a block: the front face (label) and its lid, seen from a little above (a lighter band, a touch narrower: the far edge) */
+.k2-b{--c:#D3D9E2;--ink:var(--k2-ink-o);position:absolute;left:50%;bottom:var(--g);
+  width:calc(var(--w)*var(--u));height:calc(var(--h)*var(--u));margin-left:calc(var(--w)*var(--u)/-2);transform-origin:50% 100%;
+  transform:translate(calc(var(--x)*var(--u)*var(--k2-dir)),calc(var(--y)*var(--u)*-1)) rotate(calc(var(--r)*var(--k2-dir)*1deg))}
+.k2-lid{position:absolute;left:calc(var(--u)*.08);right:calc(var(--u)*.08);bottom:calc(100% - var(--u)*.2);height:calc(var(--u)*.42);
+  border-radius:calc(var(--u)*.15) calc(var(--u)*.15) 0 0/calc(var(--u)*.12) calc(var(--u)*.12) 0 0;background:color-mix(in srgb,var(--c),var(--k2-lid-mix))}
+.k2-f{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:.42em;padding-inline:.5em;border-radius:calc(var(--u)*.17);
+  background:var(--c);color:var(--ink);font:600 clamp(12px,calc(var(--u)*.235),17px)/1.1 var(--font-body);white-space:nowrap;
+  box-shadow:inset 0 calc(var(--u)*-.075) 0 var(--k2-shade),inset 0 1.5px 0 rgba(255,255,255,.3)}
+.k2-f .v7-ic{flex:none;width:1.05em;height:1.05em;opacity:.85}
+.k2-b[data-tone=o2]{--c:#DDD7CC}
+.k2-b[data-tone=o3]{--c:#CCD5CE}
+.k2-b[data-tone=o4]{--c:#D9D5E1}
+.k2-b[data-tone=o5]{--c:#D5D7DD}
+.k2-b[data-tone=goal]{--c:var(--amber-500,#FF8C42);--ink:#3B1A05}
+.k2-b[data-tone=goal] .k2-f{font:700 clamp(18px,calc(var(--u)*.42),30px)/1 var(--font-display);letter-spacing:-.01em}
+.k2-b[data-tone=flow]{--c:var(--indigo-500,#5B53E8);--ink:#FFFFFF}
+.k2-b[data-tone=flow] .k2-lid{background:color-mix(in srgb,var(--c),#FFFFFF 32%)}
+.k2-b[data-tone=person]{--c:var(--amber-200,#FFD8BF);--ink:#6A3311}
+.k2-b[data-tone=data]{--c:var(--neutral-700,#3C3C4F);--ink:var(--neutral-50,#F7F7FB)}
+.k2-b[data-tone=data] .k2-lid{background:color-mix(in srgb,var(--c),#FFFFFF 22%)}
+[data-theme=dark] .k2-b{--c:#3F4657}
+[data-theme=dark] .k2-b[data-tone=o2]{--c:#4A463F}
+[data-theme=dark] .k2-b[data-tone=o3]{--c:#3E4842}
+[data-theme=dark] .k2-b[data-tone=o4]{--c:#474359}
+[data-theme=dark] .k2-b[data-tone=o5]{--c:#45474F}
+[data-theme=dark] .k2-b[data-tone=goal]{--c:var(--amber-500,#FF8C42)}
+[data-theme=dark] .k2-b[data-tone=goal] .k2-lid{background:color-mix(in srgb,var(--c),#FFFFFF 34%)}
+[data-theme=dark] .k2-b[data-tone=flow]{--c:var(--indigo-500,#5B53E8)}
+[data-theme=dark] .k2-b[data-tone=person]{--c:#F0B78F;--ink:#4A2109}
+[data-theme=dark] .k2-b[data-tone=person] .k2-lid{background:color-mix(in srgb,var(--c),#FFFFFF 30%)}
+[data-theme=dark] .k2-b[data-tone=data]{--c:#4D4D68;--ink:var(--neutral-50,#F7F7FB)}
 
-/* HTML labels over the drawing: placed in % of the stage (left/top from K2.html), anchored by translate */
-.k2-why,.k2-flag,.k2-ok{position:absolute;white-space:nowrap}
-.k2-why{translate:-50% -50%;font:italic 500 15px/1 var(--font-body);color:var(--m-text-3)}
-.k2-flag{translate:-100% calc(-100% - 8px)}
-.k2-ok{translate:0 -50%}
-.k2-ok .v7-pill{height:26px;padding-inline:10px;gap:5px;font-size:12.5px}
-.k2-ok .v7-pill::before{display:none}
-.k2-ok .v7-pill .v7-ic{width:13px;height:13px;stroke-width:2.25}
-.k2 .v7-pause{inset-block-end:14px}
-@media (max-width:479.98px){
-  .k2-label{font-size:14px}
-  .k2-why{font-size:14px}
-  .k2-flag .v7-chip{height:24px;padding-inline:9px}
-  .k2-ok .v7-pill{height:24px;font-size:12px}
+/* words in the stage; places in units from the centre of the ground */
+.k2-cap{position:absolute;top:calc(var(--u)*.44);left:16px;right:16px;margin:0;display:flex;justify-content:center;align-items:center;gap:9px;
+  font:600 clamp(14px,calc(var(--u)*.225),16px)/1.3 var(--font-body);color:var(--m-text)}
+.k2-cap>i{flex:none;width:10px;height:10px;border-radius:3px;background:var(--m-you)}
+.k2-cap[data-act=old]{color:var(--m-text-2)}
+.k2-cap[data-act=old]>i{background:var(--neutral-300,#C9C9D6)}
+.k2-cap[data-act=old],.k2-why{opacity:0}
+.k2-why,.k2-tag,.k2-ok,.k2-oldtag{position:absolute;left:calc(50% + var(--x,0)*var(--u)*var(--k2-dir));bottom:calc(var(--g) + var(--y,0)*var(--u));white-space:nowrap}
+.k2-why{translate:-50% 50%;padding:.32em .8em;border-radius:999px;background:var(--k2-bubble);color:var(--m-text-2);
+  font:600 clamp(14px,calc(var(--u)*.25),18px)/1.2 var(--font-display)}
+.k2-tag{translate:calc(-50% - 50%*var(--k2-dir)) 50%;padding:.3em .75em;border-radius:999px;background:var(--m-you-soft);color:var(--v7-you-ink);
+  font:600 clamp(12px,calc(var(--u)*.2),14px)/1.2 var(--font-body)}
+.k2-ok{translate:calc(-50% + 50%*var(--k2-dir)) 50%;display:flex;align-items:center;gap:.45em;padding:.3em .85em .3em .3em;border-radius:999px;
+  background:var(--m-ok-soft);color:var(--m-ok-ink);font:600 clamp(12px,calc(var(--u)*.21),15px)/1.2 var(--font-body)}
+[dir=rtl] .k2-ok{padding:.3em .3em .3em .85em}
+.k2-ok>i{display:grid;place-items:center;width:1.55em;height:1.55em;border-radius:50%;background:var(--m-ok);color:#FFFFFF}
+.k2-ok .v7-ic{width:.95em;height:.95em;stroke-width:2.5}
+.k2-oldtag{--x:-4.85;--y:-.5;translate:-50% 50%;color:var(--m-text-3);font:500 13px/1.2 var(--font-body)}
+
+/* the final look: the act-1 pile rests small and faded beside the tower when the stage has room for it */
+.k2-old,.k2-oldtag{opacity:0}
+@container k2 (min-width:610px){
+  .k2-old{opacity:.5;transform:translateX(calc(var(--u)*-4.4*var(--k2-dir))) scale(.6)}
+  .k2-oldtag{opacity:1}
 }
-html[lang=he] .k2-why{font-style:normal}
+html[lang=he] .k2-why{font-family:var(--font-body)}
 /* <<< K2 */
 
 /* >>> S1 v7-how homepage "How it works" (spec §7 S1). Stacked by default (no JS, reduced motion, below 1024px);
