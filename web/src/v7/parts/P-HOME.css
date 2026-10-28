@@ -64,7 +64,7 @@
   letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--text-primary);text-wrap:balance}
 .v7-story-big.is-quote{font-size:clamp(1.5rem,1.3rem + .8vw,1.875rem);line-height:1.15;letter-spacing:-.02em}
 .v7-story-body{margin-top:14px;font-size:1rem;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
-.v7-story-q{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--text-muted)}
+.v7-story-q{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:.75rem;line-height:1.5;color:var(--text-muted)}
 .v7-story-q::before{content:"";flex:none;width:10px;height:10px;margin-top:4px;border:1px dashed currentColor;border-radius:50%}
 .v7-field-more{margin-top:32px}
 @media (min-width:900px){

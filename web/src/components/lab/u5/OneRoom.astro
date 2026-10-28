@@ -1,0 +1,37 @@
+---
+// LAB U5: "Three rooms we sat in", with one room set large. 04:00 at display size with its sentence, the other two rooms
+// as a quieter typographic list. Notes in the text face, colour only on the status dot. The card effects (clock, count,
+// type) are the shipped P-HOME ones: they key on .v7-story[data-v7-fx] .v7-fx, so the markup keeps those hooks.
+import Arrow from '../../site/Arrow.astro';
+import { pageCtx } from '../../../i18n/page';
+import './one-room.css';
+const { t, u } = pageCtx(Astro, 'home');
+type Story = { fx: string; sr: string; body: string; q: string };
+const [lead, ...rest] = t.raw<Story[]>('field.stories');
+const REST = [{ tone: 'ok', fx: 'count', quote: false }, { tone: 'mate', fx: 'type', quote: true }];
+---
+<section class="v7-sec v7-sec--subtle lab-rooms" id="field" aria-labelledby="field-h">
+  <div class="v7-wrap-wide">
+    <div class="lab-rooms-head">
+      <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('field.title')} /></span></h2>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="120" set:html={t('field.lead')} />
+    </div>
+    <article class="v7-story lab-room-lead" data-tone="you" data-v7-reveal data-v7-fx="clock">
+      <h3 class="lab-room-big"><span class="v7-fx" aria-hidden="true" set:html={lead.fx} /><span class="sr-only" set:html={lead.sr} /></h3>
+      <div class="lab-room-text">
+        <p class="lab-room-body" set:html={lead.body} />
+        <p class="lab-room-q"><i class="lab-dot" aria-hidden="true"></i><span set:html={lead.q} /></p>
+      </div>
+    </article>
+    <div class="lab-room-list" data-v7-stagger="100">
+      {rest.map((s, i) => (
+      <article class="v7-story lab-room-row" data-tone={REST[i].tone} data-v7-reveal data-v7-fx={REST[i].fx}>
+        <h3 class={REST[i].quote ? 'lab-room-mid is-quote' : 'lab-room-mid'}><span class="v7-fx" aria-hidden="true" set:html={s.fx} /><span class="sr-only" set:html={s.sr} /></h3>
+        <p class="lab-room-body" set:html={s.body} />
+        <p class="lab-room-q"><i class="lab-dot" aria-hidden="true"></i><span set:html={s.q} /></p>
+      </article>
+      ))}
+    </div>
+    <a class="v7-link-arrow lab-rooms-more" href={u('/industries/')} data-v7-reveal><Fragment set:html={t('field.more')} /><Arrow /></a>
+  </div>
+</section>

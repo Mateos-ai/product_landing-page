@@ -1,0 +1,162 @@
+---
+// LAB copy of src/views/Industry.astro (flags: u1 real first frame, u2 mono for data, u3 the goal as the close).
+// Lab pages only; noindex. Original header:
+// Industry page (/industries/<slug>/ and /he/industries/<slug>/), one view for all four industries.
+// Port of src/v7/pind/build-industries.py (MAIN_TPL) and src/v7/phe/build-industries-he.py.
+// Copy: src/i18n/<locale>/industry.json (ui: strings shared by the four pages; pages.<slug>: per-industry copy).
+// Previews: M1.<slug> (hero) and the "hurts" figure (M16, M17, M18.assign, M18.plan).
+import Layout from '../../layouts/Layout.astro';
+import Check from '../site/Check.astro';
+import Sprite from '../v7/Sprite.astro';
+import M1 from '../v7/M1.astro';
+import M16 from '../v7/M16.astro';
+import M17 from '../v7/M17.astro';
+import M18 from '../v7/M18.astro';
+import Arrow from '../site/Arrow.astro';
+import { pageCtx } from '../../i18n/page';
+import { fragment } from '../../v7/fragments';
+import LabBar from './LabBar.astro';
+import M1Lab from './u1/M1Lab.astro';
+import U2Mono from './u2/U2Mono.astro';
+import GoalClose from './u3/GoalClose.astro';
+const icon = (id: string) => `<svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
+
+export type Slug = 'insurance' | 'manufacturing' | 'construction-and-real-estate' | 'logistics-and-distribution';
+interface Props { slug: Slug; u1?: boolean; u2?: boolean; u3?: boolean; lab: { id: string; title: string; look?: string } }
+const { slug, u1 = false, u2 = false, u3 = false, lab } = Astro.props;
+const { locale, t, u } = pageCtx(Astro, 'industry');
+
+type Card = { icon: string; title: string; body: string };
+type Item = { text: string; sub?: string };
+type Page = {
+  meta: { title: string; description: string };
+  eyebrow: string; h1: string[]; lead: string;
+  hurts: { label: string; h2: string | string[]; line: string; cap?: string };
+  start: Card[];
+  control: { h2: string; never: boolean; items: Item[]; after?: string };
+  field: { tone: string; fx?: string; quote: boolean; big: string; sr?: string; body: string; q: string };
+};
+const p = t.raw<Page>(`pages.${slug}`);
+const sep = t('ui.lineSep');
+const mask = (lines: string[]) => lines.map((l) => `<span class="v7-line"><span>${l}</span></span>`).join(sep);
+const sents = (h: string | string[]) => (typeof h === 'string' ? h : h.map((s) => `<span class="v7-sent">${s}</span>`).join(' '));
+const steps = t.raw<Record<string, string>>('ui.stepper');
+
+// The "hurts" figure per industry. rise: false keeps M16 without the rise reveal (its bars growing are the entrance).
+const HURTS: Record<Slug, { C: typeof M16; variant?: string; rise: boolean }> = {
+  insurance: { C: M16, rise: false },
+  manufacturing: { C: M17, rise: true },
+  'construction-and-real-estate': { C: M18, variant: 'assign', rise: true },
+  'logistics-and-distribution': { C: M18, variant: 'plan', rise: true },
+};
+const H = HURTS[slug];
+const Hurts = H.C;
+
+const c = p.control;
+// U3: the sentence of the hero preview's first goal (the shipped final markup of M1.<slug>), with its highlights.
+const m1 = fragment('M1', locale, { variant: slug });
+const goalHtml = (m1.match(/<p class="m-hero-text">([\s\S]*?)<\/p>/)?.[1] ?? '').replace(/class="m-hero-hl" data-k="\w+"/g, 'class="lab-hl"');
+const f = p.field;
+// The live English pages link to the hub as "../"; the Hebrew ones spell the full relative path.
+const hubHref = locale === 'en' ? '../' : u('/industries/');
+---
+<Layout title={`Lab ${lab.id} · Mateos`} description={p.meta.description} robots="noindex, nofollow">
+<LabBar {...lab} />
+{u2 && <U2Mono />}
+<Sprite />
+
+<section class="v7-band-dark v7-hero v7-ind-hero" id="top" aria-labelledby="hero-h1">
+  <div class="v7-wrap-wide v7-hero-grid">
+    <div class="v7-hero-copy">
+      <span class="eyebrow" data-v7-reveal set:html={p.eyebrow} />
+      <h1 id="hero-h1" class={p.h1.some((l) => l.includes('v7-ind-acc')) ? 'v7-h1 v7-ind-h1acc' : 'v7-h1'} data-v7-reveal="mask" data-v7-delay="80" set:html={mask(p.h1)} />
+      <p class="v7-lead" data-v7-reveal data-v7-delay="240" set:html={p.lead} />
+      <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
+        {Object.entries(steps).map(([k, s]) => (
+        <Fragment><li data-stage={k} data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t" set:html={s} /></li>{'\n'}</Fragment>
+        ))}
+      </ol>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('ui.ctaXray')} /><a class="btn btn-lg v7-btn-ghost" href={u('/mateos/#tour')} set:html={t('ui.ctaTour')} /></div>
+      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="640" set:html={t('ui.micro')} />
+    </div>
+{u1 ? <M1Lab variant={slug} indent={4} /> : <M1 variant={slug} indent={4} />}
+  </div>
+</section>
+
+<section class="v7-sec v7-ind-sec" id="hurts" aria-labelledby="hurts-h">
+  <div class="v7-wrap v7-ind-split v7-ind-hurts">
+    <div class="v7-ind-copy" data-v7-stagger="80">
+      {!u2 && <span class="eyebrow" data-v7-reveal set:html={p.hurts.label} />}
+      <h2 class="v7-h2" id="hurts-h" data-v7-reveal set:html={sents(p.hurts.h2)} />
+      <p class="v7-lead" data-v7-reveal set:html={p.hurts.line} />
+    </div>
+    <div class="v7-ind-vis">
+<Hurts variant={H.variant} attrs={H.rise ? 'data-v7-reveal="rise" data-v7-delay="120"' : undefined} indent={6} />
+      {p.hurts.cap && <p class="v7-note m-bars-cap" data-v7-reveal="fade" data-v7-delay="200" set:html={p.hurts.cap} />}
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-ind-sec" id="start-here" aria-labelledby="start-here-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="start-here-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('ui.startH2')} /></span></h2>
+    <ol class="v7-ind-cards" data-v7-stagger="100" data-v7-delay="120">
+      {p.start.map((s, i) => (<Fragment>
+      <li class="v7-ind-card" data-v7-reveal>
+        <div class="v7-ind-card-top"><span class="v7-ind-tile" set:html={icon(s.icon)} /><span class="v7-ind-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span></div>
+        <h3 class="v7-ind-card-t" set:html={s.title} />
+        <p class="v7-ind-card-p" set:html={s.body} />
+      </li>{'\n'}</Fragment>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<section class="v7-sec v7-ind-sec" id="control" aria-labelledby="control-h">
+  <div class="v7-wrap v7-ind-trio v7-ind-ctrl">
+    <h2 class="v7-h2" id="control-h" data-v7-reveal set:html={c.h2} />
+    <div class="v7-ind-trio-main">
+      <ul class={c.never ? 'v7-check-list v7-ind-checks v7-ind-never' : 'v7-check-list v7-ind-checks'} data-v7-stagger="80" data-v7-delay="120">
+        {c.items.map((it) => (
+        <Fragment><li data-v7-reveal><Check variant={c.never ? 'never' : 'check'} focusable /><span><Fragment set:html={it.text} />{it.sub && <Fragment> <span class="v7-ind-sub" set:html={it.sub} /></Fragment>}</span></li>{'\n'}</Fragment>
+        ))}
+      </ul>
+      {c.after && <p class="v7-ind-after" data-v7-reveal data-v7-delay="480" set:html={c.after} />}
+    </div>
+    <a class="v7-link-arrow" href={u('/security-and-control/')} data-v7-reveal data-v7-delay="200"><Fragment set:html={t('ui.security')} /><Arrow /></a>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-ind-sec" id="field" aria-labelledby="field-h">
+  <div class="v7-wrap v7-ind-trio v7-ind-field">
+    <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('ui.fieldH2')} /></span></h2>
+    <div class="v7-ind-trio-main">
+      <article class="v7-story" data-tone={f.tone} data-v7-reveal data-v7-delay="120" data-v7-fx={f.fx}>
+        <h3 class={f.quote ? 'v7-story-big is-quote' : 'v7-story-big'}>{f.fx
+          ? <Fragment><span class="v7-fx" aria-hidden="true" set:html={f.big} /><span class="sr-only" set:html={f.sr} /></Fragment>
+          : <Fragment set:html={f.big} />}</h3>
+        <p class="v7-story-body" set:html={f.body} />
+        <p class="v7-story-q" set:html={f.q} />
+      </article>
+    </div>
+    <a class="v7-link-arrow" href={hubHref} data-v7-reveal data-v7-delay="200"><Fragment set:html={t('ui.allIndustries')} /><Arrow /></a>
+  </div>
+</section>
+
+{u3 ? (
+<GoalClose goal={goalHtml} sample="The sample goal from the preview at the top of this page." cls="v7-pp-cta v7-ind-cta">
+  <p class="v7-lead lab-close-lead" data-v7-reveal data-v7-delay="160" set:html={t('ui.moveP')} />
+  <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('ui.ctaXray')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('ui.ctaTalk')} /></div>
+</GoalClose>
+) : (
+<section class="v7-sec v7-band-dark v7-cta v7-pp-cta v7-ind-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap">
+    <div class="v7-pp-ctacopy" data-v7-stagger="80">
+      <h2 id="start-h" class="v7-h2" data-v7-reveal="mask" set:html={mask(t.raw<string[]>('ui.moveH2'))} />
+      <p class="v7-lead" data-v7-reveal data-v7-delay="160" set:html={t('ui.moveP')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('ui.ctaXray')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('ui.ctaTalk')} /></div>
+    </div>
+  </div>
+</section>
+)}
+</Layout>

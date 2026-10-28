@@ -1,0 +1,5 @@
+/* LAB 3D1: the canvas sits in the hub disc; the SVG mark under it is the poster and comes back on any fallback. */
+.m-team-hub>.lab-3d-canvas{position:absolute;inset:0;width:100%;height:100%;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .5s ease}
+.lab-3d-live .m-team-hub>.lab-3d-canvas{opacity:1}
+.m-team-hub>.v7-mark{transition:opacity .5s ease}
+.lab-3d-live .m-team-hub>.v7-mark{opacity:0}

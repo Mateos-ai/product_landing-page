@@ -1,0 +1,18 @@
+---
+// LAB U3: the page closes on its own goal. The sentence from the page's hero preview comes back as the closing band's
+// heading, with the preview's metric/target/date underline as the one typographic device, then the visitor's blanks.
+// goal: the sentence as HTML, the underlined parts in <span class="lab-hl">. Hebrew: wrap numbers and dates in <bdi>.
+// sample: one plain line saying where the sentence comes from (it is sample data). The slot holds the page's own close.
+import './goal-close.css';
+interface Props { goal: string; sample: string; yours?: string; cls?: string }
+const { goal, sample, cls = '' } = Astro.props;
+const yours = Astro.props.yours ?? 'Yours: <span class="lab-blank">your number</span> by <span class="lab-blank">your date</span>. Your move.';
+---
+<section class={`v7-sec v7-band-dark v7-cta lab-close ${cls}`.trim()} id="start" aria-labelledby="start-h">
+  <div class="v7-wrap-wide lab-close-in">
+    <h2 id="start-h" class="lab-close-goal" data-v7-reveal set:html={goal} />
+    <p class="lab-close-sample" data-v7-reveal="fade" data-v7-delay="200" set:html={sample} />
+    <p class="lab-close-yours" data-v7-reveal data-v7-delay="320" set:html={yours} />
+    <slot />
+  </div>
+</section>

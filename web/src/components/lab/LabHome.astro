@@ -1,0 +1,150 @@
+---
+// LAB copy of src/views/Home.astro. Each flag turns on one prototype (docs/visual-direction.md): u1 the real first frame,
+// u2 mono for data only, u3 the page's own goal as the close, u5 one room set large. Lab pages only; noindex.
+import Layout from '../../layouts/Layout.astro';
+import Sprite from '../v7/Sprite.astro';
+import M1 from '../v7/M1.astro';
+import K1 from '../v7/K1.astro';
+import M0 from '../v7/M0.astro';
+import M7 from '../v7/M7.astro';
+import M14 from '../v7/M14.astro';
+import Arrow from '../site/Arrow.astro';
+import Check from '../site/Check.astro';
+import { pageCtx } from '../../i18n/page';
+import LabBar from './LabBar.astro';
+import M1Lab from './u1/M1Lab.astro';
+import U2Mono from './u2/U2Mono.astro';
+import GoalClose from './u3/GoalClose.astro';
+import OneRoom from './u5/OneRoom.astro';
+interface Props { u1?: boolean; u2?: boolean; u3?: boolean; u5?: boolean; lab: { id: string; title: string; look?: string } }
+const { u1 = false, u2 = false, u3 = false, u5 = false, lab } = Astro.props;
+
+const { t, u } = pageCtx(Astro, 'home');
+type Step = { label: string; sents?: string[]; h3?: string; p?: string };
+type Story = { fx: string; sr: string; body: string; q: string };
+type Rung = { name: string; tag?: string; body: string };
+const h1 = t.raw<string[]>('hero.h1');
+const steps = t.raw<Step[]>('how.steps');
+const HOW = [{ id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }];
+const checks = t.raw<string[]>('control.checks');
+const stories = t.raw<Story[]>('field.stories');
+const STORY = [{ tone: 'you', fx: 'clock' }, { tone: 'ok', fx: 'count' }, { tone: 'mate', fx: 'type', quote: true }];
+const startTitle = t.raw<string[]>('start.title');
+const ladder = t.raw<Rung[]>('start.ladder');
+---
+<Layout title={`Lab ${lab.id} · Mateos`} description={t('meta.description')} robots="noindex, nofollow">
+<LabBar {...lab} />
+{u2 && <U2Mono />}
+<Sprite />
+
+<section class="v7-band-dark v7-hero v7-home-hero" id="top" aria-labelledby="hero-h1">
+  <div class="v7-wrap-wide v7-hero-grid">
+    <div class="v7-hero-copy">
+      {!u2 && <span class="eyebrow" data-v7-reveal>{t('hero.eyebrow')}</span>}
+      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={h1[0]} /></span> <span class="v7-line"><span set:html={h1[1]} /></span></h1>
+      <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
+        {(['goal', 'flows', 'track'] as const).map((k) => (
+        <Fragment><li data-stage={k} data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t" set:html={t(`hero.steps.${k}`)} /></li>{'\n'}</Fragment>
+        ))}
+      </ol>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('hero.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/mateos/#tour')} set:html={t('hero.tour')} /></div>
+      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="640" set:html={t('hero.micro')} />
+    </div>
+{u1 ? <M1Lab indent={4} /> : <M1 indent={4} />}
+  </div>
+</section>
+
+<section class="v7-sec" id="reverse" aria-labelledby="reverse-h">
+  <div class="v7-wrap">
+    <h2 class="sr-only" id="reverse-h" set:html={t('reverse.srTitle')} />
+    <p class="v7-bridge" data-v7-reveal data-v7-delay="400" set:html={t('reverse.bridge')} />
+<K1 indent={4} />
+    <a class="v7-link-arrow v7-k1-more" href={u('/mateos/')} data-v7-reveal><Fragment set:html={t('reverse.more')} /><Arrow /></a>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle" id="how" aria-labelledby="how-h">
+  <div class="v7-wrap-wide v7-how" data-v7-steps>
+    <h2 id="how-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('how.title')} /></span></h2>
+    {steps.map((s, i) => (<Fragment>
+    <div class="v7-how-step" data-step={i + 1} data-v7-reveal>
+      <p class="v7-label"><i data-tone={HOW[i].tone}></i><Fragment set:html={s.label} /></p>
+      {s.sents
+        ? <h3 class="v7-h3"><span class="v7-sent" set:html={s.sents[0]} /> <span class="v7-sent" set:html={s.sents[1]} /></h3>
+        : <h3 class="v7-h3" set:html={s.h3} />}
+      {s.p && <p class="v7-how-p" set:html={s.p} />}
+    </div>
+<M0 screens={[HOW[i].id]} figClass="v7-how-win" preAttrs={`data-step="${i + 1}"`} indent={4} />
+    </Fragment>))}
+    <span class="v7-how-rail" aria-hidden="true"><i></i></span>
+  </div>
+</section>
+
+<section class="v7-sec" id="control" aria-labelledby="control-h">
+  <div class="v7-wrap v7-home-split">
+    <div class="v7-home-copy" data-v7-stagger="80">
+      <h2 class="v7-h2" id="control-h" data-v7-reveal set:html={t('control.title')} />
+      <p class="v7-lead" data-v7-reveal set:html={t('control.lead')} />
+      <ul class="v7-check-list" data-v7-stagger="80" data-v7-delay="240">
+        {checks.map((c) => (
+        <Fragment><li data-v7-reveal><Check /><Fragment set:html={c} /></li>{'\n'}</Fragment>
+        ))}
+      </ul>
+      <a class="v7-link-arrow" href={u('/security-and-control/')} data-v7-reveal data-v7-delay="480"><Fragment set:html={t('control.link')} /><Arrow /></a>
+    </div>
+<M7 indent={4} />
+  </div>
+</section>
+
+{u5 ? <OneRoom /> : (
+<section class="v7-sec v7-sec--subtle" id="field" aria-labelledby="field-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('field.title')} /></span></h2>
+    <p class="v7-lead v7-field-lead" data-v7-reveal data-v7-delay="120" set:html={t('field.lead')} />
+    <div class="v7-stories" data-v7-stagger="100">
+      {stories.map((s, i) => (<Fragment>
+      <article class="v7-story" data-tone={STORY[i].tone} data-v7-reveal data-v7-fx={STORY[i].fx}>
+        <h3 class={STORY[i].quote ? 'v7-story-big is-quote' : 'v7-story-big'}><span class="v7-fx" aria-hidden="true" set:html={s.fx} /><span class="sr-only" set:html={s.sr} /></h3>
+        <p class="v7-story-body" set:html={s.body} />
+        <p class="v7-story-q" set:html={s.q} />
+      </article>{'\n'}</Fragment>
+      ))}
+    </div>
+    <a class="v7-link-arrow v7-field-more" href={u('/industries/')} data-v7-reveal><Fragment set:html={t('field.more')} /><Arrow /></a>
+  </div>
+</section>
+)}
+
+{u3 ? (
+<GoalClose goal={'Get <span class="lab-hl">90%</span> of <span class="lab-hl">quotes out within 4&nbsp;hours</span> by <span class="lab-hl">January&nbsp;15</span>.'} sample="The sample goal from the preview at the top of this page.">
+  <div class="v7-home-cta lab-close-grid">
+    <div class="v7-home-cta-copy">
+      <ol class="v7-ladder">
+        {ladder.map((r) => (<Fragment>
+        <li><h3 class="v7-ladder-name"><Fragment set:html={r.name} />{r.tag && <Fragment> <span class="v7-ladder-tag" set:html={r.tag} /></Fragment>}</h3><p class="v7-ladder-body" set:html={r.body} /></li>{'\n'}</Fragment>
+        ))}
+      </ol>
+      <p class="v7-fine" data-v7-reveal set:html={t('start.fine')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('start.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('start.contact')} /></div>
+    </div>
+<M14 indent={4} />
+  </div>
+</GoalClose>
+) : (
+<section class="v7-sec v7-band-dark v7-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap v7-home-cta">
+    <div class="v7-home-cta-copy">
+      <h2 class="v7-h2" id="start-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={startTitle[0]} /></span> <span class="v7-line"><span set:html={startTitle[1]} /></span></h2>
+      <ol class="v7-ladder">
+        {ladder.map((r) => (<Fragment>
+        <li><h3 class="v7-ladder-name"><Fragment set:html={r.name} />{r.tag && <Fragment> <span class="v7-ladder-tag" set:html={r.tag} /></Fragment>}</h3><p class="v7-ladder-body" set:html={r.body} /></li>{'\n'}</Fragment>
+        ))}
+      </ol>
+      <p class="v7-fine" data-v7-reveal set:html={t('start.fine')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('start.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('start.contact')} /></div>
+    </div>
+<M14 indent={4} />
+  </div>
+</section>
+)}
+</Layout>

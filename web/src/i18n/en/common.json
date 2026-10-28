@@ -21,6 +21,7 @@
   "theme": { "title": "Switch theme", "light": "Light", "dark": "Dark" },
   "cta": "Start with an X-ray",
   "menu": "Menu",
+  "navMoreLabel": "Industries pages",
   "footer": {
     "tagline": "It's your company. 10x faster.",
     "label": "Footer",

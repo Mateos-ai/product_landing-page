@@ -1,0 +1,9 @@
+---
+// LAB 3D1: "the machine". Renders nothing visible itself: machine.js finds the About hero's orbit (M22) and, when every
+// gate passes, puts a lazily loaded three.js canvas in its hub. Lab pages only.
+import './machine.css';
+---
+<script>
+  import { initMachine } from './machine.js';
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', initMachine); else initMachine();
+</script>

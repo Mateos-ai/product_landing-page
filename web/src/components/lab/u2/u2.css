@@ -1,0 +1,16 @@
+/* LAB U2: mono is for data. Chrome notes move to the text face (Hanken) at full ink-2, sentence case, readable size.
+   Mono stays for prices, IDs, timestamps and everything inside a preview (.v7-mock, data-ui). Scoped to lab pages
+   that render <U2Mono /> through :has(), so no real page changes. */
+:root:has(.lab-u2-on) main :is(.v7-micro,.v7-note,.v7-source,.v7-story-q,.v7-hww-fine):not(.v7-mock *){
+  font-family:var(--font-body);font-size:.9375rem;line-height:1.5;letter-spacing:0;text-transform:none;color:var(--text-secondary)}
+:root:has(.lab-u2-on) .v7-band-dark :is(.v7-micro,.v7-note,.v7-source,.v7-story-q):not(.v7-mock *){color:var(--dark-text-2)}
+/* step labels ("Goal", "Flows", "On track"): sentence case in the text face, the role colour stays on the dot */
+:root:has(.lab-u2-on) main .v7-label:not(.v7-mock *){font-family:var(--font-body);font-size:1rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--text-primary)}
+/* the one kept kicker per page (industry heroes: "Insurance · 10x faster") is a fact, set in the text face */
+:root:has(.lab-u2-on) main .eyebrow:not(.v7-mock *){font-family:var(--font-body);font-size:1.0625rem;font-weight:600;letter-spacing:0;text-transform:none;margin-bottom:16px}
+/* team roles: a title, not a code */
+:root:has(.lab-u2-on) main .v7-about-role{font-family:var(--font-body);font-size:.9375rem;font-weight:600;letter-spacing:0;text-transform:none}
+/* index numbers on the industry cards are ornament, not data */
+:root:has(.lab-u2-on) main .v7-ind-num{display:none}
+/* footer column titles */
+:root:has(.lab-u2-on) footer .f-h{font-family:var(--font-body);font-size:.875rem;font-weight:600;letter-spacing:0;text-transform:none;color:var(--text-secondary)}

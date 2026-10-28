@@ -79,8 +79,8 @@
 .v7-h2{font-size:var(--v7-h2);font-weight:700;line-height:1.02;letter-spacing:-.03em}
 .v7-h3{font-size:var(--v7-h3);font-weight:650;line-height:1.15;letter-spacing:-.02em}
 .v7-lead{font-size:var(--v7-lead);line-height:1.5;color:var(--text-secondary);max-width:44ch;text-wrap:pretty}
-.v7-label{font-family:var(--font-mono);font-size:12px;font-weight:400;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
-.v7-micro{font-family:var(--font-mono);font-size:12.5px;line-height:1.5;color:var(--text-muted);margin-top:16px}
+.v7-label{font-family:var(--font-mono);font-size:.75rem;font-weight:400;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+.v7-micro{font-family:var(--font-mono);font-size:.78125rem;line-height:1.5;color:var(--text-muted);margin-top:16px}
 .v7-note{font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--text-muted)}
 
 /* Text on dark bands (both themes). Mock content is excluded: mocks carry their own tokens. */
@@ -263,7 +263,7 @@ html[lang=he] :is(.v7-h1,.v7-h2,.v7-h3){letter-spacing:0}
 html[lang=he] .v7-h1{line-height:1.02}
 html[lang=he] .v7-h2{line-height:1.08}
 html[lang=he] .v7-h3{line-height:1.2}
-html[lang=he] .v7-label{font-family:var(--font-body);font-size:13px;font-weight:600;letter-spacing:0;text-transform:none}
+html[lang=he] .v7-label{font-family:var(--font-body);font-size:.8125rem;font-weight:600;letter-spacing:0;text-transform:none}
 html[lang=he] :is(.v7-micro,.v7-note){font-size:13px;letter-spacing:0}
 html[lang=he] :is(.v7-mock,.v7-mock *,.v7-preview-tag){letter-spacing:0;text-transform:none}
 html[lang=he] .v7-mock{font-variant-numeric:tabular-nums}

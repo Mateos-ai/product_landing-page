@@ -1,0 +1,25 @@
+/* LAB U3: the goal as the close. */
+.lab-close-in{display:grid}
+.lab-close-goal{max-width:21ch;font-family:var(--font-display);font-size:clamp(2.25rem,1rem + 4.6vw,5.25rem);font-weight:700;line-height:1.02;
+  letter-spacing:-.035em;color:#fff;text-wrap:balance}
+/* the device from the preview chips: metric, target and date underlined in amber (amber-500 on ink: 6.6:1) */
+.lab-hl{background:linear-gradient(var(--amber-500),var(--amber-500)) no-repeat 0 94%/100% .075em;padding-bottom:.04em;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone}
+.v7-motion .lab-close-goal .lab-hl{transition:background-size .5s cubic-bezier(.2,.7,.2,1)}
+.v7-motion .lab-close-goal:not(.is-in) .lab-hl{background-size:0 .075em}
+.v7-motion .lab-close-goal.is-in .lab-hl:nth-child(2){transition-delay:.12s}
+.v7-motion .lab-close-goal.is-in .lab-hl:nth-child(3){transition-delay:.24s}
+.lab-close-sample{margin-top:20px;font-size:.9375rem;line-height:1.5}
+.v7-band-dark .lab-close-sample{color:var(--dark-text-3)}
+.lab-close-yours{margin-top:56px;font-family:var(--font-display);font-size:clamp(1.5rem,1.1rem + 1.4vw,2.25rem);font-weight:700;line-height:1.15;letter-spacing:-.02em}
+.v7-band-dark .lab-close-yours{color:#fff}
+.lab-blank{display:inline-block;min-width:5.5ch;padding-inline:.15em;color:var(--dark-text-3);font-weight:500;
+  background:linear-gradient(var(--amber-400),var(--amber-400)) no-repeat 0 96%/100% 2px}
+/* home: the ladder and the preview follow under the sentence */
+.lab-close-grid{margin-top:16px}
+.lab-close-grid .v7-ladder{margin-top:24px}
+/* pages without a ladder: the lead and the actions follow the blanks */
+.lab-close-lead{margin-top:20px;max-width:52ch}
+.lab-close .v7-actions{margin-top:32px}
+@media (max-width:599.98px){.lab-close-yours{margin-top:40px}}
+@media (prefers-reduced-motion:reduce){.lab-hl{transition:none!important}}

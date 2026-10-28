@@ -1,0 +1,39 @@
+---
+// /lab/: index of the visual-direction prototypes (docs/visual-direction.md, section 5). EN only, noindex, not linked
+// from the site and not in sitemap.xml. Each prototype is a copy of a real view with one upgrade switched on; the
+// real pages do not change.
+import Layout from '../../layouts/Layout.astro';
+import '../../components/lab/lab.css';
+import { pageCtx } from '../../i18n/page';
+const { u } = pageCtx(Astro);
+const ITEMS = [
+  { id: 'U1', title: 'The first frame is a real frame', links: [['Home hero', '/lab/u1-first-frame/'], ['Insurance hero', '/lab/u1-first-frame-insurance/']], live: [['Home today', '/'], ['Insurance today', '/industries/insurance/']],
+    look: 'Reload each page and watch the hero preview from its first frame. The goal sentence and its chips are set at once. The steps and the track wait as ghosts at a third of their ink, then Mate builds them top-down and the number counts up from the baseline. There are no grey placeholder bars, also between goals. The layout does not move.' },
+  { id: 'U2', title: 'Mono for data only, and an eyebrow diet', links: [['About', '/lab/u2-mono-for-data/'], ['Insurance', '/lab/u2-mono-for-data-insurance/']], live: [['About today', '/about/'], ['Insurance today', '/industries/insurance/']],
+    look: 'The small uppercase labels above headings are gone (About: 5 to 0; insurance: 2 to 1, the kicker that states a fact). Notes, roles and footer titles move from JetBrains Mono to Hanken. Mono is left for data: prices, IDs and everything inside a preview.' },
+  { id: 'U3', title: 'The page closes on its own goal', links: [['Home', '/lab/u3-goal-close/#start'], ['Insurance', '/lab/u3-goal-close-insurance/#start']], live: [['Home today', '/#start'], ['Insurance today', '/industries/insurance/#start']],
+    look: 'The closing band is the sentence from that page’s hero preview, set large with the preview’s amber underline under the number, the metric and the date, then “Yours: your number by your date. Your move.” Compare the two: the bands are no longer the same on every page.' },
+  { id: 'U5', title: 'One room, set large', links: [['Home', '/lab/u5-one-room/#field']], live: [['Home today', '/#field']],
+    look: '“Three rooms we sat in” without the three equal cards. 04:00 runs at display size beside its sentence, and the other two rooms follow as a quieter list. The colour sits on the status dots only, and the notes are in the text face.' },
+  { id: '3D1', title: '“The machine”: the mark in 3D', links: [['About hero', '/lab/3d-machine/']], live: [['About today', '/about/']],
+    look: 'On a screen 900 px or wider with motion allowed, the hub of the team orbit holds the mark as three satin spheres. Mate (indigo) breathes first and on track (teal) follows, while you (amber) hold still. Move the pointer and the mark tilts by up to 6°. The pause button stops it, and so do 12 s of stillness. Phones, reduced motion, Save-Data and no-JS keep the SVG.' },
+  { id: 'All', title: 'Home with U1, U2, U3 and U5 together', links: [['Home', '/lab/all/']], live: [['Home today', '/']], look: 'How the upgrades read together on one page.' },
+];
+---
+<Layout title="Lab · Mateos" description="Visual direction prototypes." robots="noindex, nofollow" v7={false}>
+<section class="lab-index">
+  <div class="lab-index-in">
+    <h1 class="lab-index-h">Visual direction lab</h1>
+    <p class="lab-index-lead">Prototypes of the upgrades in <code>web/docs/visual-direction.md</code>, built on copies of the real pages so you can judge them in context. Nothing here changes a live page. English only. Try light and dark with the theme switch in the header, and a phone width.</p>
+    <ol class="lab-index-list">
+      {ITEMS.map((it) => (
+      <li class="lab-index-item">
+        <h2 class="lab-index-t"><span class="lab-index-id">{it.id}</span> {it.title}</h2>
+        <p class="lab-index-look">{it.look}</p>
+        <p class="lab-index-links">{it.links.map(([l, h]) => <a class="lab-index-go" href={u(h)}>{l}</a>)}<span class="lab-index-vs">Compare:</span>{it.live.map(([l, h]) => <a class="lab-index-cmp" href={u(h)}>{l}</a>)}</p>
+      </li>
+      ))}
+    </ol>
+  </div>
+</section>
+</Layout>

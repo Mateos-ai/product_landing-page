@@ -1,0 +1,16 @@
+---
+// The strip at the top of every lab page: which prototype this is, that it is not a live page, and the way back.
+// Lab pages are EN only, noindex, and linked from nowhere on the site (not in the nav, the footer or sitemap.xml).
+import './lab.css';
+import { pageCtx } from '../../i18n/page';
+interface Props { id: string; title: string; look?: string }
+const { id, title, look } = Astro.props;
+const { u } = pageCtx(Astro);
+---
+<aside class="lab-bar" aria-label="Lab prototype">
+  <div class="lab-bar-in">
+    <p class="lab-bar-t"><b>Lab {id}</b> {title}. A prototype, not a live page.</p>
+    {look && <p class="lab-bar-look" set:html={look} />}
+    <a class="lab-bar-back" href={u('/lab/')}>All prototypes</a>
+  </div>
+</aside>

@@ -4,7 +4,7 @@
 Usage: python3 -I build.py [--out PATH]
 - Strips the stray wrapper document (spec §2.2), keeps <head> metadata, header and footer byte-for-byte.
 - Adds the three head additions (gate script, v7.css, v7.js).
-- Replaces the contents of <main id="main"> with the template, filling @SPRITE @M1 @K1 @M7 @M14 and @HOW:n:ID:nav:title.
+- Replaces the contents of <main id="main"> with the template, filling @SPRITE @M1 @K2 @M7 and @HOW:n:ID:nav:title.
 Re-run it whenever a component fragment changes.
 """
 import pathlib, re, sys
@@ -75,9 +75,8 @@ def how_figure(step, sid, nav, title):
 main = tpl
 main = main.replace('<!--@SPRITE-->', frag('C2.sprite.html'))
 main = main.replace('<!--@M1-->', indent(frag('M1.html'), 4))
-main = main.replace('<!--@K1-->', indent(frag('K1.html'), 4))
+main = main.replace('<!--@K2-->', indent(frag('K2.html'), 4))
 main = main.replace('<!--@M7-->', indent(frag('M7.html'), 4))
-main = main.replace('<!--@M14-->', indent(frag('M14.html'), 4))
 main = re.sub(r'<!--@HOW:(\d):(M\d+):([a-z]+):([^>]*?)-->',
               lambda m: indent(how_figure(m.group(1), m.group(2), m.group(3), m.group(4)), 4), main)
 assert '<!--@' not in main, re.findall(r'<!--@[^>]*-->', main)

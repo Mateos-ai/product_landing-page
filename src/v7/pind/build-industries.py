@@ -36,7 +36,7 @@ UI = {
         'stepper': [('goal', 'Set the goal.'), ('flows', 'Mate builds the flows.'), ('track', 'Mate keeps you on track.')],
         'cta_xray': 'Start with an X-ray',
         'cta_tour': 'Take the tour',
-        'cta_talk': 'Contact us',
+        'cta_connect': 'Let’s connect',
         # the bottom line's last two beats, in the homepage micro pattern ("For owner-led companies with no CTO. X-ray from $990.")
         # one sentence per line on phones (.v7-sent: inline-block), in both engines (WebKit otherwise re-balances mid-sentence)
         'micro': '<span class="v7-sent">A person wherever it’s needed.</span> <span class="v7-sent">X-ray&nbsp;from&nbsp;$990.</span>',
@@ -280,7 +280,7 @@ MAIN_TPL = '''<!--@SPRITE-->
     <div class="v7-pp-ctacopy" data-v7-stagger="80">
       <h2 id="start-h" class="v7-h2" data-v7-reveal="mask">{move_h2}</h2>
       <p class="v7-lead" data-v7-reveal data-v7-delay="160">{move_p}</p>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="{R}contact/">{cta_xray}</a><a class="btn btn-lg v7-btn-ghost" href="{R}contact/">{cta_talk}</a></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="{R}contact/">{cta_connect}</a></div>
     </div>
   </div>
 </section>'''
@@ -392,7 +392,7 @@ def build_main(lang, slug):
     main = MAIN_TPL.format(
         R=R, eyebrow=eyebrow, h1=mask_lines(pg['h1'], pg.get('h1_br', ())), lead=pg['lead'], stepper=stepper,
         h1_cls=' v7-ind-h1acc' if any('v7-ind-acc' in l for l in pg['h1']) else '',
-        cta_xray=ui['cta_xray'], cta_tour=ui['cta_tour'], cta_talk=ui['cta_talk'], micro=ui['micro'],
+        cta_xray=ui['cta_xray'], cta_tour=ui['cta_tour'], cta_connect=ui['cta_connect'], micro=ui['micro'],
         hurts_label=h['label'], hurts_h2=sentences(h['h2']), hurts_line=h['line'], hurts_cap=hurts_cap,
         start_h2=ui['start_h2'], cards=cards,
         control_h2=c['h2'], never_cls=' v7-ind-never' if c['never'] else '', checks=checks, control_after=after,

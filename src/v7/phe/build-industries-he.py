@@ -37,7 +37,7 @@ UI_HE = {
     'stepper': [('goal', 'מגדירים יעד.'), ('flows', 'Mate בונה את התהליכים.'), ('track', 'Mate דואג שהכל מתקדם כמתוכנן.')],
     'cta_xray': 'מתחילים ב-X-ray',
     'cta_tour': 'לסיור במוצר',
-    'cta_talk': 'צרו קשר',
+    'cta_connect': 'בואו נדבר',
     'micro': f'<span class="v7-sent">אדם בכל מקום שהוא הכרחי.</span> <span class="v7-sent">{X}&nbsp;החל&nbsp;מ-990&nbsp;דולר.</span>',
     'start_h2': 'מאיפה מתחילים.',
     'field_h2': 'חדר אחד שישבנו בו.',

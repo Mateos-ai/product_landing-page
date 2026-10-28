@@ -22,7 +22,7 @@ html[lang=he] :is(.v7-ind-card-t,.v7-ind-after,.v7-hub-name,.v7-hub-step,.v7-hub
   .v7-hww-name,.v7-hww-tag,.v7-hww-wl,.v7-hww-fine,.v7-hww-num-title){letter-spacing:0}
 /* mono labels that hold Hebrew read in the body face */
 html[lang=he] :is(.v7-hww-tag,.v7-hww-wl,.v7-hww-fine){font-family:var(--font-body)}
-html[lang=he] .v7-hww-fine{font-size:13px}
+html[lang=he] .v7-hww-fine{font-size:.8125rem}
 
 /* The number card's bar is a chart (dir=ltr, like its columns) inside an RTL page: C2's [dir=rtl] fill origin reaches
    through it, so the fill would grow from the right while the tick and flag sit from the left. Reset it here. */

@@ -1,0 +1,28 @@
+/* LAB U5: one room set large. Resets the shipped card look of .v7-story (border, surface, top rule) inside .lab-rooms. */
+.lab-rooms .v7-story{padding:0;border:0;border-radius:0;background:none;overflow:visible;display:grid}
+.lab-rooms .v7-story::before{content:none}
+.lab-rooms-head{display:grid;gap:20px;max-width:760px}
+.lab-rooms-head .v7-lead{margin:0}
+/* the lead room: 04:00 at display size, its sentence beside it on the baseline */
+.lab-room-lead{margin-top:clamp(48px,6vw,88px);gap:20px 56px;align-items:end}
+.lab-room-big{font-family:var(--font-display);font-weight:700;font-size:clamp(6rem,1.5rem + 11vw,11rem);line-height:.86;letter-spacing:-.05em;
+  font-variant-numeric:tabular-nums;color:var(--text-primary);margin:0}
+.lab-room-lead .lab-room-body{font-family:var(--font-display);font-size:clamp(1.375rem,1.05rem + 1.2vw,2.125rem);font-weight:600;line-height:1.18;
+  letter-spacing:-.02em;color:var(--text-primary);max-width:24ch;text-wrap:pretty;margin:0}
+.lab-room-text{display:grid;gap:20px;padding-bottom:.4em}
+/* the other two: a typographic list, figure / sentence / note */
+.lab-room-list{display:grid;gap:48px;margin-top:clamp(64px,8vw,120px)}
+.lab-room-row{gap:10px 40px;align-items:baseline}
+.lab-room-mid{margin:0;font-family:var(--font-display);font-weight:700;font-size:clamp(1.75rem,1.3rem + 1.4vw,2.5rem);line-height:1.08;letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums;color:var(--text-primary);text-wrap:balance}
+.lab-room-mid.is-quote{font-size:clamp(1.375rem,1.15rem + .8vw,1.875rem);line-height:1.18;letter-spacing:-.02em}
+.lab-room-row .lab-room-body{margin:0;font-size:1.0625rem;line-height:1.55;color:var(--text-primary);text-wrap:pretty}
+.lab-room-q{display:flex;align-items:baseline;gap:10px;margin:0;font-size:.9375rem;line-height:1.5;color:var(--text-secondary)}
+/* colour lives on the status dot only (role colour of the room) */
+.lab-dot{flex:none;width:10px;height:10px;border-radius:50%;background:var(--v7-tone);transform:translateY(-1px)}
+.lab-rooms-more{margin-top:48px}
+.lab-rooms .v7-story .v7-caret{background:var(--text-primary)}
+@media (min-width:900px){
+  .lab-room-lead{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:40px}
+  .lab-room-row{grid-template-columns:minmax(0,5fr) minmax(0,4fr) minmax(0,3fr)}
+}

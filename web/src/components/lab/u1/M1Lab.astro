@@ -1,0 +1,19 @@
+---
+// LAB U1: the M1 hero preview with a real first frame. Same fragment as <M1 />, but mounted as "M1L" so the lab
+// timeline (m1lab.js) drives it; the shipped M1 on real pages is untouched.
+import { fragment, addAttrs, stripLead, indent as ind } from '../../../v7/fragments';
+import { localeFromPath, type Locale } from '../../../i18n';
+import './u1.css';
+interface Props { variant?: string; locale?: Locale; indent?: number }
+const { variant, indent = 0 } = Astro.props;
+const locale = Astro.props.locale ?? localeFromPath(Astro.url.pathname);
+let html = stripLead(fragment('M1', locale, { variant }));
+html = html.replace('data-v7-mock="M1"', 'data-v7-mock="M1L"').replace('class="v7-figure m-hero-fig"', 'class="v7-figure m-hero-fig lab-u1"');
+if (indent) html = ind(html, indent);
+---
+<Fragment set:html={html} />
+<script>
+  import { defineM1L } from './m1lab.js';
+  const go = () => { if ((window as any).V7 && (window as any).V7.define) defineM1L(); };
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', go); else go();
+</script>

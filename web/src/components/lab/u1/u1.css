@@ -1,0 +1,4 @@
+/* LAB U1: ghost state of the hero preview (frame 0 and between goals). Never grey bars. */
+.lab-u1 [data-lab-ghost]{opacity:.36}
+.lab-u1 .m-hero-nodes>li[data-lab-ghost] .v7-node-tile{filter:saturate(0)}
+.lab-u1 .m-hero-skb,.lab-u1 .m-hero-sk{display:none}

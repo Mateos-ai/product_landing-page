@@ -139,7 +139,7 @@ ${fact('תמיד יש אדם שאפשר להתקשר אליו.', 'Mate עובד 
       <p class="v7-lead" data-v7-reveal data-v7-delay="160">לחברות בבעלות יזם, מ-20 עד <bdi>1,000</bdi> עובדים. באוויר תוך שבועות.</p>
       <p class="v7-lead" data-v7-reveal data-v7-delay="160">מתחילים ב-X-ray: יום אחד אצלכם עם האנשים שעושים את העבודה, או סוכן קטן אחד. כל תהליך מדורג לפי ההחזר שלו. החל מ-990 דולר.</p>
       <p class="v7-fine" data-v7-reveal data-v7-delay="160">פיילוט ותהליכים מתומחרים לפי תהליך. חלק מהתשלום שלנו תלוי במספר שאתם מובילים.</p>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="../../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../../he/contact/">צרו קשר</a></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href="../../he/contact/">בואו נדבר</a></div>
     </div>
   </div>
 </section>`;

@@ -27,7 +27,7 @@ def _nw(s):
     return ''.join(out)
 
 
-def nw_data(v, skip=('m1', 'fig', 'big', 'tone', 'fx', 'name', 'cta_xray', 'cta_tour', 'cta_talk')):
+def nw_data(v, skip=('m1', 'fig', 'big', 'tone', 'fx', 'name', 'cta_xray', 'cta_tour', 'cta_connect')):
     """nw() on every string of a nested copy structure, except the keys in skip (file names, effect text)."""
     if isinstance(v, str):
         return nw(v)

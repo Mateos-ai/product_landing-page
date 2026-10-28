@@ -5,7 +5,7 @@ Hebrew v7parts fragments (<ID>.he.html, M0.he.html). Mirrors phome/build.py.
 Usage: python3 -I build-home.py [--out PATH]
 - Keeps <head> metadata, header and footer byte-for-byte from phe/orig/index.html.
 - Adds the three v7 head additions (gate script, ../assets/v7.css, ../assets/v7.js).
-- Replaces the contents of <main id="main"> with the template, filling @SPRITE @M1 @K1 @M7 @M14 and @HOW:n:ID.
+- Replaces the contents of <main id="main"> with the template, filling @SPRITE @M1 @K2 @M7 and @HOW:n:ID.
   The shell title of each How window comes from the screen's Hebrew data-title.
 Re-run it whenever a Hebrew fragment changes.
 """
@@ -23,10 +23,9 @@ ARROW = '<svg class="v7-ic v7-ic-flip" aria-hidden="true" focusable="false"><use
 
 TPL = '''<!--@SPRITE-->
 
-<section class="v7-band-dark v7-hero v7-home-hero" id="top" aria-labelledby="hero-h1">
+<section class="v7-band-dark v7-hero v7-home-hero v7-home-front" id="top" aria-labelledby="hero-h1">
   <div class="v7-wrap-wide v7-hero-grid">
     <div class="v7-hero-copy">
-      <span class="eyebrow" data-v7-reveal>MateOS</span>
       <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span>החברה שלך.</span></span> <span class="v7-line"><span>פי 10 טובה יותר.</span></span></h1>
       <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
         <li data-stage="goal" data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t">מגדירים יעד.</span></li>
@@ -40,12 +39,12 @@ TPL = '''<!--@SPRITE-->
   </div>
 </section>
 
-<section class="v7-sec" id="reverse" aria-labelledby="reverse-h">
+<section class="v7-sec v7-home-rev" id="reverse" aria-labelledby="reverse-h">
   <div class="v7-wrap">
-    <h2 class="sr-only" id="reverse-h">הופכים את סדר הבנייה.</h2>
-    <p class="v7-bridge" data-v7-reveal data-v7-delay="400">הופכים את סדר הבנייה: מתחילים מהמספר שחשוב לכם, ובונים אליו את התהליך.</p>
-<!--@K1-->
-    <a class="v7-link-arrow v7-k1-more" href="../he/mateos/" data-v7-reveal>עוד על הפלטפורמה שלנו@ARROW</a>
+    <h2 class="v7-h2" id="reverse-h" data-v7-reveal="mask"><span class="v7-line"><span>הופכים את סדר הבנייה.</span></span></h2>
+    <p class="v7-lead" data-v7-reveal data-v7-delay="120">מתחילים מהמספר. בונים כדי להגיע אליו.</p>
+<!--@K2-->
+    <a class="v7-link-arrow v7-k2-more" href="../he/mateos/" data-v7-reveal>עוד על הפלטפורמה שלנו@ARROW</a>
   </div>
 </section>
 
@@ -91,31 +90,6 @@ TPL = '''<!--@SPRITE-->
   </div>
 </section>
 
-<section class="v7-sec v7-sec--subtle" id="field" aria-labelledby="field-h">
-  <div class="v7-wrap">
-    <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span>שלושה חדרים שישבנו בהם.</span></span></h2>
-    <p class="v7-lead v7-field-lead" data-v7-reveal data-v7-delay="120">עובדים היום עם לקוחות בביטוח, בנדל"ן, בלוגיסטיקה ובתעשייה.</p>
-    <div class="v7-stories" data-v7-stagger="100">
-      <article class="v7-story" data-tone="you" data-v7-reveal data-v7-fx="clock">
-        <h3 class="v7-story-big"><span class="v7-fx" aria-hidden="true">04:00</span><span class="sr-only">04:00</span></h3>
-        <p class="v7-story-body">מסלולי ההפצה של מחר היו בראש של אדם אחד. המערכת שלנו בנתה את אותה תוכנית מההיסטוריה.</p>
-        <p class="v7-story-q">מפיץ ציוד רפואי. אב-טיפוס שנבדק על נתוני עבר.</p>
-      </article>
-      <article class="v7-story" data-tone="ok" data-v7-reveal data-v7-fx="count">
-        <h3 class="v7-story-big"><span class="v7-fx" aria-hidden="true"><span class="v7-fx-n">9,700 שעות</span> בשנה</span><span class="sr-only">9,700 שעות בשנה</span></h3>
-        <p class="v7-story-body">של קריאה ידנית של תיקים רפואיים.</p>
-        <p class="v7-story-q">סוכנות ביטוח, 800 עובדים. הערכה מראיונות עם הצוות. פיילוט בביצוע.</p>
-      </article>
-      <article class="v7-story" data-tone="mate" data-v7-reveal data-v7-fx="type">
-        <h3 class="v7-story-big is-quote"><span class="v7-fx" aria-hidden="true">“רגע, אני בודק עם המשרד.”</span><span class="sr-only">“רגע, אני בודק עם המשרד.”</span></h3>
-        <p class="v7-story-body">איש מכירות, בכל שאלה על מחיר. אנחנו בונים לו את התשובה בוואטסאפ.</p>
-        <p class="v7-story-q">מפעל ייצור. בפיתוח.</p>
-      </article>
-    </div>
-    <a class="v7-link-arrow v7-field-more" href="../he/industries/" data-v7-reveal>כל הענפים@ARROW</a>
-  </div>
-</section>
-
 <section class="v7-sec v7-band-dark v7-cta" id="start" aria-labelledby="start-h">
   <div class="v7-wrap v7-home-cta">
     <div class="v7-home-cta-copy">
@@ -126,9 +100,8 @@ TPL = '''<!--@SPRITE-->
         <li><h3 class="v7-ladder-name">תהליכים על MateOS</h3><p class="v7-ladder-body">התהליך הבא, על אותה מערכת.</p></li>
       </ol>
       <p class="v7-fine" data-v7-reveal>פיילוט ותהליכים מתומחרים לפי תהליך. חלק מהתשלום שלנו תלוי במספר שאתם מובילים. עוצרים בכל שלב.</p>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href="../he/contact/">מתחילים ב-X-ray</a><a class="btn btn-lg v7-btn-ghost" href="../he/contact/">צרו קשר</a></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href="../he/contact/">בואו נדבר</a></div>
     </div>
-<!--@M14-->
   </div>
 </section>
 '''.replace('@CHECK', CHECK).replace('@ARROW', ARROW)
@@ -201,9 +174,8 @@ def how_figure(step, sid):
 main = TPL
 main = main.replace('<!--@SPRITE-->', frag('C2.sprite.html'))
 main = main.replace('<!--@M1-->', indent(frag('M1.he.html'), 4))
-main = main.replace('<!--@K1-->', indent(frag('K1.he.html'), 4))
+main = main.replace('<!--@K2-->', indent(frag('K2.he.html'), 4))
 main = main.replace('<!--@M7-->', indent(frag('M7.he.html'), 4))
-main = main.replace('<!--@M14-->', indent(frag('M14.he.html'), 4))
 main = re.sub(r'<!--@HOW:(\d):(M\d+)-->', lambda m: indent(how_figure(m.group(1), m.group(2)), 4), main)
 assert '<!--@' not in main, re.findall(r'<!--@[^>]*-->', main)
 

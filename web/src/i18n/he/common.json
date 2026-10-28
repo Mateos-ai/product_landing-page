@@ -1,7 +1,7 @@
 {
   "pauseLabel": "השהיית האנימציה",
   "skip": "דילוג לתוכן",
-  "navLabel": "Main",
+  "navLabel": "ראשי",
   "nav": [
     { "label": "MateOS", "href": "/mateos/" },
     { "label": "התהליך", "href": "/how-we-work/" },
@@ -21,9 +21,10 @@
   "theme": { "title": "החלפת מצב תצוגה", "light": "בהיר", "dark": "כהה" },
   "cta": "מתחילים ב-X-ray",
   "menu": "תפריט",
+  "navMoreLabel": "עמודי ענפים",
   "footer": {
     "tagline": "זאת החברה שלכם. מהירה פי 10.",
-    "label": "Footer",
+    "label": "כותרת תחתונה",
     "cols": [
       { "title": "המוצר", "links": [
         { "label": "MateOS", "href": "/mateos/" },
@@ -47,8 +48,8 @@
         { "label": "הצהרת נגישות", "href": "/accessibility/" }
       ] }
     ],
-    "legal": "Mateos AI, Inc., חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.",
-    "copy": "© 2026 Mateos AI, Inc. כל הזכויות שמורות."
+    "legal": "<bdi>Mateos AI, Inc.</bdi>, חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.",
+    "copy": "<bdi>© 2026 Mateos AI, Inc.</bdi> כל הזכויות שמורות."
   },
   "meta": {
     "siteName": "Mateos",
