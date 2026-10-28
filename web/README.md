@@ -17,7 +17,7 @@ npm run dev        # http://localhost:4321. Astro 7 may start the dev server in 
 npm run build      # -> dist/ (v7.css / v7.js assembled and minified into dist/assets/)
 npm run preview    # serve dist/
 npm run parity     # compare dist/ with ../site (build first). Report: tools/parity-out/summary.md
-npm run check:parts  # list v7 part files that differ from ../src/v7/v7parts (they must stay in sync until cutover)
+npm run check:parts  # list v7 part files that differ from ../src/v7/v7parts (must read "in sync" until cutover; web-only fixes go in src/v7/web-patches.mjs)
 ```
 
 `V7_MINIFY=0 npm run build` ships unminified v7 assets, which helps with debugging.
@@ -30,7 +30,7 @@ npm run check:parts  # list v7 part files that differ from ../src/v7/v7parts (th
 | `src/views/<Page>.astro` | One per page, locale-agnostic. Wraps its content in `<Layout>` and composes components. |
 | `src/layouts/Layout.astro` | The only layout: `<html lang dir>`, all head metadata, header, footer, inline scripts, v7 assets. |
 | `src/components/site/` | Header, Footer, and small shared pieces: `Arrow`, `Check` (`variant="never"` for the cross, `focusable` adds `focusable="false"`), `ProsePage` (the privacy and accessibility body: eyebrow, title, last-updated, lead, titled sections). |
-| `src/components/v7/<ID>.astro` | One component per product preview (M0, M1, M3 to M23, K1, T1). There is no M2 part, and S1 (the home "How it works" stepper) is CSS/JS only. |
+| `src/components/v7/<ID>.astro` | One component per product preview (M0, M1, M3 to M23, K1, K2, T1). K2 is the home "Reverse the build" cubes; K1 is no longer on any page. There is no M2 part, and S1 (the home "How it works" stepper) is CSS/JS only. |
 | `src/components/v7/Frag.astro` | The base the frameless previews use: pastes `parts/<id>[.<variant>][.he].html`, with `attrs` and `indent`. |
 | `src/components/v7/ProductTour.astro` | The T1 tour on `/mateos/`: one 556px M0 shell hosting M3 M4 M5 M6 M8 M9, with each screen's sr-only caption. English captions get typographic apostrophes (`curly()` in `src/i18n/index.ts`). |
 | `src/components/v7/X2.astro` | The sample-goal mock inside an industries-hub card (played by its host card). All copy comes in as props. |
@@ -39,7 +39,8 @@ npm run check:parts  # list v7 part files that differ from ../src/v7/v7parts (th
 | `src/i18n/<locale>/<namespace>.json` | All copy. `common.json` holds header, footer and meta defaults; one file per page (`home.json`). |
 | `src/i18n/index.ts`, `src/i18n/page.ts` | `useT`, `pageCtx`, link and locale helpers. |
 | `src/v7/parts/` | The v7 motion system parts (CSS/JS/HTML), copied from `../src/v7/v7parts`. See `parts/README.md`. |
-| `src/v7/assemble.mjs`, `src/v7/integration.mjs` | Concatenate the parts in the fixed order (byte-identical to `assemble.sh`). Served live in dev and written minified (esbuild) to `dist/assets/` on build. |
+| `src/v7/web-patches.mjs` | The web-only design-review fixes to the v7 part CSS (`docs/design-review-apple.md`, H1 and M1), applied as exact string replacements while assembling, so `parts/` stays a byte copy of `../src/v7/v7parts`. A patch that no longer matches fails the build. Fold them into the parts at cutover. |
+| `src/v7/assemble.mjs`, `src/v7/integration.mjs` | Concatenate the parts in the fixed order (byte-identical to `assemble.sh`, plus the web patches). Served live in dev and written minified (esbuild) to `dist/assets/` on build. |
 | `src/v7/fragments.ts` | Loads the HTML fragments and composes the M0 app shell (a port of the old page assemblers). |
 | `src/scripts/` | The inline scripts: `anti-flash.js` (theme before first paint), `v7-gate.js`, `site.js` (module: theme toggle, menus, X-ray form) and `xray-done.js` (the contact page's animated success panel and "Send another request"). |
 | `src/styles/xray-done.css` | The success panel's styles, inlined in the contact page's head (`slot="head-end"`). |

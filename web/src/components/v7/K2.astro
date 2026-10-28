@@ -1,0 +1,7 @@
+---
+// K2 preview: parts/K2.html (Hebrew: K2.he.html; variants: K2.<variant>[.he].html). Props: locale?, variant?, attrs?, indent?
+import Frag from './Frag.astro';
+import type { Locale } from '../../i18n';
+interface Props { locale?: Locale; variant?: string; attrs?: string; indent?: number }
+---
+<Frag id="K2" {...Astro.props} />

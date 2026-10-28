@@ -1,0 +1,58 @@
+/* >>> K2 reverse-the-build cubes (homepage #reverse). Two acts: the old way (a tower with no target falls into a pile)
+   and our way (the goal first, then a clean column of Mate's cubes that reaches it). Markup is the final state; K2.js
+   arms the start state. Transform and opacity only; the stage keeps a fixed aspect ratio, so nothing moves layout. */
+.k2{max-width:1040px}
+.k2-stage{--k2-o-t:#E3E6EE;--k2-o-l:#C3C8D5;--k2-o-r:#A6ADBE;
+  --k2-m-t:#8F8AF2;--k2-m-l:#5B53E8;--k2-m-r:#443CC9;
+  --k2-floor:var(--neutral-50,#F6F6F9);--k2-floor-line:var(--m-line);--k2-ghost:rgba(91,83,232,.38);--k2-goal:var(--amber-500,#FF8C42);
+  display:grid;border:1px solid var(--m-line);border-radius:20px;background:var(--m-bg);overflow:hidden}
+[data-theme=dark] .k2-stage{--k2-o-t:#666B82;--k2-o-l:#4C5065;--k2-o-r:#3A3D52;
+  --k2-m-t:#A29DFF;--k2-m-l:#6A62F0;--k2-m-r:#4B43CF;
+  --k2-floor:rgba(255,255,255,.035);--k2-ghost:rgba(162,157,255,.4)}
+.k2-act{position:relative;min-width:0;padding:20px 20px 8px}
+.k2-act+.k2-act{border-top:1px solid var(--m-line)}
+@media (min-width:760px){
+  .k2-stage{grid-template-columns:1fr 1fr}
+  .k2-act{padding:24px 28px 12px}
+  .k2-act+.k2-act{border-top:0;border-inline-start:1px solid var(--m-line)}
+}
+.k2-label{display:flex;align-items:center;gap:10px;font:600 15px/1.35 var(--font-body);color:var(--m-text)}
+.k2-label>i{flex:none;width:8px;height:8px;border-radius:2px;background:var(--k2-o-l);transform:rotate(45deg)}
+.k2-act[data-act=new] .k2-label>i{background:var(--k2-m-l)}
+.k2-act[data-act=old] .k2-label{color:var(--m-text-2)}
+
+.k2-pic{position:relative;aspect-ratio:4/3;max-width:480px;margin-inline:auto}
+.k2-svg{display:block;width:100%;height:100%;overflow:visible}
+.k2-floor{fill:var(--k2-floor);stroke:var(--k2-floor-line);stroke-width:1}
+.k2-cube,.k2-tower{transform-box:view-box}
+.k2-cube{transform-origin:0 0}
+.k2-cube path{stroke-linejoin:round}
+.k2-cube.is-old .k2-t{fill:var(--k2-o-t)}
+.k2-cube.is-old .k2-l{fill:var(--k2-o-l)}
+.k2-cube.is-old .k2-r{fill:var(--k2-o-r)}
+.k2-cube.is-mate .k2-t{fill:var(--k2-m-t)}
+.k2-cube.is-mate .k2-l{fill:var(--k2-m-l)}
+.k2-cube.is-mate .k2-r{fill:var(--k2-m-r)}
+.k2-cube .k2-t{stroke:rgba(255,255,255,.35);stroke-width:.75}
+.k2-glint{fill:#fff;opacity:0}
+.k2-ghost{opacity:0;fill:none;stroke:var(--k2-ghost);stroke-width:1;stroke-dasharray:3 4}
+.k2-goal-line{stroke:var(--k2-goal);stroke-width:1.5;stroke-dasharray:6 5;stroke-linecap:round}
+.k2-goal-end{fill:var(--k2-goal)}
+
+/* HTML labels over the drawing: placed in % of the stage (left/top from K2.html), anchored by translate */
+.k2-why,.k2-flag,.k2-ok{position:absolute;white-space:nowrap}
+.k2-why{translate:-50% -50%;font:italic 500 15px/1 var(--font-body);color:var(--m-text-3)}
+.k2-flag{translate:-100% calc(-100% - 8px)}
+.k2-ok{translate:0 -50%}
+.k2-ok .v7-pill{height:26px;padding-inline:10px;gap:5px;font-size:12.5px}
+.k2-ok .v7-pill::before{display:none}
+.k2-ok .v7-pill .v7-ic{width:13px;height:13px;stroke-width:2.25}
+.k2 .v7-pause{inset-block-end:14px}
+@media (max-width:479.98px){
+  .k2-label{font-size:14px}
+  .k2-why{font-size:14px}
+  .k2-flag .v7-chip{height:24px;padding-inline:9px}
+  .k2-ok .v7-pill{height:24px;font-size:12px}
+}
+html[lang=he] .k2-why{font-style:normal}
+/* <<< K2 */

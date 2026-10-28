@@ -20,6 +20,7 @@
   "localeName": "English",
   "theme": { "title": "Switch theme", "light": "Light", "dark": "Dark" },
   "cta": "Start with an X-ray",
+  "connect": "Let’s connect",
   "menu": "Menu",
   "navMoreLabel": "Industries pages",
   "footer": {

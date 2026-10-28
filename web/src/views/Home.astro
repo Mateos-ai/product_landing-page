@@ -1,36 +1,31 @@
 ---
-// Home page (/ and /he/). Copy: src/i18n/<locale>/home.json. Previews: M1 (hero), K1, M3/M4/M5 in the M0 shell, M7, M14.
+// Home page (/ and /he/). Copy: src/i18n/<locale>/home.json. Previews: M1 (hero), K2, M3/M4/M5 in the M0 shell, M7.
 import Layout from '../layouts/Layout.astro';
 import Sprite from '../components/v7/Sprite.astro';
 import M1 from '../components/v7/M1.astro';
-import K1 from '../components/v7/K1.astro';
+import K2 from '../components/v7/K2.astro';
 import M0 from '../components/v7/M0.astro';
 import M7 from '../components/v7/M7.astro';
-import M14 from '../components/v7/M14.astro';
 import Arrow from '../components/site/Arrow.astro';
 import Check from '../components/site/Check.astro';
 import { pageCtx } from '../i18n/page';
 
 const { t, u } = pageCtx(Astro, 'home');
 type Step = { label: string; sents?: string[]; h3?: string; p?: string };
-type Story = { fx: string; sr: string; body: string; q: string };
 type Rung = { name: string; tag?: string; body: string };
 const h1 = t.raw<string[]>('hero.h1');
 const steps = t.raw<Step[]>('how.steps');
 const HOW = [{ id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }];
 const checks = t.raw<string[]>('control.checks');
-const stories = t.raw<Story[]>('field.stories');
-const STORY = [{ tone: 'you', fx: 'clock' }, { tone: 'ok', fx: 'count' }, { tone: 'mate', fx: 'type', quote: true }];
 const startTitle = t.raw<string[]>('start.title');
 const ladder = t.raw<Rung[]>('start.ladder');
 ---
 <Layout title={t('meta.title')} description={t('meta.description')}>
 <Sprite />
 
-<section class="v7-band-dark v7-hero v7-home-hero" id="top" aria-labelledby="hero-h1">
+<section class="v7-band-dark v7-hero v7-home-hero v7-home-front" id="top" aria-labelledby="hero-h1">
   <div class="v7-wrap-wide v7-hero-grid">
     <div class="v7-hero-copy">
-      <span class="eyebrow" data-v7-reveal>{t('hero.eyebrow')}</span>
       <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={h1[0]} /></span> <span class="v7-line"><span set:html={h1[1]} /></span></h1>
       <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
         {(['goal', 'flows', 'track'] as const).map((k) => (
@@ -44,12 +39,12 @@ const ladder = t.raw<Rung[]>('start.ladder');
   </div>
 </section>
 
-<section class="v7-sec" id="reverse" aria-labelledby="reverse-h">
+<section class="v7-sec v7-home-rev" id="reverse" aria-labelledby="reverse-h">
   <div class="v7-wrap">
-    <h2 class="sr-only" id="reverse-h" set:html={t('reverse.srTitle')} />
-    <p class="v7-bridge" data-v7-reveal data-v7-delay="400" set:html={t('reverse.bridge')} />
-<K1 indent={4} />
-    <a class="v7-link-arrow v7-k1-more" href={u('/mateos/')} data-v7-reveal><Fragment set:html={t('reverse.more')} /><Arrow /></a>
+    <h2 class="v7-h2" id="reverse-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('reverse.title')} /></span></h2>
+    <p class="v7-lead" data-v7-reveal data-v7-delay="120" set:html={t('reverse.lead')} />
+<K2 indent={4} />
+    <a class="v7-link-arrow v7-k2-more" href={u('/mateos/')} data-v7-reveal><Fragment set:html={t('reverse.more')} /><Arrow /></a>
   </div>
 </section>
 
@@ -86,23 +81,6 @@ const ladder = t.raw<Rung[]>('start.ladder');
   </div>
 </section>
 
-<section class="v7-sec v7-sec--subtle" id="field" aria-labelledby="field-h">
-  <div class="v7-wrap">
-    <h2 class="v7-h2" id="field-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('field.title')} /></span></h2>
-    <p class="v7-lead v7-field-lead" data-v7-reveal data-v7-delay="120" set:html={t('field.lead')} />
-    <div class="v7-stories" data-v7-stagger="100">
-      {stories.map((s, i) => (<Fragment>
-      <article class="v7-story" data-tone={STORY[i].tone} data-v7-reveal data-v7-fx={STORY[i].fx}>
-        <h3 class={STORY[i].quote ? 'v7-story-big is-quote' : 'v7-story-big'}><span class="v7-fx" aria-hidden="true" set:html={s.fx} /><span class="sr-only" set:html={s.sr} /></h3>
-        <p class="v7-story-body" set:html={s.body} />
-        <p class="v7-story-q" set:html={s.q} />
-      </article>{'\n'}</Fragment>
-      ))}
-    </div>
-    <a class="v7-link-arrow v7-field-more" href={u('/industries/')} data-v7-reveal><Fragment set:html={t('field.more')} /><Arrow /></a>
-  </div>
-</section>
-
 <section class="v7-sec v7-band-dark v7-cta" id="start" aria-labelledby="start-h">
   <div class="v7-wrap v7-home-cta">
     <div class="v7-home-cta-copy">
@@ -113,9 +91,8 @@ const ladder = t.raw<Rung[]>('start.ladder');
         ))}
       </ol>
       <p class="v7-fine" data-v7-reveal set:html={t('start.fine')} />
-      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('start.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('start.contact')} /></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
     </div>
-<M14 indent={4} />
   </div>
 </section>
 </Layout>

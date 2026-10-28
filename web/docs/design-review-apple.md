@@ -316,5 +316,7 @@ which does not change layout.
   the footer's legal and copyright lines read correctly.
 - **`npm run check:parts`:** lists C2, P-HE2, P-HOME and P-HWW as differing from `../src/v7/v7parts`. That is
   expected, since the live `site/` and `src/v7` were not touched.
+  Later (2026-10-28, parity with the K2 homepage): the H1 and M1 part edits moved to `src/v7/web-patches.mjs`, which
+  applies them while assembling, so `parts/` is a byte copy of `../src/v7/v7parts` again and `check:parts` reads in sync.
 - **WebKit:** C1 (outline color in both modes), the H2 mobile Escape and the M2 hit areas were confirmed. WebKit does
   not move focus to links on Tab by default, so the desktop Industries Escape was checked in Chromium only.

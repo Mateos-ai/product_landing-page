@@ -19,6 +19,8 @@
     "micro": "For owner-led companies with no CTO. X-ray&nbsp;from&nbsp;$990."
   },
   "reverse": {
+    "title": "Reverse the build.",
+    "lead": "Start with the number. Build to reach it.",
     "srTitle": "Reverse the build.",
     "bridge": "Reverse the build: start with the number that matters, then build the process to it.",
     "more": "Learn more about our platform"

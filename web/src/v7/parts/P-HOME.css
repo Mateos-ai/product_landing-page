@@ -18,6 +18,12 @@
 /* The web font wraps line 1 below 399px and the fallback fonts only below 369px, so the H1 re-wrapped (a layout shift)
    when Bricolage arrived. A fixed break up to 404px gives both fonts the same lines; wider screens wrap on their own. */
 @media (min-width:405px){.v7-home-hero .v7-h1-br{display:none}}
+/* Homepage hero only: on phones the hero is the H1, the stepper and the live preview. The buttons and the micro line
+   come back from 640px (the header keeps its own "Start with an X-ray" button at every width). */
+@media (max-width:639.98px){
+  .v7-home-front .v7-hero-copy>:is(.v7-actions,.v7-micro){display:none}
+  .v7-home-front .v7-hero-copy>.v7-stepper{margin-bottom:0}
+}
 .v7-home-hero .v7-stepper{margin-block:28px 32px}
 .v7-home-hero .v7-figure{margin-top:40px;min-width:0}
 @media (min-width:640px){
@@ -42,6 +48,11 @@
   line-height:1.25;letter-spacing:-.015em;color:var(--text-primary);text-wrap:balance}
 @media (min-width:640px){.v7-gap{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+/* ---------- H2b reverse the build (K2 cubes) ---------- */
+.v7-home-rev .v7-lead{margin-top:16px}
+.v7-home-rev .k2{margin-top:clamp(36px,4vw,56px)}
+.v7-k2-more{margin-top:28px}
+
 /* ---------- H4 a person approves (§4 H4, §0 A4). M7 sizes and centres itself; never clip this grid. ---------- */
 .v7-home-split{display:grid;gap:48px}
 .v7-home-copy .v7-h2{max-width:14ch}
@@ -64,7 +75,7 @@
   letter-spacing:-.03em;font-variant-numeric:tabular-nums;color:var(--text-primary);text-wrap:balance}
 .v7-story-big.is-quote{font-size:clamp(1.5rem,1.3rem + .8vw,1.875rem);line-height:1.15;letter-spacing:-.02em}
 .v7-story-body{margin-top:14px;font-size:1rem;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
-.v7-story-q{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:.75rem;line-height:1.5;color:var(--text-muted)}
+.v7-story-q{display:flex;align-items:flex-start;gap:8px;margin-top:auto;padding-top:24px;font-family:var(--font-mono);font-size:12px;line-height:1.5;color:var(--text-muted)}
 .v7-story-q::before{content:"";flex:none;width:10px;height:10px;margin-top:4px;border:1px dashed currentColor;border-radius:50%}
 .v7-field-more{margin-top:32px}
 @media (min-width:900px){
@@ -88,7 +99,7 @@
 .v7-story:not(.is-in) .v7-caret{animation:none} /* the armed caret does not blink before its card is in */
 
 /* ---------- H6 your move (§4 H6) ---------- */
-.v7-home-cta{display:grid;gap:48px}
+.v7-home-cta{display:grid}
 #start.v7-cta:has(.v7-home-cta){overflow:clip} /* hard band edge above the footer */
 .v7-ladder{--v7-dot-c:calc(1.375rem * 1.25 / 2);position:relative;list-style:none;display:grid;gap:24px;margin-top:40px;padding-inline-start:36px}
 .v7-ladder::before{content:"";position:absolute;inset-inline-start:5px;top:var(--v7-dot-c);bottom:0;width:2px;border-radius:2px;
@@ -105,8 +116,12 @@
 .v7-band-dark .v7-ladder-body{margin-top:6px;max-width:46ch;line-height:1.55;color:var(--dark-text-2)}
 .v7-home-cta .v7-fine{margin-top:24px;max-width:52ch;font-size:.9375rem;line-height:1.55;color:var(--dark-text-2)}
 .v7-home-cta .v7-actions{margin-top:32px}
+/* One column on phones; from 1024px the heading sits beside the ladder, the fine print and the single button. */
 @media (min-width:1024px){
-  .v7-home-cta{grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:64px;align-items:center}
+  .v7-home-cta-copy{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);column-gap:clamp(48px,6vw,96px);align-items:start}
+  .v7-home-cta-copy>.v7-h2{grid-column:1;grid-row:1/span 3}
+  .v7-home-cta-copy>:not(.v7-h2){grid-column:2}
+  .v7-home-cta-copy>.v7-ladder{margin-top:10px}
 }
 /* Ladder motion: JS arms it (data-v7-armed) and adds .is-on at 40% visible. No JS or reduced motion: final state.
    Arming is instant; transitions exist only on .is-on, so arming never animates (or freezes mid-fade while the
