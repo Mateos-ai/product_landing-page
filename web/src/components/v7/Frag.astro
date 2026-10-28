@@ -1,0 +1,15 @@
+---
+// Base for the frameless v7 previews: pastes parts/<id>[.<variant>][.he].html (minus a leading dev comment).
+// attrs: extra attributes on the root <figure> (e.g. 'data-v7-reveal="rise" data-v7-delay="200"').
+// indent: spaces to indent the pasted markup (cosmetic; the home page used 4).
+import { fragment, addAttrs, stripLead, indent as ind } from '../../v7/fragments';
+import { localeFromPath, type Locale } from '../../i18n';
+interface Props { id: string; locale?: Locale; variant?: string; attrs?: string; indent?: number }
+const { id, variant, attrs, indent = 0 } = Astro.props;
+const locale = Astro.props.locale ?? localeFromPath(Astro.url.pathname);
+// Drop a leading dev comment (the Hebrew fragments start with one; the page builders stripped it).
+let html = stripLead(fragment(id, locale, { variant }));
+if (attrs) html = addAttrs(html, attrs);
+if (indent) html = ind(html, indent);
+---
+<Fragment set:html={html} />

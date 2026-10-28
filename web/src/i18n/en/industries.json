@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "title": "Industries · Mateos",
+    "description": "Insurance, manufacturing, construction and real estate, logistics and distribution. Owner-led companies where people push documents through a process they can describe but never measured."
+  },
+  "eyebrow": "Industries · 10x faster",
+  "h1": [
+    "Four <br class=\"v7-h1-br\">industries.",
+    "One way in."
+  ],
+  "lead": "Owner-led companies that run on documents, phone calls and memory.",
+  "steps": {
+    "goal": "Set the goal",
+    "flows": "Mate builds the flows",
+    "track": "Mate keeps you on track"
+  },
+  "proof": "Live with clients in insurance, real&nbsp;estate, logistics and manufacturing. <br class=\"v7-hub-pbr\">X-ray&nbsp;from&nbsp;$990.",
+  "industriesSr": "The four industries",
+  "sampleGoals": "Sample goals",
+  "sampleGoal": "Sample goal",
+  "setGoal": "Set a goal…",
+  "seeHow": "See how",
+  "cards": [
+    {
+      "slug": "insurance",
+      "tone": "ok",
+      "icon": "shield",
+      "name": "Insurance",
+      "pain": "Claims read by hand.",
+      "goal": "Claims answered in 2 days · ",
+      "hl": "90%",
+      "pillTone": "ok",
+      "pill": "On track",
+      "avatar": "NS",
+      "who": "Noa S. approves",
+      "sr": "Sample goal: claims answered in 2 days, 90%. On track, Noa S. approves."
+    },
+    {
+      "slug": "manufacturing",
+      "tone": "mate",
+      "icon": "settings",
+      "name": "Manufacturing",
+      "pain": "Orders, quotes and prices by phone.",
+      "goal": "Orders keyed same day · ",
+      "hl": "95%",
+      "pillTone": "ok",
+      "pill": "On track",
+      "avatar": "YM",
+      "who": "Yossi M. approves",
+      "sr": "Sample goal: orders keyed same day, 95%. On track, Yossi M. approves."
+    },
+    {
+      "slug": "construction-and-real-estate",
+      "tone": "you",
+      "icon": "building",
+      "name": "Construction and real estate",
+      "pain": "Payments, tenders and handover on paper.",
+      "goal": "Supplier notices by the 5th · ",
+      "hl": "100%",
+      "pillTone": "ok",
+      "pill": "On track",
+      "avatar": "DK",
+      "who": "Dana K. approves",
+      "sr": "Sample goal: supplier notices by the 5th, 100%. On track, Dana K. approves."
+    },
+    {
+      "slug": "logistics-and-distribution",
+      "tone": "you",
+      "icon": "flow",
+      "name": "Logistics and distribution",
+      "pain": "Routes from one person’s memory.",
+      "goal": "Orders confirmed same day · ",
+      "hl": "98%",
+      "pillTone": "ok",
+      "pill": "On track",
+      "avatar": "YM",
+      "who": "Yossi M. approves",
+      "sr": "Sample goal: orders confirmed same day, 98%. On track, Yossi M. approves."
+    }
+  ],
+  "blocksH2": [
+    "Four building blocks,",
+    "every industry."
+  ],
+  "blocks": [
+    {
+      "icon": "inbox",
+      "title": "Document capture.",
+      "body": "Envelopes, PDFs, emails and WhatsApp, read into your system."
+    },
+    {
+      "icon": "send",
+      "title": "Notify and send.",
+      "body": "One clear, logged message to every supplier, customer or driver."
+    },
+    {
+      "icon": "chat",
+      "title": "Answers over the ERP.",
+      "body": "Ask on WhatsApp. The answer comes from your system."
+    },
+    {
+      "icon": "person",
+      "title": "Plan and approve.",
+      "body": "Mate drafts the plan. A person approves it."
+    }
+  ],
+  "whoH2": "Built for <span class=\"v7-hub-nw\">owner-led</span> companies.",
+  "facts": [
+    {
+      "fact": "20 to 1,000",
+      "label": "employees"
+    },
+    {
+      "fact": "No CTO",
+      "label": "or a small tech team"
+    },
+    {
+      "fact": "1 day",
+      "label": "for the owner to decide"
+    }
+  ],
+  "process": "The Process"
+}

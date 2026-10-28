@@ -1,0 +1,54 @@
+<!-- figcaption: Product preview: the exception desk. Customer #4471 asks for 14% on 600 units while rule R-01 allows 10%. Mate suggests 12% for orders over 500 units because the customer pays on time. Dana K. approves and saves it as rule R-14. -->
+<!-- app-h: 556px -->
+<div class="v7-screen m-exc" data-v7-mock="M6" data-v7-play="host" data-nav="exceptions" data-title="Exceptions">
+  <div class="m-exc-head"><b class="m-exc-title">Exceptions</b><span class="m-exc-count">1 open</span></div>
+  <div class="m-exc-grid">
+    <div class="m-exc-list">
+      <div class="m-exc-row m-exc-r1 is-resolved" data-selected>
+        <b class="m-exc-rt">Discount 14% requested</b>
+        <span class="v7-pill m-exc-st m-exc-age" data-tone="ok"><span class="v7-lbl">Resolved · <bdi>R-14</bdi></span></span>
+        <span class="v7-avatar">DK</span>
+        <span class="m-exc-rm">Customer <bdi>#4471</bdi> · <bdi>Q-1051</bdi> · <bdi>R-01</bdi> max 10%</span>
+      </div>
+      <div class="m-exc-row">
+        <b class="m-exc-rt">Invoice without PO</b>
+        <span class="m-exc-st m-exc-time">1 h</span>
+        <span class="v7-avatar">NS</span>
+        <span class="m-exc-rm">Supplier <bdi>#208</bdi> · <bdi>INV-8812</bdi> · <bdi>R-02</bdi></span>
+      </div>
+      <div class="m-exc-row m-exc-r3">
+        <b class="m-exc-rt">Item discontinued</b>
+        <span class="v7-pill m-exc-st">Resolved</span>
+        <span class="m-exc-rm"><bdi>SKU-1530 → Mate suggests SKU-1534</bdi></span>
+      </div>
+      <span class="m-exc-earlier">Earlier today</span>
+      <div class="m-exc-row m-exc-old">
+        <b class="m-exc-rt">Duplicate invoice</b>
+        <span class="v7-pill m-exc-st">Resolved</span>
+        <span class="m-exc-rm">Supplier <bdi>#311</bdi> · <bdi>INV-8790</bdi> · <bdi>R-02</bdi></span>
+      </div>
+      <div class="m-exc-row m-exc-old">
+        <b class="m-exc-rt">Delivery date conflict</b>
+        <span class="v7-pill m-exc-st">Resolved</span>
+        <span class="m-exc-rm">Customer <bdi>#3302</bdi> · <bdi>DP-1207</bdi></span>
+      </div>
+    </div>
+    <div class="v7-card m-exc-detail">
+      <b class="m-exc-dt"><bdi>Q-1051</bdi> · Customer <bdi>#4471</bdi></b>
+      <p class="m-exc-line">Asks 14% on 600 units. Rule <bdi>R-01</bdi> allows 10%.</p>
+      <p class="m-exc-ctx"><span class="m-exc-u"><span>Last 12 months</span><span>9 orders</span><span>avg. discount 8%</span><span>pays in 32 days</span></span></p>
+      <div class="m-exc-sugg"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><span class="v7-thinking m-exc-think" data-v7-gone><i></i><i></i><i></i></span><p class="m-exc-stext">Approve 12% for orders over 500 units. This customer pays on time.</p></div>
+      <div class="m-exc-acts"><span class="v7-fbtn is-ghost is-disabled">Decline</span><span class="v7-fbtn is-ghost is-disabled">Approve once</span><span class="v7-fbtn is-ok m-exc-save"><svg class="v7-ic"><use href="#i-check"/></svg><span class="v7-lbl">Saved as rule <bdi>R-14</bdi></span></span></div>
+      <p class="m-exc-foot"><span class="m-exc-u"><span>Decides: Dana K.</span><span>Mate does not approve exceptions.</span></span></p>
+      <div class="m-exc-hist">
+        <span class="m-exc-histt">Recent decisions for <bdi>#4471</bdi></span>
+        <ul>
+          <li><span class="m-exc-hd">Nov 20</span><span class="m-exc-hq"><bdi>Q-1012</bdi> · 450 units · 9%</span><span class="m-exc-hs">Approved</span></li>
+          <li><span class="m-exc-hd">Oct 28</span><span class="m-exc-hq"><bdi>Q-0994</bdi> · 300 units · 8%</span><span class="m-exc-hs">Approved</span></li>
+          <li><span class="m-exc-hd">Oct 3</span><span class="m-exc-hq"><bdi>Q-0968</bdi> · 520 units · 10%</span><span class="m-exc-hs">Approved</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <span class="v7-toast m-exc-toast"><svg class="v7-ic"><use href="#i-check"/></svg>Rule R-14 added to Rules</span>
+</div>

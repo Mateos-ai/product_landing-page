@@ -1,0 +1,67 @@
+{
+  "meta": {
+    "title": "About · Mateos",
+    "description": "Mateos builds MateOS, the operating layer for owner-led companies. Six people on the machine, three advisors who shaped the thesis."
+  },
+  "hero": {
+    "eyebrow": "About",
+    "h1": ["The team", "building", "the machine."],
+    "lead": "We walk into the room that runs an owner-led company, find where the time goes, and give it back.",
+    "micro": "Founded in 2026. Israel, with operations in New&nbsp;York."
+  },
+  "mission": {
+    "eyebrow": "Israel first",
+    "title": ["Israel built the tech the world runs&nbsp;on.", "Now its industry should lead with&nbsp;it."],
+    "lead": "Israel’s start-ups changed how the world works. Its factories, insurers, builders and distributors, the backbone of the economy, still run on paper, phone calls and memory.",
+    "goal": "We’re here to put <em>Israeli industry and <span class=\"v7-about-nw\">non-technical</span> companies</em> at the forefront of how companies everywhere work.",
+    "built": "Built in Hebrew, on the systems owners already run."
+  },
+  "team": {
+    "eyebrow": "The founding team",
+    "title": "Six people on the machine.",
+    "people": [
+      { "name": "Yair Nativ", "role": "Co-Founder &amp; CEO", "bio": "Third-time founder. Built Safe Lane, a national road-safety program with 100,000 volunteers. Founded Voiceable, backed by Nielsen." },
+      { "name": "David Rajcher", "role": "Co-Founder &amp; CTO", "bio": "20 years building systems, in the Intelligence Corps and as a founding engineer. Founded Webeet, an AI agency. A developer who speaks human." },
+      { "name": "Aviv Yogev", "role": "CBDO", "bio": "Puts us in the room with the CEO. Closes in two weeks what takes others months." },
+      { "name": "Shayna Moliver", "role": "COO", "bio": "MIT master’s in supply chain management. Four years as an embedded chief of staff to growing companies. Runs operations, deal flow and unit economics from New York." },
+      { "name": "Matan Zigron", "role": "CMO", "bio": "Founder and CEO of Wito since 2020. Before that, VP Clients and head of digital at zeder:yariv advertising. Owns the message and the November launch." },
+      { "name": "Almog Cohen", "role": "Head of Engineering", "bio": "Was the Co-Founder and CTO of VIVID, an AI personal-growth platform he grew to 35,000 daily users. Led R&amp;D teams at Testim.io and Sears." }
+    ]
+  },
+  "advisors": {
+    "eyebrow": "Advisors",
+    "title": "Three advisors who shaped the&nbsp;thesis.",
+    "lead": "Each one works a specific part of the machine, not the brand.",
+    "onSr": "On the machine:",
+    "onChip": "On the machine",
+    "people": [
+      { "name": "Michael Schrage", "role": "Research fellow, MIT Sloan. Author of The Innovator&#39;s Hypothesis.", "on": "the learning loop. Results are the KPI. The client and the model both learn from them." },
+      { "name": "Noam Mantel", "role": "Former VP Product, Slack.", "on": "the path from custom builds to one product." },
+      { "name": "Nir Eisikovits", "role": "Professor of AI ethics. Director of the Applied Ethics Center, UMass Boston.", "on": "the control layer. A person wherever it’s needed. Red lines before code." }
+    ]
+  },
+  "believe": {
+    "title": "What we believe.",
+    "goal": "90%",
+    "approved": "Approved",
+    "estimate": "Estimate",
+    "measured": "Measured",
+    "items": [
+      { "t": "Start with the number.", "p": "Not with a tool. The goal comes first, and the flows are built back from it." },
+      { "t": "People stay in the room.", "p": "Mate proposes, a person approves. And there is always a person you can call." },
+      { "t": "Say which is which.", "p": "An estimate is labeled an estimate. A potential found is not a saving delivered." },
+      { "t": "Skin in the game.", "p": "Part of our fee rides on the number you already watch. Not hours, not seats." }
+    ]
+  },
+  "join": {
+    "eyebrow": "Work with us.",
+    "title": "Want to build this with us?",
+    "link": "Careers"
+  },
+  "start": {
+    "title": ["It’s your company.", "Your move."],
+    "lead": "Start with an X-ray. One day on site, every process ranked by payback. From&nbsp;$990.",
+    "cta": "Start with an X-ray",
+    "contact": "Contact us"
+  }
+}

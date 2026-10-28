@@ -1,0 +1,60 @@
+{
+  "pauseLabel": "השהיית האנימציה",
+  "skip": "דילוג לתוכן",
+  "navLabel": "Main",
+  "nav": [
+    { "label": "MateOS", "href": "/mateos/" },
+    { "label": "התהליך", "href": "/how-we-work/" },
+    {
+      "label": "ענפים", "href": "/industries/", "menu": "industries",
+      "children": [
+        { "label": "ביטוח", "href": "/industries/insurance/" },
+        { "label": "תעשייה", "href": "/industries/manufacturing/" },
+        { "label": "בנייה ונדל\"ן", "href": "/industries/construction-and-real-estate/" },
+        { "label": "לוגיסטיקה והפצה", "href": "/industries/logistics-and-distribution/" }
+      ]
+    },
+    { "label": "אבטחה ובקרה", "href": "/security-and-control/" },
+    { "label": "אודות", "href": "/about/" }
+  ],
+  "localeName": "עברית",
+  "theme": { "title": "החלפת מצב תצוגה", "light": "בהיר", "dark": "כהה" },
+  "cta": "מתחילים ב-X-ray",
+  "menu": "תפריט",
+  "footer": {
+    "tagline": "זאת החברה שלכם. מהירה פי 10.",
+    "label": "Footer",
+    "cols": [
+      { "title": "המוצר", "links": [
+        { "label": "MateOS", "href": "/mateos/" },
+        { "label": "התהליך", "href": "/how-we-work/" },
+        { "label": "אבטחה ובקרה", "href": "/security-and-control/" }
+      ] },
+      { "title": "ענפים", "links": [
+        { "label": "ביטוח", "href": "/industries/insurance/" },
+        { "label": "תעשייה", "href": "/industries/manufacturing/" },
+        { "label": "בנייה ונדל\"ן", "href": "/industries/construction-and-real-estate/" },
+        { "label": "לוגיסטיקה והפצה", "href": "/industries/logistics-and-distribution/" }
+      ] },
+      { "title": "החברה", "links": [
+        { "label": "אודות", "href": "/about/" },
+        { "label": "קריירה", "href": "/careers/" },
+        { "label": "יצירת קשר", "href": "/contact/" },
+        { "label": "hello@mateos.ai", "href": "mailto:hello@mateos.ai" }
+      ] },
+      { "title": "משפטי", "links": [
+        { "label": "מדיניות פרטיות", "href": "/privacy/" },
+        { "label": "הצהרת נגישות", "href": "/accessibility/" }
+      ] }
+    ],
+    "legal": "Mateos AI, Inc., חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.",
+    "copy": "© 2026 Mateos AI, Inc. כל הזכויות שמורות."
+  },
+  "meta": {
+    "siteName": "Mateos",
+    "ogImage": "https://mateos.ai/og-v6.png",
+    "ogImageAlt": "Mateos. It's your company. 10x faster.",
+    "robots": "noindex, nofollow",
+    "defaultDescription": "MateOS מריץ את התהליכים העסקיים שלכם בתוך ה-ERP, ה-CRM והמייל שכבר יש לכם. תהליך אחד בכל פעם, נמדד על מספר שאתם כבר עוקבים אחריו, בתשלום על תוצאות. מתחילים ב-X-ray."
+  }
+}

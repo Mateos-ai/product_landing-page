@@ -1,0 +1,194 @@
+/* >>> P-HWW How We Work page /how-we-work/ (How We Work spec §1). Every rule hangs off a .v7-hww-* hook, which exists only on
+   this page (v7.css is shared). Reused as is: the homepage hero band (.v7-home-hero: dot texture, 5fr/7fr grid, logo-edge
+   alignment, amber second line), the product page's closing band (.v7-pp-cta), M14, M19 and M20. */
+
+/* ---------- W1 hero: the homepage hero with a lead in place of the stepper ---------- */
+.v7-hww-hero .v7-lead{max-width:46ch;margin-top:24px}
+.v7-hww-hero .v7-actions{margin-top:32px}
+/* H1: five mask lines, one word per step ("Listen." "Build." "Run." "Measure." "Improve.", the last two amber), revealed 80ms
+   apart. Below 1024px they pair up on three rows (a wrapping flex row, broken by the empty .v7-hww-row: "Listen. Build." /
+   "Run. Measure." / "Improve."); from 1024px each word stands
+   on its own line at the full --v7-h1, the size of the homepage and /mateos/ heroes (88px at 1280+), and the longest,
+   "Measure." (about 4.3em), fits the 5fr column. One word per line cannot re-wrap when the web font arrives. */
+/* column-gap = one word space of the H1 (.19em with its tracking). In the flex row the lines' block margins add up instead
+   of collapsing, so the bottom one is -.08em here: rows step 1.01em, the same as stacked .v7-line blocks on every v7 hero. */
+.v7-hww-hero .v7-h1{display:flex;flex-wrap:wrap;column-gap:.19em}
+/* the clip box reaches a little past the word, so side bearings and the negative tracking of the last glyph never clip */
+.v7-hww-hero .v7-h1 .v7-line{padding-inline:.06em;margin-inline:-.06em;margin-block-end:-.08em}
+.v7-hww-hero .v7-h1 .v7-line>span{white-space:nowrap}
+.v7-hww-hero .v7-h1 .v7-hww-hl{color:var(--amber-500)}
+.v7-hww-row{flex:0 0 100%;height:0}
+/* Bricolage fits "Run. Measure." on one row from 329px, the fallback fonts only from 302–322px: up to 340px "Measure." always
+   takes its own row, so every font gives the same four rows (no layout shift when the web font arrives). */
+@media (min-width:341px){.v7-hww-row--xs{display:none}}
+@media (min-width:1024px){
+  .v7-hww-hero .v7-hero-copy{container:hww-copy / inline-size}
+  .v7-hww-hero .v7-h1{display:block}
+  .v7-hww-hero .v7-h1 .v7-line{margin-block-end:-.14em}
+  .v7-hww-row{display:none}
+}
+/* In the 5fr column: "Measure." (4.3em) always fits, even with a larger default font size (23cqi is 102px at 1440, so at the
+   default size --v7-h1 wins: 88px, 75px at 1024). The two buttons need 22.6rem with Hanken (361px; the column is 370px at
+   1024) but more with the fallback font: there they stay on one row, so the copy never changes height (and re-centres
+   beside M19) when the web font arrives. With a larger default font they no longer fit in any font, so they wrap. */
+@container hww-copy (min-width:0){.v7-hww-hero .v7-h1{font-size:min(var(--v7-h1),23cqi)}}
+@container hww-copy (min-width:22.6rem){.v7-hww-hero .v7-actions{flex-wrap:nowrap}}
+
+/* ---------- Shared: copy | visual splits (W2 copy | M14, W3 M20 | copy, W5 copy | number card) ---------- */
+.v7-hww-split{display:grid;grid-template-columns:minmax(0,1fr);gap:48px}
+.v7-hww-split>.v7-figure{min-width:0}
+.v7-hww-copy{max-width:600px}
+.v7-hww-copy .v7-lead{margin-top:20px}
+.v7-hww-copy .v7-link-arrow{margin-top:28px}
+/* fine print: the same dashed-ring qualifier as the homepage field cards */
+.v7-hww-fine{display:flex;align-items:flex-start;gap:8px;max-width:44ch;margin-top:24px;font:400 12px/1.5 var(--font-mono);color:var(--text-muted)}
+.v7-hww-fine::before{content:"";flex:none;width:10px;height:10px;margin-top:4px;border:1px dashed currentColor;border-radius:50%}
+@media (min-width:1024px){
+  .v7-hww-split{grid-template-columns:minmax(0,5fr) minmax(0,7fr);column-gap:64px;align-items:center}
+  /* W3: the agreement on the inline-start, the copy on the inline-end (the copy stays first in source order) */
+  .v7-hww-split--flip{grid-template-columns:minmax(0,7fr) minmax(0,5fr)}
+  .v7-hww-split--flip>.v7-hww-copy{grid-column:2;grid-row:1}
+  .v7-hww-split--flip>.v7-figure{grid-column:1;grid-row:1}
+}
+/* M14 (read-only) was drawn for the dark band. On the theme surface here (W2) it takes the agreement card's paper shadow
+   (M20), so both documents on this page sit the same way, in light and dark. */
+.v7-hww-split .m-xray{box-shadow:var(--shadow-xs),var(--shadow-lg)}
+[data-theme=dark] .v7-hww-split .m-xray{box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 40px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.05)}
+
+/* ---------- W4 three steps: cards on a shared rail (vertical below 900px, horizontal from 900px) ---------- */
+.v7-hww-track{--gap:20px;--dot:14px;--dt:35px;--rail:var(--border-strong);
+  position:relative;list-style:none;display:grid;gap:var(--gap);max-width:640px;margin:48px 0 0;padding:0}
+.v7-hww-stop{--tone:var(--amber-500);position:relative;display:grid;grid-template-columns:var(--dot) minmax(0,1fr);column-gap:16px;min-width:0}
+.v7-hww-stop[data-tone=mate]{--tone:var(--indigo-500)}
+.v7-hww-stop[data-tone=ok]{--tone:var(--teal-500)}
+[data-theme=dark] .v7-hww-stop[data-tone=mate]{--tone:var(--indigo-400)}
+/* the dot sits level with the card's name; a ring of the page colour cuts the rail around it */
+.v7-hww-dot{position:relative;z-index:1;display:block;width:var(--dot);height:var(--dot);margin-top:calc(var(--dt) - var(--dot) / 2);border-radius:50%;
+  background:var(--tone);box-shadow:0 0 0 5px var(--surface)}
+/* rail: one segment per step, from its dot to the next one */
+.v7-hww-stop:not(:last-child)::after{content:"";position:absolute;z-index:0;inset-inline-start:calc(var(--dot) / 2 - 1px);top:var(--dt);
+  width:2px;height:calc(100% + var(--gap));border-radius:2px;background:var(--rail);transform-origin:50% 0}
+.v7-hww-card{display:flex;flex-direction:column;min-width:0;padding:20px 20px 22px;border:1px solid var(--border);border-radius:16px;background:var(--surface);
+  box-shadow:var(--shadow-xs)}
+/* the way in: a warm edge, like the "Start here" row of the X-ray */
+.v7-hww-stop[data-tone=you] .v7-hww-card{border-color:color-mix(in srgb,var(--amber-500) 50%,var(--border))}
+.v7-hww-head{display:flex;flex-direction:column;align-items:flex-start;gap:8px;min-width:0}
+.v7-hww-name{font:650 1.375rem/1.3 var(--font-display);letter-spacing:-.015em;color:var(--text-primary);text-wrap:balance}
+.v7-hww-tag{display:inline-flex;align-items:center;padding:3px 10px;border-radius:999px;border:1px solid var(--border);background:var(--surface-subtle);
+  font:500 12px/1.4 var(--font-mono);letter-spacing:.02em;color:var(--text-secondary);white-space:nowrap}
+.v7-hww-stop[data-tone=you] .v7-hww-tag{border-color:transparent;background:var(--amber-100);color:var(--v7-you-ink)}
+[data-theme=dark] .v7-hww-stop[data-tone=you] .v7-hww-tag{background:rgba(255,140,66,.14)}
+.v7-hww-line{max-width:34ch;margin-top:14px;line-height:1.55;color:var(--text-secondary);text-wrap:pretty}
+.v7-hww-art{display:block;margin-top:auto;padding-top:22px}
+
+/* Step artifacts (decorative; the pilot weeks carry an aria-label). Neutral fill: the empty-track tone of the page. */
+.v7-hww-track{--v7-hww-void:var(--neutral-200)}
+[data-theme=dark] .v7-hww-track{--v7-hww-void:rgba(255,255,255,.12)}
+/* X-ray: a ranked list, the top row in amber (start here) */
+.v7-hww-rank{display:grid;row-gap:4px}
+.v7-hww-rank>i{display:block;width:calc(var(--w,1) * 100%);height:8px;border-radius:3px;background:var(--v7-hww-void);transform-origin:0 50%}
+.v7-hww-rank>i:first-child{background:var(--amber-500)}
+/* Pilot: four weeks, baseline (Mate, week 1) · build and test (you, weeks 2–3) · live (ok, week 4) */
+/* the labels sit in a 1 | 2 | 1 grid under the cells (baseline at the start, build and test centred under weeks 2–3, live at
+   the end); the columns grow to a label's longest word, so labels never overlap in the narrow three-card row (900–1023px) */
+.v7-hww-weeks{display:grid;grid-template-columns:1fr 2fr 1fr;column-gap:4px;row-gap:6px;align-items:start}
+.v7-hww-cells{grid-column:1 / -1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px}
+.v7-hww-cells>i{position:relative;display:block;height:12px;border-radius:3px;background:var(--v7-hww-void);overflow:hidden}
+.v7-hww-cells>i::after{content:"";position:absolute;inset:0;background:var(--indigo-500);transform-origin:0 50%}
+.v7-hww-cells>i[data-tone=you]::after{background:var(--amber-500)}
+.v7-hww-cells>i[data-tone=ok]::after{background:var(--teal-500)}
+[data-theme=dark] .v7-hww-cells>i[data-tone=mate]::after{background:var(--indigo-400)}
+.v7-hww-wl{min-width:0;font:400 11px/1.25 var(--font-mono);letter-spacing:.02em;color:var(--text-muted)}
+.v7-hww-wl[data-at="1"]{justify-self:start;text-align:start}
+.v7-hww-wl[data-at="2"]{justify-self:center;text-align:center}
+.v7-hww-wl[data-at="4"]{justify-self:end;text-align:end}
+/* Processes: two at a time, each lane done (ok) → running (Mate) → next (dashed) */
+.v7-hww-lanes{display:grid;row-gap:6px}
+.v7-hww-lanes>span{display:grid;grid-template-columns:2.2fr 1.4fr 1fr;gap:4px}
+.v7-hww-lanes i{display:block;height:12px;border-radius:3px;border:1px dashed var(--border-strong);transform-origin:0 50%}
+.v7-hww-lanes i[data-tone]{border:0;background:var(--teal-500)}
+.v7-hww-lanes i[data-tone=mate]{background:var(--indigo-500)}
+[data-theme=dark] .v7-hww-lanes i[data-tone=mate]{background:var(--indigo-400)}
+[dir=rtl] :is(.v7-hww-rank>i,.v7-hww-lanes i),[dir=rtl] .v7-hww-cells>i::after{transform-origin:100% 50%}
+
+@media (min-width:900px){
+  .v7-hww-track{--gap:24px;--dx:24px;max-width:none;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:var(--dot) auto;row-gap:0}
+  .v7-hww-stop{grid-template-columns:minmax(0,1fr);grid-template-rows:var(--dot) 1fr;row-gap:22px;grid-row:span 2}
+  .v7-hww-dot{margin-top:0;margin-inline-start:var(--dx)}
+  .v7-hww-stop:not(:last-child)::after{inset-inline-start:calc(var(--dx) + var(--dot) / 2);top:calc(var(--dot) / 2 - 1px);width:calc(100% + var(--gap));height:2px;
+    transform-origin:0 50%}
+  [dir=rtl] .v7-hww-stop:not(:last-child)::after{transform-origin:100% 50%}
+  .v7-hww-card{padding:22px var(--dx) 24px}
+  /* name, line and artifact rows line up across the three cards */
+  @supports (grid-template-rows:subgrid){
+    .v7-hww-track{grid-template-rows:var(--dot) auto auto 1fr}
+    .v7-hww-stop{grid-row:span 4;grid-template-rows:subgrid;row-gap:0}
+    .v7-hww-dot{grid-row:1}
+    .v7-hww-card{grid-row:2 / span 3;display:grid;grid-template-rows:subgrid;row-gap:0;margin-top:22px}
+    .v7-hww-art{margin-top:0}
+  }
+}
+
+/* W4 motion (P-HWW.js arms the track with data-v7-armed and gives each stop .is-on; no JS or reduced motion: final).
+   From 900px (one row, about 300px tall) the three stops turn on together at 40% visible: the rail draws dot to dot, the
+   dots pop, the cards rise (stagger 120), then the artifacts fill: ranks, the four weeks one by one, the lanes.
+   Below 900px (a column about 700px tall) each stop turns on by itself as it scrolls in (30% of it visible): its dot pops,
+   its card rises, its artifact fills and its rail segment draws on toward the next dot. No card waits for cards that are
+   still below the fold, so the space under the heading is never left blank. Transitions exist only on .is-on, so arming
+   never animates. */
+.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on)::after{transform:scaleY(0)}
+.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on) .v7-hww-dot{transform:scale(0)}
+.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on) .v7-hww-card{opacity:0;translate:0 16px}
+.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on) :is(.v7-hww-rank>i,.v7-hww-lanes i[data-tone]),
+.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on) .v7-hww-cells>i::after{transform:scaleX(0)} /* a pseudo-element cannot sit inside :is() */
+@media (min-width:900px){.v7-motion .v7-hww-track[data-v7-armed] .v7-hww-stop:not(.is-on)::after{transform:scaleX(0)}}
+.v7-motion .v7-hww-stop.is-on .v7-hww-card{transition:opacity 600ms var(--ease-out),translate 600ms var(--ease-out)}
+.v7-motion .v7-hww-stop.is-on .v7-hww-dot{transition:transform 320ms var(--ease-pop) 60ms}
+.v7-motion .v7-hww-stop.is-on::after{transition:transform 520ms var(--ease-in-out) 320ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-rank>i{transition:transform 420ms var(--ease-out) 380ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-rank>i:nth-child(2){transition-delay:450ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-rank>i:nth-child(3){transition-delay:520ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i::after{transition:transform 220ms var(--ease-out) 700ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(2)::after{transition-delay:820ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(3)::after{transition-delay:940ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-cells>i:nth-child(4)::after{transition-delay:1060ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-lanes i{transition:transform 360ms var(--ease-out) 640ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-lanes i:nth-child(2){transition-delay:840ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-lanes>span+span i{transition-delay:740ms}
+.v7-motion .v7-hww-stop.is-on .v7-hww-lanes>span+span i:nth-child(2){transition-delay:940ms}
+/* one row: one shared clock, so the cards, dots and rail segments stagger across the three stops */
+@media (min-width:900px){
+  .v7-motion .v7-hww-stop.is-on:nth-child(2) .v7-hww-card{transition-delay:120ms}
+  .v7-motion .v7-hww-stop.is-on:nth-child(3) .v7-hww-card{transition-delay:240ms}
+  .v7-motion .v7-hww-stop.is-on:nth-child(2) .v7-hww-dot{transition-delay:420ms}
+  .v7-motion .v7-hww-stop.is-on:nth-child(3) .v7-hww-dot{transition-delay:780ms}
+  .v7-motion .v7-hww-stop.is-on::after{transition-duration:360ms;transition-delay:100ms}
+  .v7-motion .v7-hww-stop.is-on:nth-child(2)::after{transition-delay:460ms}
+}
+
+/* ---------- W5 the measure: one number card (mock style, "Example"), counts up once at 40% visible (P-HWW.js) ---------- */
+/* stacked (below 1024px) every visual under the hero shares one width, 640px (M14 and M20 cap themselves there, the vertical
+   W4 track too), so the page keeps one right edge; beside the copy the card is 560px wide */
+.v7-hww-numfig{width:100%;max-width:640px}
+@media (min-width:1024px){.v7-hww-numfig{max-width:560px;justify-self:end}}
+.v7-hww-num{container:hww-num / inline-size;display:grid;gap:22px;padding:18px 18px 20px;border-radius:14px;border:1px solid var(--m-line);background:var(--m-bg);
+  box-shadow:var(--shadow-xs),var(--shadow-lg)}
+[data-theme=dark] .v7-hww-num{box-shadow:0 0 0 1px rgba(255,255,255,.05),0 18px 40px rgba(0,0,0,.42),inset 0 1px 0 rgba(255,255,255,.05)}
+@container hww-num (min-width:420px){.v7-hww-num{padding:24px 26px 24px;gap:26px}}
+.v7-hww-num-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.v7-hww-num-title{display:flex;align-items:flex-start;gap:8px;min-width:0;font:650 15px/1.35 var(--font-body);color:var(--m-text)}
+.v7-hww-num-title>.v7-ic{width:16px;height:16px;margin-top:2px;color:var(--m-ok-ink)}
+.v7-hww-num-cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:0}
+.v7-hww-num-cols>div{display:grid;grid-template-rows:auto 1fr;gap:8px;min-width:0;padding-top:12px;border-top:1px solid var(--m-line)}
+.v7-hww-num-cols>.is-now{padding-top:11px;border-top:2px solid var(--m-ok)}
+.v7-hww-num-cols dt{font:400 11px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--m-text-3)}
+.v7-hww-num-v{align-self:end;margin:0;font:700 26px/1 var(--font-display);letter-spacing:-.02em;font-variant-numeric:tabular-nums;color:var(--m-text-2)}
+.v7-hww-num-now{color:var(--m-text)}
+@container hww-num (min-width:420px){.v7-hww-num-v{font-size:32px}.v7-hww-num-now{font-size:40px}}
+.v7-hww-num-bar{height:10px;margin-top:6px}
+.v7-hww-num-bar .v7-bar-tick{height:16px;margin-top:-8px}
+.v7-hww-num-bar .v7-bar-flag{height:18px;margin-top:-9px}
+.v7-hww-num-cap{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:6px 16px;font:400 12px/1.3 var(--font-mono);color:var(--m-text-3)}
+.v7-hww-num-ok{display:inline-flex;align-items:center;gap:7px;font-weight:600;color:var(--m-ok-ink)}
+.v7-hww-num-ok::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--m-ok)}
+/* <<< P-HWW */

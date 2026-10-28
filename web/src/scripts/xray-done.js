@@ -1,0 +1,7 @@
+(function(){var f=document.getElementById('xray-form'),ok=document.getElementById('form-success');if(!f||!ok)return;
+var card=f.closest('.form-card'),head=card?card.querySelectorAll('.h3,.form-lead'):[],err=document.getElementById('form-error'),again=ok.querySelector('.xray-again'),sub=f.querySelector('button[type=submit]');
+function show(){[].forEach.call(head,function(e){e.hidden=true});if(err)err.hidden=true;if(again)again.hidden=false;ok.classList.remove('is-in');void ok.offsetWidth;ok.classList.add('is-in');try{ok.focus({preventScroll:true})}catch(e){}var r=ok.getBoundingClientRect();if(r.top<0||r.top>innerHeight*.6)ok.scrollIntoView({block:'center',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+new MutationObserver(function(){if(!ok.hidden)show()}).observe(ok,{attributes:true,attributeFilter:['hidden']});
+if(again)again.addEventListener('click',function(){f.reset();ok.hidden=true;ok.classList.remove('is-in');[].forEach.call(head,function(e){e.hidden=false});
+[].forEach.call(f.querySelectorAll('.field'),function(e){e.hidden=false});if(sub){sub.hidden=false;sub.disabled=false;sub.textContent=f.dataset.button||sub.textContent}
+var em=f.querySelector('#xray-email');if(em)em.focus()})})();

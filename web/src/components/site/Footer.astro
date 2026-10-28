@@ -1,0 +1,8 @@
+---
+// Site footer. Literal data-astro-cid-* attributes: see Header.astro.
+import { pageCtx } from '../../i18n/page';
+const { t, u } = pageCtx(Astro);
+type Col = { title: string; links: { label: string; href: string }[] };
+const cols = t.raw<Col[]>('footer.cols');
+---
+<footer class="site-footer" data-astro-cid-sz7xmlte> <div class="wrap" data-astro-cid-sz7xmlte> <div class="f-top" data-astro-cid-sz7xmlte> <div class="f-brand" data-astro-cid-sz7xmlte> <a class="brand" href={u('/')} data-astro-cid-sz7xmlte> <svg width="30" height="30" viewBox="43 43 114 114" aria-hidden="true" data-astro-cid-sz7xmlte> <circle cx="130" cy="70" r="27" fill="#FF8C42" data-astro-cid-sz7xmlte></circle> <circle cx="70" cy="130" r="27" fill="#17BEBB" data-astro-cid-sz7xmlte></circle> <circle cx="130" cy="130" r="27" fill="#5B53E8" data-astro-cid-sz7xmlte></circle> </svg> <span class="brand-name" data-astro-cid-sz7xmlte>mateos<span class="brand-ai" data-astro-cid-sz7xmlte>.ai</span></span> </a> <p class="f-tag" data-astro-cid-sz7xmlte>{t('footer.tagline')}</p> </div> <nav class="f-cols" aria-label={t('footer.label')} data-astro-cid-sz7xmlte> {cols.map((c) => (<div class="f-col" data-astro-cid-sz7xmlte> <h2 class="f-h" data-astro-cid-sz7xmlte>{c.title}</h2> <ul data-astro-cid-sz7xmlte> {c.links.map((l) => (<li data-astro-cid-sz7xmlte><a href={u(l.href)} data-astro-cid-sz7xmlte>{l.label}</a></li>))} </ul> </div>))} </nav> </div> <div class="f-bottom" data-astro-cid-sz7xmlte> <p class="f-legal" data-astro-cid-sz7xmlte>{t('footer.legal')}</p> <p class="f-copy" data-astro-cid-sz7xmlte>{t('footer.copy')}</p> </div> </div> </footer>

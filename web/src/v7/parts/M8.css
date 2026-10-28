@@ -1,0 +1,58 @@
+/* >>> M8 m-rules: rules (spec §6 M8). Mobile-first on the "screen" container.
+   narrow + medium: rules list, then the red lines box. wide (≥ 760px): list | red lines card (248px). */
+.m-rules{display:flex;flex-direction:column;min-width:0}
+.m-rules-head{display:flex;align-items:center;gap:10px;min-height:28px}
+.m-rules-title{font-size:15px;font-weight:650;line-height:1.3;letter-spacing:-.01em}
+.m-rules-count{display:inline-block;font:400 11.5px/1.3 var(--font-mono);color:var(--m-text-3)}
+.m-rules-btns{display:flex;gap:8px;margin-inline-start:auto}
+.m-rules-btns .v7-ic{width:14px;height:14px;stroke-width:1.75}
+
+/* Inner tabs (decorative) */
+.m-rules-tabs{display:flex;gap:20px;margin-top:8px;border-bottom:1px solid var(--m-line)}
+.m-rules-tab{position:relative;padding:6px 0 8px;font-size:12.5px;font-weight:600;line-height:1.3;color:var(--m-text-3)}
+.m-rules-tab.is-on{color:var(--m-text)}
+.m-rules-tab.is-on::after{content:"";position:absolute;inset-inline:0;bottom:-1px;height:2px;border-radius:2px;background:var(--m-you)}
+
+/* Rows: toggle | text (+ meta) | optional tag. The list is pulled out by the row padding, so a flash has room.
+   Each row sits inside a plain div (the collapse's clipped child), so an insert grows from 0, padding included. */
+.m-rules-body{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;align-items:start;margin-top:4px}
+.m-rules-list{margin-inline:-10px;min-width:0}
+.m-rules-row{position:relative;display:grid;grid-template-columns:28px minmax(0,1fr) auto;column-gap:12px;align-items:start;padding:7px 10px;border-radius:8px}
+.m-rules-row::after{content:"";position:absolute;inset-inline:10px;bottom:0;height:1px;background:var(--m-line)}
+.m-rules-tog{position:relative;width:28px;height:16px;margin-top:2px;border-radius:999px;background:var(--m-ok)}
+.m-rules-tog::after{content:"";position:absolute;top:2px;inset-inline-end:2px;width:12px;height:12px;border-radius:50%;background:#FFF;box-shadow:var(--shadow-xs)}
+.m-rules-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.m-rules-rule{font-size:13px;line-height:1.4}
+/* Meta: one span per part. Parts wrap as units; the separator sits in the gap before each part and is clipped when the part
+   starts a line, so a line never ends (or starts) on '·'. */
+.m-rules-meta{display:flex;flex-wrap:wrap;column-gap:3ch;overflow:clip;font:400 11px/1.35 var(--font-mono);color:var(--m-text-3)}
+.m-rules-meta>span{position:relative;min-width:0;white-space:nowrap}
+.m-rules-meta>span+span::before{content:"·";position:absolute;inset-inline-end:100%;width:3ch;text-align:center}
+.m-rules-new{margin-top:-1px}
+/* R-03's amount while it is edited: outline + caret */
+.m-rules-amt{display:inline-block;min-width:.5em;border-radius:4px;outline:1.5px solid transparent;outline-offset:1px;transition:outline-color 150ms}
+.m-rules-amt.is-edit{outline-color:var(--m-you)}
+
+/* Red lines */
+.m-rules-red{padding:12px 14px;border-radius:10px;border:1px solid var(--m-line);background:var(--m-sunken)}
+.m-rules-redt{margin-bottom:9px;font:400 11px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--m-text-3)}
+.m-rules-red ul{display:grid;gap:7px}
+.m-rules-red li{display:flex;align-items:flex-start;gap:8px;font-size:12.5px;line-height:1.4}
+.m-rules-red li .v7-ic{width:14px;height:14px;margin-top:2px;color:var(--m-text-2)}
+
+@container screen (min-width:760px){
+  .m-rules-body{grid-template-columns:minmax(0,1fr) 248px;gap:28px;margin-top:6px}
+  .m-rules-red{margin-top:10px;padding:14px 16px}
+  .m-rules-red ul{gap:10px}
+}
+@container screen (max-width:479.98px){
+  .m-rules-btns,.m-rules-c6{display:none}
+}
+/* IDs, money and A → B strings never break at their hyphens */
+.m-rules bdi{white-space:nowrap}
+/* Hebrew (M8.he.html): Hebrew meta lines and the red-lines label use the body face (the mono face has no Hebrew), no tracking, no caps */
+html[lang=he] :is(.m-rules-count,.m-rules-meta,.m-rules-redt){font-family:var(--font-body);letter-spacing:0;text-transform:none}
+html[lang=he] .m-rules-meta{font-size:11.5px}
+html[lang=he] .m-rules-redt{font-size:11.5px;font-weight:600}
+html[lang=he] .m-rules-title{letter-spacing:0}
+/* <<< M8 */

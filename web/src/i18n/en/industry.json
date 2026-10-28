@@ -1,0 +1,278 @@
+{
+  "ui": {
+    "lineSep": "",
+    "stepper": {
+      "goal": "Set the goal.",
+      "flows": "Mate builds the flows.",
+      "track": "Mate keeps you on track."
+    },
+    "ctaXray": "Start with an X-ray",
+    "ctaTour": "Take the tour",
+    "micro": "<span class=\"v7-sent\">A person wherever it’s needed.</span> <span class=\"v7-sent\">X-ray&nbsp;from&nbsp;$990.</span>",
+    "startH2": "Where we start.",
+    "security": "Security and control",
+    "fieldH2": "One room we sat in.",
+    "allIndustries": "All industries",
+    "moveH2": [
+      "It’s your company.",
+      "Your move."
+    ],
+    "moveP": "Start with an X-ray. One day on site, every process ranked by payback. From&nbsp;$990.",
+    "ctaTalk": "Contact us"
+  },
+  "pages": {
+    "insurance": {
+      "meta": {
+        "title": "Insurance agencies · Mateos",
+        "description": "Claims, policies and renewals. Where the hours go in a claims department and the first process we usually fix."
+      },
+      "eyebrow": "Insurance · 10x&nbsp;faster",
+      "h1": [
+        "The claims <br class=\"v7-ind-br\" data-v7-hide=\"596-866\">department <br class=\"v7-ind-br\" data-v7-hide=\"390-1023\">reads.",
+        "By hand."
+      ],
+      "lead": "Opening, sorting, reading, writing letters. Most of the day is reading.",
+      "hurts": {
+        "label": "Where the time goes",
+        "h2": [
+          "Six stations.",
+          "One eats the day."
+        ],
+        "line": "Reading the case takes three times longer than any other station.",
+        "cap": "Estimate from team interviews."
+      },
+      "start": [
+        {
+          "icon": "doc",
+          "title": "Case summaries.",
+          "body": "A summary per case, by policy chapter, before the adjuster opens the file."
+        },
+        {
+          "icon": "mail",
+          "title": "Completion letters.",
+          "body": "Drafted from the file. The adjuster approves."
+        },
+        {
+          "icon": "search",
+          "title": "Readable or not.",
+          "body": "Which document types the system reads, tested on your files, inside your tenant."
+        }
+      ],
+      "control": {
+        "h2": "What Mate never does.",
+        "never": true,
+        "items": [
+          {
+            "text": "Approves or rejects a claim."
+          },
+          {
+            "text": "Writes to your core system."
+          },
+          {
+            "text": "Replies to the insured on its own."
+          },
+          {
+            "text": "Touches sensitive cases.",
+            "sub": "You name them before we start."
+          }
+        ],
+        "after": "A person decides. Always."
+      },
+      "field": {
+        "tone": "ok",
+        "quote": false,
+        "fx": "count",
+        "big": "<span class=\"v7-fx-n\">9,700 hours</span> a year",
+        "sr": "9,700 hours a year",
+        "body": "reading medical files by hand.",
+        "q": "Insurance agency, 800 employees. Estimate from team interviews. Pilot in delivery."
+      }
+    },
+    "manufacturing": {
+      "meta": {
+        "title": "Manufacturing · Mateos",
+        "description": "Orders, quotes and planning in owner-led plants. Orders in envelopes, reps checking every price with the office, quotes from drawings by hand."
+      },
+      "eyebrow": "Manufacturing · 10x&nbsp;faster",
+      "h1": [
+        "A plant that <br class=\"v7-ind-br\" data-v7-hide=\"528-1023\">runs on paper,",
+        "phone calls <br class=\"v7-ind-br\" data-v7-hide=\"508-1023\">and memory."
+      ],
+      "lead": "We don’t touch the machines. We take the typing, calls and copying around them.",
+      "hurts": {
+        "label": "Where the time goes",
+        "h2": "The rep already lives on WhatsApp.",
+        "line": "Every attempt before us asked the rep to change. Ours doesn’t."
+      },
+      "start": [
+        {
+          "icon": "chat",
+          "title": "An answer over the ERP.",
+          "body": "A rep asks on WhatsApp. The answer comes from the ERP in seconds."
+        },
+        {
+          "icon": "inbox",
+          "title": "Order intake.",
+          "body": "Envelopes, PDFs and emails read into the order system."
+        },
+        {
+          "icon": "doc",
+          "title": "Quotes from drawings.",
+          "body": "The drawing read, parts and operations listed, the quote drafted for the estimator."
+        }
+      ],
+      "control": {
+        "h2": "A person approves every exception.",
+        "never": false,
+        "items": [
+          {
+            "text": "Read-only on the ERP"
+          },
+          {
+            "text": "Nothing keyed without approval"
+          },
+          {
+            "text": "No new app for the rep"
+          },
+          {
+            "text": "Runs inside your environment"
+          }
+        ]
+      },
+      "field": {
+        "tone": "mate",
+        "quote": true,
+        "fx": "type",
+        "big": "“Hold on, I’m checking with the office.”",
+        "sr": "“Hold on, I’m checking with the office.”",
+        "body": "A sales rep, on every price. We’re building his answer on WhatsApp.",
+        "q": "Manufacturing plant. In development."
+      }
+    },
+    "construction-and-real-estate": {
+      "meta": {
+        "title": "Construction and real estate · Mateos",
+        "description": "Tenders, billing, supplier notices, parking and storage assignment, apartment handover. High-volume, document-heavy processes in finance and marketing."
+      },
+      "eyebrow": "Construction and <br class=\"v7-ind-br\" data-v7-hide=\"440-1023 1080-\">real&nbsp;estate · 10x&nbsp;faster",
+      "h1": [
+        "Finance and",
+        "marketing <span class=\"v7-ind-acc\">run</span>",
+        "<span class=\"v7-ind-acc\">on documents.</span>"
+      ],
+      "lead": "Supplier payments, tenders, parking and storage, guarantees, handover. All by hand.",
+      "hurts": {
+        "label": "Built on what you own",
+        "h2": [
+          "Copilot, Power&nbsp;Automate, SharePoint.",
+          "Already paid for."
+        ],
+        "line": "No new database, no new servers. Your IT team sees every step."
+      },
+      "start": [
+        {
+          "icon": "send",
+          "title": "Supplier payment notices.",
+          "body": "One email per supplier each month: paid, by which company, for which project."
+        },
+        {
+          "icon": "building",
+          "title": "Parking and storage.",
+          "body": "Assigned from the building files by your rules, with an exceptions list."
+        },
+        {
+          "icon": "shield",
+          "title": "Guarantees and handover.",
+          "body": "Tracked per apartment. Missing items surface early."
+        }
+      ],
+      "control": {
+        "h2": "A person approves every assignment.",
+        "never": false,
+        "items": [
+          {
+            "text": "Checked against the bank"
+          },
+          {
+            "text": "Sent from your own domain"
+          },
+          {
+            "text": "Every message logged and archived"
+          },
+          {
+            "text": "Inside your Microsoft environment"
+          }
+        ]
+      },
+      "field": {
+        "tone": "you",
+        "quote": false,
+        "big": "Two to three days. <span class=\"v7-ind-goal\">Goal: half a day.</span>",
+        "body": "to assign parking and storage for one new building, by hand.",
+        "q": "Residential developer. Goal, not yet a measured result."
+      }
+    },
+    "logistics-and-distribution": {
+      "meta": {
+        "title": "Logistics and distribution · Mateos",
+        "description": "Routes built by hand every morning, order desks, collections, customs and freight documents. The plan the company owns instead of the plan in one person's head."
+      },
+      "eyebrow": "Logistics and <br class=\"v7-ind-br\" data-v7-hide=\"440-\">distribution · 10x&nbsp;faster",
+      "h1": [
+        "The knowledge",
+        "in one person’s",
+        "head <span class=\"v7-ind-acc\">at 4am.</span>"
+      ],
+      "lead": "Routes, capacity, receiving hours, who drives where. When he’s away, the plan is worse.",
+      "hurts": {
+        "label": "Suggest, not decide",
+        "h2": "Tomorrow’s plan, drafted tonight.",
+        "line": "Mate drafts the routes from your rules and history. The manager approves before anything goes out."
+      },
+      "start": [
+        {
+          "icon": "flow",
+          "title": "The daily plan.",
+          "body": "Drafted every evening, by driver and round, with a reason per stop."
+        },
+        {
+          "icon": "rules",
+          "title": "Rules versus reality.",
+          "body": "Where your history contradicts your stated rules."
+        },
+        {
+          "icon": "inbox",
+          "title": "Order desk and collections.",
+          "body": "Open lines, missing documents and late invoices, chased with approval."
+        }
+      ],
+      "control": {
+        "h2": "The manager approves every plan.",
+        "never": false,
+        "items": [
+          {
+            "text": "Runs inside your network"
+          },
+          {
+            "text": "Read-only on warehouse and delivery systems"
+          },
+          {
+            "text": "Nothing sent without a person"
+          },
+          {
+            "text": "Plan versus actual, every day"
+          }
+        ]
+      },
+      "field": {
+        "tone": "you",
+        "quote": false,
+        "fx": "clock",
+        "big": "04:00",
+        "sr": "04:00",
+        "body": "One man’s head held tomorrow’s delivery routes. Our system built the same plan from history.",
+        "q": "Medical equipment distributor. Prototype tested on past data."
+      }
+    }
+  }
+}

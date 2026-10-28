@@ -1,0 +1,12 @@
+---
+// M0 app shell hosting one or more screens (M3 M4 M5 M6 M8 M9 M10 M13). See ShellOpts in src/v7/fragments.ts.
+// Example (home "How it works" window): <M0 screens={['M3']} figClass="v7-how-win" preAttrs='data-step="1"' indent={4} />
+import { shell, indent as ind, type ShellOpts } from '../../v7/fragments';
+import { localeFromPath, type Locale } from '../../i18n';
+type Props = Omit<ShellOpts, 'locale'> & { locale?: Locale; indent?: number };
+const { indent = 0, ...o } = Astro.props;
+const locale = o.locale ?? localeFromPath(Astro.url.pathname);
+let html = shell({ ...o, locale });
+if (indent) html = ind(html, indent);
+---
+<Fragment set:html={html} />

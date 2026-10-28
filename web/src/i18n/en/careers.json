@@ -1,0 +1,44 @@
+{
+  "meta": {
+    "title": "Careers · Mateos",
+    "description": "Founding engineer and AI Enabler roles at Mateos. Build the machine that runs owner-led companies."
+  },
+  "head": {
+    "eyebrow": "Careers",
+    "h1": "Build the machine.",
+    "lead": "Six people on the machine today. We hire ahead of demand, not behind it, and every hire sits in client rooms within the first month."
+  },
+  "open": {
+    "eyebrow": "Open roles",
+    "title": "Two roles open now.",
+    "lead": "Both roles are hands-on. You will be on site with the people who do the work, and you will ship inside the client's own environment.",
+    "roles": [
+      {
+        "title": "Founding engineer",
+        "where": "Israel, hybrid",
+        "body": [
+          "Lead R&D with the CTO. Design and build the connectors, the rules engine, the exception desk and the monitoring that carry a process end to end inside a client's ERP, CRM and mailboxes.",
+          "Senior. You have shipped systems that other people depend on, and you can explain them to a plant manager."
+        ],
+        "apply": "Apply: write to hello@mateos.ai with the subject line Founding engineer."
+      },
+      {
+        "title": "AI Enabler",
+        "where": "Israel, on site with clients",
+        "body": [
+          "Not a developer role. You run the X-ray: a day on site, the map in stations, the time per station, the ranked list. Then you stay with the client through the pilot and own the number.",
+          "You have run operations or a department in a mid-size company, and you are comfortable with data, documents and systems."
+        ],
+        "apply": "Apply: write to hello@mateos.ai with the subject line AI Enabler."
+      }
+    ],
+    "note": "No recruiters. Written replies within one working week."
+  },
+  "cta": {
+    "eyebrow": "Your move",
+    "title": "It's your company. Your move.",
+    "lead": "Start with an X-ray. One day on site with the people who do the work, or one small agent. Every process ranked by payback. From $990.",
+    "primary": "Start with an X-ray",
+    "secondary": "Contact us"
+  }
+}

@@ -1,0 +1,9 @@
+---
+// 404 page (/404.html, served at any depth: links are absolute). English only; the language switch goes to /he/.
+// Copy: src/i18n/en/404.json; the description is the default (common meta.defaultDescription).
+import Layout from '../layouts/Layout.astro';
+import { pageCtx } from '../i18n/page';
+
+const { t, u } = pageCtx(Astro, '404');
+---
+<Layout title={t('meta.title')} ogTitle={t('meta.ogTitle')} robots="noindex" v7={false} notFound><section class="section prose-page" data-astro-cid-psngowx4><div class="wrap prose-wrap" data-astro-cid-psngowx4><span class="eyebrow" data-astro-cid-psngowx4>{t('eyebrow')}</span><h1 class="h1" data-astro-cid-psngowx4>{t('h1')}</h1><p class="lead lead-lg" data-astro-cid-psngowx4>{t('lead')}</p><div class="actions" data-astro-cid-psngowx4><a class="btn btn-primary btn-lg" href={u('/')} data-astro-cid-psngowx4>{t('home')}</a><a class="btn btn-ghost btn-lg" href={u('/contact/')} data-astro-cid-psngowx4>{t('contact')}</a></div></div></section></Layout>

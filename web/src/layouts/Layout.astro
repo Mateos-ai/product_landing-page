@@ -1,0 +1,35 @@
+---
+// The one layout for every page, both locales: <html lang/dir>, head metadata, header, footer.
+// Props: title, description (default: common meta.defaultDescription), v7 (load the motion system; default true),
+// notFound (404 head: robots noindex first, no canonical/hreflang/og:url, absolute links), ogTitle, robots.
+// Slots: default -> <main>, "head" -> end of <head> metadata (before the inline scripts), "head-end" -> just before </head>
+// (after every script, e.g. the contact page's xray-done-css), "after-footer" -> after </footer>.
+import Header from '../components/site/Header.astro';
+import Footer from '../components/site/Footer.astro';
+import { pageCtx } from '../i18n/page';
+import { LOCALE_META, absUrl } from '../i18n';
+import antiFlash from '../scripts/anti-flash.js?raw';
+import v7Gate from '../scripts/v7-gate.js?raw';
+import siteJs from '../scripts/site.js?raw';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogTitle?: string;
+  robots?: string;
+  v7?: boolean;
+  notFound?: boolean;
+}
+const { locale, route, t, asset } = pageCtx(Astro);
+const meta = LOCALE_META[locale];
+const p = Astro.props;
+const description = p.description ?? t('meta.defaultDescription');
+const ogTitle = p.ogTitle ?? p.title;
+const robots = p.robots ?? (t.has('meta.robots') ? t('meta.robots') : undefined);
+const v7 = p.v7 ?? true;
+const notFound = !!p.notFound;
+const ld = JSON.stringify({ '@context': 'https://schema.org', '@type': 'Organization', name: 'Mateos', url: 'https://mateos.ai', logo: 'https://mateos.ai/logo.png', description });
+---
+<html lang={meta.lang} dir={meta.dir}> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>{p.title}</title>{notFound && robots && <meta name="robots" content={robots}>}<meta name="description" content={description}>{!notFound && (<Fragment><link rel="canonical" href={absUrl(locale, route)}><link rel="alternate" hreflang="en" href={absUrl('en', route)}><link rel="alternate" hreflang="he" href={absUrl('he', route)}><link rel="alternate" hreflang="x-default" href={absUrl('en', route)}>{robots && <meta name="robots" content={robots}>}</Fragment>)}<meta name="theme-color" content="#14141E"><!-- Open Graph --><meta property="og:type" content="website"><meta property="og:site_name" content={t('meta.siteName')}><meta property="og:locale" content={meta.og}>{!notFound && <meta property="og:url" content={absUrl(locale, route)}>}<meta property="og:title" content={ogTitle}><meta property="og:description" content={description}><meta property="og:image" content={t('meta.ogImage')}><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:type" content="image/png"><meta property="og:image:alt" content={t('meta.ogImageAlt')}><!-- Twitter --><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content={ogTitle}><meta name="twitter:description" content={description}><meta name="twitter:image" content={t('meta.ogImage')}><link rel="icon" type="image/svg+xml" href={asset('favicon.svg')}><link rel="icon" href={asset('favicon.ico')} sizes="any"><script type="application/ld+json" is:inline set:html={ld}></script><slot name="head" /><!-- Anti-flash: apply the stored theme before first paint. --><script is:inline set:html={antiFlash}></script>{v7 && <script is:inline set:html={v7Gate}></script>}<link rel="stylesheet" href={asset('assets/site.css')}>{v7 && <link rel="stylesheet" href={asset('assets/v7.css')}>}<script type="module" is:inline set:html={siteJs}></script>{v7 && <script src={asset('assets/v7.js')} defer is:inline></script>}<slot name="head-end" /></head> <body>  <Header />   <main id="main">
+<slot />
+</main> <Footer />    <slot name="after-footer" /></body> </html>

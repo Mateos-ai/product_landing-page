@@ -1,0 +1,25 @@
+
+.xray-done{display:grid;justify-items:center;text-align:center;gap:10px;padding:28px 8px 8px;font-weight:400;color:var(--text-primary)}
+#xray-form [hidden],.form-card [hidden]{display:none!important}
+.xray-done:focus{outline:none}
+.xray-done-art{position:relative;width:96px;height:96px;margin-bottom:6px}
+.xray-done-art svg{width:96px;height:96px;overflow:visible}
+.xd-ring{stroke-dasharray:1;stroke-dashoffset:0;transform:rotate(-90deg);transform-origin:50% 50%}
+.xd-check{stroke-dasharray:1;stroke-dashoffset:0}
+.xd-dot{transform-box:fill-box;transform-origin:center}
+.xray-done-h{font-family:var(--font-display);font-size:1.5rem;font-weight:700;letter-spacing:-.01em;margin:0}
+.xray-done-p{color:var(--text-secondary);max-width:34ch;margin:0}
+.xray-again{margin-top:10px}
+@media (prefers-reduced-motion:no-preference){
+ .xray-done.is-in .xd-ring{animation:xd-draw .75s cubic-bezier(.65,0,.35,1) both}
+ .xray-done.is-in .xd-check{animation:xd-draw .4s cubic-bezier(.65,0,.35,1) .6s both}
+ .xray-done.is-in .xd-dot{animation:xd-pop .45s cubic-bezier(.34,1.56,.64,1) both}
+ .xray-done.is-in .xd-dot.d1{animation-delay:.85s}.xray-done.is-in .xd-dot.d2{animation-delay:.95s}.xray-done.is-in .xd-dot.d3{animation-delay:1.05s}
+ .xray-done.is-in .xray-done-h,.xray-done.is-in .xray-done-p,.xray-done.is-in .xray-again{animation:xd-up .5s cubic-bezier(.2,.7,.2,1) both}
+ .xray-done.is-in .xray-done-h{animation-delay:.5s}.xray-done.is-in .xray-done-p{animation-delay:.6s}.xray-done.is-in .xray-again{animation-delay:.75s}
+ .xray-done.is-in .xray-done-art{animation:xd-glow 1.2s ease-out .9s both}
+}
+@keyframes xd-draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes xd-pop{from{opacity:0;transform:scale(0)}to{opacity:1;transform:scale(1)}}
+@keyframes xd-up{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes xd-glow{0%{filter:drop-shadow(0 0 0 rgba(23,190,187,0))}40%{filter:drop-shadow(0 0 14px rgba(23,190,187,.45))}100%{filter:drop-shadow(0 0 0 rgba(23,190,187,0))}}

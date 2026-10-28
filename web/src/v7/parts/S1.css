@@ -1,0 +1,61 @@
+/* >>> S1 v7-how homepage "How it works" (spec §7 S1). Stacked by default (no JS, reduced motion, below 1024px);
+   S1.js sets data-mode="pinned" on wide, tall-enough viewports with motion. */
+/* The section stays in .v7-wrap-wide (the window column bleeds toward the inline-end), but its copy starts on the
+   header's edge: the percentage resolves against the full-width section, so this equals the .v7-wrap content edge
+   (200px at 1440, 120 at 1280, 40 at 1024, 20 on phones). */
+.v7-wrap-wide.v7-how{padding-inline-start:clamp(var(--v7-gutter),calc((100% - var(--v7-wrap)) / 2 + var(--v7-gutter)),calc((var(--v7-wrap-wide) - var(--v7-wrap)) / 2 + var(--v7-gutter)))}
+.v7-how>.v7-h2{margin-bottom:48px}
+.v7-how-step .v7-label{display:flex;align-items:center;gap:10px}
+.v7-how-step .v7-label>i{--v7-tone:var(--amber-500);flex:none;width:8px;height:8px;border-radius:50%;background:var(--v7-tone)}
+.v7-how-step .v7-label>i[data-tone=mate]{--v7-tone:var(--indigo-500)}
+.v7-how-step .v7-label>i[data-tone=ok]{--v7-tone:var(--teal-500)}
+[data-theme=dark] .v7-how-step .v7-label>i[data-tone=mate]{--v7-tone:var(--indigo-400)}
+.v7-how-step .v7-h3{margin-top:12px}
+.v7-sent{display:inline-block} /* keep a two-sentence heading breaking between its sentences */
+.v7-how-p{margin-top:12px;max-width:40ch;font-size:1.0625rem;line-height:1.55;color:var(--text-secondary)}
+.v7-how-win{margin-top:28px}
+.v7-how-step:not([data-step="1"]){margin-top:88px}
+.v7-how-rail{display:none}
+
+/* Pinned: steps scroll in column 1; the three windows share column 2 and stick. The window column never drops
+   below 566px, so the M0 shell (1px border) always keeps its 560px rail mode, even at 1024px with a scrollbar. */
+.v7-how[data-mode=pinned]{display:grid;grid-template-columns:minmax(0,4fr) minmax(566px,7fr);column-gap:64px}
+.v7-how[data-mode=pinned]>.v7-h2{grid-column:1;grid-row:1;margin-bottom:48px} /* step 1 and the windows start together below it */
+/* 640px floor: with a step centred, the 562px window stays stuck even on short (768px) viewports */
+.v7-how[data-mode=pinned] .v7-how-step{grid-column:1;display:flex;flex-direction:column;justify-content:center;min-height:max(72vh,640px);margin:0}
+/* Step 1 starts at the top of its row, so its label lines up with the window's top edge when the window sticks. */
+.v7-how[data-mode=pinned] .v7-how-step[data-step="1"]{grid-row:2;justify-content:flex-start;min-height:max(48vh,340px)}
+/* (shorter than the others: as step 1's text leaves the top, step 2's is already coming up from below) */
+.v7-how[data-mode=pinned] .v7-how-step[data-step="2"]{grid-row:3}
+.v7-how[data-mode=pinned] .v7-how-step[data-step="3"]{grid-row:4}
+
+/* Pinned timeline: the label dots sit on the copy edge as stations, the text shares a 24px inset, and the rail
+   runs through the dot centres from dot 1 to dot 3 (S1.js measures --v7-rail-top / --v7-rail-h). */
+.v7-how[data-mode=pinned] .v7-how-step .v7-label{position:relative;padding-inline-start:24px}
+.v7-how[data-mode=pinned] .v7-how-step :is(.v7-h3,.v7-how-p){margin-inline-start:24px}
+.v7-how[data-mode=pinned] .v7-how-step .v7-label>i{position:absolute;z-index:1;inset-inline-start:0;top:50%;width:10px;height:10px;margin-top:-5px;
+  background:var(--surface-subtle);box-shadow:inset 0 0 0 2px var(--border-strong);transition:background-color 300ms var(--ease-out),box-shadow 300ms var(--ease-out)}
+.v7-how[data-mode=pinned] .v7-how-step:is([data-active],[data-passed]) .v7-label>i{background:var(--v7-tone);box-shadow:inset 0 0 0 2px var(--v7-tone)}
+.v7-how[data-mode=pinned] .v7-how-rail{display:block;position:relative;z-index:0;grid-column:1;grid-row:2 / span 3;justify-self:start;align-self:start;
+  width:2px;height:var(--v7-rail-h,0px);margin-block-start:var(--v7-rail-top,0px);margin-inline-start:4px;border-radius:2px;background:var(--border)}
+.v7-how-rail>i{position:absolute;inset:0;border-radius:inherit;background:var(--v7-you-ink);transform:scaleY(var(--p,0));transform-origin:50% 0;
+  transition:transform 400ms var(--ease-out)}
+[data-theme=dark] .v7-how-rail>i{background:var(--amber-400);opacity:.6}
+
+/* Windows: the visual root (.v7-app) switches, never the figure, so every figcaption stays in the accessibility tree.
+   The incoming window fades in on top (from 90ms, over 180ms); the outgoing one stays opaque underneath while only its
+   content fades out (100ms, ease-in), then drops out at 270ms. No frame shows both screens above .35 opacity. The shell chrome is the same, so it reads as one window whose
+   content changes, and the section background never shows through. */
+.v7-how[data-mode=pinned] .v7-how-win{grid-column:2;grid-row:2 / span 3;align-self:start;position:sticky;top:max(84px,calc(34px + 50vh - 280px));z-index:0;margin:0}
+.v7-how[data-mode=pinned] .v7-how-win[data-active]{z-index:1}
+.v7-how[data-mode=pinned] .v7-how-win>.v7-app{opacity:0;visibility:hidden;transition:opacity 0s 270ms,visibility 0s 270ms}
+.v7-how[data-mode=pinned] .v7-how-win[data-active]>.v7-app{opacity:1;visibility:visible;transition:opacity 180ms var(--ease-out) 90ms}
+.v7-how[data-mode=pinned] .v7-how-win:not([data-active]) :is(.v7-app-main,.v7-cursor){opacity:0;transition:opacity 100ms ease-in}
+/* hidden windows run no keyframe loops (live dot, caret, thinking dots) */
+.v7-how[data-mode=pinned] .v7-how-win:not([data-active]) *,
+.v7-how[data-mode=pinned] .v7-how-win:not([data-active]) *::after{animation-play-state:paused!important}
+
+.v7-how[data-mode=pinned] .v7-how-step :is(.v7-h3,.v7-how-p){color:var(--text-muted);transition:color 300ms var(--ease-out)}
+.v7-how[data-mode=pinned] .v7-how-step[data-active] .v7-h3{color:var(--text-primary)}
+.v7-how[data-mode=pinned] .v7-how-step[data-active] .v7-how-p{color:var(--text-secondary)}
+/* <<< S1 */

@@ -1,0 +1,17 @@
+---
+// M22 preview (team constellation): parts/M22.html (Hebrew: M22.he.html; variants: M22.<variant>[.he].html).
+// Props: locale?, variant?, attrs?, indent?
+// The fragment's team photos are written for a first-level page (src="../assets/team/..."); they are rebased to the
+// current page here, so the component works at any depth (/about/ and /he/about/).
+import { fragment, addAttrs, stripLead, rebase, indent as ind } from '../../v7/fragments';
+import { pageCtx } from '../../i18n/page';
+import type { Locale } from '../../i18n';
+interface Props { locale?: Locale; variant?: string; attrs?: string; indent?: number }
+const { variant, attrs, indent = 0 } = Astro.props;
+const ctx = pageCtx(Astro);
+const locale = Astro.props.locale ?? ctx.locale;
+let html = rebase(stripLead(fragment('M22', locale, { variant })), ctx.asset(''));
+if (attrs) html = addAttrs(html, attrs);
+if (indent) html = ind(html, indent);
+---
+<Fragment set:html={html} />

@@ -1,0 +1,7 @@
+---
+// M7 preview: parts/M7.html (Hebrew: M7.he.html; variants: M7.<variant>[.he].html). Props: locale?, variant?, attrs?, indent?
+import Frag from './Frag.astro';
+import type { Locale } from '../../i18n';
+interface Props { locale?: Locale; variant?: string; attrs?: string; indent?: number }
+---
+<Frag id="M7" {...Astro.props} />

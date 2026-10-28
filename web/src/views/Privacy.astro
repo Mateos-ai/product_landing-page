@@ -1,0 +1,11 @@
+---
+// Privacy page (/privacy/ and /he/privacy/). Copy: src/i18n/<locale>/privacy.json. Not a v7 page.
+import Layout from '../layouts/Layout.astro';
+import ProsePage from '../components/site/ProsePage.astro';
+import { pageCtx } from '../i18n/page';
+
+const { t } = pageCtx(Astro, 'privacy');
+---
+<Layout title={t('meta.title')} description={t('meta.description')} v7={false}>
+<ProsePage t={t} />
+</Layout>

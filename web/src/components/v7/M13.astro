@@ -1,0 +1,8 @@
+---
+// M13 screen, shown in the M0 app shell. Props as M0 (minus screens): figClass, preAttrs, figAttrs, h, nav, title, cap, pause, indent.
+import M0 from './M0.astro';
+import type { ShellOpts } from '../../v7/fragments';
+import type { Locale } from '../../i18n';
+type Props = Omit<ShellOpts, 'locale' | 'screens' | 'screensHtml'> & { locale?: Locale; indent?: number };
+---
+<M0 screens={['M13']} {...Astro.props} />

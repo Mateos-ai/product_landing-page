@@ -1,0 +1,11 @@
+---
+// Accessibility page (/accessibility/ and /he/accessibility/). Copy: src/i18n/<locale>/accessibility.json. Not a v7 page.
+import Layout from '../layouts/Layout.astro';
+import ProsePage from '../components/site/ProsePage.astro';
+import { pageCtx } from '../i18n/page';
+
+const { t } = pageCtx(Astro, 'accessibility');
+---
+<Layout title={t('meta.title')} description={t('meta.description')} v7={false}>
+<ProsePage t={t} />
+</Layout>

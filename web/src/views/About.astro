@@ -1,0 +1,184 @@
+---
+// About (/about/ and /he/about/). Copy: src/i18n/<locale>/about.json. Previews: M22 (hero, team) and M23 (100 businesses).
+import Layout from '../layouts/Layout.astro';
+import Sprite from '../components/v7/Sprite.astro';
+import M22 from '../components/v7/M22.astro';
+import M23 from '../components/v7/M23.astro';
+import Arrow from '../components/site/Arrow.astro';
+import { pageCtx } from '../i18n/page';
+import { LOCALE_META } from '../i18n';
+
+const { locale, t, u, asset } = pageCtx(Astro, 'about');
+const dir = LOCALE_META[locale].dir;
+type Person = { name: string; role: string; bio: string };
+type Advisor = { name: string; role: string; on: string };
+type Belief = { t: string; p: string };
+const h1 = t.raw<string[]>('hero.h1');
+const missionTitle = t.raw<string[]>('mission.title');
+const people = t.raw<Person[]>('team.people');
+const advisors = t.raw<Advisor[]>('advisors.people');
+const beliefs = t.raw<Belief[]>('believe.items');
+const startTitle = t.raw<string[]>('start.title');
+
+// Photos and ring tones (About spec A3): amber for Yair and Aviv, indigo for David and Almog, teal for Shayna and Matan.
+const TEAM = [
+  { slug: 'yair', tone: 'you' }, { slug: 'david', tone: 'mate' }, { slug: 'aviv', tone: 'you' },
+  { slug: 'shayna', tone: 'ok' }, { slug: 'matan', tone: 'ok' }, { slug: 'almog', tone: 'mate' },
+];
+// Advisor photos and the icon of the machine part each one works on (About spec A4).
+const ADVISORS = [{ slug: 'schrage', icon: 'i-flow' }, { slug: 'mantel', icon: 'i-goal' }, { slug: 'eisikovits', icon: 'i-shield' }];
+const RING = '<svg class="v7-about-ring" viewBox="0 0 116 116" focusable="false"><circle class="v7-about-track" cx="58" cy="58" r="57"/>'
+  + '<circle class="v7-about-halo" cx="58" cy="58" r="57"/><path pathLength="1" d="M58 1a57 57 0 1 1 0 114a57 57 0 1 1 0-114"/></svg>'
+  + '<span class="v7-about-orb"><i></i></span>';
+const img = (slug: string, px: number) =>
+  `<img src="${asset(`assets/team/${slug}.jpg`)}" alt="" width="${px}" height="${px}" loading="lazy" decoding="async">`;
+const photo = (slug: string, px: number, ring = true) =>
+  `<span class="v7-about-ph" aria-hidden="true"><span class="v7-about-face">${img(slug, px)}</span>${ring ? RING : ''}</span>`;
+const seats = TEAM.map((m) => `<span class="v7-about-seat" data-tone="${m.tone}">${img(m.slug, 40)}</span>`).join('');
+const OPEN_SEAT = '<span class="v7-about-seat is-open"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></span>';
+const OK_CHECK = '<svg class="v7-ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>';
+---
+<Layout title={t('meta.title')} description={t('meta.description')}>
+<Sprite />
+
+<section class="v7-band-dark v7-hero v7-home-hero v7-about-hero" id="top" aria-labelledby="hero-h1">
+  <div class="v7-wrap-wide v7-hero-grid">
+    <div class="v7-hero-copy">
+      <span class="eyebrow" data-v7-reveal set:html={t('hero.eyebrow')} />
+      <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={h1[0]} /></span> <span class="v7-line"><span set:html={h1[1]} /></span> <span class="v7-line"><span set:html={h1[2]} /></span></h1>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="320" set:html={t('hero.lead')} />
+      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="400" set:html={t('hero.micro')} />
+    </div>
+<M22 indent={4} />
+  </div>
+</section>
+
+<section class="v7-sec v7-about-mission" id="mission" aria-labelledby="mission-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal set:html={t('mission.eyebrow')} />
+    <h2 class="v7-h2 v7-about-mission-h" id="mission-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={missionTitle[0]} /></span> <span class="v7-line"><span set:html={missionTitle[1]} /></span></h2>
+    <div class="v7-about-split">
+      <div class="v7-about-copy" data-v7-stagger="100">
+        <p class="v7-lead" data-v7-reveal set:html={t('mission.lead')} />
+        <p class="v7-about-goal" data-v7-reveal set:html={t('mission.goal')} />
+        <p class="v7-micro v7-about-built" data-v7-reveal set:html={t('mission.built')} />
+      </div>
+<M23 indent={6} />
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-about-team" id="team" aria-labelledby="team-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal set:html={t('team.eyebrow')} />
+    <h2 class="v7-h2" id="team-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={t('team.title')} /></span></h2>
+    <div class="v7-about-people" data-v7-stagger="90">
+      {people.map((p, i) => (
+      <article class="v7-about-member" data-tone={TEAM[i].tone} data-v7-reveal>
+        <Fragment set:html={photo(TEAM[i].slug, 104)} />
+        <h3 class="v7-about-name" set:html={p.name} />
+        <p class="v7-about-role" set:html={p.role} />
+        <p class="v7-about-bio" set:html={p.bio} />
+      </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-about-advisors" id="advisors" aria-labelledby="advisors-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal set:html={t('advisors.eyebrow')} />
+    <h2 class="v7-h2" id="advisors-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={t('advisors.title')} /></span></h2>
+    <p class="v7-lead v7-about-sublead" data-v7-reveal data-v7-delay="160" set:html={t('advisors.lead')} />
+    <div class="v7-about-advs" data-v7-stagger="90">
+      {advisors.map((a, i) => (
+      <article class="v7-about-adv" data-v7-reveal>
+        <Fragment set:html={photo(ADVISORS[i].slug, 88, false)} />
+        <h3 class="v7-about-name" set:html={a.name} />
+        <p class="v7-about-role" set:html={a.role} />
+        {/* the chip takes the place of "On the machine:" on screen; assistive tech reads the full line */}
+        <p class="v7-about-on"><span class="sr-only" set:html={t('advisors.onSr') + ' '} /><span class="v7-about-part" aria-hidden="true"><svg class="v7-ic" focusable="false"><use href={`#${ADVISORS[i].icon}`}/></svg><Fragment set:html={t('advisors.onChip')} /></span> <Fragment set:html={a.on} /></p>
+      </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-about-believe" id="believe" aria-labelledby="believe-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="believe-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('believe.title')} /></span></h2>
+    <div class="v7-about-beliefs" data-v7-stagger="90">
+      <article class="v7-about-belief" data-v7-reveal>
+        <div class="v7-mock v7-about-viz" data-viz="goal" aria-hidden="true" inert>
+          <div class="v7-about-vz-flow" dir={dir}>
+            <span class="v7-about-vz-n" style="--k:5"><i><svg class="v7-ic"><use href="#i-mail"/></svg></i></span>
+            <span class="v7-about-vz-k" style="--k:4"><i></i></span>
+            <span class="v7-about-vz-n" style="--k:3"><i><svg class="v7-ic"><use href="#i-db"/></svg></i></span>
+            <span class="v7-about-vz-k" style="--k:2"><i></i></span>
+            <span class="v7-about-vz-n" style="--k:1"><i><svg class="v7-ic"><use href="#i-send"/></svg></i></span>
+            <span class="v7-about-vz-k" style="--k:0"><i></i></span>
+            <span class="v7-about-vz-goal"><b><svg class="v7-ic"><use href="#i-goal"/></svg><Fragment set:html={t('believe.goal')} /></b></span>
+          </div>
+        </div>
+        <h3 class="v7-about-bt" set:html={beliefs[0].t} />
+        <p class="v7-about-bl" set:html={beliefs[0].p} />
+      </article>
+      <article class="v7-about-belief" data-v7-reveal>
+        <div class="v7-mock v7-about-viz" data-viz="approve" aria-hidden="true" inert>
+          <div class="v7-about-vz-card">
+            <span class="v7-about-vz-row"><span class="v7-avatar is-mate"><svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg></span><span class="v7-about-vz-lines"><i></i><i></i></span></span>
+            <span class="v7-about-vz-row is-end"><span class="v7-avatar is-you"><svg class="v7-ic"><use href="#i-person"/></svg></span><span class="v7-about-vz-slot"><span class="v7-about-vz-ok"><Fragment set:html={OK_CHECK + t('believe.approved')} /></span></span></span>
+          </div>
+        </div>
+        <h3 class="v7-about-bt" set:html={beliefs[1].t} />
+        <p class="v7-about-bl" set:html={beliefs[1].p} />
+      </article>
+      <article class="v7-about-belief" data-v7-reveal>
+        <div class="v7-mock v7-about-viz" data-viz="label" aria-hidden="true" inert>
+          <div class="v7-about-vz-pair" dir={dir}>
+            <span class="v7-about-vz-est" set:html={t('believe.estimate')} />
+            <span class="v7-about-vz-arrow"><i></i><svg class:list={['v7-ic', { 'v7-ic-flip': dir === 'rtl' }]}><use href="#i-chevron"/></svg></span>
+            <span class="v7-about-vz-meas"><b></b><span set:html={t('believe.measured')} /></span>
+          </div>
+        </div>
+        <h3 class="v7-about-bt" set:html={beliefs[2].t} />
+        <p class="v7-about-bl" set:html={beliefs[2].p} />
+      </article>
+      <article class="v7-about-belief" data-v7-reveal>
+        <div class="v7-mock v7-about-viz" data-viz="skin" aria-hidden="true" inert>
+          <div class="v7-about-vz-bars" dir={dir}>
+            <span class="v7-about-vz-col" data-tone="ok"><span class="v7-about-vz-bar"><i></i></span><svg class="v7-ic"><use href="#i-goal"/></svg></span>
+            <span class="v7-about-vz-col" data-tone="you"><span class="v7-about-vz-bar"><i></i></span><b>$</b></span>
+            <span class="v7-about-vz-link"><i></i></span>
+          </div>
+        </div>
+        <h3 class="v7-about-bt" set:html={beliefs[3].t} />
+        <p class="v7-about-bl" set:html={beliefs[3].p} />
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-about-join" id="join" aria-labelledby="join-h">
+  <div class="v7-wrap">
+    <div class="v7-about-joinrow" data-v7-reveal>
+      <span class="v7-about-seats" aria-hidden="true"><Fragment set:html={seats + OPEN_SEAT} /></span>
+      <div class="v7-about-joincopy">
+        <span class="eyebrow" set:html={t('join.eyebrow')} />
+        <h2 class="v7-about-join-h" id="join-h" set:html={t('join.title')} />
+      </div>
+      <a class="v7-link-arrow" href={u('/careers/')}><Fragment set:html={t('join.link')} /><Arrow /></a>
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-band-dark v7-cta v7-pp-cta v7-about-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap">
+    <div class="v7-pp-ctacopy" data-v7-stagger="80">
+      <h2 id="start-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={startTitle[0]} /></span> <span class="v7-line"><span set:html={startTitle[1]} /></span></h2>
+      <p class="v7-lead" data-v7-reveal data-v7-delay="160" set:html={t('start.lead')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('start.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('start.contact')} /></div>
+    </div>
+  </div>
+</section>
+</Layout>

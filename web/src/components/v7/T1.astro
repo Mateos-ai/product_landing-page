@@ -1,0 +1,7 @@
+---
+// T1 preview: parts/T1.html (Hebrew: T1.he.html; variants: T1.<variant>[.he].html). Props: locale?, variant?, attrs?, indent?
+import Frag from './Frag.astro';
+import type { Locale } from '../../i18n';
+interface Props { locale?: Locale; variant?: string; attrs?: string; indent?: number }
+---
+<Frag id="T1" {...Astro.props} />

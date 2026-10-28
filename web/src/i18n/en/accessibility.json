@@ -1,0 +1,30 @@
+{
+  "meta": {
+    "title": "Accessibility statement · Mateos",
+    "description": "Mateos's commitment to an accessible website, what we have done, and how to report a problem."
+  },
+  "eyebrow": "Accessibility",
+  "h1": "Accessibility statement",
+  "updated": "Last updated: October 2026",
+  "lead": "We want everyone to be able to read this site and reach us. The site is built to WCAG 2.1 level AA, which is the standard adopted by Israeli accessibility regulations for websites.",
+  "sections": [
+    {
+      "h": "What we have done",
+      "body": [
+        "Text and background contrast meets AA on every page, in light and dark mode. Every page can be used with a keyboard alone, with a visible focus state and a skip link to the content. Headings are in order, images and icons have text alternatives, forms have labels, and the site works at 200 percent zoom and on a 390 pixel screen. Motion is reduced when your system asks for it."
+      ]
+    },
+    {
+      "h": "What we know is missing",
+      "body": [
+        "The Hebrew version is new and is being reviewed by a native editor. Product screenshots will carry full descriptions as they are added. If you find something else, tell us."
+      ]
+    },
+    {
+      "h": "Report a problem",
+      "body": [
+        "Write to hello@mateos.ai with the page and what went wrong. We reply within five working days and fix what we can within the month."
+      ]
+    }
+  ]
+}

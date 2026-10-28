@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "title": "Security and control · Mateos",
+    "description": "Where MateOS runs, what it can touch, what leaves your environment, who approves what, and what is logged. Built to Israel's Privacy Amendment 13."
+  },
+  "questionnaireSubject": "Security%20questionnaire",
+  "hero": {
+    "eyebrow": "Security and control",
+    "h1": ["Inside your<br> environment.", "A person<br class=\"v7-sec-br\"> wherever<br> it’s needed."],
+    "lead": "Read-only by default. The questions a CTO asks on the second call, answered here.",
+    "cta": "Start with an X-ray",
+    "questionnaire": "Send your security questionnaire"
+  },
+  "touch": {
+    "title": "What Mate can touch.",
+    "read": "Read",
+    "write": "Write",
+    "fields": ["Fields", "Service", "Purpose"],
+    "example": "Example",
+    "logDir": "ltr",
+    "log": [
+      { "t": "09:24", "who": "Mate", "what": "read ERP" },
+      { "t": "09:27", "who": "Mate", "what": "drafted Q-1042" },
+      { "t": "09:28", "who": "Mate", "what": "asked Dana K." },
+      { "t": "09:31", "who": "Dana K.", "what": "approved Q-1042" }
+    ],
+    "cards": [
+      { "t": "Access.", "p": "Read-only on your systems unless you decide otherwise, per system. No write access to your core system in a pilot." },
+      { "t": "What leaves.", "p": "Written down before we connect anything: which fields, to which service, for what." },
+      { "t": "Who approves.", "p": "A named person per process. Mate proposes, the person approves." },
+      { "t": "What is logged.", "p": "Every run, action, decision and rule change, with a date and a name." }
+    ]
+  },
+  "before": {
+    "title": "Signed before the first line of code.",
+    "lead": "Red lines, a stop rule and a success bar. Written by you, kept by us."
+  },
+  "privacy": {
+    "title": "Built to Israel’s Privacy Amendment&nbsp;13.",
+    "checks": ["Data minimization", "Purpose limitation", "Access logging", "A named responsible person on our side", "Processing inside your environment"],
+    "doc": "We document the data flows of each process before it goes live, and hand them to you."
+  },
+  "quest": {
+    "title": "Security questionnaire?",
+    "p": "We answer it before the agreement is signed. Send it with the name of its owner on your side.",
+    "email": "hello@mateos.ai"
+  },
+  "start": {
+    "title": ["It’s your company.", "Your move."],
+    "lead": "Start with an X-ray: one day on site with the people who do the work, or one small agent. Every process ranked by payback. From&nbsp;$990.",
+    "cta": "Start with an X-ray",
+    "contact": "Contact us"
+  }
+}

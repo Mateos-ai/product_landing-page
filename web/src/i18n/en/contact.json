@@ -1,0 +1,64 @@
+{
+  "meta": {
+    "title": "Start with an X-ray · Mateos",
+    "description": "Book an X-ray: one day on site with the people who do the work, every process ranked by payback. From $990. Or write to us first."
+  },
+  "eyebrow": "Contact",
+  "h1": "Start with an X-ray.",
+  "lead": "One day on site with the people who do the work, or one small agent. Every process ranked by payback. From $990. Leave your details and we reply within one working day to book it.",
+  "cards": [
+    {
+      "h": "Email",
+      "p": "For anything else: partnerships, press, a question before you book."
+    },
+    {
+      "h": "Hours",
+      "p": "Sunday to Friday, 9:00 to 18:00 Israel time. We reply within one working day."
+    },
+    {
+      "h": "Where",
+      "p": "Israel, with operations in New York. The X-ray happens at your site."
+    }
+  ],
+  "form": {
+    "title": "Book the X-ray",
+    "lead": "Your work email and your company. We take it from there.",
+    "sending": "Sending...",
+    "retry": "Try again",
+    "button": "Book the X-ray",
+    "labels": {
+      "email": "Work email",
+      "company": "Company",
+      "note": "What is not moving? (optional)"
+    },
+    "submit": "Book the X-ray",
+    "success": {
+      "h": "Request received.",
+      "p": "Thank you. We reply within one working day to book the X-ray.",
+      "again": "Send another request"
+    },
+    "error": "Something went wrong. Please try again, or write to hello@mateos.ai."
+  },
+  "faq": {
+    "eyebrow": "Before you book",
+    "title": "What happens next.",
+    "items": [
+      {
+        "q": "What do you need from us for the X-ray?",
+        "a": "One day, the people who do the work in one department, and the person who runs the systems. No data export before we meet."
+      },
+      {
+        "q": "Who should be in the room?",
+        "a": "The owner or CEO for the opening and the closing. The head of the department and two people on the floor for the day. The CTO joins once the owner has said yes."
+      },
+      {
+        "q": "What do we get?",
+        "a": "The process mapped in stations, the time per station, the hours a year, and every process ranked by payback with the first one to fix."
+      },
+      {
+        "q": "Can we stop after the X-ray?",
+        "a": "Yes. You keep the map and the ranked list either way."
+      }
+    ]
+  }
+}

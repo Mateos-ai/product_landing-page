@@ -1,0 +1,101 @@
+/* >>> T1 v7-tour product tour (spec §7 T1). Tab bar, one M0 window holding six screens, caption panels. */
+/* The bar picks one of three layouts from its own width (the tour is the size container; the bar is
+   min(tour, 1120px)). Measured: tablist 457px, toggle 125px ("Pause tour").
+   narrow (< 610px): the tabs are a scrolling chip strip and the toggle is a 44px icon button in the same row;
+   middle (610–759px): tabs at the inline-start, toggle at the inline-end;
+   wide (>= 760px): tabs centred, toggle at the inline-end (each side keeps a gap of at least 12px). */
+.v7-tour{margin-top:32px;container:tour / inline-size}
+.v7-tour-bar{display:flex;align-items:center;gap:8px;max-width:1120px;margin:0 auto 20px}
+
+/* Tablist: narrow first (separate chips in an edge-bleeding strip that fades at both ends) */
+.v7-tabs{position:relative;display:flex;flex:1 1 auto;gap:6px;min-width:0;margin-inline-start:calc(-1 * var(--v7-gutter));padding:4px 12px 4px var(--v7-gutter);
+  overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scroll-padding-inline:var(--v7-gutter) 12px;scrollbar-width:none;
+  -webkit-mask-image:linear-gradient(to right,transparent,#000 20px,#000 calc(100% - 20px),transparent);
+  mask-image:linear-gradient(to right,transparent,#000 20px,#000 calc(100% - 20px),transparent)}
+.v7-tabs::-webkit-scrollbar{display:none}
+.v7-tabs::after{content:"";flex:none;width:1px}
+.v7-tabs>[role=tab]{position:relative;flex:none;height:34px;padding-inline:14px;border:0;border-radius:999px;background:transparent;
+  color:var(--text-secondary);font:600 .9375rem/1 var(--font-body);letter-spacing:-.005em;white-space:nowrap;cursor:pointer;scroll-snap-align:center;
+  transition:background-color 200ms var(--ease-out),color 200ms var(--ease-out)}
+.v7-tabs>[role=tab]:not([aria-selected=true]){background:var(--surface);box-shadow:inset 0 0 0 1px var(--border)}
+.v7-tabs>[role=tab]:hover{color:var(--text-primary)}
+.v7-tabs>[role=tab][aria-selected=true]{background:var(--text-primary);color:var(--surface)}
+.v7-tabs>[role=tab]:focus-visible{outline-offset:-2px}
+
+/* Autoplay progress: a 2px bar under the selected tab's label; paused with the tour (data-v7-paused, C1) */
+.v7-tab-prog{position:absolute;inset-inline:14px;bottom:5px;height:2px;border-radius:2px;background:var(--color-primary);
+  transform:scaleX(0);transform-origin:left;opacity:0;pointer-events:none}
+[dir=rtl] .v7-tab-prog{transform-origin:right}
+.v7-tour.is-auto [aria-selected=true]>.v7-tab-prog.is-run{opacity:1;animation:v7-prog var(--v7-dwell,8000ms) linear forwards}
+@keyframes v7-prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* Toggle: narrow = 44px icon-only button (its name stays "Pause tour" / "Play tour") */
+.v7-tour-toggle{position:relative;flex:none;gap:7px}
+/* square, invisible hit areas (at least 46 x 46, and the corners a round pill would leave out); visuals unchanged */
+:is(.v7-tabs>[role=tab],.v7-tour-toggle)::before{content:"";position:absolute;inset:min(0px,calc(50% - 23px))}
+.v7-tour-toggle .v7-ic{width:14px;height:14px;stroke-width:2.25}
+.v7-tour .v7-tour-toggle{width:44px;height:44px;padding:0;gap:0}
+.v7-tour-toggle .v7-tour-tlabel{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+
+/* middle */
+@container tour (min-width:610px){
+  .v7-tour{margin-top:40px}
+  .v7-tour-bar{justify-content:space-between;gap:12px;margin-bottom:28px}
+  .v7-tabs{flex:0 1 auto;gap:2px;margin-inline-start:0;padding:4px;border:1px solid var(--border);border-radius:999px;background:var(--surface);
+    overflow:visible;scroll-snap-type:none;-webkit-mask-image:none;mask-image:none}
+  .v7-tabs::after{content:none}
+  .v7-tabs>[role=tab]:not([aria-selected=true]){background:transparent;box-shadow:none}
+  .v7-tabs>[role=tab]:focus-visible{outline-offset:2px}
+  .v7-tour .v7-tour-toggle{width:auto;height:auto;padding:9px 16px;gap:7px}
+  .v7-tour-toggle .v7-tour-tlabel{position:static;width:auto;height:auto;overflow:visible;clip-path:none}
+}
+/* wide: today's centred tabs, toggle at the inline-end */
+@container tour (min-width:760px){
+  .v7-tour-bar{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:16px}
+  .v7-tabs{grid-column:2}
+  .v7-tour-toggle{grid-column:3;justify-self:end}
+}
+/* touch: every tour control is at least 44px tall */
+@media (pointer:coarse){
+  .v7-tabs>[role=tab]{height:44px}
+  .v7-tour .v7-tour-toggle{min-height:44px}
+}
+/* forced colours: the selected tab keeps a system highlight; the others get an outline so they read as tabs */
+@media (forced-colors:active){
+  .v7-tabs>[role=tab]{border:1px solid CanvasText}
+  .v7-tabs>[role=tab][aria-selected=true]{forced-color-adjust:none;background:Highlight;color:HighlightText;border-color:Highlight}
+  .v7-tab-prog{display:none}
+}
+
+/* Window */
+.v7-tour-win{width:100%;max-width:1120px;margin-inline:auto}
+
+/* Captions: one visible panel (T1 sets hidden on the others); fixed min-height so switching never shifts the page */
+.v7-tour-caps{margin-top:20px}
+.v7-tour-caps>[role=tabpanel]{max-width:52ch;min-height:3.2em;margin-inline:auto;border-radius:8px;text-align:center;
+  font-size:17px;line-height:1.55;color:var(--text-secondary);text-wrap:balance}
+.v7-tour-caps>[role=tabpanel] p{text-wrap:balance}
+@container tour (min-width:610px){
+  .v7-tour-caps{margin-top:24px}
+  .v7-tour-caps>[role=tabpanel]{font-size:18px}
+}
+
+/* Inactive screens stay laid out (arm() can measure them) but are hidden. The switch is sequenced: the outgoing
+   screen fades out over 120ms (ease-in) and the incoming one starts 90ms later (T1.js), so two screens never
+   show at once. */
+.v7-tour.is-js .v7-screen[data-v7-inactive]{visibility:hidden;opacity:0;translate:0 -4px;pointer-events:none;
+  transition:opacity 120ms ease-in,translate 120ms ease-in,visibility 0s linear 120ms}
+.v7-tour.is-js .v7-screen[data-v7-inactive] *,.v7-tour.is-js .v7-screen[data-v7-inactive] *::after{animation-play-state:paused!important}
+html:not(.v7-motion) .v7-tour .v7-screen{transition:none!important}
+html:not(.v7-motion) .v7-tour-toggle{display:none}
+
+/* No JS: no tabs or toggle, first screen only, all captions as a list */
+html:not(.v7-ready) .v7-tour .v7-screen:not(:first-child){display:none}
+.v7-tour:not(.is-js) .v7-tour-bar{display:none}
+.v7-tour:not(.is-js) .v7-tour-caps{display:grid;gap:10px}
+.v7-tour:not(.is-js) .v7-tour-caps>[role=tabpanel]{min-height:0}
+/* Hebrew (T1.he.html): no tracking on Hebrew tab labels */
+html[lang=he] .v7-tabs>[role=tab]{letter-spacing:0}
+/* RTL, narrow strip: the strip bleeds into the gutter at its inline-start (right), so the gutter padding goes there too */
+@container tour (max-width:609.98px){[dir=rtl] .v7-tabs{padding-inline:var(--v7-gutter) 12px}}
+/* <<< T1 */

@@ -1,0 +1,22 @@
+<!-- M16 station chart (Industries spec §3 M16). Data-driven: the root's --max is the scale (omit it to scale to the largest
+     row), each row's --v is its value, .is-hi marks the highlighted row. The value text in .m-bars-v must equal --v; the
+     text after it (" h") is the unit. --m-bars-end on the root reserves the room for the longest value (default 44px).
+     Visible caption: page copy, owned by the page (not part of this fragment). Markup on /industries/insurance/, right after
+     the figure: <p class="v7-note m-bars-cap">Estimate from team interviews.</p> -->
+<figure class="v7-figure m-bars-fig">
+  <div class="v7-mock m-bars" data-v7-mock="M16" data-v7-play="once" data-v7-threshold=".4" aria-hidden="true" inert style="--max:44">
+    <div class="m-bars-head">
+      <p class="m-bars-title">One claims department<span class="m-bars-sep"> · </span><span class="m-bars-sub">hours a day</span></p>
+      <span class="v7-preview-tag">Estimate</span>
+    </div>
+    <ol class="m-bars-rows">
+      <li class="m-bars-row" style="--v:8"><span class="m-bars-l"><span class="m-bars-i">01</span><span class="m-bars-t">Email intake and sorting</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">8</b> h</span></span></li>
+      <li class="m-bars-row" style="--v:6"><span class="m-bars-l"><span class="m-bars-i">02</span><span class="m-bars-t">Linking to a claim</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">6</b> h</span></span></li>
+      <li class="m-bars-row" style="--v:12"><span class="m-bars-l"><span class="m-bars-i">03</span><span class="m-bars-t">Opening and sorting documents</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">12</b> h</span></span></li>
+      <li class="m-bars-row" style="--v:9"><span class="m-bars-l"><span class="m-bars-i">04</span><span class="m-bars-t">Missing-document check</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">9</b> h</span></span></li>
+      <li class="m-bars-row is-hi" style="--v:44"><span class="m-bars-l"><span class="m-bars-i">05</span><span class="m-bars-t">Reading the case and summarizing</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">44</b> h</span></span></li>
+      <li class="m-bars-row" style="--v:14"><span class="m-bars-l"><span class="m-bars-i">06</span><span class="m-bars-t">Drafting the letter</span></span><span class="m-bars-plot"><i class="m-bars-fill"></i><span class="m-bars-n"><b class="m-bars-v">14</b> h</span></span></li>
+    </ol>
+  </div>
+  <figcaption class="sr-only">Estimate: hours a day per station in one claims department, from team interviews. Email intake and sorting, 8 hours. Linking to a claim, 6. Opening and sorting documents, 12. Missing-document check, 9. Reading the case and summarizing, 44. Drafting the letter, 14. Reading the case is by far the largest station.</figcaption>
+</figure>

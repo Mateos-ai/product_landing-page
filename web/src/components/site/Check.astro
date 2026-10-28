@@ -1,0 +1,11 @@
+---
+// Animated mark used by .v7-check-list items: a check, or a cross for "never" lists (variant="never").
+// `focusable` adds focusable="false" (the v7 pages write it; the home page does not).
+interface Props { variant?: 'check' | 'never'; focusable?: boolean }
+const { variant = 'check', focusable = false } = Astro.props;
+const paths = variant === 'never'
+  ? '<path d="M7 7l10 10" pathLength="1"/><path d="M17 7L7 17" pathLength="1"/>'
+  : '<path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/>';
+const svg = `<svg class="v7-check" viewBox="0 0 24 24" aria-hidden="true"${focusable ? ' focusable="false"' : ''}>${paths}</svg>`;
+---
+<Fragment set:html={svg} />

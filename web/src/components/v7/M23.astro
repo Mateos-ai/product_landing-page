@@ -1,0 +1,7 @@
+---
+// M23 preview: parts/M23.html (Hebrew: M23.he.html; variants: M23.<variant>[.he].html). Props: locale?, variant?, attrs?, indent?
+import Frag from './Frag.astro';
+import type { Locale } from '../../i18n';
+interface Props { locale?: Locale; variant?: string; attrs?: string; indent?: number }
+---
+<Frag id="M23" {...Astro.props} />

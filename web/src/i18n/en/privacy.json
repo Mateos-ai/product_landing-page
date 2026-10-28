@@ -1,0 +1,54 @@
+{
+  "meta": {
+    "title": "Privacy policy · Mateos",
+    "description": "How Mateos collects and uses personal data on mateos.ai and in its services."
+  },
+  "eyebrow": "Legal",
+  "h1": "Privacy policy",
+  "updated": "Last updated: October 2026",
+  "lead": "This policy explains what personal data Mateos AI, Inc. (“Mateos”, “we”) collects on mateos.ai, why, and what your rights are. It applies to visitors of this website and to people who contact us. Data we process on behalf of clients inside their own environments is governed by the agreement with that client, not by this policy.",
+  "sections": [
+    {
+      "h": "What we collect",
+      "body": [
+        "When you submit the X-ray form we collect your work email, your company name and, if you add it, a note. When you write to us we keep the correspondence. The website itself does not use advertising cookies and does not run third-party analytics."
+      ]
+    },
+    {
+      "h": "Why we use it",
+      "body": [
+        "To reply to you, to book and run the X-ray, and to keep a record of our correspondence. We do not sell personal data and we do not use it for advertising."
+      ]
+    },
+    {
+      "h": "Who processes it",
+      "body": [
+        "Form submissions are delivered to our mailbox through a form-delivery service acting as our processor. Our mail and documents run on Google Workspace. Each processor is bound by a data-processing agreement."
+      ]
+    },
+    {
+      "h": "How long we keep it",
+      "body": [
+        "Correspondence and form submissions are kept for as long as the conversation or the engagement is active, and for up to three years afterwards unless the law requires longer."
+      ]
+    },
+    {
+      "h": "Your rights",
+      "body": [
+        "You may ask what we hold about you, ask us to correct it, or ask us to delete it, subject to legal retention duties. Write to hello@mateos.ai. We answer within 30 days."
+      ]
+    },
+    {
+      "h": "Israel's Privacy Protection Law",
+      "body": [
+        "Mateos processes personal data in accordance with the Israeli Privacy Protection Law, 5741-1981, as amended by Amendment 13, and the regulations under it. Where we act as a processor for a client, the client is the data controller and the client's own privacy notice applies."
+      ]
+    },
+    {
+      "h": "Changes",
+      "body": [
+        "We update this page when our practices change and show the date at the top."
+      ]
+    }
+  ]
+}

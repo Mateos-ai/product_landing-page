@@ -1,0 +1,13 @@
+---
+// X2: the sample-goal mock inside an industries-hub card (P-IND.js, V7.define('X2')). Played by its host card.
+// Props: tag ("Sample goal"), goal (text before the highlight), hl (highlighted value), ph (placeholder),
+// pill + pillTone (status pill), avatar (initials), who ("Noa S. approves").
+interface Props { tag: string; goal: string; hl: string; ph: string; pill: string; pillTone: string; avatar: string; who: string }
+const p = Astro.props;
+const MARK = '<svg class="v7-mark" viewBox="43 43 114 114"><use href="#i-mark"/></svg>';
+---
+<div class="v7-mock v7-hub-goal" data-v7-mock="X2" data-v7-play="host" aria-hidden="true" inert>
+          <div class="v7-hub-gtag"><span class="v7-preview-tag" set:html={p.tag} /></div>
+          <div class="v7-hub-bar"><Fragment set:html={MARK} /><span class="v7-hub-field"><span class="v7-hub-text"><Fragment set:html={p.goal} /><span class="v7-hub-hl" set:html={p.hl} /></span><span class="v7-hub-ph" data-v7-gone set:html={p.ph} /></span><kbd class="v7-kbd v7-hub-kbd">↵</kbd></div>
+          <div class="v7-hub-status"><span class="v7-pill v7-hub-pill" data-tone={p.pillTone} set:html={p.pill} /><span class="v7-hub-who"><span class="v7-avatar" set:html={p.avatar} /><span class="v7-hub-whot" set:html={p.who} /></span></div>
+        </div>

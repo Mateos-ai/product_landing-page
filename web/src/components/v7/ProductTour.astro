@@ -1,0 +1,25 @@
+---
+// T1 product tour as on /mateos/: parts/T1[.he].html with its "@TOUR_SHELL" slot filled by one M0 shell (556px) hosting
+// M3 M4 M5 M6 M8 M9 (each root tagged data-screen) and each "@SR:Mx" slot filled with that screen's caption.
+// Port of tools/pprod-build.mjs (EN, curly apostrophes in captions) and phe/build-product.mjs (HE).
+// Props: cap (sr-only caption of the shell), figAttrs (attributes on the shell figure), locale?
+import { fragment, shell, screen, caption } from '../../v7/fragments';
+import { localeFromPath, curly, type Locale } from '../../i18n';
+interface Props { cap: string; figAttrs?: string; locale?: Locale }
+const { cap, figAttrs = 'data-v7-reveal="rise" data-v7-delay="200"' } = Astro.props;
+const locale = Astro.props.locale ?? localeFromPath(Astro.url.pathname);
+const TOUR = [['goal', 'M3'], ['flows', 'M4'], ['monitor', 'M5'], ['exceptions', 'M6'], ['rules', 'M8'], ['audit', 'M9']];
+const once = (s: string, a: string, b: string) => {
+  const i = s.indexOf(a);
+  if (i < 0 || s.indexOf(a, i + 1) >= 0) throw new Error(`ProductTour: expected exactly one ${a}`);
+  return s.slice(0, i) + b + s.slice(i + a.length);
+};
+const ids = TOUR.map(([, id]) => id);
+const tshell = shell({
+  locale, screens: ids, h: '556px', figClass: 'v7-tour-win', figAttrs, cap, newlineScreens: true,
+  screensHtml: TOUR.map(([k, id]) => screen(id, locale, `data-screen="${k}"`)).join('\n'),
+});
+let html = once(fragment('T1', locale), '<!--@TOUR_SHELL-->', tshell);
+for (const id of ids) html = once(html, `<!--@SR:${id}-->`, curly(caption(id, locale), locale));
+---
+<Fragment set:html={html} />

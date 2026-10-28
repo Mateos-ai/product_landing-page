@@ -1,0 +1,109 @@
+{
+  "meta": {
+    "title": "Mateos · Your company. 10x better.",
+    "description": "MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."
+  },
+  "hero": {
+    "eyebrow": "MateOS",
+    "h1": [
+      "Your company.",
+      "10x better."
+    ],
+    "steps": {
+      "goal": "Set the goal.",
+      "flows": "Mate builds the flows.",
+      "track": "Mate keeps you on track."
+    },
+    "cta": "Start with an X-ray",
+    "tour": "Take the tour",
+    "micro": "For owner-led companies with no CTO. X-ray&nbsp;from&nbsp;$990."
+  },
+  "reverse": {
+    "srTitle": "Reverse the build.",
+    "bridge": "Reverse the build: start with the number that matters, then build the process to it.",
+    "more": "Learn more about our platform"
+  },
+  "how": {
+    "title": "How it works",
+    "steps": [
+      {
+        "label": "Goal",
+        "sents": [
+          "A number and a date.",
+          "That’s the spec."
+        ]
+      },
+      {
+        "label": "Flows",
+        "h3": "Built back from the goal.",
+        "p": "In the ERP, mailbox, WhatsApp and Excel you already use."
+      },
+      {
+        "label": "On track",
+        "h3": "Checked every day.",
+        "p": "When the number drifts, Mate shows why and proposes a fix."
+      }
+    ]
+  },
+  "control": {
+    "title": "A person wherever it’s needed.",
+    "lead": "Mate automates the routine. Your people step in where it matters.",
+    "checks": [
+      "Read-only by default",
+      "Runs inside your environment",
+      "Full audit trail",
+      "Built to Israel’s Privacy Amendment 13",
+      "A person you can call, always"
+    ],
+    "link": "Security and control"
+  },
+  "field": {
+    "title": "Three rooms we sat in.",
+    "lead": "Live with clients in insurance, real estate, logistics and manufacturing.",
+    "stories": [
+      {
+        "fx": "04:00",
+        "sr": "04:00",
+        "body": "One man’s head held tomorrow’s delivery routes. Our system built the same plan from history.",
+        "q": "Medical equipment distributor. Prototype tested on past data."
+      },
+      {
+        "fx": "<span class=\"v7-fx-n\">9,700 hours</span> a year",
+        "sr": "9,700 hours a year",
+        "body": "reading medical files by hand.",
+        "q": "Insurance agency, 800 employees. Estimate from team interviews. Pilot in delivery."
+      },
+      {
+        "fx": "“Hold on, I’m checking with the office.”",
+        "sr": "“Hold on, I’m checking with the office.”",
+        "body": "A sales rep, on every price. We’re building his answer on WhatsApp.",
+        "q": "Manufacturing plant. In development."
+      }
+    ],
+    "more": "All industries"
+  },
+  "start": {
+    "title": [
+      "It’s your company.",
+      "Your move."
+    ],
+    "ladder": [
+      {
+        "name": "X-ray",
+        "tag": "From $990",
+        "body": "One day on site with the people who do the work, or one small agent. Every process ranked by payback."
+      },
+      {
+        "name": "Pilot",
+        "body": "One process. One number. Live in weeks."
+      },
+      {
+        "name": "Processes on MateOS",
+        "body": "The next one, same system."
+      }
+    ],
+    "fine": "Pilot and Processes are scoped per process. Part of our fee rides on a number you champion. Stop at any step.",
+    "cta": "Start with an X-ray",
+    "contact": "Contact us"
+  }
+}

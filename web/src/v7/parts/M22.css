@@ -1,0 +1,85 @@
+/* >>> M22 m-team team constellation (About spec §2 M22): the About hero, on the dark band in both themes.
+   An illustration, not product UI (no preview tag, no sample data): the brand mark as the machine's hub, six real team
+   photos on an orbit around it, a connector from the hub to each person. Frameless, so it uses the band's colours in
+   both themes. Geometry is pure CSS: each person sits at (--cx, --cy) × --r from the stage centre and each connector is
+   a line of length --r rotated by --a, so the static picture is exact at every width without JS. Sizes come from the
+   root container (m-team): narrow < 480 (name-only chips), medium 480–599, wide ≥ 600 (72px mark, ~410px orbit).
+   Motion (M22.js) uses transform, opacity and stroke-dashoffset only. */
+.m-team{container:m-team / inline-size;position:relative;
+  --r:clamp(96px,calc(50cqi - 40px),148px);--slot:56px;--face:6px;--hub:76px;--mark:44px;--chip-h:24px;--gapc:8px;--ring-w:2.4;
+  --m-team-band:var(--dark-surface);--m-team-chip:rgba(28,28,43,.9)}
+.m-team [data-tone=you]{--tone:var(--amber-500)}
+.m-team [data-tone=mate]{--tone:var(--indigo-400)}
+.m-team [data-tone=ok]{--tone:var(--teal-500)}
+.m-team-stage{position:relative;height:calc(1.732 * var(--r) + var(--slot) + 2 * (var(--gapc) + var(--chip-h)) + 16px)}
+
+/* Orbit (the ring the people sit on) and a faint inner ring, both static */
+.m-team-orbit{position:absolute;left:calc(50% - var(--r));top:calc(50% - var(--r));width:calc(2 * var(--r));height:calc(2 * var(--r));
+  border-radius:50%;border:1px solid rgba(255,255,255,.13);pointer-events:none}
+.m-team-orbit--in{--k:.62;left:calc(50% - var(--r) * var(--k));top:calc(50% - var(--r) * var(--k));width:calc(2 * var(--r) * var(--k));height:calc(2 * var(--r) * var(--k));
+  border:1px dashed rgba(255,255,255,.08)}
+/* the soft light under the hub */
+.m-team-aura{position:absolute;left:50%;top:50%;width:calc(var(--hub) * 2.6);height:calc(var(--hub) * 2.6);margin:calc(var(--hub) * -1.3) 0 0 calc(var(--hub) * -1.3);
+  border-radius:50%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(127,121,237,.30),rgba(127,121,237,.12) 45%,rgba(127,121,237,0))}
+
+/* Connectors: from the stage centre to each person (the photo covers the far end) */
+.m-team-spoke{position:absolute;left:50%;top:50%;z-index:1;width:var(--r);height:2px;margin-top:-1px;border-radius:2px;
+  transform-origin:0 50%;rotate:var(--a);
+  background:linear-gradient(90deg,rgba(255,255,255,.12),color-mix(in srgb,var(--tone) 62%,transparent))}
+/* a travelling light (M22.js adds and removes it): a tail fading into a bright head, in the person's tone */
+.m-team-pz{position:absolute;left:0;top:50%;width:46px;height:3px;margin-top:-1.5px;border-radius:2px;pointer-events:none;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--tone) 80%,transparent) 55%,color-mix(in srgb,var(--tone) 55%,#fff))}
+.m-team-pz::after{content:"";position:absolute;right:-3.5px;top:-2px;width:7px;height:7px;border-radius:50%;background:#fff;
+  box-shadow:0 0 0 1.5px var(--tone),0 0 12px 4px color-mix(in srgb,var(--tone) 70%,transparent)}
+.m-team-pz.is-back{background:linear-gradient(270deg,transparent,color-mix(in srgb,var(--tone) 80%,transparent) 55%,color-mix(in srgb,var(--tone) 55%,#fff))}
+.m-team-pz.is-back::after{right:auto;left:-3.5px}
+
+/* Hub: the brand mark on a dark disc */
+.m-team-hub{position:absolute;left:50%;top:50%;z-index:2;display:grid;place-items:center;width:var(--hub);height:var(--hub);
+  margin:calc(var(--hub) / -2) 0 0 calc(var(--hub) / -2);border-radius:50%;
+  background:radial-gradient(circle at 50% 30%,#262640,var(--dark-surface-2) 70%);
+  box-shadow:0 0 0 1px rgba(255,255,255,.14),0 14px 36px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.07)}
+.m-team-hub>.v7-mark{width:var(--mark);height:var(--mark)}
+.m-team-hub{--tone:rgba(255,255,255,.7)}
+/* arrival ring (M22.js scales and fades it); hidden at rest */
+.m-team-ping{position:absolute;inset:-3px;border-radius:50%;border:2px solid var(--tone);opacity:0;pointer-events:none;
+  box-shadow:0 0 18px color-mix(in srgb,var(--tone) 65%,transparent)}
+
+/* People */
+.m-team-people{position:absolute;inset:0;z-index:3;margin:0;padding:0;list-style:none}
+.m-team-p{position:absolute;left:calc(50% + var(--cx) * var(--r));top:calc(50% + var(--cy) * var(--r));width:0;height:0}
+.m-team-slot{position:absolute;left:calc(var(--slot) / -2);top:calc(var(--slot) / -2);width:var(--slot);height:var(--slot);border-radius:50%}
+/* the empty seat: a dashed circle on the band colour (interrupts the orbit line); the drawn ring covers its edge */
+.m-team-slot::before{content:"";position:absolute;inset:0;border-radius:50%;border:1.5px dashed rgba(255,255,255,.24);background:var(--m-team-band)}
+.m-team-face{position:absolute;inset:var(--face);overflow:hidden;border-radius:50%;background:var(--dark-surface-2);box-shadow:0 8px 20px rgba(0,0,0,.45)}
+.m-team-face>img{display:block;width:100%;height:100%;object-fit:cover}
+.m-team-ring{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--tone);stroke-width:var(--ring-w);stroke-linecap:round}
+
+/* Chip: tone dot, first name, role (role hidden on narrow). Above the photo for the two upper people, below otherwise. */
+.m-team-tag{position:absolute;left:-120px;width:240px;top:calc(var(--slot) / 2 + var(--gapc));display:flex;justify-content:center;pointer-events:none}
+.m-team-p.is-up .m-team-tag{top:auto;bottom:calc(var(--slot) / 2 + var(--gapc))}
+.m-team-chip{display:inline-flex;align-items:center;gap:6px;height:var(--chip-h);padding-inline:8px 10px;border-radius:999px;white-space:nowrap;
+  background:var(--m-team-chip);box-shadow:0 0 0 1px rgba(255,255,255,.11),0 6px 16px rgba(0,0,0,.35)}
+.m-team-chip::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--tone)}
+.m-team-chip>b{font:600 12px/1 var(--font-body);color:#fff;letter-spacing:0}
+.m-team-chip>span{display:none;font:400 11px/1 var(--font-mono);letter-spacing:.02em;color:var(--dark-text-3)}
+.m-team-chip>span::before{content:"·";margin-inline-end:6px}
+
+/* Smallest phones (≤ 339px of figure): smaller seats and hub, so the side chips clear the lower photos */
+@container m-team (max-width:339.98px){
+  .m-team-stage{--r:clamp(92px,calc(50cqi - 36px),148px);--slot:48px;--face:5px;--hub:64px;--mark:38px;--chip-h:22px;--gapc:6px;--ring-w:2.8}
+  .m-team-chip{padding-inline:7px 9px;gap:5px}
+}
+/* Medium: role shows, bigger photos and hub */
+@container m-team (min-width:480px){
+  .m-team-stage{--r:clamp(150px,31cqi,200px);--slot:64px;--face:6px;--hub:100px;--mark:60px;--chip-h:26px;--gapc:9px;--ring-w:2.1}
+  .m-team-chip{padding-inline:9px 11px}
+  .m-team-chip>b{font-size:12.5px}
+  .m-team-chip>span{display:inline}
+}
+/* Wide: the spec's ~410px orbit and 72px mark */
+@container m-team (min-width:600px){
+  .m-team-stage{--r:clamp(170px,31cqi,205px);--slot:72px;--face:7px;--hub:124px;--mark:72px;--gapc:10px;--ring-w:1.9}
+}
+/* <<< M22 */

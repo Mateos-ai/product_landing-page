@@ -1,0 +1,61 @@
+{
+  "meta": {
+    "title": "MateOS · One OS runs the whole process",
+    "description": "MateOS is the operating layer over the ERP, CRM and mailboxes you already run: access, monitoring, rules, an exception desk and a learning loop. No new screen. A person wherever it’s needed."
+  },
+  "hero": {
+    "h1": ["Goal in. <br class=\"v7-h1-br\">Flows out.", "On track."],
+    "lead": "Give Mate a number and a date. Mate builds the flows in the systems you already run, and checks the number every day.",
+    "cta": "Start with an X-ray",
+    "tour": "Take the tour"
+  },
+  "backwards": {
+    "title": "Built backwards, on purpose.",
+    "lead": "Most projects start with tools and work up to the number. Mate starts with the number and works down.",
+    "toggleLabel": "Compare the old way with the MateOS way",
+    "old": "Old way",
+    "new": "MateOS way"
+  },
+  "tour": {
+    "title": "Six screens. One goal.",
+    "note": "Product preview. Screens and numbers are sample data.",
+    "cap": "Product preview of six MateOS screens. The caption below describes the screen on display."
+  },
+  "surfaces": {
+    "title": ["Other AI answers questions.", "Mate does the work."],
+    "lead": "No new screen. Your team keeps working in the ERP, the mailbox, WhatsApp and Excel."
+  },
+  "loop": {
+    "title": "Every exception becomes a rule.",
+    "lead": "Solve an exception once and it stays solved. The system learns your business, not the other way round."
+  },
+  "control": {
+    "title": "You stay in charge.",
+    "facts": [
+      ["A person wherever it’s needed.", "Mate automates the routine. A named person approves what matters."],
+      ["Read-only by default.", "Write access only if you decide, per system."],
+      ["Inside your environment.", "Your cloud tenant, your DMZ or on-prem."],
+      ["Full audit trail.", "Built to Israel’s Privacy Amendment 13."],
+      ["Stop at any step.", "Your rules and records stay with you."],
+      ["A person you can call, always.", "Mate works behind the scenes. People stay in the room."]
+    ],
+    "more": "Security and control"
+  },
+  "faq": {
+    "title": "Questions owners ask.",
+    "qs": [
+      ["What if Mate isn’t sure?", "It stops and asks the person you name. Their answer can become a rule."],
+      ["What if it makes a mistake?", "In a pilot, a person approves every output first. A stop rule, agreed up front, pauses it. Approval steps come off only where the numbers say it is safe."]
+    ]
+  },
+  "start": {
+    "title": ["It’s your company.", "Your move."],
+    "leads": [
+      "For owner-led companies of 20 to 1,000 people. Live in weeks.",
+      "Start with an X-ray: one day on site with the people who do the work, or one small agent. Every process ranked by payback. From $990."
+    ],
+    "fine": "Pilot and Processes are scoped per process. Part of our fee rides on a number you champion.",
+    "cta": "Start with an X-ray",
+    "contact": "Contact us"
+  }
+}

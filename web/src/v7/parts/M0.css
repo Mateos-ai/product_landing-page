@@ -1,0 +1,72 @@
+/* >>> M0 v7-app shell (spec §6 M0). Mobile-first: < 560px none · 560–879px rail · ≥ 880px full (container "app"). */
+.v7-app{container:app / inline-size;position:relative;overflow:clip;border-radius:14px;border:1px solid var(--m-line);
+  background:var(--m-bg);box-shadow:var(--m-shadow);color:var(--m-text);font:13px/1.4 var(--font-body);text-align:start}
+/* Dark theme: a clearer 1px ring and a faint top highlight lift the window off the page */
+[data-theme=dark] .v7-app{border-color:rgba(255,255,255,.12)}
+[data-theme=dark] .v7-app-top{box-shadow:inset 0 1px 0 rgba(255,255,255,.06)}
+
+/* Top bar: brand | title or search | tag + avatar */
+.v7-app-top{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:12px;height:44px;padding-inline:14px;
+  background:var(--m-sunken);border-bottom:1px solid var(--m-line)}
+.v7-app-brand{grid-column:1;display:inline-flex;align-items:center;gap:8px;min-width:0;white-space:nowrap}
+.v7-app-brand>b{font-size:13px;font-weight:650;letter-spacing:-.005em}
+.v7-app-brand>i{font-style:normal;color:var(--m-text-3)}
+.v7-app-ws{display:inline-flex;align-items:baseline;gap:7px;min-width:0;font-size:13px;color:var(--m-text)}
+.v7-app-ws small{font:400 11px/1 var(--font-mono);color:var(--m-text-3)}
+.v7-app-title{grid-column:2;min-width:0;font-size:13px;font-weight:650;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v7-app-search{grid-column:2;justify-self:center;display:none;align-items:center;gap:8px;width:240px;max-width:100%;height:28px;padding-inline:10px 4px;
+  border-radius:999px;border:1px solid var(--m-line);background:var(--m-bg);color:var(--m-text-3);font-size:12.5px;white-space:nowrap;overflow:hidden}
+.v7-app-search .v7-ic{width:14px;height:14px}
+.v7-app-search .v7-kbd{margin-inline-start:auto;padding:0 5px;font-size:11px;line-height:18px}
+.v7-app-end{grid-column:3;display:inline-flex;align-items:center;gap:10px}
+
+/* Body: nav | main */
+.v7-app-body{display:grid;grid-template-columns:minmax(0,1fr)}
+.v7-app-nav{display:none;flex-direction:column;gap:2px;min-height:0;overflow:hidden;padding:10px 8px;background:var(--m-sunken);border-inline-end:1px solid var(--m-line)}
+.v7-nav-item{position:relative;display:flex;align-items:center;gap:10px;flex:none;height:32px;padding-inline:10px;border-radius:8px;
+  color:var(--m-text-2);white-space:nowrap;transition:background-color 200ms,color 200ms,box-shadow 200ms}
+.v7-nav-item::before{content:"";position:absolute;inset-inline-start:0;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--m-you);opacity:0;transition:opacity 200ms}
+.v7-nav-item[data-active]{background:var(--m-raised);color:var(--m-text);font-weight:600;box-shadow:0 0 0 1px var(--m-line)}
+.v7-nav-item[data-active]::before{opacity:1}
+.v7-nav-item>.v7-ic{width:16px;height:16px}
+.v7-nav-badge{margin-inline-start:auto;padding:0 6px;border-radius:999px;background:var(--m-you-soft);color:var(--m-you-ink);font:400 11px/18px var(--font-mono)}
+.v7-app-nav hr{flex:none;height:1px;margin:6px 4px;border:0;background:var(--m-line)}
+.v7-app-conn{display:flex;flex-direction:column;gap:5px;margin-top:auto;padding:10px 10px 10px}
+.v7-app-conn p{margin-bottom:2px;font:400 11px/1.2 var(--font-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--m-text-3)}
+.v7-app-conn span{display:block;font-size:11.5px;line-height:1.35;color:var(--m-text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v7-app-conn i{display:inline-block;width:6px;height:6px;margin-inline-end:8px;border-radius:50%;background:var(--m-ok);vertical-align:.08em}
+.v7-app-mate{display:flex;align-items:center;gap:8px;padding:9px 10px 2px;border-top:1px solid var(--m-line);font-size:11.5px;color:var(--m-text-2);white-space:nowrap}
+
+/* Main: the screen container. Stacked screens share one grid cell (the tallest sets the height) and stretch to the
+   visible area, so a toast anchored to a screen's bottom sits at the bottom of the window. */
+.v7-app-main{container:screen / inline-size;position:relative;display:grid;grid-template-rows:1fr;min-width:0;min-height:0;overflow:clip;padding:14px;background:var(--m-bg)}
+.v7-screen{grid-area:1 / 1;position:relative;min-width:0}
+@container screen (max-width:479.98px){.v7-screen{font-size:12.5px}}
+
+/* none (< 560px): the top bar shows the mark, the title and the tag; no nav; no cursor (taps only) */
+@container app (max-width:559.98px){
+  .v7-app-brand>:is(b,i,.v7-app-ws),.v7-app-end .v7-avatar,.v7-cursor{display:none}
+}
+
+/* rail: 52px icon nav; brand + workspace + tag + avatar; fixed body height */
+@container app (min-width:560px){
+  .v7-app-title{display:none}
+  .v7-app-body{grid-template-columns:52px minmax(0,1fr);height:var(--v7-app-h,516px)}
+  .v7-app-nav{display:flex}
+  .v7-nav-item{justify-content:center;padding-inline:0}
+  .v7-nav-item>span,.v7-app-conn,.v7-app-mate{display:none}
+  .v7-nav-badge{position:absolute;top:7px;inset-inline-end:7px;width:6px;height:6px;padding:0;overflow:hidden;color:transparent;background:var(--m-you)}
+  .v7-app-main{padding:20px}
+}
+/* full: 188px nav with labels, connected systems and Mate line; search pill */
+@container app (min-width:880px){
+  .v7-app-body{grid-template-columns:188px minmax(0,1fr)}
+  .v7-app-search{display:inline-flex}
+  .v7-nav-item{justify-content:flex-start;padding-inline:10px}
+  .v7-nav-item>span{display:inline}
+  .v7-app-conn,.v7-app-mate{display:flex}
+  .v7-nav-badge{position:static;width:auto;height:auto;padding:0 6px;color:var(--m-you-ink);background:var(--m-you-soft)}
+}
+/* wide screens (≥ 760px content) get 24px padding */
+@container app (min-width:950px){.v7-app-main{padding:24px}}
+/* <<< M0 */
