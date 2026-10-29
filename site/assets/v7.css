@@ -2722,7 +2722,7 @@ html[lang=he] .k-flip .k-flip-old>.v7-label{font-size:.9375rem;letter-spacing:0}
 .k2-ok .v7-pill::before{display:none}
 .k2-ok .v7-pill .v7-ic{width:13px;height:13px;stroke-width:2.25}
 .k2-res{translate:-6px -100%;padding:3px 8px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--m-line);background:var(--m-bg);
-  font:500 12px/1.2 var(--font-mono);color:var(--m-text-3)}
+  font:600 14px/1.2 var(--font-body);color:var(--m-text-2)}
 .k2 .v7-pause{inset-block-end:14px}
 @media (max-width:479.98px){
   .k2-label{font-size:14px}

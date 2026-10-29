@@ -1,7 +1,7 @@
 // Writes v7parts/K2.html and K2.he.html: the "Reverse the build" flows (homepage #reverse).
 // Two panels of small isometric cubes on an isometric floor tile, side by side on wide screens, stacked below 760px.
 // Old way: a flow of three human steps (start → person → person → person) is automated step by step (each person cube
-// becomes a grey gear cube in the same place). The goal line is checked only afterwards: the run stops short of it, 51%.
+// becomes a grey gear cube in the same place). There is no goal: the run reaches the end of the flow, and then: why?
 // Our way: the goal line (Goal 90%) comes FIRST; then the flow is built BACKWARDS from it, the step nearest the goal
 // first (Mate, approval by a person, Mate), until it reaches the start. The line lights up, a run reaches the goal: On track.
 // The markup is the FINAL state (both panels complete). All geometry and copy live here; K2.js reads the motion targets
@@ -21,7 +21,7 @@ const pct = (n, of) => f(n / of * 100) + '%';
 // ---- the floor tile and the flow line (y = FY), shared by both panels
 const FX = 200, FY = 160, HW = 186, HH = HW * t30, SLAB = 7;
 const START = 42, GOAL = 360, POLE = 118;          // flow start, goal line x, goal line height above the floor
-const OLD = { steps: [110, 182, 254], end: 290 };  // old way: three person steps, the run stops at `end`
+const OLD = { steps: [110, 192, 274], end: 340 };  // old way: three person steps, the flow ends at `end` (no goal)
 const NEW = { steps: [128, 214, 300] };            // our way: Mate, approval, Mate (built from the goal backwards)
 const NEW_KIND = ['mate', 'you', 'mate'];
 
@@ -64,8 +64,7 @@ function panel(L, act) {
     const segs = pts.slice(0, -1).map((a, i) => seg(a, pts[i + 1], 'a', 'k2-seg', i < pts.length - 2)).join('');
     const cubes = st.map((x) => cube('human', 'person', m(x)) + cube('auto', 'gear', m(x))).join('');
     return floor()
-      + `<path class="k2-gap" d="M${m(OLD.end + 8)} ${FY}H${m(GOAL - 10)}"/>`
-      + goal + segs + disc('k2-start', m(START), 7) + `<circle class="k2-end" cx="${m(OLD.end)}" cy="${FY}" r="3.2"/>`
+      + segs + disc('k2-start', m(START), 7) + `<circle class="k2-end" cx="${m(OLD.end)}" cy="${FY}" r="3.2"/>`
       + `<circle class="k2-run" cx="${m(START)}" cy="${FY}" r="5" data-run="${f(m(OLD.end) - m(START))}" style="transform:translateX(${f(m(OLD.end) - m(START))}px)"/>`
       + cubes;
   }
@@ -79,11 +78,11 @@ function panel(L, act) {
 }
 
 const T = {
-  en: { old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', goal: 'Goal', ok: 'On track',
-    cap: 'Animation. Old way: build to replace a flow. A flow of three human steps is automated one step at a time, each person replaced by an automation in the same place. The finished flow stops short of the goal line of 90% and reaches 51%. Our way: build to achieve a business goal. The goal line of 90% comes first. Then the flow is built backwards from the goal to the start: a Mate step, a person who approves, and another Mate step. The line lights up from start to goal, a run reaches the goal, and it shows On track.',
+  en: { old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', goal: 'Goal', ok: 'On track', why: 'why?',
+    cap: 'Animation. Old way: build to replace a flow. A flow of three human steps is automated one step at a time, each person replaced by an automation in the same place. There is no business goal: the finished flow runs to its end, and asks why? Our way: build to achieve a business goal. The goal line of 90% comes first. Then the flow is built backwards from the goal to the start: a Mate step, a person who approves, and another Mate step. The line lights up from start to goal, a run reaches the goal, and it shows On track.',
     pause: 'Pause animation' },
-  he: { old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', goal: 'יעד', ok: 'כמתוכנן',
-    cap: 'אנימציה. הדרך הישנה: בונים כדי להחליף תהליך. תהליך של שלושה שלבים אנושיים עובר אוטומציה שלב אחר שלב, וכל אדם מוחלף באוטומציה באותו מקום. התהליך המוכן נעצר לפני קו היעד של 90% ומגיע ל-51%. הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיע קו היעד של 90%. אחר כך התהליך נבנה לאחור, מהיעד אל ההתחלה: שלב של Mate, אדם שמאשר, ועוד שלב של Mate. הקו נדלק מההתחלה עד היעד, ריצה מגיעה ליעד, והיעד מסומן כמתוכנן.',
+  he: { old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', goal: 'יעד', ok: 'כמתוכנן', why: 'למה?',
+    cap: 'אנימציה. הדרך הישנה: בונים כדי להחליף תהליך. תהליך של שלושה שלבים אנושיים עובר אוטומציה שלב אחר שלב, וכל אדם מוחלף באוטומציה באותו מקום. אין יעד עסקי: התהליך המוכן רץ עד הסוף, ושואל למה? הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיע קו היעד של 90%. אחר כך התהליך נבנה לאחור, מהיעד אל ההתחלה: שלב של Mate, אדם שמאשר, ועוד שלב של Mate. הקו נדלק מההתחלה עד היעד, ריצה מגיעה ליעד, והיעד מסומן כמתוכנן.',
     pause: 'השהיית האנימציה' },
 };
 
@@ -98,8 +97,7 @@ function html(L) {
       <p class="k2-label"><i></i>${t.old}</p>
       <div class="k2-pic">
         ${sv(panel(L, 'old'))}
-        ${flag}
-        <span class="k2-res" dir="ltr" style="${at(OLD.end, FY - 12)}">51%</span>
+        <span class="k2-res" dir="${L === 'he' ? 'rtl' : 'ltr'}" style="${at(OLD.end, FY - 12)}">${t.why}</span>
       </div>
     </div>
     <div class="k2-act" data-act="new">

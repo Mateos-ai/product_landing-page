@@ -1,19 +1,19 @@
 // >>> K2 reverse-the-build flows (homepage #reverse). Markup = final state (K2.html, from tools/k2frag.mjs).
 // Old way (~6 s): a flow of three person steps is laid out on the floor, then automated one step at a time (each person
-// cube gives way to a grey gear cube in the same place). Only then does the goal line (Goal 90%) appear; a run goes
-// through the automated flow and stops short of it: 51%.
+// cube gives way to a grey gear cube in the same place). There is no goal: a run goes through the automated flow to
+// its end, and then: why?
 // Our way (~5 s): the goal line and its flag come first. Then the flow is built backwards from it: the step nearest the
 // goal docks first, then the one before it, each with its piece of line, until the start. The line lights up from start
-// to goal, a run reaches the goal line, On track. ~13.8 s a cycle (with the rest), two cycles, then the final markup.
+// to goal, a run reaches the goal line, On track. ~13.2 s a cycle (with the rest), two cycles, then the final markup.
 // Transform and opacity only.
 (function () {
   'use strict';
   var V7 = window.V7;
   if (!V7 || !V7.define) return;
   var T = {
-    o: { start: 200, seg0: 400, step: 600, cube0: 650, swap0: 2700, swapStep: 450, tail: 4100, goal: 4400, flag: 4700, run: 5100, runMs: 1300, res: 6450 },
-    n: { goal: 7100, flag: 7450, cube0: 8000, step: 600, start: 9800, lit: 10250, litMs: 800, run: 10450, runMs: 1100, ok: 11650 },
-    len: 12100, hold: 1700
+    o: { start: 200, seg0: 400, step: 600, cube0: 650, swap0: 2700, swapStep: 450, tail: 4100, run: 4500, runMs: 1300, res: 5900 },
+    n: { goal: 6500, flag: 6850, cube0: 7400, step: 600, start: 9200, lit: 9650, litMs: 800, run: 9850, runMs: 1100, ok: 11050 },
+    len: 11500, hold: 1700
   };
   var EASE = { drop: 'cubic-bezier(.22,1,.36,1)', grow: 'cubic-bezier(.33,0,.2,1)', run: 'cubic-bezier(.45,0,.25,1)' };
   var xy = function (el) { return String(el.getAttribute('data-at') || '0,0').split(',').map(parseFloat); };
@@ -25,7 +25,7 @@
     var q = function (act, s) { return V7.$(act, s); }, qq = function (act, s) { return V7.$$(act, s); };
     var o = {
       start: q(A.old, '.k2-start'), segs: qq(A.old, '.k2-seg'), human: qq(A.old, '.k2-cube.is-human'), auto: qq(A.old, '.k2-cube.is-auto'),
-      end: q(A.old, '.k2-end'), gap: q(A.old, '.k2-gap'), goal: q(A.old, '.k2-goal'), flag: q(A.old, '.k2-flag'), run: q(A.old, '.k2-run'), res: q(A.old, '.k2-res')
+      end: q(A.old, '.k2-end'), run: q(A.old, '.k2-run'), res: q(A.old, '.k2-res')
     };
     var n = {
       start: q(A.neu, '.k2-start'), segs: qq(A.neu, '.k2-seg'), cubes: qq(A.neu, '.k2-cube'), lit: q(A.neu, '.k2-lit'),
@@ -63,12 +63,8 @@
       });
     });
     at(T.o.tail, function (tl) { grow(tl, o.segs[o.segs.length - 1]); fadeIn(tl, o.end, 300); });
-    // only now the goal shows up, far to the end
-    at(T.o.goal, function (tl) { fadeIn(tl, o.goal, 600, 'translateY(-8px)'); });
-    at(T.o.flag, function (tl) { V7.pop(tl, o.flag, { duration: 420, from: .85 }); });
-    // a run goes through the automated flow and stops short of the goal
+    // a run goes through the automated flow to its end: no goal to reach, so why?
     at(T.o.run, function (tl) { run(tl, o.run, T.o.runMs); });
-    at(T.o.res - 150, function (tl) { fadeIn(tl, o.gap, 500); });
     at(T.o.res, function (tl) { V7.pop(tl, o.res, { duration: 380, from: .85 }); });
 
     // ---- Our way: the goal first
@@ -94,10 +90,10 @@
       maxLoops: 2,
       arm: function () {
         var hide = function (els) { els.forEach(function (e) { if (e) e.style.opacity = '0'; }); };
-        hide([o.start, o.end, o.gap, o.goal, o.run, n.start, n.goal, n.run, n.lit]);
+        hide([o.start, o.end, o.run, n.start, n.goal, n.run, n.lit]);
         hide(o.human); hide(o.auto); hide(n.cubes);
         o.segs.concat(n.segs).forEach(function (e) { e.style.transform = 'scaleX(0)'; });
-        V7.off([o.flag, o.res, n.flag, n.ok]);
+        V7.off([o.res, n.flag, n.ok]);
       },
       steps: steps
     };
