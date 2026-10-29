@@ -1,87 +1,115 @@
-// Writes v7parts/K2.html and K2.he.html: the "Reverse the build" toy-block towers (homepage #reverse).
-// One stage, two acts. Act 1: a wobbly tower of things companies buy first falls into a pile. Act 2: the goal block
-// appears first, high up, and the tower builds DOWNWARD under it until it touches the ground: On track.
-// The markup is the FINAL state (act 2's tower complete; on a wide stage the act-1 pile rests small and faded to the side).
-// All geometry is in stage units (u = one block height, set in K2.css from the stage width) and lives here:
-// every block carries its final place as CSS custom properties (--x --y --r) and its act positions as data attributes
-// (data-tower, data-pile), which K2.js reads, so the animation always ends on exactly this markup.
-// x is from the stage centre, left to right in LTR and mirrored in RTL (K2.css and K2.js multiply it by the direction),
-// y is up from the ground, r is degrees (clockwise in LTR, mirrored in RTL).
+// Writes v7parts/K2.html and K2.he.html: the "Reverse the build" flows (homepage #reverse).
+// Two panels of small isometric cubes on an isometric floor tile, side by side on wide screens, stacked below 760px.
+// Old way: a flow of three human steps (start → person → person → person) is automated step by step (each person cube
+// becomes a grey gear cube in the same place). The goal line is checked only afterwards: the run stops short of it, 51%.
+// Our way: the goal line (Goal 90%) comes FIRST; then the flow is built BACKWARDS from it, the step nearest the goal
+// first (Mate, approval by a person, Mate), until it reaches the start. The line lights up, a run reaches the goal: On track.
+// The markup is the FINAL state (both panels complete). All geometry and copy live here; K2.js reads the motion targets
+// from data attributes (data-at, data-run), so the animation always ends on exactly this markup.
+// Hebrew mirrors the flow (the goal sits on the left): every x is mirrored, the cubes themselves are not.
 // Usage: node src/v7/tools/k2frag.mjs
 import { writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const P = join(dirname(fileURLToPath(import.meta.url)), '..', 'v7parts');
-const f = (n) => +(+n).toFixed(3);
+const W = 400, H = 280;                  // viewBox of each panel (the picture keeps this aspect ratio)
+const s = 27, c = s * Math.cos(Math.PI / 6), t30 = Math.tan(Math.PI / 6);
+const f = (n) => +(+n).toFixed(2);
+const pct = (n, of) => f(n / of * 100) + '%';
 
-// lowest point of a w x h block rotated by r (clockwise) about its bottom centre, as a lift above the ground
-function lift(w, h, r) {
-  const a = r * Math.PI / 180, ys = [];
-  for (const [x, y] of [[-w / 2, 0], [w / 2, 0], [-w / 2, h], [w / 2, h]]) ys.push(-x * Math.sin(a) + y * Math.cos(a));
-  return -Math.min(...ys);
+// ---- the floor tile and the flow line (y = FY), shared by both panels
+const FX = 200, FY = 160, HW = 186, HH = HW * t30, SLAB = 7;
+const START = 42, GOAL = 360, POLE = 118;          // flow start, goal line x, goal line height above the floor
+const OLD = { steps: [110, 182, 254], end: 290 };  // old way: three person steps, the run stops at `end`
+const NEW = { steps: [128, 214, 300] };            // our way: Mate, approval, Mate (built from the goal backwards)
+const NEW_KIND = ['mate', 'you', 'mate'];
+
+// one cube, origin = centre of its bottom face (on the floor)
+const TOP = `M0 ${-s / 2}L${f(c)} ${-s}L0 ${-1.5 * s}L${f(-c)} ${-s}Z`;
+const LEFT = `M${f(-c)} ${-s}L0 ${-s / 2}L0 ${s / 2}L${f(-c)} 0Z`;
+const RIGHT = `M${f(c)} ${-s}L0 ${-s / 2}L0 ${s / 2}L${f(c)} 0Z`;
+// glyphs, drawn on the cube's left face (skewed onto it): centred on (0,0), about 12 units
+const GLYPH = {
+  person: '<circle cx="0" cy="-3.1" r="2.7"/><path d="M-4.7 5.6C-4.7 1.6 -2.6 .2 0 .2S4.7 1.6 4.7 5.6Z"/>',
+  gear: '<circle class="k2-ring" cx="0" cy="0" r="3"/>' + Array.from({ length: 8 }, (_, i) => {
+    const a = i * Math.PI / 4, x1 = 4.3 * Math.cos(a), y1 = 4.3 * Math.sin(a), x2 = 6 * Math.cos(a), y2 = 6 * Math.sin(a);
+    return `<path class="k2-tooth" d="M${f(x1)} ${f(y1)}L${f(x2)} ${f(y2)}"/>`;
+  }).join(''),
+  mate: '<circle cx="2.3" cy="-2.3" r="2"/><circle cx="-2.3" cy="2.3" r="2"/><circle cx="2.3" cy="2.3" r="2"/>',
+};
+const glyph = (k) => `<g class="k2-gl" transform="translate(${f(-c / 2)} ${f(-s / 4)}) skewY(30) scale(1.3)">${GLYPH[k]}</g>`;
+const cube = (kind, g, x, extra = '') =>
+  `<g class="k2-cube is-${kind}" data-at="${f(x)},${FY}"${extra} style="transform:translate(${f(x)}px,${FY}px)"><path class="k2-l" d="${LEFT}"/><path class="k2-r" d="${RIGHT}"/><path class="k2-t" d="${TOP}"/>${glyph(g)}<path class="k2-glint" d="${TOP}"/></g>`;
+
+function floor() {
+  const y0 = FY - HH, y1 = FY + HH;
+  return `<path class="k2-slab" d="M${FX - HW} ${FY}L${FX} ${f(y1)}L${FX + HW} ${FY}L${FX + HW} ${FY + SLAB}L${FX} ${f(y1 + SLAB)}L${FX - HW} ${FY + SLAB}Z"/>`
+    + `<path class="k2-floor" d="M${FX} ${f(y0)}L${FX + HW} ${FY}L${FX} ${f(y1)}L${FX - HW} ${FY}Z"/>`;
+}
+const disc = (cls, x, rx) => `<ellipse class="${cls}" cx="${f(x)}" cy="${FY}" rx="${rx}" ry="${f(rx * t30 * 1.0)}"/>`;
+
+function panel(L, act) {
+  const m = (x) => (L === 'he' ? W - x : x), dir = L === 'he' ? -1 : 1;
+  const chev = (x) => `<path class="k2-chev" d="M${f(m(x) - 3 * dir)} ${FY - 3.6}L${f(m(x) + 1.8 * dir)} ${FY}L${f(m(x) - 3 * dir)} ${FY + 3.6}"/>`;
+  // a segment of the flow line from a to b (flow coordinates); `grow` = where it grows from ('a' or 'b')
+  const seg = (a, b, grow, cls = 'k2-seg', arrow = true) => {
+    const o = grow === 'a' ? m(a) : m(b);
+    return `<g class="${cls}" style="transform-origin:${f(o)}px ${FY}px"><path class="k2-line" d="M${f(m(a))} ${FY}H${f(m(b))}"/>${arrow ? chev((a + b) / 2 + 2) : ''}</g>`;
+  };
+  const gap = 3 + c;                       // the line ends this far from a cube's centre (hidden under it anyway)
+  const goal = `<g class="k2-goal"><path class="k2-pole" d="M${m(GOAL)} ${FY}V${FY - POLE}"/>${disc('k2-goal-base', m(GOAL), 9)}<circle class="k2-pole-top" cx="${m(GOAL)}" cy="${FY - POLE}" r="3"/></g>`;
+  if (act === 'old') {
+    const st = OLD.steps, pts = [START, ...st, OLD.end];
+    const segs = pts.slice(0, -1).map((a, i) => seg(a, pts[i + 1], 'a', 'k2-seg', i < pts.length - 2)).join('');
+    const cubes = st.map((x) => cube('human', 'person', m(x)) + cube('auto', 'gear', m(x))).join('');
+    return floor()
+      + `<path class="k2-gap" d="M${m(OLD.end + 8)} ${FY}H${m(GOAL - 10)}"/>`
+      + goal + segs + disc('k2-start', m(START), 7) + `<circle class="k2-end" cx="${m(OLD.end)}" cy="${FY}" r="3.2"/>`
+      + `<circle class="k2-run" cx="${m(START)}" cy="${FY}" r="5" data-run="${f(m(OLD.end) - m(START))}" style="transform:translateX(${f(m(OLD.end) - m(START))}px)"/>`
+      + cubes;
+  }
+  const st = NEW.steps, pts = [START, ...st, GOAL];
+  const segs = pts.slice(0, -1).map((a, i) => seg(a, pts[i + 1], 'b')).join('');
+  const lit = seg(START, GOAL, 'a', 'k2-lit', false).replace('</g>', pts.slice(0, -1).map((a, i) => chev((a + pts[i + 1]) / 2 + 2)).join('') + '</g>');
+  const cubes = st.map((x, i) => cube(NEW_KIND[i], NEW_KIND[i] === 'you' ? 'person' : 'mate', m(x), ` data-n="${i}"`)).join('');
+  return floor() + segs + lit + disc('k2-start', m(START), 7) + goal
+    + `<circle class="k2-run" cx="${m(START)}" cy="${FY}" r="5" data-run="${f(m(GOAL) - m(START))}" style="transform:translateX(${f(m(GOAL) - m(START))}px)"/>`
+    + cubes;
 }
 
-// ---- Act 1: the old way. Bottom to top. x/r = how each block sits in the wobbly tower; pile = where it ends.
-// pile: [x, yOnTopOf, r]: yOnTopOf is the height of whatever it lands on (0 = the ground); the lift for the rotation is added.
-const OLD = [
-  { k: 'crm', tone: 'o1', w: 2.5, h: .95, x: 0, r: 0, pile: [.3, 0, 0] },
-  { k: 'app', tone: 'o2', w: 1.7, h: 1.0, x: .32, r: 1.2, pile: [-1.8, 0, -8] },
-  { k: 'bot', tone: 'o3', w: 1.3, h: 1.1, x: -.22, r: -1.6, pile: [-2.75, 0, -84] },
-  { k: 'excel', tone: 'o4', w: 2.4, h: .75, x: .5, r: 2.4, pile: [.12, .95, 5] },
-  { k: 'dash', tone: 'o5', w: 2.6, h: .9, x: .02, r: -3.2, pile: [-1.05, 0, 14] },
-];
-{ let y = 0; for (const b of OLD) { b.y = y; y += b.h; } }
-const PILE_DX = .3;                                    // the whole pile, nudged back toward the centre
-for (const b of OLD) { const [x, on, r] = b.pile; b.py = on + lift(b.w, b.h, r); b.px = x + PILE_DX; b.pr = r; }
-const PIVOT = OLD[0].x - OLD[0].w / 2;                 // the tower tips over its base's inline-start corner
-
-// ---- Act 2: our way. Bottom to top (paint order); K2.js plays them top-down after the goal.
-const NEW = [
-  { k: 'data', tone: 'data', w: 3.0, h: 1.0, icon: 'db' },
-  { k: 'person', tone: 'person', w: 2.3, h: .9, icon: 'person' },
-  { k: 'flow', tone: 'flow', w: 2.3, h: .9, icon: 'flow' },
-  { k: 'flow2', tone: 'flow', w: 2.3, h: .9, icon: 'flow' },
-  { k: 'goal', tone: 'goal', w: 2.3, h: 1.05 },
-];
-{ let y = 0; for (const b of NEW) { b.y = y; y += b.h; } }
-const GOAL = NEW[NEW.length - 1];
-
 const T = {
-  en: {
-    old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', why: 'why?', goal: 'Goal', ok: 'On track', oldTag: 'Old way',
-    lab: { crm: 'CRM', app: 'App', bot: 'Bot', excel: 'Excel', dash: 'Dashboard', data: 'Your data', person: 'Person', flow: 'Flow', flow2: 'Flow', goal: '90%' },
-    cap: 'Animation of two block towers. Old way: build to replace a flow. Blocks labelled CRM, App, Bot, Excel and Dashboard are stacked with no target; the tower wobbles, someone asks why, and it falls into a pile. Our way: build to achieve a business goal. A goal block of 90% appears first, high up. Then the tower is built downward beneath it: two Flow blocks, a Person block and Your data at the base. When the base touches the ground the tower stands straight, and the goal shows On track.',
-    pause: 'Pause animation',
-  },
-  he: {
-    old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', why: 'למה?', goal: 'יעד', ok: 'כמתוכנן', oldTag: 'הדרך הישנה',
-    lab: { crm: '<bdi>CRM</bdi>', app: 'אפליקציה', bot: 'בוט', excel: 'אקסל', dash: 'דשבורד', data: 'הנתונים שלכם', person: 'אדם', flow: 'תהליך', flow2: 'תהליך', goal: '<bdi>90%</bdi>' },
-    cap: 'אנימציה של שני מגדלי קוביות. הדרך הישנה: בונים כדי להחליף תהליך. קוביות בשם CRM, אפליקציה, בוט, אקסל ודשבורד נערמות בלי יעד; המגדל מתנדנד, מישהו שואל למה, והוא קורס לערימה. הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיעה למעלה קוביית יעד של 90%. אחר כך המגדל נבנה כלפי מטה מתחתיה: שתי קוביות תהליך, קוביית אדם, ובבסיס הנתונים שלכם. כשהבסיס נוגע בקרקע המגדל עומד ישר, והיעד מסומן כמתוכנן.',
-    pause: 'השהיית האנימציה',
-  },
+  en: { old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', goal: 'Goal', ok: 'On track',
+    cap: 'Animation. Old way: build to replace a flow. A flow of three human steps is automated one step at a time, each person replaced by an automation in the same place. The finished flow stops short of the goal line of 90% and reaches 51%. Our way: build to achieve a business goal. The goal line of 90% comes first. Then the flow is built backwards from the goal to the start: a Mate step, a person who approves, and another Mate step. The line lights up from start to goal, a run reaches the goal, and it shows On track.',
+    pause: 'Pause animation' },
+  he: { old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', goal: 'יעד', ok: 'כמתוכנן',
+    cap: 'אנימציה. הדרך הישנה: בונים כדי להחליף תהליך. תהליך של שלושה שלבים אנושיים עובר אוטומציה שלב אחר שלב, וכל אדם מוחלף באוטומציה באותו מקום. התהליך המוכן נעצר לפני קו היעד של 90% ומגיע ל-51%. הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיע קו היעד של 90%. אחר כך התהליך נבנה לאחור, מהיעד אל ההתחלה: שלב של Mate, אדם שמאשר, ועוד שלב של Mate. הקו נדלק מההתחלה עד היעד, ריצה מגיעה ליעד, והיעד מסומן כמתוכנן.',
+    pause: 'השהיית האנימציה' },
 };
 
-const vars = (o) => Object.entries(o).map(([k, v]) => `--${k}:${f(v)}`).join(';');
-const icon = (id) => `<svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
-const block = (b, label, attrs, at) =>
-  `<span class="k2-b" data-tone="${b.tone}"${attrs} style="${vars({ w: b.w, h: b.h, x: at[0], y: at[1], r: at[2] })}"><i class="k2-lid"></i><b class="k2-f">${b.icon ? icon(b.icon) : ''}<span>${label}</span></b></span>`;
-
 function html(L) {
-  const t = T[L];
-  const old = OLD.map((b) => block(b, t.lab[b.k], ` data-tower="${f(b.x)},${f(b.y)},${b.r}" data-pile="${f(b.px)},${f(b.py)},${b.pr}"`, [b.px, b.py, b.pr]));
-  const neu = NEW.map((b) => block(b, t.lab[b.k], b === GOAL ? ' data-goal' : '', [0, b.y, 0]));
+  const t = T[L], m = (x) => (L === 'he' ? W - x : x);
+  const sv = (inner) => `<svg class="k2-svg" viewBox="0 0 ${W} ${H}" focusable="false">${inner}</svg>`;
+  const at = (x, y) => `left:${pct(m(x), W)};top:${pct(y, H)}`;
+  const flag = `<span class="k2-flag" style="${at(GOAL, FY - POLE)}"><span class="v7-chip is-you"><b>${t.goal}</b><bdi>90%</bdi></span></span>`;
   return `<figure class="v7-figure k2">
-  <div class="v7-mock k2-stage" data-v7-mock="K2" data-v7-play="loop" data-v7-threshold=".5" data-pivot="${f(PIVOT)}" aria-hidden="true" inert>
-    <i class="k2-probe"></i><i class="k2-ground"></i>
-    <p class="k2-cap" data-act="old"><i></i>${t.old}</p>
-    <p class="k2-cap" data-act="new"><i></i>${t.mine}</p>
-    <div class="k2-old"><i class="k2-shadow"></i>${old.join('')}</div>
-    <span class="k2-oldtag">${t.oldTag}</span>
-    <span class="k2-why" style="${vars({ x: 2.3, y: OLD.reduce((s, b) => s + b.h, 0) + .45 })}">${t.why}</span>
-    <div class="k2-new"><i class="k2-shadow"></i>${neu.join('')}</div>
-    <span class="k2-tag" style="${vars({ x: -(GOAL.w / 2 + .22), y: GOAL.y + GOAL.h / 2 })}">${t.goal}</span>
-    <span class="k2-ok" style="${vars({ x: GOAL.w / 2 + .22, y: GOAL.y + GOAL.h / 2 })}"><i>${icon('check')}</i>${t.ok}</span>
+  <div class="v7-mock k2-stage" data-v7-mock="K2" data-v7-play="loop" data-v7-threshold=".35" aria-hidden="true" inert>
+    <div class="k2-act" data-act="old">
+      <p class="k2-label"><i></i>${t.old}</p>
+      <div class="k2-pic">
+        ${sv(panel(L, 'old'))}
+        ${flag}
+        <span class="k2-res" dir="ltr" style="${at(OLD.end, FY - 12)}">51%</span>
+      </div>
+    </div>
+    <div class="k2-act" data-act="new">
+      <p class="k2-label"><i></i>${t.mine}</p>
+      <div class="k2-pic">
+        ${sv(panel(L, 'new'))}
+        ${flag}
+        <span class="k2-ok" style="${at(GOAL, FY - POLE + 34)}"><span class="v7-pill" data-tone="ok"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-check"/></svg>${t.ok}</span></span>
+      </div>
+    </div>
   </div>
   <figcaption class="sr-only">${t.cap}</figcaption>
   <button class="v7-pause" type="button" aria-label="${t.pause}"><svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-pause"/></svg></button>
