@@ -18,7 +18,7 @@ const lines = (key: string) =>
   t.raw<string[]>(`${key}.title`).map((s) => `<span class="v7-line"><span>${s}</span></span>`).join(t(`${key}.titleSep`));
 // hero h1: five lines; the decorative row breaks after lines 2, 3 and 4 (the one after 3 is narrow); the last two are highlighted
 const ROW = ['', '<span class="v7-hww-row" aria-hidden="true"></span>', '<span class="v7-hww-row v7-hww-row--xs" aria-hidden="true"></span>', '<span class="v7-hww-row" aria-hidden="true"></span>', ''];
-const h1Html = h1.map((s, i) => `<span class="v7-line${i >= 3 ? ' v7-hww-hl' : ''}" style="--v7-li:${i}"><span>${s}</span></span>${ROW[i]}`).join(' ');
+const h1Html = h1.map((s, i) => `<span class="v7-line${i === 0 || i === h1.length - 1 ? ' v7-hww-hl' : ''}" style="--v7-li:${i}"><span>${s}</span></span>${ROW[i]}`).join(' ');
 const STOP_TONE = ['you', 'mate', 'ok'];
 const n = (k: string) => t(`measure.num.${k}`);
 ---
@@ -31,8 +31,7 @@ const n = (k: string) => t(`measure.num.${k}`);
       <span class="eyebrow" data-v7-reveal set:html={t('hero.eyebrow')} />
       <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80" set:html={h1Html} />
       <p class="v7-lead" data-v7-reveal data-v7-delay="320" set:html={t('hero.lead')} />
-      <div class="v7-actions" data-v7-reveal data-v7-delay="400"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('hero.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/contact/')} set:html={t('hero.contact')} /></div>
-      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="480" set:html={t('hero.micro')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="400"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
     </div>
 <M19 indent={4} />
   </div>

@@ -32,7 +32,7 @@
       { "name": "Pilot", "tag": "Scoped per process", "line": "One process, one number, four weeks.",
         "weeksLabel": "Week 1: baseline. Weeks 2 and 3: build and test. Week 4: live.",
         "weeks": ["Baseline", "Build and test", "Live"] },
-      { "name": "Processes on MateOS", "tag": "Scoped per process", "line": "Two at a time. Each number funds the next." }
+      { "name": "Processes on MateOS", "tag": "Scoped per process", "line": "As many as you need. Each number funds the next." }
     ]
   },
   "measure": {
