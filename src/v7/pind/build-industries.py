@@ -42,7 +42,7 @@ UI = {
         'micro': '<span class="v7-sent">A person wherever it’s needed.</span> <span class="v7-sent">X-ray&nbsp;from&nbsp;$990.</span>',
         'start_h2': 'Where we start.',
         'field_h2': 'One room we sat in.',
-        'all_industries': 'All industries',
+        'all_industries': 'All case studies',
         'security': 'Security and control',
         'move_h2': ['It’s your company.', 'Your move.'],
         'move_p': 'Start with an X-ray. One day on site, every process ranked by payback. From&nbsp;$990.',

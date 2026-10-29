@@ -41,7 +41,7 @@ UI_HE = {
     'micro': f'<span class="v7-sent">אדם בכל מקום שהוא הכרחי.</span> <span class="v7-sent">{X}&nbsp;החל&nbsp;מ-990&nbsp;דולר.</span>',
     'start_h2': 'מאיפה מתחילים.',
     'field_h2': 'חדר אחד שישבנו בו.',
-    'all_industries': 'כל הענפים',
+    'all_industries': 'כל סיפורי הלקוחות',
     'security': 'אבטחה ובקרה',
     'move_h2': ['זאת החברה שלכם.', 'המהלך שלכם.'],
     'move_p': 'מתחילים ב-X-ray. יום אחד אצלכם, וכל תהליך מדורג לפי ההחזר שלו. החל&nbsp;מ-990&nbsp;דולר.',
@@ -209,7 +209,7 @@ def build_main_he(slug):
     finally:
         EN.frag = real_frag
         EN.mask_lines = EN_MASK
-    # "All industries": the hub, in the old Hebrew pages' link style
+    # "All case studies": the hub, in the old Hebrew pages' link style
     assert main.count('href="../"') == 1
     main = main.replace('href="../"', f'href="{LINK_ROOT}industries/"')
     return main

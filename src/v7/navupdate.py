@@ -26,7 +26,7 @@ for f in files:
     def mob(m):
         return f'{m.group(1)}{act_nav}{m.group(3)}{m.group(4)}security-and-control/{m.group(5)}{mlabel}{m.group(6)}'
     t, a = NAV.subn(nav, s); t, b = MOB.subn(mob, t); t, c = FOOT.subn('', t)
-    t, d = BODY_EN.subn(r'\1industries/\2All industries', t); t, e = BODY_HE.subn(r'\1../he/industries/\2כל הענפים', t)
+    t, d = BODY_EN.subn(r'\1industries/\2All case studies', t); t, e = BODY_HE.subn(r'\1../he/industries/\2כל סיפורי הלקוחות', t)
     left = len(re.findall(r'field-stories/', t))
     print(f'nav {a} mob {b} foot {c} body {d+e} left {left}  {f}')
     bad += left

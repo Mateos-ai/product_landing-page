@@ -6,7 +6,7 @@
     { "label": "MateOS", "href": "/mateos/" },
     { "label": "The Process", "href": "/how-we-work/" },
     {
-      "label": "Industries", "href": "/industries/", "menu": "industries",
+      "label": "Case studies", "href": "/industries/", "menu": "industries",
       "children": [
         { "label": "Insurance", "href": "/industries/insurance/" },
         { "label": "Manufacturing", "href": "/industries/manufacturing/" },
@@ -22,7 +22,7 @@
   "cta": "Start with an X-ray",
   "connect": "Let’s connect",
   "menu": "Menu",
-  "navMoreLabel": "Industries pages",
+  "navMoreLabel": "Case studies pages",
   "footer": {
     "tagline": "It's your company. 10x faster.",
     "label": "Footer",
@@ -32,7 +32,7 @@
         { "label": "The Process", "href": "/how-we-work/" },
         { "label": "Security and control", "href": "/security-and-control/" }
       ] },
-      { "title": "Industries", "links": [
+      { "title": "Case studies", "links": [
         { "label": "Insurance", "href": "/industries/insurance/" },
         { "label": "Manufacturing", "href": "/industries/manufacturing/" },
         { "label": "Construction and real estate", "href": "/industries/construction-and-real-estate/" },
