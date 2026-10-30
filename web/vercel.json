@@ -8,23 +8,43 @@
   "cleanUrls": false,
   "redirects": [
     {
+      "source": "/industries",
+      "destination": "/#case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/industries/",
+      "destination": "/#case-studies",
+      "permanent": true
+    },
+    {
       "source": "/field-stories",
-      "destination": "/industries/",
+      "destination": "/#case-studies",
       "permanent": true
     },
     {
       "source": "/field-stories/",
-      "destination": "/industries/",
+      "destination": "/#case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/he/industries",
+      "destination": "/he/#case-studies",
+      "permanent": true
+    },
+    {
+      "source": "/he/industries/",
+      "destination": "/he/#case-studies",
       "permanent": true
     },
     {
       "source": "/he/field-stories",
-      "destination": "/he/industries/",
+      "destination": "/he/#case-studies",
       "permanent": true
     },
     {
       "source": "/he/field-stories/",
-      "destination": "/he/industries/",
+      "destination": "/he/#case-studies",
       "permanent": true
     },
     {
