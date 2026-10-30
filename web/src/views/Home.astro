@@ -20,8 +20,8 @@ type Step = { label: string; sents?: string[]; h3?: string; p?: string };
 type Stop = { name: string; tag: string; line: string; weeksLabel?: string; weeks?: string[] };
 type Card = { slug: string; tone: string; icon: string; name: string; pain: string; goal: string; hl: string; pillTone: string; pill: string; avatar: string; who: string; sr: string };
 const h1 = t.raw<string[]>('hero.h1');
-const steps = t.raw<Step[]>('how.steps');
-const HOW = [{ id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }, { id: 'M6', tone: 'you' }];
+const steps = [t.raw<Step>('how.xray'), ...t.raw<Step[]>('how.steps')];
+const HOW = [{ id: 'M14', tone: 'you' }, { id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }, { id: 'M6', tone: 'you' }];
 const title2 = t.raw<string[]>('how.title2');
 const people = t.raw<string[]>('control.peopleChecks');
 const platform = t.raw<string[]>('control.platformChecks');
@@ -53,24 +53,12 @@ const endTitle = t.raw<string[]>('end.title');
   </div>
 </section>
 
-<section class="v7-sec v7-sec--subtle v7-hww-sec" id="how-it-works" aria-labelledby="how-h">
-  <div class="v7-wrap">
-    <span class="eyebrow" data-v7-reveal set:html={t('how.eyebrow')} />
-    <h2 class="v7-h2 v7-home-howh" id="how-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={t('how.title')} /></span></h2>
-  </div>
-  <div class="v7-wrap v7-hww-split">
-    <div class="v7-hww-copy v7-how-step" data-v7-stagger="80">
-      <p class="v7-label" data-v7-reveal><i data-tone="you"></i><Fragment set:html={t('how.xray.label')} /></p>
-      <h3 class="v7-h3" data-v7-reveal set:html={t('how.xray.h3')} />
-      <p class="v7-how-p" data-v7-reveal set:html={t('how.xray.p')} />
-    </div>
-<M14 indent={4} />
-  </div>
-</section>
-
-<section class="v7-sec v7-sec--subtle v7-home-how2" id="how" aria-labelledby="how2-h">
+<section class="v7-sec v7-sec--subtle v7-home-how" id="how-it-works" aria-labelledby="how-h">
   <div class="v7-wrap-wide v7-how" data-v7-steps>
-    <h2 id="how2-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={title2[0]} /></span> <span class="v7-line"><span set:html={title2[1]} /></span></h2>
+    <div class="v7-how-head">
+      <span class="eyebrow" data-v7-reveal set:html={t('how.eyebrow')} />
+      <h2 class="v7-h2" id="how-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={t('how.title')} /></span></h2>
+    </div>
     {steps.map((s, i) => (<Fragment>
     <div class="v7-how-step" data-step={i + 1} data-v7-reveal>
       <p class="v7-label"><i data-tone={HOW[i].tone}></i><Fragment set:html={s.label} /></p>
@@ -79,9 +67,14 @@ const endTitle = t.raw<string[]>('end.title');
         : <h3 class="v7-h3" set:html={s.h3} />}
       {s.p && <p class="v7-how-p" set:html={s.p} />}
     </div>
-<M0 screens={[HOW[i].id]} figClass="v7-how-win" preAttrs={`data-step="${i + 1}"`} indent={4} />
+    {HOW[i].id === 'M14'
+      ? <div class="v7-how-win v7-how-win--xray" data-step="1"><M14 indent={4} /></div>
+      : <M0 screens={[HOW[i].id]} figClass="v7-how-win" preAttrs={`data-step="${i + 1}"`} indent={4} />}
     </Fragment>))}
     <span class="v7-how-rail" aria-hidden="true"><i></i></span>
+  </div>
+  <div class="v7-wrap v7-home-kicker">
+    <h2 id="how2-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={title2[0]} /></span> <span class="v7-line"><span set:html={title2[1]} /></span></h2>
   </div>
 </section>
 
@@ -184,21 +177,23 @@ const endTitle = t.raw<string[]>('end.title');
 
 <style is:global>
 /* Merged home page (Oct 2026): pieces borrowed from the MateOS, Process and Case studies pages. */
-.v7-home-howh{margin-bottom:96px}
-@media (max-width:759px){.v7-home-howh{margin-bottom:48px}}
-#how-it-works{padding-bottom:24px}
-#how-it-works .v7-how-step .v7-h3{margin-top:12px}
-.v7-home-how2{padding-top:24px}
-/* "How it works" pinned layout: four steps instead of three (S1.css lays out three). */
+/* "How it works": one pinned stepper with five steps (S1.css lays out three); step 1 is the X-ray card (M14). */
+.v7-how-head{margin-bottom:48px}
+.v7-how-head .v7-h2{margin-top:12px}
+.v7-how[data-mode=pinned]>.v7-how-head{grid-column:1 / -1;grid-row:1}
+.v7-how-win--xray{margin-top:28px}
+.v7-how[data-mode=pinned] .v7-how-win--xray>.v7-figure{opacity:0;visibility:hidden;transition:opacity 0s 270ms,visibility 0s 270ms}
+.v7-how[data-mode=pinned] .v7-how-win--xray[data-active]>.v7-figure{opacity:1;visibility:visible;transition:opacity 180ms var(--ease-out) 90ms}
+.v7-home-kicker{margin-top:96px}
+.v7-home-kicker .v7-h2{max-width:none}
 .v7-home-hero .v7-lead{margin-top:36px}
 @media (max-width:759px){.v7-home-hero .v7-lead{margin-top:24px}}
-#how .v7-h2{max-width:none}
-.v7-how[data-mode=pinned]>.v7-h2{grid-column:1 / -1}
 .v7-mate-word{color:var(--indigo-500)}
 [data-theme=dark] .v7-mate-word{color:var(--indigo-300)}
 .v7-how[data-mode=pinned] .v7-how-step[data-step="4"]{grid-row:5}
-.v7-how[data-mode=pinned] .v7-how-rail{grid-row:2 / span 4}
-.v7-how[data-mode=pinned] .v7-how-win{grid-row:2 / span 4}
+.v7-how[data-mode=pinned] .v7-how-step[data-step="5"]{grid-row:6}
+.v7-how[data-mode=pinned] .v7-how-rail{grid-row:2 / span 5}
+.v7-how[data-mode=pinned] .v7-how-win{grid-row:2 / span 5}
 .v7-home-trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:28px}
 .v7-home-trust .v7-label{display:flex;align-items:center;gap:10px;margin:0}
 .v7-home-trust .v7-label>i{width:8px;height:8px;border-radius:50%;background:var(--amber-500)}
