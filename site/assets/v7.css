@@ -2693,7 +2693,7 @@ html[lang=he] .k-flip .k-flip-old>.v7-label{font-size:.9375rem;letter-spacing:0}
 .k2-cube.is-you .k2-gl{fill:var(--k2-y-g)}
 .k2-ring{stroke-width:1.9}
 .k2-tooth{stroke-width:2.3;stroke-linecap:round}
-.k2-cube.is-human{opacity:0}
+.k2-cube.is-human:not(.is-kept){opacity:0}
 .k2-glint{fill:#fff;opacity:0}
 
 .k2-line{fill:none;stroke:var(--k2-line);stroke-width:2;stroke-linecap:round}

@@ -1,6 +1,6 @@
 // >>> K2 reverse-the-build flows (homepage #reverse). Markup = final state (K2.html, from tools/k2frag.mjs).
 // Old way (~6 s): a flow of three person steps is laid out on the floor, then automated one step at a time (each person
-// cube gives way to a grey gear cube in the same place). There is no goal: a run goes through the automated flow to
+// cube except the middle one gives way to a grey gear cube in the same place). There is no goal: a run goes through the automated flow to
 // its end, and then: why?
 // Our way (~5 s): the goal line and its flag come first. Then the flow is built backwards from it: the step nearest the
 // goal docks first, then the one before it, each with its piece of line, until the start. The line lights up from start
@@ -31,7 +31,7 @@
       start: q(A.neu, '.k2-start'), segs: qq(A.neu, '.k2-seg'), cubes: qq(A.neu, '.k2-cube'), lit: q(A.neu, '.k2-lit'),
       goal: q(A.neu, '.k2-goal'), flag: q(A.neu, '.k2-flag'), run: q(A.neu, '.k2-run'), ok: q(A.neu, '.k2-ok')
     };
-    if (o.human.length !== o.auto.length || !o.human.length || n.cubes.length !== n.segs.length - 1 || !o.run || !n.run) throw new Error('K2 markup');
+    if (!o.auto.length || !o.human.length || n.cubes.length !== n.segs.length - 1 || !o.run || !n.run) throw new Error('K2 markup');
     var steps = [], at = function (ms, fn) { steps.push([ms, fn]); };
     var fadeIn = function (tl, el, ms, from) {
       tl.anim(el, [{ opacity: 0, transform: from || 'none' }, { opacity: 1, transform: 'none' }], { duration: ms || 500, easing: 'out', fill: 'both' });
@@ -53,10 +53,10 @@
       at(T.o.seg0 + i * T.o.step, function (tl) { grow(tl, o.segs[i]); });
       at(T.o.cube0 + i * T.o.step, function (tl) { drop(tl, e); });
     });
-    // automate them one by one: the person lifts away, a gear cube settles in the same place
-    o.auto.forEach(function (e, i) {
-      at(T.o.swap0 + i * T.o.swapStep, function (tl) {
-        var p = xy(e), h = o.human[i], g = e.querySelector('.k2-glint');
+    // automate them one by one (the middle person stays): the person lifts away, a gear cube settles in the same place
+    o.auto.forEach(function (e, k) {
+      at(T.o.swap0 + k * T.o.swapStep, function (tl) {
+        var p = xy(e), h = o.human[+e.getAttribute('data-i')], g = e.querySelector('.k2-glint');
         tl.anim(h, [{ opacity: 1, transform: tf(p) }, { opacity: 0, transform: tf(p, -10, .94) }], { duration: 320, easing: 'in', fill: 'both' });
         tl.anim(e, [{ opacity: 0, transform: tf(p, -16) }, { opacity: 1, offset: .45 }, { opacity: 1, transform: tf(p) }], { duration: 520, delay: 160, easing: EASE.drop, fill: 'both' });
         if (g) tl.anim(g, [{ opacity: 0 }, { opacity: .4, offset: .3 }, { opacity: 0 }], { duration: 650, delay: 520, easing: 'ease-out', fill: 'none' });

@@ -1,7 +1,7 @@
 // Writes v7parts/K2.html and K2.he.html: the "Reverse the build" flows (homepage #reverse).
 // Two panels of small isometric cubes on an isometric floor tile, side by side on wide screens, stacked below 760px.
 // Old way: a flow of three human steps (start → person → person → person) is automated step by step (each person cube
-// becomes a grey gear cube in the same place). There is no goal: the run reaches the end of the flow, and then: why?
+// becomes a grey gear cube in the same place; the middle person stays). There is no goal: the run reaches the end of the flow, and then: why?
 // Our way: the goal line (Goal 90%) comes FIRST; then the flow is built BACKWARDS from it, the step nearest the goal
 // first (Mate, approval by a person, Mate), until it reaches the start. The line lights up, a run reaches the goal: On track.
 // The markup is the FINAL state (both panels complete). All geometry and copy live here; K2.js reads the motion targets
@@ -24,6 +24,7 @@ const START = 42, GOAL = 360, POLE = 118;          // flow start, goal line x, g
 const OLD = { steps: [110, 192, 274], end: 340 };  // old way: three person steps, the flow ends at `end` (no goal)
 const NEW = { steps: [128, 214, 300] };            // our way: Mate, approval, Mate (built from the goal backwards)
 const NEW_KIND = ['mate', 'you', 'mate'];
+const OLD_KEEP = 1;                                // old way: this step stays a person (not automated)
 
 // one cube, origin = centre of its bottom face (on the floor)
 const TOP = `M0 ${-s / 2}L${f(c)} ${-s}L0 ${-1.5 * s}L${f(-c)} ${-s}Z`;
@@ -62,7 +63,8 @@ function panel(L, act) {
   if (act === 'old') {
     const st = OLD.steps, pts = [START, ...st, OLD.end];
     const segs = pts.slice(0, -1).map((a, i) => seg(a, pts[i + 1], 'a', 'k2-seg', i < pts.length - 2)).join('');
-    const cubes = st.map((x) => cube('human', 'person', m(x)) + cube('auto', 'gear', m(x))).join('');
+    const cubes = st.map((x, i) => i === OLD_KEEP ? cube('human is-kept', 'person', m(x))
+      : cube('human', 'person', m(x)) + cube('auto', 'gear', m(x), ` data-i="${i}"`)).join('');
     return floor()
       + segs + disc('k2-start', m(START), 7) + `<circle class="k2-end" cx="${m(OLD.end)}" cy="${FY}" r="3.2"/>`
       + `<circle class="k2-run" cx="${m(START)}" cy="${FY}" r="5" data-run="${f(m(OLD.end) - m(START))}" style="transform:translateX(${f(m(OLD.end) - m(START))}px)"/>`
@@ -79,10 +81,10 @@ function panel(L, act) {
 
 const T = {
   en: { old: 'Old way: build to replace a flow.', mine: 'Our way: build to achieve a business goal.', goal: 'Goal', ok: 'On track', why: 'why?',
-    cap: 'Animation. Old way: build to replace a flow. A flow of three human steps is automated one step at a time, each person replaced by an automation in the same place. There is no business goal: the finished flow runs to its end, and asks why? Our way: build to achieve a business goal. The goal line of 90% comes first. Then the flow is built backwards from the goal to the start: a Mate step, a person who approves, and another Mate step. The line lights up from start to goal, a run reaches the goal, and it shows On track.',
+    cap: 'Animation. Old way: build to replace a flow. A flow of three human steps is automated one step at a time: the first and last person are replaced by an automation in the same place, the person in the middle stays. There is no business goal: the finished flow runs to its end, and asks why? Our way: build to achieve a business goal. The goal line of 90% comes first. Then the flow is built backwards from the goal to the start: a Mate step, a person who approves, and another Mate step. The line lights up from start to goal, a run reaches the goal, and it shows On track.',
     pause: 'Pause animation' },
   he: { old: 'הדרך הישנה: בונים כדי להחליף תהליך.', mine: 'הדרך שלנו: בונים כדי להשיג יעד עסקי.', goal: 'יעד', ok: 'כמתוכנן', why: 'למה?',
-    cap: 'אנימציה. הדרך הישנה: בונים כדי להחליף תהליך. תהליך של שלושה שלבים אנושיים עובר אוטומציה שלב אחר שלב, וכל אדם מוחלף באוטומציה באותו מקום. אין יעד עסקי: התהליך המוכן רץ עד הסוף, ושואל למה? הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיע קו היעד של 90%. אחר כך התהליך נבנה לאחור, מהיעד אל ההתחלה: שלב של Mate, אדם שמאשר, ועוד שלב של Mate. הקו נדלק מההתחלה עד היעד, ריצה מגיעה ליעד, והיעד מסומן כמתוכנן.',
+    cap: 'אנימציה. הדרך הישנה: בונים כדי להחליף תהליך. תהליך של שלושה שלבים אנושיים עובר אוטומציה שלב אחר שלב: האדם הראשון והאחרון מוחלפים באוטומציה באותו מקום, והאדם באמצע נשאר. אין יעד עסקי: התהליך המוכן רץ עד הסוף, ושואל למה? הדרך שלנו: בונים כדי להשיג יעד עסקי. קודם מופיע קו היעד של 90%. אחר כך התהליך נבנה לאחור, מהיעד אל ההתחלה: שלב של Mate, אדם שמאשר, ועוד שלב של Mate. הקו נדלק מההתחלה עד היעד, ריצה מגיעה ליעד, והיעד מסומן כמתוכנן.',
     pause: 'השהיית האנימציה' },
 };
 
