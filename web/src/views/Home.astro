@@ -40,8 +40,6 @@ const endTitle = t.raw<string[]>('end.title');
     <div class="v7-hero-copy">
       <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={h1[0]} /></span> <span class="v7-line"><span set:html={h1[1]} /></span></h1>
       <p class="v7-lead" data-v7-reveal data-v7-delay="320" set:html={t('hero.lead')} />
-      <div class="v7-actions" data-v7-reveal data-v7-delay="480"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
-      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="560" set:html={t('hero.micro')} />
     </div>
 <M1 indent={4} />
   </div>
@@ -191,6 +189,8 @@ const endTitle = t.raw<string[]>('end.title');
 #how-it-works .v7-how-step .v7-h3{margin-top:12px}
 .v7-home-how2{padding-top:24px}
 /* "How it works" pinned layout: four steps instead of three (S1.css lays out three). */
+.v7-home-hero .v7-lead{margin-top:36px}
+@media (max-width:759px){.v7-home-hero .v7-lead{margin-top:24px}}
 #how .v7-h2{max-width:none}
 .v7-how[data-mode=pinned]>.v7-h2{grid-column:1 / -1}
 .v7-mate-word{color:var(--v7-you-display)}
