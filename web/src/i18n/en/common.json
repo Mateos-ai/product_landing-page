@@ -3,51 +3,125 @@
   "skip": "Skip to content",
   "navLabel": "Main",
   "nav": [
-    { "label": "MateOS", "href": "/mateos/" },
-    { "label": "The Process", "href": "/how-we-work/" },
     {
-      "label": "Case studies", "href": "/industries/", "menu": "industries",
+      "label": "How it works",
+      "href": "/#how-it-works"
+    },
+    {
+      "label": "Case studies",
+      "href": "/industries/",
+      "menu": "industries",
       "children": [
-        { "label": "Insurance", "href": "/industries/insurance/" },
-        { "label": "Manufacturing", "href": "/industries/manufacturing/" },
-        { "label": "Construction and real estate", "href": "/industries/construction-and-real-estate/" },
-        { "label": "Logistics and distribution", "href": "/industries/logistics-and-distribution/" }
+        {
+          "label": "Insurance",
+          "href": "/industries/insurance/"
+        },
+        {
+          "label": "Manufacturing",
+          "href": "/industries/manufacturing/"
+        },
+        {
+          "label": "Construction and real estate",
+          "href": "/industries/construction-and-real-estate/"
+        },
+        {
+          "label": "Logistics and distribution",
+          "href": "/industries/logistics-and-distribution/"
+        }
       ]
     },
-    { "label": "Security", "mobileLabel": "Security and control", "href": "/security-and-control/" },
-    { "label": "About", "href": "/about/" }
+    {
+      "label": "Security",
+      "mobileLabel": "Security and control",
+      "href": "/security-and-control/"
+    },
+    {
+      "label": "About",
+      "href": "/about/"
+    }
   ],
   "localeName": "English",
-  "theme": { "title": "Switch theme", "light": "Light", "dark": "Dark" },
-  "cta": "Start with an X-ray",
+  "theme": {
+    "title": "Switch theme",
+    "light": "Light",
+    "dark": "Dark"
+  },
+  "cta": "Let’s connect",
   "connect": "Let’s connect",
   "menu": "Menu",
   "navMoreLabel": "Case studies pages",
   "footer": {
-    "tagline": "It's your company. 10x faster.",
+    "tagline": "It's your company. 10x better.",
     "label": "Footer",
     "cols": [
-      { "title": "Product", "links": [
-        { "label": "MateOS", "href": "/mateos/" },
-        { "label": "The Process", "href": "/how-we-work/" },
-        { "label": "Security and control", "href": "/security-and-control/" }
-      ] },
-      { "title": "Case studies", "links": [
-        { "label": "Insurance", "href": "/industries/insurance/" },
-        { "label": "Manufacturing", "href": "/industries/manufacturing/" },
-        { "label": "Construction and real estate", "href": "/industries/construction-and-real-estate/" },
-        { "label": "Logistics and distribution", "href": "/industries/logistics-and-distribution/" }
-      ] },
-      { "title": "Company", "links": [
-        { "label": "About", "href": "/about/" },
-        { "label": "Careers", "href": "/careers/" },
-        { "label": "Contact", "href": "/contact/" },
-        { "label": "hello@mateos.ai", "href": "mailto:hello@mateos.ai" }
-      ] },
-      { "title": "Legal", "links": [
-        { "label": "Privacy policy", "href": "/privacy/" },
-        { "label": "Accessibility", "href": "/accessibility/" }
-      ] }
+      {
+        "title": "Product",
+        "links": [
+          {
+            "label": "How it works",
+            "href": "/#how-it-works"
+          },
+          {
+            "label": "Security and control",
+            "href": "/security-and-control/"
+          }
+        ]
+      },
+      {
+        "title": "Case studies",
+        "links": [
+          {
+            "label": "Insurance",
+            "href": "/industries/insurance/"
+          },
+          {
+            "label": "Manufacturing",
+            "href": "/industries/manufacturing/"
+          },
+          {
+            "label": "Construction and real estate",
+            "href": "/industries/construction-and-real-estate/"
+          },
+          {
+            "label": "Logistics and distribution",
+            "href": "/industries/logistics-and-distribution/"
+          }
+        ]
+      },
+      {
+        "title": "Company",
+        "links": [
+          {
+            "label": "About",
+            "href": "/about/"
+          },
+          {
+            "label": "Careers",
+            "href": "/careers/"
+          },
+          {
+            "label": "Contact",
+            "href": "/contact/"
+          },
+          {
+            "label": "hello@mateos.ai",
+            "href": "mailto:hello@mateos.ai"
+          }
+        ]
+      },
+      {
+        "title": "Legal",
+        "links": [
+          {
+            "label": "Privacy policy",
+            "href": "/privacy/"
+          },
+          {
+            "label": "Accessibility",
+            "href": "/accessibility/"
+          }
+        ]
+      }
     ],
     "legal": "Mateos AI, Inc., a Delaware corporation. Israel, with operations in New York.",
     "copy": "© 2026 Mateos AI, Inc. All rights reserved."
@@ -55,7 +129,7 @@
   "meta": {
     "siteName": "Mateos",
     "ogImage": "https://mateos.ai/og-v6.png",
-    "ogImageAlt": "Mateos. It's your company. 10x faster.",
+    "ogImageAlt": "Mateos. It's your company. 10x better.",
     "defaultDescription": "MateOS runs your business processes inside the ERP, CRM and mailboxes you already use. One process at a time, measured on a number you already watch, paid on results. Start with an X-ray."
   }
 }

@@ -3,51 +3,124 @@
   "skip": "דילוג לתוכן",
   "navLabel": "ראשי",
   "nav": [
-    { "label": "MateOS", "href": "/mateos/" },
-    { "label": "התהליך", "href": "/how-we-work/" },
     {
-      "label": "סיפורי לקוחות", "href": "/industries/", "menu": "industries",
+      "label": "איך זה עובד",
+      "href": "/#how-it-works"
+    },
+    {
+      "label": "סיפורי לקוחות",
+      "href": "/industries/",
+      "menu": "industries",
       "children": [
-        { "label": "ביטוח", "href": "/industries/insurance/" },
-        { "label": "תעשייה", "href": "/industries/manufacturing/" },
-        { "label": "בנייה ונדל\"ן", "href": "/industries/construction-and-real-estate/" },
-        { "label": "לוגיסטיקה והפצה", "href": "/industries/logistics-and-distribution/" }
+        {
+          "label": "ביטוח",
+          "href": "/industries/insurance/"
+        },
+        {
+          "label": "תעשייה",
+          "href": "/industries/manufacturing/"
+        },
+        {
+          "label": "בנייה ונדל\"ן",
+          "href": "/industries/construction-and-real-estate/"
+        },
+        {
+          "label": "לוגיסטיקה והפצה",
+          "href": "/industries/logistics-and-distribution/"
+        }
       ]
     },
-    { "label": "אבטחה ובקרה", "href": "/security-and-control/" },
-    { "label": "אודות", "href": "/about/" }
+    {
+      "label": "אבטחה ובקרה",
+      "href": "/security-and-control/"
+    },
+    {
+      "label": "אודות",
+      "href": "/about/"
+    }
   ],
   "localeName": "עברית",
-  "theme": { "title": "החלפת מצב תצוגה", "light": "בהיר", "dark": "כהה" },
-  "cta": "מתחילים ב-X-ray",
+  "theme": {
+    "title": "החלפת מצב תצוגה",
+    "light": "בהיר",
+    "dark": "כהה"
+  },
+  "cta": "בואו נדבר",
   "connect": "בואו נדבר",
   "menu": "תפריט",
   "navMoreLabel": "עמודי סיפורי לקוחות",
   "footer": {
-    "tagline": "זאת החברה שלכם. מהירה פי 10.",
+    "tagline": "זאת החברה שלכם. פי 10 טובה יותר.",
     "label": "כותרת תחתונה",
     "cols": [
-      { "title": "המוצר", "links": [
-        { "label": "MateOS", "href": "/mateos/" },
-        { "label": "התהליך", "href": "/how-we-work/" },
-        { "label": "אבטחה ובקרה", "href": "/security-and-control/" }
-      ] },
-      { "title": "סיפורי לקוחות", "links": [
-        { "label": "ביטוח", "href": "/industries/insurance/" },
-        { "label": "תעשייה", "href": "/industries/manufacturing/" },
-        { "label": "בנייה ונדל\"ן", "href": "/industries/construction-and-real-estate/" },
-        { "label": "לוגיסטיקה והפצה", "href": "/industries/logistics-and-distribution/" }
-      ] },
-      { "title": "החברה", "links": [
-        { "label": "אודות", "href": "/about/" },
-        { "label": "קריירה", "href": "/careers/" },
-        { "label": "יצירת קשר", "href": "/contact/" },
-        { "label": "hello@mateos.ai", "href": "mailto:hello@mateos.ai" }
-      ] },
-      { "title": "משפטי", "links": [
-        { "label": "מדיניות פרטיות", "href": "/privacy/" },
-        { "label": "הצהרת נגישות", "href": "/accessibility/" }
-      ] }
+      {
+        "title": "המוצר",
+        "links": [
+          {
+            "label": "איך זה עובד",
+            "href": "/#how-it-works"
+          },
+          {
+            "label": "אבטחה ובקרה",
+            "href": "/security-and-control/"
+          }
+        ]
+      },
+      {
+        "title": "סיפורי לקוחות",
+        "links": [
+          {
+            "label": "ביטוח",
+            "href": "/industries/insurance/"
+          },
+          {
+            "label": "תעשייה",
+            "href": "/industries/manufacturing/"
+          },
+          {
+            "label": "בנייה ונדל\"ן",
+            "href": "/industries/construction-and-real-estate/"
+          },
+          {
+            "label": "לוגיסטיקה והפצה",
+            "href": "/industries/logistics-and-distribution/"
+          }
+        ]
+      },
+      {
+        "title": "החברה",
+        "links": [
+          {
+            "label": "אודות",
+            "href": "/about/"
+          },
+          {
+            "label": "קריירה",
+            "href": "/careers/"
+          },
+          {
+            "label": "יצירת קשר",
+            "href": "/contact/"
+          },
+          {
+            "label": "hello@mateos.ai",
+            "href": "mailto:hello@mateos.ai"
+          }
+        ]
+      },
+      {
+        "title": "משפטי",
+        "links": [
+          {
+            "label": "מדיניות פרטיות",
+            "href": "/privacy/"
+          },
+          {
+            "label": "הצהרת נגישות",
+            "href": "/accessibility/"
+          }
+        ]
+      }
     ],
     "legal": "<bdi>Mateos AI, Inc.</bdi>, חברה רשומה בדלאוור. ישראל, עם תפעול בניו יורק.",
     "copy": "<bdi>© 2026 Mateos AI, Inc.</bdi> כל הזכויות שמורות."
@@ -55,7 +128,7 @@
   "meta": {
     "siteName": "Mateos",
     "ogImage": "https://mateos.ai/og-v6.png",
-    "ogImageAlt": "Mateos. It's your company. 10x faster.",
+    "ogImageAlt": "Mateos. It's your company. 10x better.",
     "robots": "noindex, nofollow",
     "defaultDescription": "MateOS מריץ את התהליכים העסקיים שלכם בתוך ה-ERP, ה-CRM והמייל שכבר יש לכם. תהליך אחד בכל פעם, נמדד על מספר שאתם כבר עוקבים אחריו, בתשלום על תוצאות. מתחילים ב-X-ray."
   }

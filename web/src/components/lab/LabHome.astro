@@ -19,7 +19,7 @@ import OneRoom from './u5/OneRoom.astro';
 interface Props { u1?: boolean; u2?: boolean; u3?: boolean; u5?: boolean; lab: { id: string; title: string; look?: string } }
 const { u1 = false, u2 = false, u3 = false, u5 = false, lab } = Astro.props;
 
-const { t, u } = pageCtx(Astro, 'home');
+const { t, u } = pageCtx(Astro, 'lab-home');
 type Step = { label: string; sents?: string[]; h3?: string; p?: string };
 type Story = { fx: string; sr: string; body: string; q: string };
 type Rung = { name: string; tag?: string; body: string };

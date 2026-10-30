@@ -7,40 +7,111 @@
   "trailingSlash": true,
   "cleanUrls": false,
   "redirects": [
-    { "source": "/field-stories", "destination": "/industries/", "permanent": true },
-    { "source": "/field-stories/", "destination": "/industries/", "permanent": true },
-    { "source": "/he/field-stories", "destination": "/he/industries/", "permanent": true },
-    { "source": "/he/field-stories/", "destination": "/he/industries/", "permanent": true }
+    {
+      "source": "/field-stories",
+      "destination": "/industries/",
+      "permanent": true
+    },
+    {
+      "source": "/field-stories/",
+      "destination": "/industries/",
+      "permanent": true
+    },
+    {
+      "source": "/he/field-stories",
+      "destination": "/he/industries/",
+      "permanent": true
+    },
+    {
+      "source": "/he/field-stories/",
+      "destination": "/he/industries/",
+      "permanent": true
+    },
+    {
+      "source": "/mateos",
+      "destination": "/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/mateos/",
+      "destination": "/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/he/mateos",
+      "destination": "/he/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/he/mateos/",
+      "destination": "/he/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/how-we-work",
+      "destination": "/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/how-we-work/",
+      "destination": "/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/he/how-we-work",
+      "destination": "/he/#how-it-works",
+      "permanent": true
+    },
+    {
+      "source": "/he/how-we-work/",
+      "destination": "/he/#how-it-works",
+      "permanent": true
+    }
   ],
   "headers": [
     {
       "source": "/assets/(.*)\\.woff2",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
       ]
     },
     {
       "source": "/assets/(v7\\.css|v7\\.js|site\\.css)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        }
       ]
     },
     {
       "source": "/assets/team/(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
     },
     {
       "source": "/(favicon\\.ico|favicon\\.svg|logo\\.png|og-v6\\.png)",
       "headers": [
-        { "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=86400, stale-while-revalidate=604800"
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Content-Type-Options", "value": "nosniff" }
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        }
       ]
     }
   ]

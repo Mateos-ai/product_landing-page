@@ -1,24 +1,36 @@
 ---
-// Home page (/ and /he/). Copy: src/i18n/<locale>/home.json. Previews: M1 (hero), K2, M3/M4/M5 in the M0 shell, M7.
+// Home page (/ and /he/): the one long page that replaced Home, MateOS and The Process (Oct 2026).
+// Copy: src/i18n/<locale>/home.json (case-study cards from industries.json).
+// Previews: M1 (hero), K2, M14 (X-ray), M3/M4/M5/M6 in the M0 shell, M7, X2 (case-study cards).
 import Layout from '../layouts/Layout.astro';
 import Sprite from '../components/v7/Sprite.astro';
 import M1 from '../components/v7/M1.astro';
 import K2 from '../components/v7/K2.astro';
 import M0 from '../components/v7/M0.astro';
 import M7 from '../components/v7/M7.astro';
+import M14 from '../components/v7/M14.astro';
+import X2 from '../components/v7/X2.astro';
 import Arrow from '../components/site/Arrow.astro';
 import Check from '../components/site/Check.astro';
 import { pageCtx } from '../i18n/page';
+const icon = (id: string) => `<svg class="v7-ic" aria-hidden="true" focusable="false"><use href="#i-${id}"/></svg>`;
 
 const { t, u } = pageCtx(Astro, 'home');
 type Step = { label: string; sents?: string[]; h3?: string; p?: string };
-type Rung = { name: string; tag?: string; body: string };
+type Stop = { name: string; tag: string; line: string; weeksLabel?: string; weeks?: string[] };
+type Card = { slug: string; tone: string; icon: string; name: string; pain: string; goal: string; hl: string; pillTone: string; pill: string; avatar: string; who: string; sr: string };
 const h1 = t.raw<string[]>('hero.h1');
 const steps = t.raw<Step[]>('how.steps');
-const HOW = [{ id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }];
-const checks = t.raw<string[]>('control.checks');
+const HOW = [{ id: 'M3', tone: 'you' }, { id: 'M4', tone: 'mate' }, { id: 'M5', tone: 'ok' }, { id: 'M6', tone: 'you' }];
+const title2 = t.raw<string[]>('how.title2');
+const people = t.raw<string[]>('control.peopleChecks');
+const platform = t.raw<string[]>('control.platformChecks');
+const cards = t.raw<Card[]>('industries:cards');
 const startTitle = t.raw<string[]>('start.title');
-const ladder = t.raw<Rung[]>('start.ladder');
+const stops = t.raw<Stop[]>('start.stops');
+const STOP_TONE = ['you', 'mate', 'ok'];
+const qs = t.raw<[string, string][]>('faq.qs');
+const endTitle = t.raw<string[]>('end.title');
 ---
 <Layout title={t('meta.title')} description={t('meta.description')}>
 <Sprite />
@@ -27,13 +39,9 @@ const ladder = t.raw<Rung[]>('start.ladder');
   <div class="v7-wrap-wide v7-hero-grid">
     <div class="v7-hero-copy">
       <h1 id="hero-h1" class="v7-h1" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={h1[0]} /></span> <span class="v7-line"><span set:html={h1[1]} /></span></h1>
-      <ol class="v7-stepper" data-v7-stagger="80" data-v7-delay="320">
-        {(['goal', 'flows', 'track'] as const).map((k) => (
-        <Fragment><li data-stage={k} data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t" set:html={t(`hero.steps.${k}`)} /></li>{'\n'}</Fragment>
-        ))}
-      </ol>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('hero.cta')} /><a class="btn btn-lg v7-btn-ghost" href={u('/mateos/#tour')} set:html={t('hero.tour')} /></div>
-      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="640" set:html={t('hero.micro')} />
+      <p class="v7-lead" data-v7-reveal data-v7-delay="320" set:html={t('hero.lead')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="480"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
+      <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="560" set:html={t('hero.micro')} />
     </div>
 <M1 indent={4} />
   </div>
@@ -44,13 +52,27 @@ const ladder = t.raw<Rung[]>('start.ladder');
     <h2 class="v7-h2" id="reverse-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('reverse.title')} /></span></h2>
     <p class="v7-lead" data-v7-reveal data-v7-delay="120" set:html={t('reverse.lead')} />
 <K2 indent={4} />
-    <a class="v7-link-arrow v7-k2-more" href={u('/mateos/')} data-v7-reveal><Fragment set:html={t('reverse.more')} /><Arrow /></a>
   </div>
 </section>
 
-<section class="v7-sec v7-sec--subtle" id="how" aria-labelledby="how-h">
+<section class="v7-sec v7-sec--subtle v7-hww-sec" id="how-it-works" aria-labelledby="how-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal set:html={t('how.eyebrow')} />
+    <h2 class="v7-h2 v7-home-howh" id="how-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={t('how.title')} /></span></h2>
+  </div>
+  <div class="v7-wrap v7-hww-split">
+    <div class="v7-hww-copy v7-how-step" data-v7-stagger="80">
+      <p class="v7-label" data-v7-reveal><i data-tone="you"></i><Fragment set:html={t('how.xray.label')} /></p>
+      <h3 class="v7-h3" data-v7-reveal set:html={t('how.xray.h3')} />
+      <p class="v7-how-p" data-v7-reveal set:html={t('how.xray.p')} />
+    </div>
+<M14 indent={4} />
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-home-how2" id="how" aria-labelledby="how2-h">
   <div class="v7-wrap-wide v7-how" data-v7-steps>
-    <h2 id="how-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('how.title')} /></span></h2>
+    <h2 id="how2-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={title2[0]} /></span> <span class="v7-line"><span set:html={title2[1]} /></span></h2>
     {steps.map((s, i) => (<Fragment>
     <div class="v7-how-step" data-step={i + 1} data-v7-reveal>
       <p class="v7-label"><i data-tone={HOW[i].tone}></i><Fragment set:html={s.label} /></p>
@@ -70,29 +92,114 @@ const ladder = t.raw<Rung[]>('start.ladder');
     <div class="v7-home-copy" data-v7-stagger="80">
       <h2 class="v7-h2" id="control-h" data-v7-reveal set:html={t('control.title')} />
       <p class="v7-lead" data-v7-reveal set:html={t('control.lead')} />
-      <ul class="v7-check-list" data-v7-stagger="80" data-v7-delay="240">
-        {checks.map((c) => (
-        <Fragment><li data-v7-reveal><Check /><Fragment set:html={c} /></li>{'\n'}</Fragment>
-        ))}
-      </ul>
-      <a class="v7-link-arrow" href={u('/security-and-control/')} data-v7-reveal data-v7-delay="480"><Fragment set:html={t('control.link')} /><Arrow /></a>
+      <div class="v7-home-trust">
+        <div>
+          <h3 class="v7-label" data-v7-reveal><i data-tone="you"></i><Fragment set:html={t('control.people')} /></h3>
+          <ul class="v7-check-list" data-v7-stagger="80">
+            {people.map((c) => (<Fragment><li data-v7-reveal><Check /><Fragment set:html={c} /></li>{'\n'}</Fragment>))}
+          </ul>
+        </div>
+        <div>
+          <h3 class="v7-label" data-v7-reveal><i data-tone="mate"></i><Fragment set:html={t('control.platform')} /></h3>
+          <ul class="v7-check-list" data-v7-stagger="80">
+            {platform.map((c) => (<Fragment><li data-v7-reveal><Check /><Fragment set:html={c} /></li>{'\n'}</Fragment>))}
+          </ul>
+        </div>
+      </div>
+      <a class="v7-link-arrow" href={u('/security-and-control/')} data-v7-reveal><Fragment set:html={t('control.link')} /><Arrow /></a>
     </div>
 <M7 indent={4} />
   </div>
 </section>
 
-<section class="v7-sec v7-band-dark v7-cta" id="start" aria-labelledby="start-h">
-  <div class="v7-wrap v7-home-cta">
-    <div class="v7-home-cta-copy">
-      <h2 class="v7-h2" id="start-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={startTitle[0]} /></span> <span class="v7-line"><span set:html={startTitle[1]} /></span></h2>
-      <ol class="v7-ladder">
-        {ladder.map((r) => (<Fragment>
-        <li><h3 class="v7-ladder-name"><Fragment set:html={r.name} />{r.tag && <Fragment> <span class="v7-ladder-tag" set:html={r.tag} /></Fragment>}</h3><p class="v7-ladder-body" set:html={r.body} /></li>{'\n'}</Fragment>
-        ))}
-      </ol>
-      <p class="v7-fine" data-v7-reveal set:html={t('start.fine')} />
-      <div class="v7-actions" data-v7-reveal data-v7-delay="80"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
+<section class="v7-sec v7-hub-sec" id="case-studies" aria-labelledby="cases-h">
+  <div class="v7-wrap">
+    <h2 class="v7-h2" id="cases-h" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('cases.title')} /></span></h2>
+    <p class="v7-lead v7-home-caselead" data-v7-reveal data-v7-delay="120" set:html={t('cases.lead')} />
+    <div class="v7-hub-gridhead" data-v7-reveal="fade" data-v7-delay="160"><span class="v7-preview-tag" set:html={t('industries:sampleGoals')} /></div>
+    <div class="v7-hub-cards" data-v7-stagger="100">
+      {cards.map((c) => (<Fragment>
+      <a class="v7-hub-card" href={u(`/industries/${c.slug}/`)} data-tone={c.tone} data-v7-reveal>
+        <span class="v7-hub-tile" set:html={icon(c.icon)} />
+        <div class="v7-hub-head"><h3 class="v7-hub-name" set:html={c.name} /><p class="v7-hub-pain" set:html={c.pain} /></div>
+        <X2 tag={t('industries:sampleGoal')} goal={c.goal} hl={c.hl} ph={t('industries:setGoal')} pill={c.pill} pillTone={c.pillTone} avatar={c.avatar} who={c.who} />
+        <span class="sr-only" set:html={c.sr} />
+        <span class="v7-hub-more"><Fragment set:html={t('industries:seeHow')} /><Arrow /></span>
+      </a>{'\n'}</Fragment>
+      ))}
+    </div>
+    <a class="v7-link-arrow v7-home-casemore" href={u('/industries/')} data-v7-reveal><Fragment set:html={t('cases.more')} /><Arrow /></a>
+  </div>
+</section>
+
+<section class="v7-sec v7-hww-sec" id="start-steps" aria-labelledby="steps-h">
+  <div class="v7-wrap">
+    <span class="eyebrow" data-v7-reveal set:html={t('start.eyebrow')} />
+    <h2 class="v7-h2 v7-hww-steps-h" id="steps-h" data-v7-reveal="mask" data-v7-delay="80"><span class="v7-line"><span set:html={startTitle[0]} /></span> <span class="v7-line"><span set:html={startTitle[1]} /></span></h2>
+    <ol class="v7-hww-track">
+      {stops.map((s, i) => (
+      <li class="v7-hww-stop" data-tone={STOP_TONE[i]}>
+        <span class="v7-hww-dot" aria-hidden="true"></span>
+        <div class="v7-hww-card">
+          <div class="v7-hww-head"><h3 class="v7-hww-name" set:html={s.name} /><span class="v7-hww-tag" set:html={s.tag} /></div>
+          <p class="v7-hww-line" set:html={s.line} />
+          {i === 0 && <span class="v7-hww-art v7-hww-rank" aria-hidden="true"><i style="--w:1"></i><i style="--w:.72"></i><i style="--w:.48"></i></span>}
+          {i === 1 && s.weeks && (
+          <div class="v7-hww-art v7-hww-weeks" role="img" aria-label={s.weeksLabel}>
+            <span class="v7-hww-cells"><i data-tone="mate"></i><i data-tone="you"></i><i data-tone="you"></i><i data-tone="ok"></i></span>
+            <span class="v7-hww-wl" data-at="1" set:html={s.weeks[0]} /><span class="v7-hww-wl" data-at="2" set:html={s.weeks[1]} /><span class="v7-hww-wl" data-at="4" set:html={s.weeks[2]} />
+          </div>
+          )}
+          {i === 2 && <span class="v7-hww-art v7-hww-lanes" aria-hidden="true"><span><i data-tone="ok"></i><i data-tone="mate"></i><i></i></span><span><i data-tone="ok"></i><i data-tone="mate"></i><i></i></span></span>}
+        </div>
+      </li>
+      ))}
+    </ol>
+    <p class="v7-hww-fine v7-home-stepsfine" data-v7-reveal set:html={t('start.fine')} />
+  </div>
+</section>
+
+<section class="v7-sec v7-sec--subtle v7-pp-sec" id="faq" aria-labelledby="faq-h">
+  <div class="v7-wrap v7-pp-faq">
+    <h2 id="faq-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={t('faq.title')} /></span></h2>
+    <div class="v7-pp-qs" data-v7-stagger="80">
+      {qs.map(([q, a], i) => (
+      <details class="v7-pp-q" open={i === 0} data-v7-reveal>
+        <summary><Fragment set:html={q} /><span class="v7-pp-plus" aria-hidden="true"></span></summary>
+        <p set:html={a} />
+      </details>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section class="v7-sec v7-band-dark v7-cta v7-pp-cta" id="start" aria-labelledby="start-h">
+  <div class="v7-wrap">
+    <div class="v7-pp-ctacopy" data-v7-stagger="80">
+      <h2 id="start-h" class="v7-h2" data-v7-reveal="mask"><span class="v7-line"><span set:html={endTitle[0]} /></span> <span class="v7-line"><span set:html={endTitle[1]} /></span></h2>
+      <p class="v7-micro" data-v7-reveal data-v7-delay="120" set:html={t('hero.micro')} />
+      <div class="v7-actions" data-v7-reveal data-v7-delay="160"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('common:connect')} /></div>
     </div>
   </div>
 </section>
 </Layout>
+
+<style is:global>
+/* Merged home page (Oct 2026): pieces borrowed from the MateOS, Process and Case studies pages. */
+.v7-home-howh{margin-bottom:8px}
+#how-it-works{padding-bottom:24px}
+#how-it-works .v7-how-step .v7-h3{margin-top:12px}
+.v7-home-how2{padding-top:24px}
+/* "How it works" pinned layout: four steps instead of three (S1.css lays out three). */
+.v7-how[data-mode=pinned] .v7-how-step[data-step="4"]{grid-row:5}
+.v7-how[data-mode=pinned] .v7-how-rail{grid-row:2 / span 4}
+.v7-how[data-mode=pinned] .v7-how-win{grid-row:2 / span 4}
+.v7-home-trust{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:24px 32px;margin-top:28px}
+.v7-home-trust .v7-label{display:flex;align-items:center;gap:10px;margin:0}
+.v7-home-trust .v7-label>i{width:8px;height:8px;border-radius:50%;background:var(--amber-500)}
+.v7-home-trust .v7-label>i[data-tone=mate]{background:var(--indigo-500)}
+.v7-home-trust .v7-check-list{margin-top:14px}
+.v7-home-caselead{margin-top:16px}
+.v7-home-casemore{margin-top:32px}
+.v7-home-stepsfine{margin-top:28px}
+</style>

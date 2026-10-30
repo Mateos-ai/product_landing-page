@@ -5,7 +5,7 @@
 import Arrow from '../../site/Arrow.astro';
 import { pageCtx } from '../../../i18n/page';
 import './one-room.css';
-const { t, u } = pageCtx(Astro, 'home');
+const { t, u } = pageCtx(Astro, 'lab-home');
 type Story = { fx: string; sr: string; body: string; q: string };
 const [lead, ...rest] = t.raw<Story[]>('field.stories');
 const REST = [{ tone: 'ok', fx: 'count', quote: false }, { tone: 'mate', fx: 'type', quote: true }];
