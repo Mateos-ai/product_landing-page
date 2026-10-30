@@ -1,6 +1,6 @@
 // Concatenates the v7 parts into v7.css and v7.js, exactly like src/v7/assemble.sh did for site/assets.
 // Order matters: core first, components by id, page parts, then ZZ-boot.js last.
-// The web-only design-review fixes are applied on the way (web-patches.mjs); parts/ itself stays a copy of ../src/v7/v7parts.
+// The web-only design-review fixes are applied on the way (web-patches.mjs).
 import { readFileSync, existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { join, dirname } from 'node:path';

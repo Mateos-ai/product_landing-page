@@ -9,9 +9,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
-    "parity": "node tools/parity.mjs",
-    "check:parts": "node tools/parts-drift.mjs"
+    "preview": "astro preview"
   },
   "dependencies": {
     "astro": "^7.4.2",

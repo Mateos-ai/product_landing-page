@@ -1,9 +1,8 @@
 // Web-only changes to the v7 parts, applied by assemble.mjs while it concatenates them.
-// Until cutover, parts/ must stay byte-identical to ../src/v7/v7parts (`npm run check:parts`), so the design-review
-// fixes that exist only in web/ (docs/design-review-apple.md, "Applied": H1, M1) live here as exact string
+// The design-review fixes (docs/design-review-apple.md, "Applied": H1, M1) live here as exact string
 // replacements. Each one replaces the rule in place, so the cascade order is the same as editing the part.
 // A `from` that is no longer found fails the build: then the part changed upstream and the patch needs a look.
-// After cutover, apply these to the parts and delete this file.
+// parts/ is now the only source, so these can be applied to the parts and this file deleted.
 export const WEB_PATCHES = {
   'C2.css': [
     // M1: rem-based small text (12px / 12.5px / 13px at a 16px root).

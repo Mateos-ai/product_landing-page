@@ -1,9 +1,8 @@
 # Deploying `web/` to Vercel
 
-Until DNS is switched, **`../site/` remains the deployed source of mateos.ai**. GitHub Pages serves it, and
-`.github/workflows/deploy.yml` publishes it on every push to `main`. Nothing in this folder changes that. Vercel only
-adds preview deployments next to it. Do not edit or remove the workflow or `../site/CNAME` before cutover: together
-they are the rollback path.
+**mateos.ai is served by Vercel from this folder since 2026-10-30.** Every push to `main` is a production deploy.
+DNS is on Cloudflare: `mateos.ai` (apex, flattened) and `www` are `CNAME d033b2fd12c970bb.vercel-dns-016.com`,
+proxy off (DNS only). `www` redirects to the apex. Sections 1 and 3 below record how it was set up.
 
 ## Settings (`vercel.json`)
 
@@ -65,22 +64,20 @@ The Root Directory cannot be set in `vercel.json`. It is a project setting (step
    MX, TXT (SPF, DKIM, site verification) and every other record unchanged.
 5. Wait until Vercel shows the domain as valid and the certificate as issued. Then run the preview checks from
    section 2 against `https://mateos.ai/`, and confirm that Search Console can still fetch `/sitemap.xml`.
-6. Keep `../site/`, `../site/CNAME` and the GitHub Pages workflow until the switch has held for a while. Keep the
-   domain verified in the GitHub organisation's Pages settings so that nobody else can claim it on GitHub Pages.
-   GitHub may report a DNS check warning for the Pages site in the meantime; that is expected.
+6. Done on 2026-10-30. `../site/`, `../src/v7/` and the GitHub Pages workflow were removed afterwards (git tag
+   `legacy-site-final`).
 
 ## 4. Rollback
 
 - **Bad deploy, DNS already on Vercel:** in **Deployments**, open the last good production deployment and choose
   **Promote** (or Instant Rollback). This takes seconds and does not touch DNS.
-- **Back to GitHub Pages:** restore the DNS records written down in section 3, step 2. GitHub Pages still serves
-  `../site/` from `main` (re-run the "Deploy to GitHub Pages" workflow if needed), so it is ready at once. Rollback
-  serves `../site/`, not `web/dist/`. Remove the domain from the Vercel project afterwards if Vercel will not be
-  used again.
-- **Serving `web/dist/` from GitHub Pages:** `dist/` already contains `CNAME` and `.nojekyll`, so it can be uploaded
-  in place of `./site` if that is ever needed. That would be a workflow change and is not part of this migration.
+- **Back to GitHub Pages (emergency only):** the last Pages deployment of the old static site is still published
+  as long as Pages stays enabled for the repo. Point the Cloudflare records back to the GitHub Pages values
+  (apex `A` `185.199.108.153`, `.109`, `.110`, `.111`; `www` `CNAME mateos-ai.github.io`). Its source is the git tag
+  `legacy-site-final`.
 
-## Retiring GitHub Pages (later)
+## Retiring GitHub Pages
 
-Once the switch has held: disable Pages for the repo, remove `.github/workflows/deploy.yml`, and decide whether
-`../site/` and `../src/v7/` move into history. `web/src/v7/` is then the only source of the motion system.
+Done in the repo on 2026-10-30: the workflow, `../site/` and `../src/v7/` are gone (tag `legacy-site-final`).
+Left to do in GitHub once Vercel has held: disable Pages in the repo settings, but keep `mateos.ai` verified in the
+organisation's Pages settings so nobody else can claim it.
