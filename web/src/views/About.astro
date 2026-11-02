@@ -38,7 +38,7 @@ const seats = TEAM.map((m) => `<span class="v7-about-seat" data-tone="${m.tone}"
 const OPEN_SEAT = '<span class="v7-about-seat is-open"><svg class="v7-ic" viewBox="0 0 24 24"><path d="M12 6v12M6 12h12"/></svg></span>';
 const OK_CHECK = '<svg class="v7-ic" viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5" pathLength="1"/></svg>';
 ---
-<Layout title={t('meta.title')} description={t('meta.description')}>
+<Layout title={t('meta.title')} description={t('meta.description')} crumb={t('meta.crumb')} pageType="AboutPage">
 <Sprite />
 
 <section class="v7-band-dark v7-hero v7-home-hero v7-about-hero" id="top" aria-labelledby="hero-h1">

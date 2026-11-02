@@ -31,8 +31,11 @@ const stops = t.raw<Stop[]>('start.stops');
 const STOP_TONE = ['you', 'mate', 'ok'];
 const qs = t.raw<[string, string][]>('faq.qs');
 const endTitle = t.raw<string[]>('end.title');
+// FAQ copy may carry inline HTML (&nbsp;, <bdi>); structured data wants plain text.
+const plain = (h: string) => h.replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\s+/g, ' ').trim();
+const faqLd = { '@type': 'FAQPage', mainEntity: qs.map(([q, a]) => ({ '@type': 'Question', name: plain(q), acceptedAnswer: { '@type': 'Answer', text: plain(a) } })) };
 ---
-<Layout title={t('meta.title')} description={t('meta.description')}>
+<Layout title={t('meta.title')} description={t('meta.description')} ogTitle={t.has('meta.ogTitle') ? t('meta.ogTitle') : undefined} schema={[faqLd]}>
 <Sprite />
 
 <section class="v7-band-dark v7-hero v7-home-hero v7-home-front" id="top" aria-labelledby="hero-h1">

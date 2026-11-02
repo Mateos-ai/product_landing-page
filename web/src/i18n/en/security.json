@@ -1,6 +1,7 @@
 {
   "meta": {
-    "title": "Security and control · Mateos",
+    "title": "Security and control for AI automation · Mateos",
+    "crumb": "Security and control",
     "description": "Where MateOS runs, what it can touch, what leaves your environment, who approves what, and what is logged. Built to Israel's Privacy Amendment 13."
   },
   "questionnaireSubject": "Security%20questionnaire",

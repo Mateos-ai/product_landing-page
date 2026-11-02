@@ -22,7 +22,7 @@ const { locale, t, u } = pageCtx(Astro, 'industry');
 type Card = { icon: string; title: string; body: string };
 type Item = { text: string; sub?: string };
 type Page = {
-  meta: { title: string; description: string };
+  meta: { title: string; crumb: string; description: string };
   eyebrow: string; h1: string[]; lead: string;
   hurts: { label: string; h2: string | string[]; line: string; cap?: string };
   start: Card[];
@@ -49,8 +49,9 @@ const c = p.control;
 const f = p.field;
 // The live English pages link to the hub as "../"; the Hebrew ones spell the full relative path.
 const hubHref = u('/#case-studies');
+const serviceLd = { '@type': 'Service', name: p.meta.title.replace(/ · .*$/, ''), serviceType: 'Business process automation', description: p.meta.description, provider: { '@id': 'https://mateos.ai/#org' }, audience: { '@type': 'BusinessAudience', name: p.meta.crumb } };
 ---
-<Layout title={p.meta.title} description={p.meta.description}>
+<Layout title={p.meta.title} description={p.meta.description} crumb={p.meta.crumb} schema={[serviceLd]}>
 <Sprite />
 
 <section class="v7-band-dark v7-hero v7-ind-hero" id="top" aria-labelledby="hero-h1">
@@ -64,7 +65,7 @@ const hubHref = u('/#case-studies');
         <Fragment><li data-stage={k} data-v7-reveal><span class="v7-stepper-dot"></span><span class="v7-stepper-t" set:html={s} /></li>{'\n'}</Fragment>
         ))}
       </ol>
-      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('ui.ctaXray')} /><a class="btn btn-lg v7-btn-ghost" href={u('/mateos/#tour')} set:html={t('ui.ctaTour')} /></div>
+      <div class="v7-actions" data-v7-reveal data-v7-delay="560"><a class="btn btn-primary btn-lg" href={u('/contact/')} set:html={t('ui.ctaXray')} /><a class="btn btn-lg v7-btn-ghost" href={u('/#how-it-works')} set:html={t('ui.ctaTour')} /></div>
       <p class="v7-micro" data-v7-reveal="fade" data-v7-delay="640" set:html={t('ui.micro')} />
     </div>
 <M1 variant={slug} indent={4} />

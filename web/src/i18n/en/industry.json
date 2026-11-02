@@ -23,7 +23,8 @@
   "pages": {
     "insurance": {
       "meta": {
-        "title": "Insurance agencies · Mateos",
+        "title": "AI for insurance agencies: claims and renewals · Mateos",
+        "crumb": "Insurance agencies",
         "description": "Claims, policies and renewals. Where the hours go in a claims department and the first process we usually fix."
       },
       "eyebrow": "Insurance · 10x&nbsp;faster",
@@ -90,7 +91,8 @@
     },
     "manufacturing": {
       "meta": {
-        "title": "Manufacturing · Mateos",
+        "title": "AI for manufacturing: orders, quotes and planning · Mateos",
+        "crumb": "Manufacturing",
         "description": "Orders, quotes and planning in owner-led plants. Orders in envelopes, reps checking every price with the office, quotes from drawings by hand."
       },
       "eyebrow": "Manufacturing · 10x&nbsp;faster",
@@ -151,7 +153,8 @@
     },
     "construction-and-real-estate": {
       "meta": {
-        "title": "Construction and real estate · Mateos",
+        "title": "AI for construction and real estate · Mateos",
+        "crumb": "Construction and real estate",
         "description": "Tenders, billing, supplier notices, parking and storage assignment, apartment handover. High-volume, document-heavy processes in finance and marketing."
       },
       "eyebrow": "Construction and <br class=\"v7-ind-br\" data-v7-hide=\"440-1023 1080-\">real&nbsp;estate · 10x&nbsp;faster",
@@ -214,7 +217,8 @@
     },
     "logistics-and-distribution": {
       "meta": {
-        "title": "Logistics and distribution · Mateos",
+        "title": "AI for logistics and distribution · Mateos",
+        "crumb": "Logistics and distribution",
         "description": "Routes built by hand every morning, order desks, collections, customs and freight documents. The plan the company owns instead of the plan in one person's head."
       },
       "eyebrow": "Logistics and <br class=\"v7-ind-br\" data-v7-hide=\"440-\">distribution · 10x&nbsp;faster",
