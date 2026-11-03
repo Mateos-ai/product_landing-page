@@ -2,7 +2,7 @@
   "meta": {
     "title": "About Mateos · The team building MateOS",
     "crumb": "About",
-    "description": "Mateos builds MateOS, the operating layer for owner-led companies. Six people on the machine, three advisors who shaped the thesis."
+    "description": "Mateos builds MateOS, the operating layer for owner-led companies. Five people on the machine, three advisors who shaped the thesis."
   },
   "hero": {
     "eyebrow": "About",
@@ -19,14 +19,13 @@
   },
   "team": {
     "eyebrow": "The founding team",
-    "title": "Six people on the machine.",
+    "title": "Five people on the machine.",
     "people": [
       { "name": "Yair Nativ", "role": "Co-Founder &amp; CEO", "bio": "Third-time founder. Built Safe Lane, a national road-safety program with 100,000 volunteers. Founded Voiceable, backed by Nielsen." },
       { "name": "David Rajcher", "role": "Co-Founder &amp; CTO", "bio": "20 years building systems, in the Intelligence Corps and as a founding engineer. Founded Webeet, an AI agency. A developer who speaks human." },
       { "name": "Aviv Yogev", "role": "CBDO", "bio": "Puts us in the room with the CEO. Closes in two weeks what takes others months." },
       { "name": "Shayna Moliver", "role": "COO", "bio": "MIT master’s in supply chain management. Four years as an embedded chief of staff to growing companies. Runs operations, deal flow and unit economics from New York." },
-      { "name": "Matan Zigron", "role": "CMO", "bio": "Founder and CEO of Wito since 2020. Before that, VP Clients and head of digital at zeder:yariv advertising. Owns the message and the November launch." },
-      { "name": "Almog Cohen", "role": "Head of Engineering", "bio": "Was the Co-Founder and CTO of VIVID, an AI personal-growth platform he grew to 35,000 daily users. Led R&amp;D teams at Testim.io and Sears." }
+      { "name": "Matan Zigron", "role": "CMO", "bio": "Founder and CEO of Wito since 2020. Before that, VP Clients and head of digital at zeder:yariv advertising. Owns the message and the November launch." }
     ]
   },
   "advisors": {
