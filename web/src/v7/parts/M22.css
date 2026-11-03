@@ -1,7 +1,7 @@
 /* >>> M22 m-team team constellation (About spec §2 M22): the About hero, on the dark band in both themes.
-   An illustration, not product UI (no preview tag, no sample data): the brand mark as the machine's hub, five real team
+   An illustration, not product UI (no preview tag, no sample data): the brand mark as the machine's hub, four real team
    photos on an orbit around it, a connector from the hub to each person. Frameless, so it uses the band's colours in
-   both themes. Geometry is pure CSS: the people sit on a flat-topped regular pentagon, each at (--cx, --cy) × --r from
+   both themes. Geometry is pure CSS: the people sit on the corners of a square, each at (--cx, --cy) × --r from
    the hub (--c0), and each connector is a line of length --r rotated by --a, so the static picture is exact at every
    width without JS. Sizes come from the root container (m-team): narrow < 480 (name-only chips), medium 480–599,
    wide ≥ 600 (72px mark, ~410px orbit).
@@ -12,8 +12,8 @@
 .m-team [data-tone=you]{--tone:var(--amber-500)}
 .m-team [data-tone=mate]{--tone:var(--indigo-400)}
 .m-team [data-tone=ok]{--tone:var(--teal-500)}
-/* The pentagon spans -.809r to +r, so the hub sits .0955r above the stage middle to centre it */
-.m-team-stage{position:relative;--c0:calc(50% - .0955 * var(--r));height:calc(1.809 * var(--r) + var(--slot) + 2 * (var(--gapc) + var(--chip-h)) + 16px)}
+/* The square spans -.707r to +.707r, so the hub sits at the stage middle */
+.m-team-stage{position:relative;--c0:50%;height:calc(1.414 * var(--r) + var(--slot) + 2 * (var(--gapc) + var(--chip-h)) + 16px)}
 
 /* Orbit (the ring the people sit on) and a faint inner ring, both static */
 .m-team-orbit{position:absolute;left:calc(50% - var(--r));top:calc(var(--c0) - var(--r));width:calc(2 * var(--r));height:calc(2 * var(--r));
@@ -58,7 +58,7 @@
 .m-team-face>img{display:block;width:100%;height:100%;object-fit:cover}
 .m-team-ring{position:absolute;inset:0;display:block;width:100%;height:100%;overflow:visible;fill:none;stroke:var(--tone);stroke-width:var(--ring-w);stroke-linecap:round}
 
-/* Chip: tone dot, first name, role (role hidden on narrow). Above the photo for the two upper people, below otherwise. */
+/* Chip: tone dot, first name, role (role hidden on narrow). Above the photo for the two upper people, below for the two lower. */
 .m-team-tag{position:absolute;left:-120px;width:240px;top:calc(var(--slot) / 2 + var(--gapc));display:flex;justify-content:center;pointer-events:none}
 .m-team-p.is-up .m-team-tag{top:auto;bottom:calc(var(--slot) / 2 + var(--gapc))}
 .m-team-chip{display:inline-flex;align-items:center;gap:6px;height:var(--chip-h);padding-inline:8px 10px;border-radius:999px;white-space:nowrap;

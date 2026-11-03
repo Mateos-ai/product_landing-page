@@ -1,9 +1,9 @@
 // >>> M22 m-team team constellation (About spec §2 M22): loops while visible, maxLoops 2, then rests on the final markup.
-// Cycle 0 builds the picture: the mark pops on its light, the connectors draw out from the centre (stagger 90), the five
+// Cycle 0 builds the picture: the mark pops on its light, the connectors draw out from the centre (stagger 90), the four
 // photos pop in order while their tone rings draw, the chips settle. Then light pulses run along the connectors,
 // centre → person → centre, one every ~600ms in the person's tone, for about 6s; each arrival rings the person (or the
 // hub). Cycle 1 keeps the built picture and runs one more round of pulses (a rebuild would blank the hero).
-// The armed look is never empty: the orbit and five dashed seats are there before anything moves. A replay (pause
+// The armed look is never empty: the orbit and four dashed seats are there before anything moves. A replay (pause
 // button, from done) starts with a copy of the finished picture fading out over the seats, so it never jumps.
 // selfExit: every cycle ends on the final markup, so the controller swaps cycles (and rests) with no fade.
 // Transform, opacity and stroke-dashoffset only.
@@ -13,7 +13,7 @@
   if (!V7 || !V7.define) return;
   var d = document;
   // pulse order (person index, clockwise from the upper left); each cycle starts at a different point, never the same twice running
-  var SEQ = [2, 4, 0, 1, 3, 0, 4, 2, 3, 1, 4, 0, 3, 2, 1];
+  var SEQ = [2, 3, 0, 1, 0, 3, 2, 1, 3, 0, 2, 1];
   function rm(e) { if (e && e.parentNode) e.parentNode.removeChild(e); }
   function shown(el) { return !!(el && el.isConnected && el.getClientRects().length); }
   function clamp(v, a, b) { return v < a ? a : v > b ? b : v; }
